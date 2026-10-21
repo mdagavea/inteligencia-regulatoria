@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radar Brasil Participativo — Gestão & Dossiês Normativos (21 de Outubro de 2026 às 17:15)</title>
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --primary: #0f172a;
+
+      --color-infra: #0284c7;
+      --bg-infra: #e0f2fe;
+      --color-seguros: #7c3aed;
+      --bg-seguros: #f3e8ff;
+      --color-carbono: #059669;
+      --bg-carbono: #d1fae5;
+      --color-divida: #d97706;
+      --bg-divida: #fef3c7;
+
+      --urgent-color: #dc2626;
+      --urgent-bg: #fee2e2;
+      --new-color: #1d4ed8;
+      --new-bg: #dbeafe;
+      --pre-color: #b45309;
+      --pre-bg: #fef3c7;
+      --open-color: #047857;
+      --open-bg: #d1fae5;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      margin: 0;
+      padding: 20px 28px;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
+      padding: 22px 28px;
+      border-radius: 14px;
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+    }
+
+    .header-title-area h1 {
+      margin: 0;
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-title-area p {
+      margin: 5px 0 0 0;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+    }
+
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .date-badge {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+
+    .portal-link-btn {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #0f172a;
+      background: #38bdf8;
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 20px;
+      transition: opacity 0.15s;
+    }
+
+    .portal-link-btn:hover {
+      opacity: 0.9;
+    }
+
+    /* KPI Strip */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    @media (max-width: 960px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      cursor: pointer;
+      transition: transform 0.12s, box-shadow 0.12s;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    }
+
+    .kpi-info span {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+
+    .kpi-info strong {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .kpi-icon {
+      font-size: 1.6rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Barra de Filtros */
+    .filter-bar {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 18px;
+      margin-bottom: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .filter-label {
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-right: 4px;
+    }
+
+    .filter-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      padding: 5px 12px;
+      border-radius: 18px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .filter-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .filter-btn.active {
+      background: #0f172a;
+      color: #ffffff;
+      border-color: #0f172a;
+    }
+
+    .search-input {
+      padding: 6px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.83rem;
+      min-width: 240px;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: #0284c7;
+      box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15);
+    }
+
+    /* Lista de Cards de Dossiê */
+    .dossier-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    @media (max-width: 1080px) {
+      .dossier-list { grid-template-columns: 1fr; }
+    }
+
+    .dossier-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      transition: box-shadow 0.15s;
+      position: relative;
+    }
+
+    .dossier-card:hover {
+      box-shadow: 0 6px 16px rgba(0,0,0,0.07);
+    }
+
+    .dossier-card.vertical-infra { border-left: 5px solid var(--color-infra); }
+    .dossier-card.vertical-seguros { border-left: 5px solid var(--color-seguros); }
+    .dossier-card.vertical-carbono { border-left: 5px solid var(--color-carbono); }
+    .dossier-card.vertical-divida { border-left: 5px solid var(--color-divida); }
+
+    .card-top-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badges-left {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 6px;
+      letter-spacing: 0.02em;
+    }
+
+    .badge-infra { background: var(--bg-infra); color: var(--color-infra); }
+    .badge-seguros { background: var(--bg-seguros); color: var(--color-seguros); }
+    .badge-carbono { background: var(--bg-carbono); color: var(--color-carbono); }
+    .badge-divida { background: var(--bg-divida); color: var(--color-divida); }
+
+    .badge-orgao {
+      background: #f1f5f9;
+      color: #1e293b;
+      border: 1px solid #cbd5e1;
+    }
+
+    .badge-modalidade {
+      background: #f8fafc;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+    }
+
+    .deadline-pill {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .status-LANCADO_48H { background: var(--new-bg); color: var(--new-color); border: 1px solid #93c5fd; }
+    .status-PRAZO_URGENTE { background: var(--urgent-bg); color: var(--urgent-color); border: 1px solid #fca5a5; }
+    .status-ABERTO { background: var(--open-bg); color: var(--open-color); border: 1px solid #6ee7b7; }
+    .status-PRE_PUBLICACAO { background: var(--pre-bg); color: var(--pre-color); border: 1px solid #fcd34d; }
+    .status-ENCERRADO_RECENTE { background: #f1f5f9; color: #64748b; border: 1px solid #cbd5e1; }
+
+    .process-title {
+      font-size: 1.04rem;
+      font-weight: 700;
+      color: #0f172a;
+      text-decoration: none;
+      line-height: 1.35;
+      margin: 0;
+    }
+
+    .process-title:hover {
+      color: #0284c7;
+      text-decoration: underline;
+    }
+
+    .dates-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      background: #f8fafc;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid #f1f5f9;
+    }
+
+    .dates-row strong {
+      color: var(--text-secondary);
+    }
+
+    .dossier-box {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.86rem;
+    }
+
+    .dossier-section {
+      background: #ffffff;
+    }
+
+    .dossier-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .dossier-text {
+      margin: 0;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    .incidencia-box {
+      background: #f8fafc;
+      border-left: 3px solid #475569;
+      padding: 8px 12px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .docs-area {
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      align-items: center;
+    }
+
+    .doc-btn {
+      font-size: 0.76rem;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 5px 10px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.12s;
+    }
+
+    .doc-btn-primary {
+      background: #0f172a;
+      color: #ffffff;
+    }
+
+    .doc-btn-primary:hover {
+      background: #1e293b;
+    }
+
+    .doc-btn-dou {
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+    }
+
+    .doc-btn-sei {
+      background: #f0fdf4;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+
+    .doc-btn-pdf {
+      background: #fff7ed;
+      color: #c2410c;
+      border: 1px solid #fed7aa;
+    }
+
+    .doc-btn-secondary {
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+    }
+
+    .doc-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px dashed var(--border);
+      color: var(--text-muted);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 26px;
+      padding-bottom: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-title-area">
+        <h1>🏛️ Radar Brasil Participativo — Gestão & Dossiês Normativos</h1>
+        <p>Monitoramento de Consultas Públicas, Audiências, Tomadas de Subsídios, Planos Setoriais e Minutas em Pré-Publicação</p>
+      </div>
+      <div class="header-meta">
+        <span class="date-badge">Atualizado em 21 de Outubro de 2026 às 17:15</span>
+        <a class="portal-link-btn" style="background:#f8fafc; color:#0f172a;" href="https://mdagavea.github.io/inteligencia-regulatoria/clipping.html">📰 Clipping de Notícias</a>
+        <a class="portal-link-btn" href="https://brasilparticipativo.presidencia.gov.br/processes" target="_blank">Portal Brasil Participativo ↗</a>
+      </div>
+    </header>
+
+    <!-- KPIs -->
+    <div class="kpi-grid">
+      <div class="kpi-card" onclick="filtrarStatus('TODOS')">
+        <div class="kpi-info">
+          <span>Total no Radar</span>
+          <strong>24</strong>
+        </div>
+        <div class="kpi-icon" style="background: #f1f5f9; color: #0f172a;">📋</div>
+      </div>
+      <div class="kpi-card" onclick="filtrarStatus('LANCADO_48H')">
+        <div class="kpi-info">
+          <span>Lançados (Últimas 48h)</span>
+          <strong style="color: var(--new-color);">3</strong>
+        </div>
+        <div class="kpi-icon" style="background: var(--new-bg); color: var(--new-color);">🆕</div>
+      </div>
+      <div class="kpi-card" onclick="filtrarStatus('PRAZO_URGENTE')">
+        <div class="kpi-info">
+          <span>Prazo Crítico (≤ 7 dias)</span>
+          <strong style="color: var(--urgent-color);">5</strong>
+        </div>
+        <div class="kpi-icon" style="background: var(--urgent-bg); color: var(--urgent-color);">🚨</div>
+      </div>
+      <div class="kpi-card" onclick="filtrarStatus('PRE_PUBLICACAO')">
+        <div class="kpi-info">
+          <span>Radar Pré-Publicação</span>
+          <strong style="color: var(--pre-color);">6</strong>
+        </div>
+        <div class="kpi-icon" style="background: var(--pre-bg); color: var(--pre-color);">📡</div>
+      </div>
+    </div>
+
+    <!-- Barra de Filtros -->
+    <div class="filter-bar">
+      <div class="filter-group" id="status-filters">
+        <span class="filter-label">Status:</span>
+        <button class="filter-btn active" data-status="TODOS" onclick="filtrarStatus('TODOS')">Todos (24)</button>
+        <button class="filter-btn" data-status="LANCADO_48H" onclick="filtrarStatus('LANCADO_48H')">🆕 Lançados 48h (3)</button>
+        <button class="filter-btn" data-status="PRAZO_URGENTE" onclick="filtrarStatus('PRAZO_URGENTE')">🚨 Prazo ≤ 7d (5)</button>
+        <button class="filter-btn" data-status="ABERTO" onclick="filtrarStatus('ABERTO')">🟢 Prazo Regular (10)</button>
+        <button class="filter-btn" data-status="PRE_PUBLICACAO" onclick="filtrarStatus('PRE_PUBLICACAO')">📡 Pré-Publicação (6)</button>
+      </div>
+
+      <div class="filter-group" id="vertical-filters">
+        <span class="filter-label">Vertical:</span>
+        <button class="filter-btn active" data-vertical="TODAS" onclick="filtrarVertical('TODAS')">Todas</button>
+        <button class="filter-btn" data-vertical="infra" onclick="filtrarVertical('infra')">Infraestrutura & Transportes</button>
+        <button class="filter-btn" data-vertical="seguros" onclick="filtrarVertical('seguros')">Seguros & Garantias</button>
+        <button class="filter-btn" data-vertical="carbono" onclick="filtrarVertical('carbono')">Clima & Sustentabilidade</button>
+        <button class="filter-btn" data-vertical="divida" onclick="filtrarVertical('divida')">Finanças & Crédito</button>
+      </div>
+
+      <input type="text" id="search-box" class="search-input" placeholder="🔍 Filtrar por órgão, sigla, tema..." oninput="aplicarFiltros()">
+    </div>
+
+    <!-- Cards de Dossiês -->
+    <div class="dossier-list" id="dossier-container">
+      
+      <article class="dossier-card vertical-infra" data-status="LANCADO_48H" data-vertical="infra">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ MPOR / SNP</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 15d restantes (até 05/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/portos-e-aeroportos-PSPORT2050" target="_blank">Consulta Pública sobre o Plano Setorial Portuário (PSPORT) 2050.</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #767</span>
+          <span><strong>Publicação:</strong> 21/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 21/10/2026 até 05/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Consulta pública sobre o Plano Setorial Portuário (PSPort) 2050, instrumento tático do Planejamento Integrado de Transportes (PIT) que orienta o desenvolvimento e a expansão do setor portuário nacional.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Essencial para o mapeamento estratégico de investimentos logísticos, priorização de concessões e arrendamentos portuários de longo prazo previstos na carteira de infraestrutura.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/portos-e-aeroportos-PSPORT2050" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/web/dou/-/portaria-n-463-de-7-de-outubro-de-2026-739384397" target="_blank">📜 Ato Oficial no DOU</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBL25mQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--576f7092296697d30f7e228806ce48919a95ff13/PORTARIA%20N%C2%BA%20463,%20DE%207%20DE%20OUTUBRO%20DE%202026%20-%20PORTARIA%20N%C2%BA%20463,%20DE%207%20DE%20OUTUBRO%20DE%202026%20-%20DOU%20-%20Imprensa%20Nacional.pdf" target="_blank">📎 PORTARIA Nº 463, DE 7 DE OUTUBRO DE 2026 - PORTARIA Nº 463, DE 7 DE OUTU...</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBL3JmQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--8e1e089f1e766810cd152d8192e824a1d22ce924/261017_PSPort_Versao_para_consulta_publica.pdf" target="_blank">📎 261017_PSPort_Versao_para_consulta_publica.pdf</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="LANCADO_48H" data-vertical="infra">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ ANAC / SIA</span>
+            <span class="badge badge-modalidade">Consulta Setorial</span>
+          </div>
+          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 47d restantes (até 07/12/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/cs-11-sia-2026" target="_blank">Consulta Setorial nº 11/SIA/2026 - Proposta de edição da Instrução Suplementar nº 154-003, Revisão C, que trata dos auxílios visuais para pistas de pouso e decolagem e pistas de táxi</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #781</span>
+          <span><strong>Publicação:</strong> 21/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 21/10/2026 até 07/12/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Proposta de edição da Instrução Suplementar nº 154-003, Revisão C, dispondo sobre os auxílios visuais para pistas de pouso, decolagem e táxi no setor aeroportuário.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Afeta diretamente os padrões técnicos de engenharia, segurança operacional e os investimentos obrigatórios exigidos das concessionárias de aeroportos em seus contratos de exploração.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/cs-11-sia-2026" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/web/dou/-/aviso-de-consulta-setorial-739648148" target="_blank">📜 Ato Oficial no DOU</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_processo_exibir.php?wwaVxfLBZplmUo_e4kgh5Gmp7SKjbPe64RCrMqfDZ_NhLNY7YbezU_yOW8hxuKxDha6tHNxgiW3Gt2u3iN_xJnMfvuox6dSwVaee7vKcQYn2cdiPLVft-y3MT4V8sqvL" target="_blank">🗂️ SEI: 00058.100157/2024-54</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLScd8xtDTHTV7mARuspxRBTHAAzKVAUxjBzeId8A4zjd8tnAe7jt9W8I6dqEQVDJYbVnC5WdORJoGz1P6fsp1blGb" target="_blank">🗂️ SEI: Minuta de IS nº 154-003 Revisão C</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLScdbu3GmunX9gk36PEsndx3fcZrJvKS9cSeEwxPYvaMadwJv53OIWSVFme8mNIf06ESJqc8g1sRQYOGP3wCloyGG" target="_blank">🗂️ SEI: Minuta de Portaria</a>
+          <a class="doc-btn doc-btn-pdf" href="https://www.gov.br/anac/pt-br/acesso-a-informacao/participacao-social/consultas-setoriais/consultas/2026/cs-11-sia-2026/justificativa.pdf" target="_blank">Justificativa</a>
+          <a class="doc-btn doc-btn-pdf" href="https://www.gov.br/anac/pt-br/acesso-a-informacao/participacao-social/consultas-setoriais/consultas/2026/cs-11-sia-2026/quadro-comprativo.pdf" target="_blank">Quadro Comparativo</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="LANCADO_48H" data-vertical="infra">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ SENATRAN</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 30d restantes (até 20/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/homologacao-veiculos-concessao-renavam-emissao-cat" target="_blank">Minuta de Portaria que estabelece o procedimento para a homologação de veículos e equipamentos veiculares, a concessão do código de marca/modelo/versão de veículos do Registro Nacional de Veículos Automotores - Renavam e a emissão do Certificado de Adequação à Legislação de Trânsito - CAT, para efeito de cadastro, registro, e licenciamento junto ao Sistema Nacional de Trânsito - SNT.</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #780</span>
+          <span><strong>Publicação:</strong> 21/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 21/10/2026 até 20/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Minuta de Portaria que revisa os procedimentos para a homologação de veículos e equipamentos veiculares, concessão de códigos Renavam e emissão do Certificado de Adequação à Legislação de Trânsito (CAT).</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Impacta diretamente as regras de conformidade e operação da frota de transportadores de cargas e prestadores de serviços logísticos rodoviários, afetando indiretamente custos operacionais e exigências regulatórias.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/homologacao-veiculos-concessao-renavam-emissao-cat" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-seguros" data-status="PRAZO_URGENTE" data-vertical="seguros">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-seguros">Seguros & Garantias</span>
+            <span class="badge badge-orgao">🏛️ MPOR / SE</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Vence em 2 dias (23/10/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/portos-e-aeroportos-seguros" target="_blank">Consulta Pública: Portaria de Diretrizes de Política de Seguros - Ministério de Portos e Aeroportos.</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #720</span>
+          <span><strong>Publicação:</strong> 23/09/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 24/09/2026 até 23/10/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Minuta de Portaria que estabelece diretrizes de política de seguros para contratos de concessão e exploração privada de infraestrutura aeroportuária, hidroviária e portuária, incluindo critérios de mapeamento de riscos e segurabilidade no EVTEA.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Tema central para a nossa atuação em seguros de grandes riscos e matrizes contratuais, exigindo análise minuciosa dos novos critérios de exigência de apólices, transferência de riscos e obrigações das concessionárias.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/portos-e-aeroportos-seguros" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/en/web/dou/-/portaria-n-450-de-22-de-setembro-de-2026-733460635" target="_blank">📜 Ato Oficial no DOU</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBM0xQQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--22023f032632c4c099735251263614dbbbb953e3/SEI_11826711_Minuta_de_Portaria.pdf" target="_blank">📎 SEI_11826711_Minuta_de_Portaria.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMVBQQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b6964e89d276932e0c91ab7d658c1fe465f72249/SEI_11826764_Nota_Informativa_3.pdf" target="_blank">📎 SEI_11826764_Nota_Informativa_3.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMVRQQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--6b2917e3385508edacff98590b425bc417784580/Relatorio_Analise_Impacto_Regulatorio_AIR.pdf" target="_blank">📎 Relatorio_Analise_Impacto_Regulatorio_AIR.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMTNQQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--f65d04618a7a32813a683d89ccd96729266f49b5/Portaria_N%C2%BA_450__DE_22_DE_setembro_DE_2026___Portaria_N%C2%BA_450__DE_22_DE_setembro_DE_2026___DOU___Imprensa_Nacional%20(1).pdf" target="_blank">📎 Portaria_Nº_450__DE_22_DE_setembro_DE_2026___Portaria_Nº_450__DE_22_DE_s...</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="PRAZO_URGENTE" data-vertical="infra">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ ANTT</span>
+            <span class="badge badge-modalidade">Audiência Pública</span>
+          </div>
+          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Vence em 2 dias (23/10/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/ap-antt-14-2026" target="_blank">[AP ANTT nº 014/2026] Proposta de Edital de Sandbox Regulatório de Interoperabilidade do Sistema de Livre Passagem – Free Flow</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #665</span>
+          <span><strong>Publicação:</strong> 31/08/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 08/09/2026 até 23/10/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Proposta de Edital de Sandbox Regulatório de Interoperabilidade do Sistema de Livre Passagem (Free Flow) em rodovias federais concedidas.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Impacta profundamente o modelo operacional, tarifário e tecnológico das concessões rodoviárias federais, abrindo espaço para testes regulatórios de novos modelos de cobrança e arrecadação.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/ap-antt-14-2026" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-secondary" href="https://participantt.antt.gov.br/eventos?CodigoAudiencia=686" target="_blank">clique aqui</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-divida" data-status="PRAZO_URGENTE" data-vertical="divida">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-divida">Finanças & Crédito</span>
+            <span class="badge badge-orgao">🏛️ CAMEX / GECEX</span>
+            <span class="badge badge-modalidade">Tomada de Subsídios</span>
+          </div>
+          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Vence em 7 dias (28/10/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/compliance-credito-oficial" target="_blank">Tomada de subsídio: compliance no apoio oficial ao crédito à exportação</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #769</span>
+          <span><strong>Publicação:</strong> 14/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 14/10/2026 até 28/10/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Minuta de Resolução que atualiza as medidas de prevenção e combate à corrupção (compliance) aplicáveis ao sistema de apoio oficial ao crédito à exportação e apólices do FGE.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Relevante para estruturação financeira, operações de comércio exterior, financiamento de projetos de infraestrutura com bens de capital exportados e exigências de compliance para instituições financeiras e exportadores.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/compliance-credito-oficial" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-carbono" data-status="PRAZO_URGENTE" data-vertical="carbono">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-carbono">Clima & Infra Sustentável</span>
+            <span class="badge badge-orgao">🏛️ MMA</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Vence em 7 dias (28/10/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/pnlr" target="_blank">Programa Nacional de Logística Reversa - PNLR</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #245</span>
+          <span><strong>Publicação:</strong> 29/09/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 29/09/2026 até 28/10/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Consulta pública para a construção do Programa Nacional de Logística Reversa (PNLR), instrumento de integração e coordenação de sistemas para otimizar a infraestrutura física e logística e proporcionar ganhos de escala.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Impacto direto na gestão de resíduos e economia circular aplicada à cadeia de suprimentos e operações de infraestrutura, exigindo alinhamento com diretrizes ambientais e de sustentabilidade.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/pnlr" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/web/dou/-/aviso-de-consulta-publica-n-13-735065204" target="_blank">📜 Ato Oficial no DOU</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNnpQQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--2d0f2d77f2c749d9a1a96c104c5fe3bb69e22a83/MINUTA_Portaria_PNLR_Consulta_Publica.pdf" target="_blank">📎 MINUTA_Portaria_PNLR_Consulta_Publica.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBN1BQQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--2d3074e1731bcce86ec9212950076a1d265faf86/540X320%20v1_PNLR.png" target="_blank">📎 540X320 v1_PNLR.png</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNjdQQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--0eb66bb920f29b7f9a5e0ed897df1998f87657f2/Minuta_Programa_Nacional_Logistica_Reversa_PNLR_v28082026_ConsultaPublica.pdf" target="_blank">📎 Minuta_Programa_Nacional_Logistica_Reversa_PNLR_v28082026_ConsultaPublic...</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNi9QQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--bd7ebd72f040c858ba69d98de71d8eb0370f8257/Matriz_de_Projetos_e_Acoes_PNLR_Consulta_Publica_rev28082026.xlsx" target="_blank">📎 Matriz_de_Projetos_e_Acoes_PNLR_Consulta_Publica_rev28082026.xlsx</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="PRAZO_URGENTE" data-vertical="infra">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ ANAC / SPL</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Vence em 5 dias (26/10/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/cp-anac-13-2026" target="_blank">Consulta Pública nº 13/2026  -  Proposta sobre emenda ao Regulamento Brasileiro da Aviação Civil - RBAC nº 141 e ao RBAC nº 183</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #687</span>
+          <span><strong>Publicação:</strong> 10/09/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 10/09/2026 até 26/10/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Proposta de emenda ao RBAC nº 141 (Centros de Instrução de Aviação Civil) e ao RBAC nº 183 (Credenciamento de Pessoas).</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Reflete a atualização dos padrões regulatórios e de qualificação técnica exigidos no setor de aviação civil, com impacto transversal na cadeia de serviços aeroespaciais.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/cp-anac-13-2026" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/en/web/dou/-/aviso-de-consulta-publica-n-13/2026-730866969" target="_blank">📜 Ato Oficial no DOU</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_processo_exibir.php?dtJDn3LXdOIhJ65NwJhQTGM6TrhtAZuGPq1rA1WOOH0zn6akV5odGj-RPfDfIu2Yi4QPtBMzl5EqI8Qy1JaCPpyjEQTYWvZbrahxf7GSDTAcrIvWuZdlWLtLQZihIT2l" target="_blank">🗂️ SEI: 00058.023009/2022-47</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLSceF8vh9TTqRTbBYBBbgDJJnrR2kbyiojVJMR3wlF5piXiGwONL_7zAizvD7Z3e1_y5yD9SHWsdQMnwgLRKi4mxG" target="_blank">🗂️ SEI: Minuta de Resolução</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLScfvp9FmHGBytc8lC5EAnkcwL-30lwSbkhIlpCpH9br1eXYGYgrZ5M3g4jWeSFUUjt6qlNxFdE0R58UV4HlSd50n" target="_blank">🗂️ SEI: Minuta do RBAC nº 141</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLSce8yJd4cwOGNpOxX7UvesjRXKwdNY3TpK9D1j3OD6pzET3jwQ1Ll6HGqv3YHPcd3qzzfCYHdmNVQjTXR3jd_ctJ" target="_blank">🗂️ SEI: Minuta do RBAC nº 183</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLSceuuZiYuuZwFiOqJ_C1BfHBwVnuBGexeMXO3JjXwmhtQ7GxBjBmGm_Qi-gY6CJor1pJsjlHg7dbyd9DLnQcZW_Y" target="_blank">🗂️ SEI: Quadro comparativo</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ MPOR / SNP</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-ABERTO">🟢 Aberto • 8 dias restantes (até 29/10/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/portos-aeroportos-portaria530" target="_blank">Consulta Pública sobre proposta de modernização Portaria n.º 530, de 13 de agosto de 2019.</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #747</span>
+          <span><strong>Publicação:</strong> 06/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 09/10/2026 até 29/10/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Proposta de modernização da Portaria nº 530/2019, que disciplina os procedimentos relativos a alterações de contratos de arrendamento portuário, novos investimentos, prorrogações e recomposição do equilíbrio econômico-financeiro.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Relevância crítica para a estruturação de concessões portuárias, matriz de riscos contratuais e revisões de cronogramas de investimentos privados no setor.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/portos-aeroportos-portaria530" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/web/dou/-/portaria-n-461-de-2-de-outubro-de-2026-737485295" target="_blank">📜 Ato Oficial no DOU</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBekhWQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--16995aa0e441bd20615f25bd5012267a983dc0ea/SEI_11885713_Nota_Tecnica_109.pdf" target="_blank">📎 SEI_11885713_Nota_Tecnica_109.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBemJWQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b83530e32da995ee4c087a5f53a75236760728b5/PDF%2050020%20006084%202026%2072.pdf" target="_blank">📎 PDF 50020 006084 2026 72.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBemZWQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--59f7a9d704d85c7fdf8f8bcff139bb0eda7128ac/Portaria%20530%202019%20Proposta%20de%20alteracoes%20em%20contratos%20de%20arrendamento_portuario.pdf" target="_blank">📎 Portaria 530 2019 Proposta de alteracoes em contratos de arrendamento_po...</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBd1BZQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--dd22de4823d9ca6ea63fa67697192a027718871c/Portaria%20N%C2%BA%20461,%20DE%202%20DE%20outubro%20DE%202026%20-%20Portaria%20N%C2%BA%20461,%20DE%202%20DE%20outubro%20DE%202026%20-%20DOU%20-%20Imprensa%20Nacional.pdf" target="_blank">📎 Portaria Nº 461, DE 2 DE outubro DE 2026 - Portaria Nº 461, DE 2 DE outu...</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ SENATRAN</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-ABERTO">🟢 Aberto • 13 dias restantes (até 03/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/minuta-resolucao-tanque-adicional-arla-32" target="_blank">Minuta de resolução que altera a Resolução Contran nº 958, de 17 de maio de 2022, para permitir a instalação e uso de tanque adicional de Arla 32 em veículos.</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #745</span>
+          <span><strong>Publicação:</strong> 05/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 05/10/2026 até 03/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Minuta de resolução que altera a Resolução Contran nº 958/2022 para permitir a instalação e o uso de tanque adicional de Arla 32 em veículos de transporte rodoviário.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Impacta diretamente as operações logísticas de frotas de carga, eficiência operacional e custos de conformidade ambiental para o transporte rodoviário.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/minuta-resolucao-tanque-adicional-arla-32" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-divida" data-status="ABERTO" data-vertical="divida">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-divida">Finanças & Crédito</span>
+            <span class="badge badge-orgao">🏛️ ANP</span>
+            <span class="badge badge-modalidade">Consulta Pública e Audiência Pública</span>
+          </div>
+          <span class="deadline-pill status-ABERTO">🟢 Aberto • 13 dias restantes (até 03/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/ANP-20-2026" target="_blank">Consulta e Audiência Públicas ANP nº 20/2026</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #706</span>
+          <span><strong>Publicação:</strong> 24/09/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 17/09/2026 até 03/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Minuta de Resolução que altera normas da ANP para adequação à Lei Complementar nº 225/2026 (Código de Defesa do Contribuinte), atualizando capital social mínimo, exigência de licitude de recursos financeiros e identificação de titular efetivo.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Impacta exigências regulatórias financeiras, governança societária e comprovação de capacidade econômico-financeira de agentes regulados pelo setor de energia e petróleo.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/ANP-20-2026" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.gov.br/anp/pt-br/assuntos/consultas-e-audiencias-publicas/consulta-audiencia-publica/2026/arquivos/cp-ap-20-2026/aviso.pdf" target="_blank">📜 Ato Oficial no DOU</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ ANM</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-ABERTO">🟢 Aberto • 15 dias restantes (até 05/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/DUP" target="_blank">Consulta Pública ANM nº 03/2026 - Declaração de Utilidade Pública - DUP</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #699</span>
+          <span><strong>Publicação:</strong> 21/09/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 21/09/2026 até 05/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Minuta de Resolução sobre a Declaração de Utilidade Pública (DUP) para fins de servidão minerária e desapropriação.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Essencial para a segurança jurídica de projetos de infraestrutura linear e logística que dependem de desapropriações e servidões de passagem.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/DUP" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/web/dou/-/aviso-de-consulta-publica-anm-n-3/2026-732352231" target="_blank">📜 Ato Oficial no DOU</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBN25NQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--bb532f786d99b2d05286480f7548b3b708ee3ade/SEI_20348109_Minuta_de_Resolucao.pdf" target="_blank">📎 SEI_20348109_Minuta_de_Resolucao.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBN3JNQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--afc9f874eabfb683ec90b175ba5db30cd6533955/SEI_19637706_Nota_Tecnica_1819.pdf" target="_blank">📎 SEI_19637706_Nota_Tecnica_1819.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBN3ZNQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--56381f68b7e8087dc044e521b68713d7679ee896/Banner%20Topo%20Desktop%201480x220.png" target="_blank">📎 Banner Topo Desktop 1480x220.png</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOG5NQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--1c15ff6a03c27ac1c0eb00dffdad56de70ffc644/DUP_ajustado.jpg" target="_blank">📎 DUP_ajustado.jpg</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ MME</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-ABERTO">🟢 Aberto • 16 dias restantes (até 06/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/MME235" target="_blank">Consulta Pública nº 235 de 08/10/2026 - Minuta do Relatório Síntese do Plano Decenal de Expansão de Energia 2036 - PDE 2036</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #755</span>
+          <span><strong>Publicação:</strong> 08/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 08/10/2026 até 06/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Minuta do Relatório Síntese do Plano Decenal de Expansão de Energia 2036 (PDE 2036).</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Subscreve o planejamento estratégico de longo prazo do setor elétrico e de infraestrutura energética, servindo de base para priorização de investimentos e financiamentos.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/MME235" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/en/web/dou/-/portaria-sntep/mme-n-3.246-de-7-de-outubro-de-2026-737208023" target="_blank">📜 Ato Oficial no DOU</a>
+          <a class="doc-btn doc-btn-secondary" href="https://consultas-publicas.mme.gov.br/home" target="_blank">portal de Consultas Públicas do MME</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-carbono" data-status="ABERTO" data-vertical="carbono">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-carbono">Clima & Infra Sustentável</span>
+            <span class="badge badge-orgao">🏛️ MDIC / SCPR</span>
+            <span class="badge badge-modalidade">Tomada de Subsídios</span>
+          </div>
+          <span class="deadline-pill status-ABERTO">🟢 Aberto • 16 dias restantes (até 06/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/ts-infrasustentavel" target="_blank">Tomada de Subsídios - Avaliação e Certificação da Infraestrutura Sustentável</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #751</span>
+          <span><strong>Publicação:</strong> 14/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 14/10/2026 até 06/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Metodologia de Avaliação e Certificação da Infraestrutura Sustentável, abrangendo dimensões econômicas, financeiras, ambientais, sociais e de resiliência climática ao longo do ciclo de vida dos ativos.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Alinhado diretamente à elegibilidade para emissão de títulos temáticos (green bonds), financiamentos incentivados e critérios ESG para novos projetos de infraestrutura.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/ts-infrasustentavel" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeW5iQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--bd2338710723d050956ea414974d4c68440033bb/NotaMetodologica-ClassificacaoSustentabilidade.pdf" target="_blank">📎 NotaMetodologica-ClassificacaoSustentabilidade.pdf</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-divida" data-status="ABERTO" data-vertical="divida">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-divida">Finanças & Crédito</span>
+            <span class="badge badge-orgao">🏛️ CADE</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-ABERTO">🟢 Aberto • 16 dias restantes (até 06/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/ricade" target="_blank">Emenda ao Regimento Interno do Conselho Administrativo de Defesa Econômica</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #716</span>
+          <span><strong>Publicação:</strong> 23/09/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 23/09/2026 até 06/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Reforma do Regimento Interno do Cade, criando comitê de planejamento, agenda pública de prioridades e rito formal para advocacia da concorrência.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Impacta diretamente a análise de atos de concentração econômica, fusões, aquisições e estruturação de parcerias e concessões no setor de infraestrutura.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/ricade" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/web/dou/-/despacho-n-44-de-23-de-setembro-de-2026-734831591" target="_blank">📜 Ato Oficial no DOU</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOWJPQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--15a6566f91aad9543e2195ca697ed2b8d48931ab/Proposta%20de%20emenda%20regimental.pdf" target="_blank">📎 Proposta de emenda regimental.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOW5PQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--857cd98cfd217587a50056a15d3bb7b51b9cebe3/Exposicao_de_Motivos.pdf" target="_blank">📎 Exposicao_de_Motivos.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOXJPQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--3ef208d81374de7730379d3d762dee9dc9926ee9/Nota_Tecnica_10.pdf" target="_blank">📎 Nota_Tecnica_10.pdf</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-carbono" data-status="ABERTO" data-vertical="carbono">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-carbono">Clima & Infra Sustentável</span>
+            <span class="badge badge-orgao">🏛️ MF / Subsecretaria de Desenvolvimento Econômico Sustentável</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-ABERTO">🟢 Aberto • 30 dias restantes (até 20/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/TSB2edicao" target="_blank">Cosulta Pública da Segunda Edição da TSB</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #669</span>
+          <span><strong>Publicação:</strong> 16/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 16/10/2026 até 20/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Consulta pública sobre os cadernos setoriais, temático e metodológico da segunda edição da Taxonomia Sustentável Brasileira (TSB).</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Fundamental para alinhar critérios de financiamento verde e definir quais atividades e infraestruturas serão elegíveis a incentivos baseados em critérios ESG e de transição climática.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/TSB2edicao" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNERkQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--05d03f62ca516489a3282ddbfbbc6daf8aa5bfe4/CNAE%20A%20-%20Atividades%20Embrapa%20-%20CP%2016102026.pdf" target="_blank">📎 CNAE A - Atividades Embrapa - CP 16102026.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBM25kQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--66f547220d0c57ca83e8ae12a2ae9dbf654650c3/Caderno%20setorial%20P.4(iv)_CNAE%20B_Proposta%20do%20Caderno%20T%C3%A9cnico%20Setorial_V4.pdf" target="_blank">📎 Caderno setorial P.4(iv)_CNAE B_Proposta do Caderno Técnico Setorial_V4.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBN2pjQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--7b1d5eb64f6effb1ba352b3d0566418811b391e1/P.4(iv)_CNAE%20C_Proposta%20do%20Caderno%20T%C3%A9cnico%20Setorial%20CP_V3.pdf" target="_blank">📎 P.4(iv)_CNAE C_Proposta do Caderno Técnico Setorial CP_V3.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBM3JkQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--293473de127582dc5533f5603734d0f618f8f942/P.4(iv)_CNAE%20D_Proposta%20do%20Caderno%20T%C3%A9cnico%20Setorial%20CP_V4.pdf" target="_blank">📎 P.4(iv)_CNAE D_Proposta do Caderno Técnico Setorial CP_V4.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBN3JjQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--dc7d86a921bfa78c8f82d6b996425d3422e0975b/P.4(iv)_CNAE%20E_Proposta%20Caderno%20T%C3%A9cnico%20Setorial%20CP_V3.pdf" target="_blank">📎 P.4(iv)_CNAE E_Proposta Caderno Técnico Setorial CP_V3.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNzdjQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--db420aeb8af6ef66ec89d8b6f71504291ed0e648/P.4(iv)_CNAE%20F_Proposta%20do%20Caderno%20T%C3%A9cnico%20Setorial_CP_V3-1.pdf" target="_blank">📎 P.4(iv)_CNAE F_Proposta do Caderno Técnico Setorial_CP_V3-1.pdf</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ ANAC / SSA</span>
+            <span class="badge badge-modalidade">Tomada de Subsídios</span>
+          </div>
+          <span class="deadline-pill status-ABERTO">🟢 Aberto • 69 dias restantes (até 29/12/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/ts-01-ssa-2026" target="_blank">Tomada de Subsídios nº 01/SSA/2026 - Condições de acesso à infraestrutura aeroportuária e os critérios aplicáveis à alocação de slots no Aeroporto de São Paulo/Congonhas - Deputado Freitas Nobre (SBSP)</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #736</span>
+          <span><strong>Publicação:</strong> 01/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 01/10/2026 até 29/12/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Tomada de subsídios sobre as condições de acesso à infraestrutura aeroportuária e critérios de alocação de slots no Aeroporto de São Paulo/Congonhas (SBSP).</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Impacta diretamente a regulação econômica aeroportuária, a matriz de concorrência entre companhias aéreas e a eficiência na exploração de ativos concedidos.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/ts-01-ssa-2026" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/web/dou/-/aviso-de-tomada-de-subsidios-n-1/ssa/2026-735897921" target="_blank">📜 Ato Oficial no DOU</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_processo_exibir.php?wwaVxfLBZplmUo_e4kgh5Gmp7SKjbPe64RCrMqfDZ_NhLNY7YbezU_yOW8hxuKxDha6tHNxgiW3Gt2u3iN_xJkl3T7iwyVpQDXQ1zO0LS9QGCVkRT0L4uDbixzg8QWYq" target="_blank">🗂️ SEI: 00058.080351/2026-78</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLScfjg3jxlMW38RwED59u4YS5pTHK-lzWpYUHveXyafMMwWgGPUPi9-TgSmBRFXQoIQ1ZdtO7G8pxtHj29KdnMum3" target="_blank">🗂️ SEI: Justificativa</a>
+          <a class="doc-btn doc-btn-secondary" href="https://brasilparticipativo.presidencia.gov.br/processes/ts-01-ssa-2026/f/5741/" target="_blank">Faça a sua contribuição aqui</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-carbono" data-status="ABERTO" data-vertical="carbono">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-carbono">Clima & Infra Sustentável</span>
+            <span class="badge badge-orgao">🏛️ IBAMA</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-ABERTO">🟢 Aberto • 16 dias restantes (até 06/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/consultafnp" target="_blank">Consulta Pública sobre proposta de Instrução Normativa do Ibama para o cadastro e a colheita de florestas nativas plantadas no Sinaflor</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #739</span>
+          <span><strong>Publicação:</strong> 06/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 06/10/2026 até 06/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Proposta de Instrução Normativa para regular o cadastro, colheita e controle de origem de florestas nativas plantadas no âmbito do Sinaflor.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Impacta o licenciamento ambiental, a regularidade de insumos florestais e a cadeia de suprimentos de projetos com passivos ou exigências de compensação florestal.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/consultafnp" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ MT / SNTF</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-PRE_PUBLICACAO">📡 Pré-Publicação (Rascunho na API)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/consulta-publica-plano-setorial-transporte-ferroviario-pstf" target="_blank">Consulta Pública: Versão preliminar do Plano Setorial de Transporte Ferroviário</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #784</span>
+          <span><strong>Publicação:</strong> 21/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 21/10/2025 até 05/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Versão preliminar do Plano Setorial de Transporte Ferroviário (PSTF), estabelecendo diretrizes de planejamento para cargas, passageiros e integração logística.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Indica as futuras diretrizes de expansão da malha ferroviária federal, balizando novos investimentos, estruturação de outorgas e priorização de projetos logísticos.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/consulta-publica-plano-setorial-transporte-ferroviario-pstf" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMVBnQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--cc1e87c8bc400ba2661780d78faf252145968f1a/261020_PSTR_Vers%C3%A3o%20para%20consulta%20p%C3%BAblica%20(1).pdf" target="_blank">📎 261020_PSTR_Versão para consulta pública (1).pdf</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ MPOR / SNHN</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-PRE_PUBLICACAO">📡 Pré-Publicação (Rascunho na API)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/portos-aeroportos-PSHN2050" target="_blank">Consulta Pública sobre a proposta do Plano Setorial Hidroviário e Navegação – PSHN 2050.</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #749</span>
+          <span><strong>Publicação:</strong> 07/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 08/10/2026 até 07/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Proposta do Plano Setorial Hidroviário e Navegação – PSHN 2050, instrumento de planejamento tático do transporte hidroviário integrado ao PNL 2050.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Mapeia a carteira de projetos prioritários e diretrizes de investimentos para o subsetor hidroviário, essencial para modelagens de concessões e PPPs na infraestrutura aquaviária.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/portos-aeroportos-PSHN2050" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBN1BXQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--7b45b319360d57a8279f993b8fbb6aae404458ab/SEI_11879888_Nota_Tecnica_55.pdf" target="_blank">📎 SEI_11879888_Nota_Tecnica_55.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOFBXQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b11818ff348331e1708e281ba1feece4c22f0ed9/PSHN__21__Consulta_Publica_retificado_2_01_10_2026%20(1).pdf" target="_blank">📎 PSHN__21__Consulta_Publica_retificado_2_01_10_2026 (1).pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOFRXQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--f250b9f7c5cacddf41673e6baefc3484e394ea27/21092026_Carteira%20de%20Obras_projetos_DGH%2021.09%201%20(1).xlsx" target="_blank">📎 21092026_Carteira de Obras_projetos_DGH 21.09 1 (1).xlsx</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ MPOR / SNP</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-PRE_PUBLICACAO">📡 Pré-Publicação (Rascunho na API)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/portos-aeroportos-portaria574" target="_blank">Consulta pública relativa à revisão da Portaria nº 574, de 26 de dezembro de 2018.</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #738</span>
+          <span><strong>Publicação:</strong> 01/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 08/10/2026 até 07/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Revisão da Portaria nº 574/2018, que disciplina a descentralização de competências portuárias e atualiza o Índice de Gestão da Autoridade Portuária (IGAP).</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Modifica os parâmetros de monitoramento de desempenho e autonomia das autoridades portuárias, impactando a governança e a gestão contratual de portos organizados.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/portos-aeroportos-portaria574" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBekxUQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--7137c5c7fbd35a9f4de773f28ebb0d5aaa1914ad/SEI_11397328_Nota_Tecnica_23.pdf" target="_blank">📎 SEI_11397328_Nota_Tecnica_23.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBelBUQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--ab13232ddb24cc11952ece94f83749a405f161e6/SEI_11663475_Minuta_de_Portaria.pdf" target="_blank">📎 SEI_11663475_Minuta_de_Portaria.pdf</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.transportes.gov.br/sei/modulos/pesquisa/md_pesq_processo_exibir.php?IC2o8Z7ACQH4LdQ4jJLJzjPBiLtP6l2FsQacllhUf-duzEubalut9yvd8-CzYYNLu7pd-wiM0k633-D6khhQNQrRfr28XgbgUafGfLkIDkDB9XonMyHPx3qOWPnsMz6q" target="_blank">🗂️ SEI: clique aqui.</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-divida" data-status="PRE_PUBLICACAO" data-vertical="divida">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-divida">Finanças & Crédito</span>
+            <span class="badge badge-orgao">🏛️ MS / BNDES / SEPPI</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-PRE_PUBLICACAO">📡 Pré-Publicação (Rascunho na API)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/novocampusinca" target="_blank">Parceria Público-Privada do Novo Campus do Instituto Nacional do Câncer (INCA)</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #719</span>
+          <span><strong>Publicação:</strong> 23/09/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 26/10/2026 até 25/12/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Consulta pública do projeto de Parceria Público-Privada (PPP) para implantação, modernização, operação e manutenção do Novo Campus do Instituto Nacional de Câncer (INCA).</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Trata-se de um projeto estruturado pelo BNDES com investimentos estimados em R$ 4,2 bilhões, representando uma oportunidade relevante no mercado de infraestrutura social e project finance.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/novocampusinca" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBK1RlQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--5ad7d47609dc36bbcad3c85e870c9ab3693dd720/inca_1.jpeg" target="_blank">📎 inca_1.jpeg</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNzdmQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--38c180ca7ba53232c9f8f9206471e8ba54d4da3e/inca_CP.png" target="_blank">📎 inca_CP.png</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ MS / PPI / BNDES</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-PRE_PUBLICACAO">📡 Pré-Publicação (Rascunho na API)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/cibs" target="_blank">Parceria Público-Privada do Complexo Industrial de Biotecnologia em Saúde (CIBS)</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #704</span>
+          <span><strong>Publicação:</strong> 15/09/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 26/10/2026 até 25/12/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Minutas de edital e contrato para a Parceria Público-Privada (PPP) do Complexo Industrial de Biotecnologia em Saúde (CIBS). O projeto envolve a estruturação de concessão para construção e operação de infraestrutura produtiva de alta complexidade, com investimento de R$ 7,2 bilhões.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">O projeto é um marco em PPPs de infraestrutura social/industrial. É essencial analisar a matriz de riscos, as garantias contratuais exigidas e a modelagem financeira estruturada pelo BNDES/IFC, dado o vulto do investimento e a natureza estratégica do ativo.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/cibs" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBd3pmQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--56a39443c1204f62a4b1091ffb364233e475ba3d/CIBS%20-%20C1%20-%20Edital.pdf" target="_blank">📎 CIBS - C1 - Edital.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBdzNmQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--ef8aeda5b71b090c4b0740551b4ed5488dc5f89d/CIBS%20-%20C1%20-%20Edital%20-%20Anexo%20I%20-%20Modelo%20de%20declara%C3%A7%C3%A3o.pdf" target="_blank">📎 CIBS - C1 - Edital - Anexo I - Modelo de declaração.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBdzdmQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--495ef8ffcf52534866cda6bc64785899af6008e6/CIBS%20-%20C1%20-%20Contrato%20de%20Concess%C3%A3o.pdf" target="_blank">📎 CIBS - C1 - Contrato de Concessão.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBdy9mQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--f9605da9d0f23c70b50401ddbebe48c7432c68c7/CIBS%20-%20C1%20-%20Anexo%201%20-%20Gloss%C3%A1rio.pdf" target="_blank">📎 CIBS - C1 - Anexo 1 - Glossário.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeERmQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--a3525b1ed8955c0dd5306c0f6a74d50018241d19/CIBS%20-%20C1%20-%20Anexo%202%20-%20%C3%81rea%20da%20Concess%C3%A3o.pdf" target="_blank">📎 CIBS - C1 - Anexo 2 - Área da Concessão.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeEhmQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--1421dbad28ca53ce919beca583f1653246ec38cc/CIBS%20-%20C1%20-%20Anexo%203%20-%20Fases%20da%20Concess%C3%A3o.pdf" target="_blank">📎 CIBS - C1 - Anexo 3 - Fases da Concessão.pdf</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ MPOR / SNHN</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-PRE_PUBLICACAO">📡 Pré-Publicação (Rascunho na API)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/portaria-dos-niveis-operacionais-de-hidrovias" target="_blank">Portaria dos Níveis Operacionais de Hidrovias</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #740</span>
+          <span><strong>Publicação:</strong> 02/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 03/11/2026 até 23/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Minuta de Portaria que estabelece critérios para monitoramento e classificação da situação operacional de navegabilidade das hidrovias nacionais não concedidas.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Estabelece níveis operacionais padronizados para hidrovias, influenciando diretamente a previsibilidade logística e a gestão de riscos operacionais no transporte fluvial.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/portaria-dos-niveis-operacionais-de-hidrovias" target="_blank">🌐 Abrir Processo no Portal ↗</a>
+        </div>
+      </article>
+    </div>
+
+    <footer>
+      Radar Brasil Participativo • Extração via API GraphQL Oficial (Decidim) & Curadoria Normativa Gemini
+    </footer>
+  </div>
+
+  <script>
+    let statusAtual = 'TODOS';
+    let verticalAtual = 'TODAS';
+
+    function filtrarStatus(st) {
+      statusAtual = st;
+      document.querySelectorAll('#status-filters .filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-status') === st);
+      });
+      aplicarFiltros();
+    }
+
+    function filtrarVertical(vert) {
+      verticalAtual = vert;
+      document.querySelectorAll('#vertical-filters .filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-vertical') === vert);
+      });
+      aplicarFiltros();
+    }
+
+    function aplicarFiltros() {
+      const termo = (document.getElementById('search-box').value || '').toLowerCase().trim();
+      const cards = document.querySelectorAll('.dossier-card');
+      cards.forEach(card => {
+        const st = card.getAttribute('data-status');
+        const vt = card.getAttribute('data-vertical');
+        const texto = card.innerText.toLowerCase();
+
+        const matchStatus = (statusAtual === 'TODOS') || (st === statusAtual);
+        const matchVertical = (verticalAtual === 'TODAS') || (vt === verticalAtual);
+        const matchTexto = (!termo) || texto.includes(termo);
+
+        card.style.display = (matchStatus && matchVertical && matchTexto) ? 'flex' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
