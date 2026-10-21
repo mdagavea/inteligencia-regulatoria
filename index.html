@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hub de Inteligência Regulatória & Participação Social</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px;
+    }
+    .hub {
+      max-width: 680px;
+      width: 100%;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+    h1 { margin: 0 0 8px 0; font-size: 1.5rem; }
+    p { margin: 0 0 24px 0; color: #94a3b8; font-size: 0.95rem; }
+    .cards { display: flex; flex-direction: column; gap: 14px; }
+    a.card {
+      display: block;
+      text-decoration: none;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 18px 20px;
+      color: #f8fafc;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+    a.card:hover {
+      transform: translateY(-2px);
+      border-color: #38bdf8;
+    }
+    .card h2 { margin: 0 0 6px 0; font-size: 1.1rem; color: #38bdf8; }
+    .card span { font-size: 0.88rem; color: #cbd5e1; }
+  </style>
+</head>
+<body>
+  <div class="hub">
+    <h1>📊 Hub de Inteligência Regulatória & Financeira</h1>
+    <p>Selecione o painel executivo que deseja acessar:</p>
+    <div class="cards">
+      <a class="card" href="./clipping.html">
+        <h2>📰 Clipping Diário Regulatório & Financeiro →</h2>
+        <span>Curadoria diária de notícias (Infraestrutura & Outorgas, Seguros de Grandes Riscos, Carbono e Mercado de Capitais) + Lançamentos 48h.</span>
+      </a>
+      <a class="card" href="./radar.html">
+        <h2>🏛️ Radar Brasil Participativo — Gestão & Dossiês Normativos →</h2>
+        <span>Monitoramento completo de Consultas Públicas, Audiências, Tomadas de Subsídios, Planos Setoriais, Prazos e Kit de Estudo (DOU / SEI / PDFs).</span>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
