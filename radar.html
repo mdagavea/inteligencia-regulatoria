@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Radar Brasil Participativo — Gestão & Dossiês Normativos (25 de Outubro de 2026 às 13:13)</title>
+  <title>Radar Brasil Participativo — Gestão & Dossiês Normativos (25 de Outubro de 2026 às 13:23)</title>
   <style>
     :root {
       --bg: #f1f5f9;
@@ -316,12 +316,34 @@
     .status-PRAZO_URGENTE { background: var(--urgent-bg); color: var(--urgent-color); border: 1px solid #fca5a5; }
     .status-ABERTO { background: var(--open-bg); color: var(--open-color); border: 1px solid #6ee7b7; }
     .status-PRE_PUBLICACAO { background: var(--pre-bg); color: var(--pre-color); border: 1px solid #fcd34d; }
-    .status-ENCERRADO_RECENTE { background: #f1f5f9; color: #64748b; border: 1px solid #cbd5e1; text-decoration: none; }
+    .status-ENCERRADO_RECENTE { background: #e2e8f0; color: #334155; border: 1px solid #94a3b8; font-weight: 700; }
 
     .dossier-card[data-status="ENCERRADO_RECENTE"] {
+      background: #f1f5f9;
+      opacity: 0.56;
+      filter: grayscale(75%);
+      border: 1px dashed #94a3b8;
+      border-left: 5px solid #64748b !important;
+      box-shadow: none;
+      transition: opacity 0.2s ease, filter 0.2s ease, background 0.2s ease;
+    }
+
+    .dossier-card[data-status="ENCERRADO_RECENTE"]:hover {
+      opacity: 0.92;
+      filter: grayscale(15%);
       background: #f8fafc;
-      opacity: 0.85;
-      border-color: #cbd5e1;
+    }
+
+    .dossier-card[data-status="ENCERRADO_RECENTE"] .dossier-section,
+    .dossier-card[data-status="ENCERRADO_RECENTE"] .dates-row,
+    .dossier-card[data-status="ENCERRADO_RECENTE"] .incidencia-box {
+      background: transparent;
+    }
+
+    .dossier-card[data-status="ENCERRADO_RECENTE"] .process-title {
+      color: #475569;
+      text-decoration: line-through;
+      text-decoration-color: #94a3b8;
     }
 
     .countdown-mono {
@@ -478,7 +500,7 @@
         <p>Monitoramento de Consultas Públicas, Audiências, Tomadas de Subsídios, Planos Setoriais e Minutas em Pré-Publicação</p>
       </div>
       <div class="header-meta">
-        <span class="date-badge">Atualizado em 25 de Outubro de 2026 às 13:13</span>
+        <span class="date-badge">Atualizado em 25 de Outubro de 2026 às 13:23</span>
         <a class="portal-link-btn" style="background:#f8fafc; color:#0f172a;" href="https://mdagavea.github.io/inteligencia-regulatoria/clipping.html">📰 Clipping de Notícias</a>
         <a class="portal-link-btn" href="https://brasilparticipativo.presidencia.gov.br/processes" target="_blank">Portal Brasil Participativo ↗</a>
       </div>
@@ -1645,13 +1667,12 @@
         const diffMs = limite - agora;
 
         if (diffMs > 0) {
-          const totalSec = Math.floor(diffMs / 1000);
-          const dias = Math.floor(totalSec / 86400);
-          const horas = Math.floor((totalSec % 86400) / 3600);
-          const mins = Math.floor((totalSec % 3600) / 60);
-          const secs = totalSec % 60;
+          const totalMin = Math.floor(diffMs / 60000);
+          const dias = Math.floor(totalMin / 1440);
+          const horas = Math.floor((totalMin % 1440) / 60);
+          const mins = totalMin % 60;
 
-          const relogio = `${dias}d ${pad2(horas)}h ${pad2(mins)}m ${pad2(secs)}s`;
+          const relogio = `${dias}d ${pad2(horas)}h ${pad2(mins)}m`;
           if (st === 'LANCADO_48H') {
             pill.innerHTML = `🆕 Lançado • <span class="countdown-mono">⏳ ${relogio}</span> (até ${fimBr})`;
           } else if (dias <= 7) {
@@ -1692,7 +1713,7 @@
     }
 
     atualizarContadoresTempoReal();
-    setInterval(atualizarContadoresTempoReal, 1000);
+    setInterval(atualizarContadoresTempoReal, 30000);
   </script>
 </body>
 </html>
