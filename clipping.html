@@ -159,6 +159,23 @@
       background: #E9DCC3;
     }
 
+    .history-select {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--navy);
+      background: #F4EFE6;
+      border: 1px solid var(--sand-border);
+      padding: 5px 11px;
+      border-radius: 20px;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.15s ease;
+    }
+
+    .history-select:hover {
+      background: #E9DCC3;
+    }
+
     /* Carimbo de Data estilo DECON */
     .date-stamp {
       font-family: "Bahnschrift", "Segoe UI", sans-serif;
@@ -594,6 +611,16 @@
         btn.textContent = anyClosed ? '➖ Recolher Radares Complementares' : '➕ Expandir Todos os Radares';
       }
     }
+
+    function navegarHistorico(arquivo) {
+      if (!arquivo) return;
+      const inHistorico = window.location.pathname.replace(/\\/g, '/').includes('/historico/');
+      if (arquivo === 'ATUAL') {
+        window.location.href = inHistorico ? '../clipping.html' : './clipping.html';
+      } else {
+        window.location.href = inHistorico ? ('./' + arquivo) : ('./historico/' + arquivo);
+      }
+    }
   </script>
 </head>
 <body>
@@ -621,6 +648,7 @@
       </div>
       <div class="header-meta">
         <a class="participativo-radar-link" href="https://mdagavea.github.io/inteligencia-regulatoria/radar.html" target="_blank" title="Ver no Painel Radar Brasil Participativo">🏛️ Radar Participativo: 4 novos (ANTT, MME) ↗</a>
+        <select class="history-select" onchange="navegarHistorico(this.value); this.selectedIndex=0;" title="Consultar edições anteriores por data"><option value="">📚 Acervo de Edições (3)</option><option value="index.html">🗂️ Ver Catálogo Completo de Datas...</option><option value="clipping_2026-10-25.html">📄 Edição de 25/10/2026 (Hoje)</option><option value="clipping_2026-10-21.html">📄 Edição de 21/10/2026</option><option value="clipping_2026-09-25.html">📄 Edição de 25/09/2026</option></select>
         <button id="btn-toggle-drawers" class="toggle-drawers-btn" onclick="toggleAllDrawers()">➕ Expandir Todos os Radares</button>
         <span class="date-stamp">📅 25 de Outubro de 2026</span>
       </div>
@@ -642,7 +670,7 @@
     </svg></div>
             <h2 class="card-title">Infraestrutura & Outorgas</h2>
           </div>
-          <span class="item-count-badge">4 destaques + 3 no radar</span>
+          <span class="item-count-badge">4 destaques + 4 no radar</span>
         </div>
         <div class="card-body">
           
@@ -654,14 +682,14 @@
                 <span class="source-tag">Agência iNFRA</span>
               </div>
               <a class="news-link" href="https://agenciainfra.com/blog/antt-propoe-novo-rito-para-agilizar-analise-de-obras-rodoviarias/?utm_source=rss&utm_medium=rss&utm_campaign=antt-propoe-novo-rito-para-agilizar-analise-de-obras-rodoviarias" target="_blank">ANTT propõe novo rito para agilizar análise de obras rodoviárias</a>
-              <p class="news-desc">A ANTT colocou em discussão proposta para dar maior celeridade à análise de projetos, autorização e acompanhamento de obras obrigatórias em rodovias federais concedidas.</p>
+              <p class="news-desc">A ANTT colocou em discussão nova proposta de procedimento para dar agilidade à análise de projetos, autorizações e acompanhamento de intervenções em rodovias federais concedidas.</p>
             </div>
             <div class="news-item">
               <div class="news-meta">
                 <span class="source-tag">Agência iNFRA</span>
               </div>
               <a class="news-link" href="https://agenciainfra.com/blog/antaq-diretor-geral-elogia-parecer-da-agu-sobre-substituicoes-nas-agencias/?utm_source=rss&utm_medium=rss&utm_campaign=antaq-diretor-geral-elogia-parecer-da-agu-sobre-substituicoes-nas-agencias" target="_blank">ANTAQ: diretor-geral elogia parecer da AGU sobre substituições nas agências</a>
-              <p class="news-desc">A Diretoria da ANTAQ avalizou a nova orientação da AGU que prioriza substituições interinas por membros do próprio colegiado ao término dos mandatos.</p>
+              <p class="news-desc">Frederico Dias avaliou positivamente o entendimento da AGU orientando a substituição interina de diretores-gerais por membros do próprio colegiado das agências reguladoras.</p>
             </div>
           </div>
           <div class="subsection">
@@ -672,7 +700,7 @@
                 <span class="source-tag">Agência iNFRA</span>
               </div>
               <a class="news-link" href="https://agenciainfra.com/blog/transmissoras-querem-reconhecimento-de-prejuizos-por-eventos-climaticos/?utm_source=rss&utm_medium=rss&utm_campaign=transmissoras-querem-reconhecimento-de-prejuizos-por-eventos-climaticos" target="_blank">Transmissoras querem reconhecimento de prejuízos por eventos climáticos</a>
-              <p class="news-desc">Empresas de transmissão de energia buscam que indisponibilidades causadas por eventos climáticos extremos fiquem fora dos descontos de remuneração regulatória.</p>
+              <p class="news-desc">Empresas de transmissão de energia buscam que interrupções causadas por eventos climáticos extremos não resultem em descontos na remuneração regulatória.</p>
             </div>
           </div>
           <div class="subsection">
@@ -682,14 +710,14 @@
               <div class="news-meta">
                 <span class="source-tag">Agência iNFRA</span>
               </div>
-              <a class="news-link" href="https://agenciainfra.com/blog/mme-abre-consulta-sobre-metas-do-energias-da-amazonia-ate-2035/?utm_source=rss&utm_medium=rss&utm_campaign=mme-abre-consulta-sobre-metas-do-energias-da-amazonia-ate-2035" target="_blank">MME abre consulta sobre metas do Energias da Amazônia até 2035</a>
-              <p class="news-desc">O Ministério de Minas e Energia submeteu à consulta pública novas metas para o programa, visando reduzir emissões em até 75,9% até 2035.</p>
+              <a class="news-link" href="https://agenciainfra.com/blog/abiquim-destaca-fatia-de-44-da-industria-quimica-em-leilao-de-gas/?utm_source=rss&utm_medium=rss&utm_campaign=abiquim-destaca-fatia-de-44-da-industria-quimica-em-leilao-de-gas" target="_blank">Abiquim destaca fatia de 44% da indústria química em leilão de gás</a>
+              <p class="news-desc">Setores químico, petroquímico e de fertilizantes contrataram 480 mil m³/dia de gás natural, correspondendo a 44% do volume do 1º Leilão de Gás Natural da União.</p>
             </div>
           </div>
         </div>
         <details class="radar-drawer">
           <summary class="radar-drawer-summary">
-            <span>📂 Radar Complementar (+3 matérias relevantes no período)</span>
+            <span>📂 Radar Complementar (+4 matérias relevantes no período)</span>
             <span class="drawer-chevron">Expandir lista ▾</span>
           </summary>
           <div class="radar-drawer-content">
@@ -700,23 +728,31 @@
                 <span class="subsecao-pill">Regulação & Contratos (ANTT / ANAC / ANTAQ / Portos)</span>
               </div>
               <a class="news-link" href="https://agenciainfra.com/blog/porto-de-santos-inicia-abastecimento-regular-de-navios-com-etanol/?utm_source=rss&utm_medium=rss&utm_campaign=porto-de-santos-inicia-abastecimento-regular-de-navios-com-etanol" target="_blank">Porto de Santos inicia abastecimento regular de navios com etanol</a>
-              <p class="news-desc">Autoridade Portuária e parceiros efetivaram a primeira operação comercial regular de bunker com etanol, impulsionando a transição energética portuária.</p>
-            </div>
-            <div class="radar-compact-item">
-              <div class="news-meta">
-                <span class="source-tag">Portal VV8</span>
-                <span class="subsecao-pill">Reequilíbrio & Matriz de Riscos</span>
-              </div>
-              <a class="news-link" href="https://news.google.com/rss/articles/CBMiwgFBVV95cUxPMXpfa3gwOWxBdmpuU2RRQkNqN2N2UERWb21oUXRvZV9iWTg5STdMYWVGUE5pVmtUZWFSQ2hqeFNNUzhzR0dVaDhydDdrNWV1aUJlZFN2MUl4RU53MERMRVE4LVh6UTlhQXRJZHVaLTZveWxCaE95Yk5UZDFaMlpRUGRvd3A4QTQzS2hlRndzdnQzRzl4aDhrLWctNkpuZWMxV0VvQkZYSVBBanlNMGJCWFZrUHpDV2JKbGpsSUItLWxEdw?oc=5" target="_blank">Negociações sobre o futuro da concessão do Aeroporto de Viracopos seguem em andamento</a>
-              <p class="news-desc">As tratativas institucionais e contratuais envolvendo os rumos da concessão aeroportuária permanecem sob escopo técnico e regulatório.</p>
+              <p class="news-desc">Autoridade Portuária de Santos e parceiros iniciaram operações comerciais regulares de bunker com etanol, impulsionando a descarbonização do transporte marítimo.</p>
             </div>
             <div class="radar-compact-item">
               <div class="news-meta">
                 <span class="source-tag">Agência iNFRA</span>
+                <span class="subsecao-pill">Reequilíbrio & Matriz de Riscos</span>
+              </div>
+              <a class="news-link" href="https://agenciainfra.com/blog/enel-sp-triplica-equipes-de-prontidao-para-temporais-e-eleicoes/?utm_source=rss&utm_medium=rss&utm_campaign=enel-sp-triplica-equipes-de-prontidao-para-temporais-e-eleicoes" target="_blank">Enel SP triplica equipes de prontidão para temporais e eleições</a>
+              <p class="news-desc">Distribuidora ativou plano de contingência para mitigar riscos de interrupções de energia decorrentes de previsão de chuvas intensas e ventos fortes na Grande São Paulo.</p>
+            </div>
+            <div class="radar-compact-item">
+              <div class="news-meta">
+                <span class="source-tag">Prefeitura de Porto Alegre</span>
                 <span class="subsecao-pill">Leilões, Editais & PPI</span>
               </div>
-              <a class="news-link" href="https://agenciainfra.com/blog/abiquim-destaca-fatia-de-44-da-industria-quimica-em-leilao-de-gas/?utm_source=rss&utm_medium=rss&utm_campaign=abiquim-destaca-fatia-de-44-da-industria-quimica-em-leilao-de-gas" target="_blank">Abiquim destaca fatia de 44% da indústria química em leilão de gás</a>
-              <p class="news-desc">Setor químico garantiu relevância expressiva na contratação de volumes no primeiro leilão de gás natural da União gerido pela PPSA.</p>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMivwFBVV95cUxOTERFempBalNzdGZyd29iclZVc1NOUXE5aFJQZzlkRnkwLWF3cGY3QmJ1VHhKMl96WFR6Uml0cVU5bDBYTUNyYzQzcW0yRkhJeGwwVVdDcm8wTTJNZmVmc2p0djFRME9RM19xTFNLSGdXVE0xTW4yZmtLSmxlYjZUWFpRX3dSYTJmSC03Q3Vxb1RQOWc5dVpSUzVxaXc4RlFZR2h4QWxIMWl0RzJIWEx4RjF4UTBZamFHem52Rnk2OA?oc=5" target="_blank">Leilão de terrenos em diferentes bairros de Porto Alegre recebe propostas</a>
+              <p class="news-desc">Município movimenta ativos imobiliários por meio de leilão público para otimização de portfólio patrimonial.</p>
+            </div>
+            <div class="radar-compact-item">
+              <div class="news-meta">
+                <span class="source-tag">Portal VV8</span>
+                <span class="subsecao-pill">Regulação & Contratos (ANTT / ANAC / ANTAQ / Portos)</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMiwgFBVV95cUxPMXpfa3gwOWxBdmpuU2RRQkNqN2N2UERWb21oUXRvZV9iWTg5STdMYWVGUE5pVmtUZWFSQ2hqeFNNUzhzR0dVaDhydDdrNWV1aUJlZFN2MUl4RU53MERMRVE4LVh6UTlhQXRJZHVaLTZveWxCaE95Yk5UZDFaMlpRUGRvd3A4QTQzS2hlRndzdnQzRzl4aDhrLWctNkpuZWMxV0VvQkZYSVBBanlNMGJCWFZrUHpDV2JKbGpsSUItLWxEdw?oc=5" target="_blank">Negociações sobre o futuro da concessão do Aeroporto de Viracopos seguem em andamento</a>
+              <p class="news-desc">Tratativas contratuais e regulatórias continuam para equacionar o futuro da concessão aeroportuária.</p>
             </div>
           </div>
         </details>
@@ -745,24 +781,24 @@
             
             <div class="news-item">
               <div class="news-meta">
-                <span class="source-tag">Revista Apólice</span>
+                <span class="source-tag">jrs portal</span>
               </div>
-              <a class="news-link" href="https://news.google.com/rss/articles/CBMimAFBVV95cUxQNkZhTE50VFhZeWJzQjdENG1Dam5ZbFY5OEZaY21CR3IzcDJPNkRnWkxQQl9yRmY1QzAxcW1JdkU5Umw5NTV1aDJDdDNlZ2ZEYzdTOFdUSnpkcGJpZmE4aFB5dXEtWGhSQzAwblI1RXM0MlU1SHVjMXNJc1ZhUHRfajRHcWRUUko3TmNoYmctTUxuMVlNOGZaNw?oc=5" target="_blank">Susep propõe mudanças nas regras de solvência do setor</a>
-              <p class="news-desc">A autarquia reguladora colocou em pauta novas diretrizes prudenciais e de requisitos de solvência para o mercado supervisionado.</p>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMivgFBVV95cUxQNXp6cmc1YTVkT3VVMF9SaWpqalltMUJQUkpUMVFqbVBkWlVRNFlEOElSTUg0WkRaekRpV01zc21rUmVQc2ZzWHF6VXltdzh5UkdQcHpEQ25URGZVS21TSGdYbkxHeXh3SDNGc05lS2xWZGtiazk5djdRc2pBM0ZSd3JfVldGenNoQ2dzZ01feGtlcE9ZVDV0eXlSS2JLeTlhQXpERWRmbzU2TXFjdDRKQ0RObjVjVFpPQVFydFZ3?oc=5" target="_blank">Susep propõe mudanças nas regras de requisitos prudenciais do mercado supervisionado</a>
+              <p class="news-desc">Autarquia submete à consulta pública novas diretrizes de solvência e requisitos prudenciais, impactando a gestão de capital das seguradoras.</p>
+            </div>
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">Brasil Inovador</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMizwFBVV95cUxNUC1SRFppNUN1Rnc0NTJHOVlWUjdSNklzcVV3TVBvaWRYLVNFb0lQTlo5ZVU1SjltRDBMWk5JYWZoWmdIUlBqU1NKdmRDZVdhbVZicWJ6eUh3TWRTUFNnX09XbG12VEJfcUFQTnJ1UVNZU0lhNlcwSGZ0Z09MREVwaDlBanVSbEVfa01vWmp0ZEdIUXRDNGtBMllud1dnR21YSDAtb3lza0ppRi1MM0JwYjZRb1BESFJ4SG5VZnl3SkRZdFo1azk5SGk3a2JBSVE?oc=5" target="_blank">Loovi renova parceria com Neymar e projeta faturamento de R$ 250 milhões com licença definitiva da Susep</a>
+              <p class="news-desc">Insurtech avança no mercado corporativo e de seguros digitais após aval regulatório definitivo da autarquia.</p>
             </div>
             <div class="news-item">
               <div class="news-meta">
                 <span class="source-tag">SEGS Portal Nacional</span>
               </div>
               <a class="news-link" href="https://news.google.com/rss/articles/CBMivwFBVV95cUxNVW05ZF8zcFZJUHdtSktyanB1RzZ6T054X2V5M3JhZ1BOblNmY1NMekdrbkl2bVhfdEktYk81RjNtaUFld3JDZHppeEVUc3dUaTU3TlRNR3RCUS1fcFJqTWM0d0E3TG9DdUVBT2dUNWZrZzFTQVZ6TUh0UHFVSHhRZTJaY21fNXZndkhxTmJLeVV4eUtGWWVlUHBMUDJHa29hdWllUnQ2amJEZFBuRDRwMUJZNUQ4Z09YbXV0b2U0MNIBxAFBVV95cUxPZWRyOG1HVkJQeGh1aHBZY3YySTU2SzA3WXkwM0M3VnVIQmNRa05waG5Cd2dLM1FSOVdlWHhEWTJlRGEtaU43SFFuU3NkRmhkNTc0REJEbkdtUWNqOGtuWUhIQnA2VUpBREFoTWJiV2Q2UWlCcjQ0VHBkanBGTXpEXzdpOFIyRGxpYUJBalNTVE1ZREl5TTRjOEVSV3FEVnBRM2xkd0R0VTBLRXFUVTI1aUNBN19jREhGT0RYLUxCZXJNT0o5?oc=5" target="_blank">Desempenho do Mercado de Seguros, Previdência Privada e Capitalização – agosto de 2026</a>
-              <p class="news-desc">Divulgado o consolidado estatístico oficial apontando expansão e métricas operacionais das verticais corporativas e de previdência.</p>
-            </div>
-            <div class="news-item">
-              <div class="news-meta">
-                <span class="source-tag">Brasil Inovador</span>
-              </div>
-              <a class="news-link" href="https://news.google.com/rss/articles/CBMizwFBVV95cUxNUC1SRFppNUN1Rnc0NTJHOVlWUjdSNklzcVV3TVBvaWRYLVNFb0lQTlo5ZVU1SjltRDBMWk5JYWZoWmdIUlBqU1NKdmRDZVdhbVZicWJ6eUh3TWRTUFNnX09XbG12VEJfcUFQTnJ1UVNZU0lhNlcwSGZ0Z09MREVwaDlBanVSbEVfa01vWmp0ZEdIUXRDNGtBMllud1dnR21YSDAtb3lza0ppRi1MM0JwYjZRb1BESFJ4SG5VZnl3SkRZdFo1azk5SGk3a2JBSVE?Ooc=5" target="_blank">Loovi renova parceria com Neymar e projeta faturamento de R$ 250 milhões com licença definitiva da Susep</a>
-              <p class="news-desc">Insurtech obtém aval definitivo do regulador e planeja forte expansão comercial amparada em novos aportes estratégicos.</p>
+              <p class="news-desc">CNseg divulga dados consolidados do setor, apontando expansão expressiva nas arrecadações de grandes riscos e previdência.</p>
             </div>
           </div>
         </div>
@@ -775,19 +811,19 @@
             
             <div class="radar-compact-item">
               <div class="news-meta">
-                <span class="source-tag">CNN Brasil</span>
-                <span class="subsecao-pill">Regulação SUSEP, CNseg & Mercado Corporativo</span>
-              </div>
-              <a class="news-link" href="https://news.google.com/rss/articles/CBMi2wFBVV95cUxQb1ZBajdBenVUaGttUHRmNDBIeUhKQm9MRnkwclNaWHprdW5UY1cwX1VONDNQakZobEFKNHpFV1czb01BazM4RDNVTFdaNExoTFpFaHNSNVFwcVpJaU9lUWVQUDdQUG02NWtvQjNmYUc0Mm9KQ0xwakl1d25CTHAxc2phS1U2OVlMRWxSeThScnJfZTZra1BONjg1eUltTVo5cEFBRkdRa0NOUnlLanF6Q3JDbDB2QVRvcTNTNmtDa2VPQ2ppcVN0VGNJdjRyX1k2NEpWUVNGX011NTg?oc=5" target="_blank">Segurança cibernética: empresas de seguros digitais usam LGPD para proteção</a>
-              <p class="news-desc">Seguradoras digitais intensificam investimentos em conformidade com a LGPD e governança de dados para mitigar sinistros cibernéticos.</p>
-            </div>
-            <div class="radar-compact-item">
-              <div class="news-meta">
                 <span class="source-tag">CQCS</span>
                 <span class="subsecao-pill">Regulação SUSEP, CNseg & Mercado Corporativo</span>
               </div>
               <a class="news-link" href="https://news.google.com/rss/articles/CBMitwFBVV95cUxQQU04bWtyWjNtQUJ5V0JpVHI3U0FPTHgtaXhOU21pOGdGaV9La0dDa1ptNDk4M2o1NDFXUFJucU5hakhZZDJuQ3N1ekhMUHV6N0lJN1NUeEJYYW1VMFhacENCa3dKY3J5OTJtMkhoVEJncnV3cm5nbU83bUZoMUxORXpCS0JOaGN0NFdJTHBNcXczcDdVUTRvWkE0OTJOdkdQbW04WmtNMHpMRjdPd3JBbVM4a1B3RU0?oc=5" target="_blank">CNseg amplia debate sobre educação financeira e securitária</a>
-              <p class="news-desc">Confederação promove ciclos de debates para elevar o letramento financeiro e o apetite corporativo por seguros estruturados.</p>
+              <p class="news-desc">Federação intensifica agenda de difusão de cultura de seguros e mitigação de riscos corporativos.</p>
+            </div>
+            <div class="radar-compact-item">
+              <div class="news-meta">
+                <span class="source-tag">CNN Brasil</span>
+                <span class="subsecao-pill">Regulação SUSEP, CNseg & Mercado Corporativo</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMi2wFBVV95cUxQb1ZBajdBenVUaGttUHRmNDBIeUhKQm9MRnkwclNaWHprdW5UY1cwX1VONDNQakZobEFKNHpFV1czb01BazM4RDNVTFdaNExoTFpFaHNSNVFwcVpJaU9lUWVQUDdQUG02NWtvQjNmYUc0Mm9KQ0xwakl1d25CTHAxc2phS1U2OVlMRWxSeThScnJfZTZra1BONjg1eUltTVo5cEFBRkdRa0NOUnlLanF6Q3JDbDB2VVRvcTNTNmtDa2VPQ2ppcVN0VGNJdjRyX1k2NEpWUVNGX011NTg?oc=5" target="_blank">Segurança cibernética: empresas de seguros digitais usam LGPD para proteção</a>
+              <p class="news-desc">Insurtechs e seguradoras adaptam governança de dados para cumprir exigências regulatórias rigorosas de privacidade.</p>
             </div>
           </div>
         </details>
@@ -806,7 +842,7 @@
     </svg></div>
             <h2 class="card-title">Mercado de Carbono & Transição Climática</h2>
           </div>
-          <span class="item-count-badge">4 destaques + 2 no radar</span>
+          <span class="item-count-badge">3 destaques + 2 no radar</span>
         </div>
         <div class="card-body">
           
@@ -817,15 +853,15 @@
               <div class="news-meta">
                 <span class="source-tag">Reset News (Newsletter Gmail)</span>
               </div>
-              <a class="news-link" href="https://mail.google.com/" target="_blank">Minerais críticos terão R$ 7 bi do Eco Invest; bases do mercado financeiro para o SBCE</a>
-              <p class="news-desc">O programa Eco Invest direcionará R$ 7 bilhões para cadeias de minerais críticos e transição, ao passo que o mercado financeiro consolida regras de precificação de carbono para o SBCE.</p>
+              <a class="news-link" href="https://mail.google.com/mail?account_id=marcoslcastilho@gmail.com&message_id=1a0b41f12ac0c76d&view=conv&extsrc=atom" target="_blank">Minerais críticos terão R$ 7 bi do Eco Invest; Opinião sobre bases do SBCE</a>
+              <p class="news-desc">O quinto leilão do programa Eco Invest destinará R$ 7 bilhões para cadeias de minerais críticos, fortalecendo o financiamento estruturado para a transição.</p>
             </div>
             <div class="news-item">
               <div class="news-meta">
                 <span class="source-tag">Capital Reset</span>
               </div>
-              <a class="news-link" href="https://capitalreset.uol.com.br/agronegocio/economistas-desenham-fundo-para-dar-escala-a-transicao-a-comecar-pelo-agro/" target="_blank">Economistas desenham fundo para dar escala à transição no agro</a>
-              <p class="news-desc">Nova proposta de estruturação financeira visa agregar crédito rural pulverizado em fundos estruturados para captar recursos internacionais de transição.</p>
+              <a class="news-link" href="https://capitalreset.uol.com.br/agronegocio/economistas-desenham-fundo-para-dar-escala-a-transicao-a-comecar-pelo-agro/" target="_blank">Economistas desenham fundo para dar escala à transição (a começar pelo agro)</a>
+              <p class="news-desc">Proposta de estruturação financeira agrega crédito rural pulverizado em fundos para atração de capital estrangeiro e mitigação de riscos climáticos.</p>
             </div>
           </div>
           <div class="subsection">
@@ -835,15 +871,8 @@
               <div class="news-meta">
                 <span class="source-tag">Notícias Tudo Aqui</span>
               </div>
-              <a class="news-link" href="https://news.google.com/rss/articles/CBMigwJBVV95cUxOWHNhc2d6c3J6aldYbm05UGJYRWJBVDk0WGY4QmZsc1JVZGJlb1pwLUJYQURaekZhSGtvVkNuR3E2TVN0alQtaTJSX0xiV20tVW5jNEJYVGVGbzJDaXp4YlBLWXBEazFPSnYzU0RHb3BaaXBiR21DOWx1Ylp6VUZ2dncxd3lFTGpyN1FUcnBKenFOa3ZDOVJvUjM3MjQtX3NuZE5YY3h5WTZDVE9DTUU5TV9Dd2ZHUksydDZtQldBbTR4NTZNek5PWkdodmFUMndzXzltUjV5Q05nZG5YdF9NUTQ5RERxVDJ1eDJaOWYzc1BZVTEwOWxTbTlyMDVEbks4R1Fn?oc=5" target="_blank">BNDES aprova e Amazônia terá R$ 250 milhões do Fundo Clima para recuperação</a>
-              <p class="news-desc">Aprovação de recursos via Fundo Clima visa financiar a recuperação de 4 mil hectares na Amazônia, associando fomento a metas de descarbonização.</p>
-            </div>
-            <div class="news-item">
-              <div class="news-meta">
-                <span class="source-tag">Capital Reset</span>
-              </div>
-              <a class="news-link" href="https://capitalreset.uol.com.br/agronegocio/no-agro-super-el-nino-muda-onde-plantar-e-como-escoar-a-safra/" target="_blank">No agro, Super El Niño muda onde plantar e como escoar a safra</a>
-              <p class="news-desc">Impactos do fenômeno climático extremo mobilizam estratégias de gestão de riscos em usinas, tradings, bancos e seguradoras corporativas.</p>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMigwJBVV95cUxOWHNhc2d6c3J6aldYbm05UGJYRWJBVDk0WGY4QmZsc1JVZGJlb1pwLUJYQURaekZhSGtvVkNuR3E2TVN0alQtaTJSX0xiV20tVW5jNEJYVGVGbzJDaXp4YlBLWXBEazFPSnYzU0RHb3BaaXBiR21DOWx1Ylp6VUZ2dncxd3lFTGpyN1FUcnBKenFOa3ZDOVJvUjM3MjQtX3NuZE5YY3h5WTZDVE9DTUU5TV9Dd2ZHUksydDZtQldBbTR4NTZNek5PWkdodmFUMndzXzltUjV5Q05nZG5YdF9NUTQ5RERxVDJ1eDJaOWYzc1BZVTEwOWxTbTlyMDVEbks4R1Fn?oc=5" target="_blank">BNDES aprova e Amazônia terá R$ 250 milhões do Fundo Clima</a>
+              <p class="news-desc">Recursos do Fundo Clima geridos pelo BNDES financiarão a recuperação de 4 mil hectares na região amazônica.</p>
             </div>
           </div>
         </div>
@@ -857,18 +886,18 @@
             <div class="radar-compact-item">
               <div class="news-meta">
                 <span class="source-tag">Capital Reset</span>
-                <span class="subsecao-pill">Transição Energética, Minerais Críticos & ESG</span>
+                <span class="subsecao-pill">Segurança Jurídica & Integridade de Créditos</span>
               </div>
               <a class="news-link" href="https://capitalreset.uol.com.br/clima/brasil-corta-emissoes-mas-conta-ainda-nao-fecha-fora-das-florestas/" target="_blank">Brasil corta emissões, mas conta ainda não fecha fora das florestas</a>
-              <p class="news-desc">Relatórios do Seeg apontam quedas graças ao desmatamento, mas setores como transportes e energia mantêm tendência de alta nas emissões.</p>
+              <p class="news-desc">Relatório aponta queda no desmatamento, mas destaca altas expressivas de emissões em transportes e geração de energia.</p>
             </div>
             <div class="radar-compact-item">
               <div class="news-meta">
                 <span class="source-tag">Capital Reset</span>
-                <span class="subsecao-pill">Segurança Jurídica & Integridade de Créditos</span>
+                <span class="subsecao-pill">Transição Energética, Minerais Críticos & ESG</span>
               </div>
-              <a class="news-link" href="https://capitalreset.uol.com.br/clima/mundo-caminha-para-aquecimento-de-28c-alerta-onu/" target="_blank">Mundo caminha para aquecimento de 2,8°C, alerta ONU</a>
-              <p class="news-desc">Organismos internacionais reforçam a urgência de triplicar metas climáticas e usar mercados de carbono regulados para mitigar desvios.</p>
+              <a class="news-link" href="https://capitalreset.uol.com.br/empresas/super-el-nino-invade-calls-de-empresas/" target="_blank">Super El Niño invade calls de resultados de empresas e afeta o agro e o setor elétrico</a>
+              <p class="news-desc">Corporações incorporam impactos de eventos climáticos extremos em suas projeções financeiras e teleconferências trimestrais.</p>
             </div>
           </div>
         </details>
@@ -899,8 +928,8 @@
               <div class="news-meta">
                 <span class="source-tag">Reset News (Newsletter Gmail)</span>
               </div>
-              <a class="news-link" href="https://mail.google.com/" target="_blank">Natura emite debênture atrelada a uso de plástico sustentável</a>
-              <p class="news-desc">Captação de R$ 700 milhões vincula metas ambientais de economia circular ao custo financeiro da dívida (sustainability-linked bond).</p>
+              <a class="news-link" href="https://mail.google.com/mail?account_id=marcoslcastilho@gmail.com&message_id=1a0b98ac69b738f5&view=conv&extsrc=atom" target="_blank">Natura emite título atrelado a uso de plástico (Sustainability-Linked Bond)</a>
+              <p class="news-desc">A companhia captou R$ 700 milhões em debênture vinculada a metas de plástico sustentável, atrelando o custo da dívida ao desempenho ambiental.</p>
             </div>
           </div>
           <div class="subsection">
@@ -911,14 +940,14 @@
                 <span class="source-tag">Estadão</span>
               </div>
               <a class="news-link" href="https://news.google.com/rss/articles/CBMizgFBVV95cUxNcXU0THdDdzlqYkd5WUFsVHBPNG5ER1RIeThGUjVCY2N0TnV2VmkwQjI0Q2xXWlM5dWZBTnI3OFRITUMzMG54Z1IxaFBuZGQteWtmUEFnaS1QQTQtNFlQbHFWX3ZsbVlqY05NNUViMHlHWVhqSVZUV1B3X1JlOWo3ZkJNQjg3V2tzLUtXQl9rLUpsMUdTdjl0WEdVWFFQMWFIOWZ4dnBWYk84ZHNSMXhXRjYybkgyajdYVVdhLV9YTWhvZ3BnZWpsZkRUSEtxdw?oc=5" target="_blank">CVM proíbe gestor de atuar no mercado por quatro anos e três meses</a>
-              <p class="news-desc">Autarquia impõe sanção severa a gestor de recursos por infrações regulatórias na condução de fundos de investimentos.</p>
+              <p class="news-desc">Autarquia reguladora aplica sanção severa a gestor por infrações às normas do mercado de capitais.</p>
             </div>
             <div class="news-item">
               <div class="news-meta">
-                <span class="source-tag">O GLOBO</span>
+                <span class="source-tag">InfoMoney</span>
               </div>
-              <a class="news-link" href="https://news.google.com/rss/articles/CBMi1gFBVV95cUxOajZlUERHclFINlRWendlRGtmWnJKdy0wMGh4RUVSOTJzVHo4VVF5dXV1MlZIeHJyV3pEZnBCTmJ4eHNwdXhpVXB2YkdOc0YtcHczUEkwVGpGWUVUSHBOS0RLTTRWLXhVQ05wbVVLSUE0WHh2UzhLd29ITmEzeXFWeVR1SUZZS181MjhhRFZ5dC01N1QzTW5uSTNIY0lGM1Q4RFhTUFEtakhLekNPaEcyVG9IY1lXUmVqcko5X0tHZjJyTWJfdDRaOXdFYTlEQWp4enpBZFd30gHkAUFVX3lxTE9SbjlFelJ2amxvMnFCRHVFUGt0aWhoTmR0aWszaVdoSHotdGFzMWZLM1lzc0FNOGxZeXhSUURja3lqVjNPX1NRNWFvdDFPOGpUam5mLWpPdlNKRzdSSWZUMXY3bjhWY2Fka0JYSmROWVdUMGhMcGs4b2EzdWU4SHdLZHA0THJWcWM3S0NndUhXZm9sT19XMVNGLUM1ZGdfLU5GY1VOam1qSGxXSmFyWkt1ejN0eDZWYzliZmRqZ1JNcFNDV2xVRGo3VE91Qng0eEVvRXlXc2tzb1dudFhwWm1BVzVzZw?oc=5" target="_blank">Próximo governo terá 41 cargos a preencher em agências reguladoras, BC, CVM e Cade</a>
-              <p class="news-desc">Renovação de mandatos estratégicos no alto escalão do mercado financeiro e regulatório exigirá articulação institucional imediata.</p>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMinwFBVV95cUxOaGhHa1hYakI1UmFhZDRSa2tQZGQwbEpRTEgyMHAyN0FfZWhSczJ2V0VEWl9pRDBwX1dxNkIzVU9BMXBnR3Jva1lFY1JXLTcxdGZOeGp5MGdvRno5MUkwLTJKSkxaM0FKQ3lmUklLX3E4QlFyT1dINnZRbk13YjYyYkxpZXVEZ25zMUpFZjdWZGJDMGFweFA4WGdNT1RuUU3SAaQBQVVfeXFMT3NzaGQtNnpOSkZfbjh1aUNnWVMzMU5EYldCclRLbG5IRUdhdS1lbm9VWjYtT0xyQjFTQ054WXBKWkZlSmxvZ3V3aUZIM0ZWN2ctOVBaNGxIREpMMWpGTVpEWUI0cW1QNERPVldEUkwzY000RmdKcS0ydlp1NFJNWTlSOEJNNF9aVy1rbG1ueWVsdUNSSWp5c21CZG5DQ1F3dGNJcU8?oc=5" target="_blank">Caso Oncoclínicas: fundo obtém liminar para não realizar OPA</a>
+              <p class="news-desc">Decisão judicial suspende temporariamente a obrigação de Oferta Pública de Aquisição de Ações (OPA) em litígio envolvendo fundo e companhia aberta.</p>
             </div>
           </div>
         </div>
@@ -931,11 +960,11 @@
             
             <div class="radar-compact-item">
               <div class="news-meta">
-                <span class="source-tag">O Bastidor</span>
-                <span class="subsecao-pill">Mercado de Crédito Privado & Títulos Verdes</span>
+                <span class="source-tag">O GLOBO</span>
+                <span class="subsecao-pill">Regulação CVM, ANBIMA & BNDES</span>
               </div>
-              <a class="news-link" href="https://news.google.com/rss/articles/CBMiYEFVX3lxTE1HOXlDbUpLWU0yamRTbXF1S1JoZmQ0NEJ1UVlzcWdKbkRBczVsaXJxVnZ1M3lZaWJHMlZTdm1vcDNKYWRVYUY1V01XSnBSY19tYnBtV3k5WFdJdEx5UDV0YQ?oc=5" target="_blank">OPA ganha trégua no mercado de capitais</a>
-              <p class="news-desc">Debates sobre ofertas públicas de aquisição de ações registram trégua e alinhamento entre emissores e reguladores corporativos.</p>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMi1gFBVV95cUxOajZlUERHclFINlRWendlRGtmWnJKdy0wMGh4RUVSOTJzVHo4VVF5dXV1MlZIeHJyV3pEZnBCTmJ4eHNwdXhpVXB2YkdOc0YtcHczUEkwVGpGWUVUSHBOS0RLTTRWLXhVQ05wbVVLSUE0WHh2UzhLd29ITmEzeXFWeVR1SUZZS181MjhhRFZ5dC01N1QzTW5uSTNIY0lGM1Q4RFhTUFEtakhLekNPaEcyVG9IY1lXUmVqcko5X0tHZjJyTWJfdDRaOXdFYTlEQWp4enpBZFd30gHkAUFVX3lxTE9SbjlFelJ2amxvMnFCRHVFUGt0aWhoTmR0aWszaVdoSHotdGFzMWZLM1lzc0FNOGxZeXhSUURja3lqVjNPX1NRNWFvdDFPOGpUam5mLWpPdlNKRzdSSWZUMXY3bjhWY2Fka0JYSmROWVdUMGhMcGs4b2EzdWU4SHdLZHA0THJWcWM3S0NndUhXZm9sT19XMVNGLUM1ZGdfLU5GY1VOam1qSGxXSmFyWkt1ejN0eDZWYzliZmRqZ1JNcFNDV2xVRGo3VE91Qng0eEVvRXlXc2tzb1dudFhwYm1BVzVzZw?oc=5" target="_blank">Próximo governo terá 41 cargos a preencher em agências reguladoras, BC, CVM e Cade</a>
+              <p class="news-desc">Levantamento aponta a extensa agenda de nomeações para cargos estratégicos no Banco Central, CVM e autarquias reguladoras.</p>
             </div>
           </div>
         </details>
@@ -954,7 +983,7 @@
     </svg></div>
             <h2 class="card-title">Tecnologia, IA & Gestão Aplicada</h2>
           </div>
-          <span class="item-count-badge">4 destaques + 2 no radar</span>
+          <span class="item-count-badge">4 destaques + 3 no radar</span>
         </div>
         <div class="card-body">
           
@@ -965,15 +994,15 @@
               <div class="news-meta">
                 <span class="source-tag">Reset News (Newsletter Gmail)</span>
               </div>
-              <a class="news-link" href="https://mail.google.com/" target="_blank">Investidores pressionam big techs por 'IA limpa' devido ao risco energético</a>
-              <p class="news-desc">O apetite voraz de data centers por energia passa a ser tratado como risco financeiro estrutural, exigindo contratos de suprimento limpo.</p>
+              <a class="news-link" href="https://mail.google.com/mail?account_id=marcoslcastilho@gmail.com&message_id=1a0c3922a61eab69&view=conv&extsrc=atom" target="_blank">Investidores pressionam big techs por ‘IA limpa’ devido ao risco energético</a>
+              <p class="news-desc">Mercado financeiro passa a tratar a demanda massiva de energia por data centers de inteligência artificial como risco financeiro corporativo.</p>
             </div>
             <div class="news-item">
               <div class="news-meta">
-                <span class="source-tag">Olhar Digital</span>
+                <span class="source-tag">JOTA Info</span>
               </div>
-              <a class="news-link" href="https://news.google.com/rss/articles/CBMi6AFBVV95cUxQRWVkaHZVUmRoSHh1Y0R0Nk5ZdGZjc2hwYjhFN2p0ZjdMcl9LQVhpOGsxcG5VVUUwcjQ0WHBXeXltako4aU5NWmNKd1NtdnJsd2hzYjhRVXJoc2lNMGxtOFJZdUVvWTdjNTJkaGdqQmNCdkNxaXY0Y1J2N2J0RHRwT1U0WDBBVWVXVG8xOW5tS05MdlNpczlXUTVLdk5kUEtRT0FwQy10aVczamNuSFhvYjlYZnZ4U3hMQzZSYzViWm43Z1FoV2ZSdjgwUV92cWhPTmhydnBCam1YcVhKMzdQbnl3WUFKaE1a?oc=5" target="_blank">Eleições 2026: planos para IA, data centers, soberania e energia</a>
-              <p class="news-desc">As propostas presidenciais para infraestrutura computacional, soberania digital e matriz energética voltada à inteligência artificial.</p>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMi3AFBVV95cUxPaTNDTS1qaXE5RHJHREZUR3FHV3RCbk0xSGxBN2NyVVYtc3Zpakx1UC1zSXB3dl9PQjVpazZlc2o3c0dLVWZXY19oNXZzbkVYekVtUXEzSnRSYkQ3cFR1bk1PUm5vYzgwaEM3TVVLZy00VEpLWEZYNXVyT2o0ZXJWOExLU29MVXdDcXRxbnRIaXcxUXJ4cmw2WG9UZ1dXaVlzX21rQXBZNnpnUHR5X1IwVWZlQ2FnUVBBc01ubnkwbFFUUmhtbFZVb1hTb041cm9PekRhZE1fYWNZUHp6?oc=5" target="_blank">Pagamentos agênticos e a regulação de quem decide pelo pagador</a>
+              <p class="news-desc">Debate regulatório sobre agentes autônomos de IA que executam transações financeiras e tomam decisões de pagamento em nome dos usuários.</p>
             </div>
           </div>
           <div class="subsection">
@@ -981,10 +1010,10 @@
             
             <div class="news-item">
               <div class="news-meta">
-                <span class="source-tag">JOTA Info</span>
+                <span class="source-tag">Antonio Pedro Bulcã. (Newsletter Gmail)</span>
               </div>
-              <a class="news-link" href="https://news.google.com/rss/articles/CBMi3AFBVV95cUxPaTNDTS1qaXE5RHJHREZUR3FHV3RCbk0xSGxBN2NyVVYtc3Zpakx1UC1zSXB3dl9PQjVpazZlc2o3c0dLVWZXY19oNXZzbkVYekVtUXEzSnRSYkQ3cFR1bk1PUm5vYzgwaEM3TVVLZy00VEpLWEZYNXVyT2o0ZXJWOExLU29MVXdDcXRxbnRIaXcxUXJ4cmw2WG9UZ1dXaVlzX21rQXBZNnpnUHR5X1IwVWZlQ2FnUVBBc01ubnkwbFFUUmhtbFZVb1hTb041cm9PekRhZE1fYWNZUHp6?oc=5" target="_blank">Pagamentos agênticos e a regulação de quem decide pelo pagador</a>
-              <p class="news-desc">Análise regulatória sobre a ascensão de agentes autônomos de IA capazes de tomar decisões financeiras e executar pagamentos em nome de usuários.</p>
+              <a class="news-link" href="https://mail.google.com/mail?account_id=marcoslcastilho@gmail.com&message_id=1a1553be3e31f81f&view=conv&extsrc=atom" target="_blank">Granola e dashboard pessoal: transformando notas de reunião em painéis mantidos por IA</a>
+              <p class="news-desc">Análise prática de fluxos executivos automatizados utilizando assistentes de IA para consolidação dinâmica de dados corporativos.</p>
             </div>
           </div>
           <div class="subsection">
@@ -994,33 +1023,41 @@
               <div class="news-meta">
                 <span class="source-tag">a16z News</span>
               </div>
-              <a class="news-link" href="https://www.a16z.news/p/why-hardware-specialization-is-back" target="_blank">Por que a especialização de hardware está de volta</a>
-              <p class="news-desc">Análise da a16z aponta que novos gargalos computacionais da IA superaram a era dos chips de propósito geral, resgatando arquiteturas especializadas.</p>
+              <a class="news-link" href="https://www.a16z.news/p/patch-or-die" target="_blank">Patch or Die: 5 mudanças drásticas que líderes corporativos devem considerar agora</a>
+              <p class="news-desc">Artigo da Andreessen Horowitz detalha adaptações estratégicas cruciais para empresas diante de disrupções tecnológicas aceleradas.</p>
             </div>
           </div>
         </div>
         <details class="radar-drawer">
           <summary class="radar-drawer-summary">
-            <span>📂 Radar Complementar (+2 matérias relevantes no período)</span>
+            <span>📂 Radar Complementar (+3 matérias relevantes no período)</span>
             <span class="drawer-chevron">Expandir lista ▾</span>
           </summary>
           <div class="radar-drawer-content">
             
             <div class="radar-compact-item">
               <div class="news-meta">
-                <span class="source-tag">Estadão</span>
-                <span class="subsecao-pill">IA, Automação & Produtividade Executiva</span>
+                <span class="source-tag">Times Brasil | CNBC</span>
+                <span class="subsecao-pill">Infraestrutura Digital, Energia & GovTech / FinTech</span>
               </div>
-              <a class="news-link" href="https://news.google.com/rss/articles/CBMitwFBVV95cUxPcGdiWlNfU1E3bWY5NzBwWFprZ3lBS0JTMFRRT1lSWjM5aENDUERORXJHYzFuSkEySjlYbkhqckNzeHNNMTVoWDJIYk5hVjdFTHZDeDY3ZlRtNFpnMExHd1p1Rjc0ZjNtcGF4eVhHMlU1ZllSUFpVUTNERU1oM1lEX25pZG5lUEp3dGVEVlU0eWZPYnVPeTJCVFZ5UU1FTEhfeHJzQWlzamxzOThOSVhURW9rU1dSWEnSAbwBQVVfeXFMTUo4QVFXQnNfN2VzdHNRTGV4ZVZ5S3pNQ1ZDOGhIZklwcmNSbTZwd25TLXoyUlZfd1dIS1dNX1BNX0NnNGVqdmtvc0RVaEl3bVgzZGVBY2V2ZU9NdkIxTWl5RUJpTlByWFRSVW5zNWxhZThJSWsyUS1RQUdpVktxR3MzdFMwOEIwZUMxdzVoZ3JLTFZ3a1dmNmt4Q3k3QXNONG8xNnNwVEFmM3k3LWlhblRjMWZkU3RDSFF0X3g?oc=5" target="_blank">A revolução silenciosa da IA está transformando a economia global</a>
-              <p class="news-desc">Reflexão sobre os impactos macroeconômicos da adoção corporativa acelerada de inteligência artificial em múltiplos setores produtivos.</p>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMivwFBVV95cUxONENhcTVZSFBPT3FQR0NHY2c4elRZTmg5TDlzU2pFV1I2WDZvMHRaUTRqcjN6VUdkQnBJV01NY2FSWlUwaTkzalNXdDQ3cE1YNUQ3VDQ0a1MxMDFody1wM2thOXYwLXdld2Z1ejQwckd0M1dIakp4eENsRHpQeEczdFRRcEhBMWcxdzNVTlpkb0VRNFQ4X1NreGdhakNRNXNXR1FsbGtnYmpoVUhVcFdrNDRZYlA2X2VwVVRRNXhTWQ?oc=5" target="_blank">E se os data centers forem parte da solução de energia?</a>
+              <p class="news-desc">Executivos debatem modelos onde grandes centros de dados passam a integrar estratégias de balanceamento e investimento em matrizes limpas.</p>
             </div>
             <div class="radar-compact-item">
               <div class="news-meta">
                 <span class="source-tag">Portal Diário do Aço</span>
-                <span class="subsecao-pill">Infraestrutura Digital, Energia & GovTech / FinTech</span>
+                <span class="subsecao-pill">IA, Automação & Produtividade Executiva</span>
               </div>
               <a class="news-link" href="https://news.google.com/rss/articles/CBMixAFBVV95cUxObGZUTUNXd1NQTlFUQnlrMjNBU0hNNUxyeE11RVVNU0cxN2NfNHdYaDM2Z3Q4a2Z5cjgyS2JGeGE1aksyblVTYUIzUGViUUdQTWR2TE5jamRTYXVDdXdfVkloLUdOdlRITExMa2lxZEo4cEd6SDRUcFFUNWRSMnlCZ2dQbkh1U3FlcUp2NGtRSkY2WWZfNTE0RXFxOGlKS1QwV3M3MHUtRElySk12M1F4dE0zYjhFZTVKN0RVblRrY2hMek9T?oc=5" target="_blank">Usiminas aposta em inteligência artificial para elevar produtividade e qualidade</a>
-              <p class="news-desc">Exemplo prático de aplicação industrial de machine learning e IA para ganho de eficiência operacional na indústria pesada.</p>
+              <p class="news-desc">Indústria pesada adota automação avançada com IA para otimização de processos fabris e ganhos de eficiência operacional.</p>
+            </div>
+            <div class="radar-compact-item">
+              <div class="news-meta">
+                <span class="source-tag">a16z News</span>
+                <span class="subsecao-pill">Estratégia & Tendências Globais (McKinsey / a16z / Mercado)</span>
+              </div>
+              <a class="news-link" href="https://www.a16z.news/p/why-hardware-specialization-is-back" target="_blank">Por que a especialização de hardware está de volta</a>
+              <p class="news-desc">Análise sobre como novas restrições de computação e inteligência artificial desafiam os chips de propósito geral em favor de arquiteturas especializadas.</p>
             </div>
           </div>
         </details>
