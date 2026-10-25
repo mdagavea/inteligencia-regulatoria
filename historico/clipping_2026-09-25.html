@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clipping Regulatório & Financeiro - 25 de Setembro de 2026</title>
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --primary: #0f172a;
+      
+      --color-infra: #0284c7;
+      --bg-infra: #f0f9ff;
+      --color-seguros: #7c3aed;
+      --bg-seguros: #faf5ff;
+      --color-carbono: #059669;
+      --bg-carbono: #f0fdf4;
+      --color-divida: #d97706;
+      --bg-divida: #fffbeb;
+      
+      --tag-bg: #f8fafc;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      margin: 0;
+      padding: 16px 24px;
+      line-height: 1.45;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: var(--card-bg);
+      padding: 16px 24px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .header-title-area h1 {
+      margin: 0;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+    }
+
+    .header-title-area p {
+      margin: 2px 0 0 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .date-badge {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #1e3a8a;
+      background: #dbeafe;
+      padding: 5px 14px;
+      border-radius: 20px;
+    }
+
+    .grid-dashboard {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    @media (max-width: 960px) {
+      .grid-dashboard {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .theme-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .theme-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    .card-header {
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .item-count-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    .theme-infra { border-top: 4px solid var(--color-infra); }
+    .theme-infra .card-title { color: var(--color-infra); }
+    .theme-infra .item-count-badge { background: var(--bg-infra); color: var(--color-infra); }
+
+    .theme-seguros { border-top: 4px solid var(--color-seguros); }
+    .theme-seguros .card-title { color: var(--color-seguros); }
+    .theme-seguros .item-count-badge { background: var(--bg-seguros); color: var(--color-seguros); }
+
+    .theme-carbono { border-top: 4px solid var(--color-carbono); }
+    .theme-carbono .card-title { color: var(--color-carbono); }
+    .theme-carbono .item-count-badge { background: var(--bg-carbono); color: var(--color-carbono); }
+
+    .theme-divida { border-top: 4px solid var(--color-divida); }
+    .theme-divida .card-title { color: var(--color-divida); }
+    .theme-divida .item-count-badge { background: var(--bg-divida); color: var(--color-divida); }
+
+    .card-body {
+      padding: 12px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+    }
+
+    .subsection {
+      border-bottom: 1px dashed #e2e8f0;
+      padding-bottom: 12px;
+    }
+
+    .subsection:last-child {
+      border-bottom: none;
+      padding-bottom: 4px;
+    }
+
+    .subsection-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .news-item {
+      margin-bottom: 10px;
+    }
+
+    .news-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .news-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 3px;
+    }
+
+    .source-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #475569;
+      background: #f1f5f9;
+      padding: 1px 6px;
+      border-radius: 4px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .news-link {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #1e293b;
+      text-decoration: none;
+      line-height: 1.35;
+      display: block;
+    }
+
+    .news-link:hover {
+      color: #2563eb;
+      text-decoration: underline;
+    }
+
+    .news-desc {
+      font-size: 0.84rem;
+      color: #475569;
+      margin: 3px 0 0 0;
+      line-height: 1.4;
+    }
+
+    .empty-note {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-style: italic;
+      padding: 8px 0;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 20px;
+      padding-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-title-area">
+        <h1>Clipping Diário Regulatório & Financeiro</h1>
+        <p>Curadoria de Inteligência: Infraestrutura, Grandes Riscos, Carbono e Mercado de Capitais</p>
+      </div>
+      <div class="header-meta">
+        <span class="date-badge">25 de Setembro de 2026</span>
+      </div>
+    </header>
+
+    <div class="grid-dashboard">
+      
+      <div class="theme-card theme-infra">
+        <div class="card-header">
+          <h2 class="card-title">Infraestrutura & Outorgas</h2>
+          <span class="item-count-badge">3 matérias</span>
+        </div>
+        <div class="card-body">
+          
+          <div class="subsection">
+            <div class="subsection-title">Leilões, Editais & PPI</div>
+            
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">G1</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMijgJBVV95cUxOZVhnaDRDTnRIaXB0enNNeDV3WUcwMG1UNVZqWXpyQ3RPVDdKWDJyd25SM2pTckMxZDM4Y05VSkpYZURkeV8tMGdrWGZmQnZGLXBtUUJubVRNTG5ZbERRaHluNVZEclR6MW5sbUxBZjBxdWRZSXB3ODBDVzRwQnM2ZU9FeU9KdHJJSHBwQy1xUExtdG5vNUd5bkJhRFVnQVNUcUdJUE5ycThoMElrN1paV1lPV19mbElnWnhXZmx6azYzcjd3NUV3cy1KcTJZZDVKSHNZZU52VzdMMl82cTl4YzctRkpiZmM5ZHc4OWlPSWNISU5SZ3Q2UVdJSDUxMnIwMXJPd3drUkJkdkFwLWfSAZwCQVVfeXFMTThZRzFmMGlhZUJiOGdtdFQtM2tqN1daNURCeFR0ckp2OFRuMGE2bHE5RG1zb09jVjExMTIzOG55RW5CSGRjdGU0MjBZTk9qbUVLcHIyLVRBRm5pREFxXzhjTng0M2FTZWhxc0JYM1ZoX2JRX2I4WFl4TVR6NHpiRHlyUW9naGNvbU5yNFR0MS1yaFI2ak9yX011SnE0WkNGVGdsLWhsQUo1QUpUalZvZ3NCZTZlUkNjMjBzcTYwZGp2OUU3MkhKMXpzYmVpWWFrdFpXbDhENTlFT2FiUWw1WlY1bDdPbTYxWTAwdUs2UldzNGNtY1l1SkVENGFoM1NRV0tUZ1FFRFVSTnFfOGw2RGhyU1d6a3lZRmNfSE8?oc=5" target="_blank">'Estrada' de navios gigantes no litoral de SP deve passar à iniciativa privada e prevê R$ 23 bilhões em receita</a>
+              <p class="news-desc">O projeto de concessão do canal de navegação do Porto de Santos visa atrair investimentos privados com uma receita estimada de R$ 23 bilhões. A iniciativa busca modernizar a infraestrutura portuária para receber navios de maior porte.</p>
+            </div>
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">Agora MT</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMixgFBVV95cUxNTC05YVd2a1FyN25EY01CaG9KV1dGMElWWFBhazFLU2U3cmJfS1Z4SmozYjFfYTRlYTlodjBUV2IxYlBuVVN3ZFhfQVFZT0xHUXNVMHB5MEY0Y0F1RDBwcExqVjNQTzBQY2F2cURENkU1MkF3ald5QVM2TGdHQUhZNWFWbWg0dHM0OXZEQTBkeWRvZlo3TTRJcHdIZDZtUXFJX3VRYUZIcm0zVUp5ZmlVVUxCVi1CQUZYWXNPb1hWeE1GajBIenc?oc=5" target="_blank">ANTT aprova concessão de 887 km de rodovias entre MT e RO com R$ 6,1 bilhões em investimentos</a>
+              <p class="news-desc">A ANTT aprovou o plano de concessão para 887 km de rodovias entre Mato Grosso e Rondônia, prevendo aportes de R$ 6,1 bilhões. O projeto é estratégico para o escoamento da produção agrícola na região Norte-Centro-Oeste.</p>
+            </div>
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">capitalnews.com.br</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMiygFBVV95cUxPT0Nyd3lySjJ1SVlRZjJzTHJOVFFwSldRTVQ0Tk9obENCYjFNUEFsZTJxNzVMR0pIbzhrbGoxblZjZFVDWGNxdUFHa3lhQzg0LTM3Uk5yLVVlNHBpXzJEdlBIV1dYMWZWYjIwQTlyRkJzQ1hsRy1FbktyVHRNaERZSHlEa0VNRTA2dGF6Sl9LdmVKaWVBMWp5d1hTU0xwUEl0MXUwdVVIeThFdHZzbXR5TlNSejdURXBoYkplTktYSHJid3NHNXpKSjNB?oc=5" target="_blank">Malha Oeste pode voltar ao mercado com concessão de R$ 35,7 bilhões</a>
+              <p class="news-desc">O governo planeja relicitar a Malha Oeste ferroviária com um volume de investimentos projetado em R$ 35,7 bilhões. A medida visa revitalizar o transporte ferroviário de cargas na região Centro-Oeste.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="theme-card theme-seguros">
+        <div class="card-header">
+          <h2 class="card-title">Seguros de Grandes Riscos</h2>
+          <span class="item-count-badge">2 matérias</span>
+        </div>
+        <div class="card-body">
+          
+          <div class="subsection">
+            <div class="subsection-title">Seguro Garantia & Performance Bonds</div>
+            
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">cqcs.com.br</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMiigFBVV95cUxQRWFxY0JvWFZPSGp5eU5VZnJqU1hEaGNYOFo5WEh6M2cxd3pLczRkMFU5eE5xenlmOGxNaXVCcWxjaU10cmRPOE1MOGFZMGFpemRtLXVuc3BXeS1hTXZ0MTJNVGsxMzB3WDFFLS1zb0tWNkdYaV9UQTE1aEhlMEliU3dUVTZxclk3ZEE?oc=5" target="_blank">Fairway Seguros lança sua operação de Seguro Garantia</a>
+              <p class="news-desc">A Fairway Seguros expande sua atuação no mercado corporativo com o lançamento de uma unidade dedicada ao Seguro Garantia. O movimento reflete a crescente demanda por instrumentos de mitigação de risco em contratos de infraestrutura.</p>
+            </div>
+          </div>
+          <div class="subsection">
+            <div class="subsection-title">Regulação SUSEP & Mercado Corporativo</div>
+            
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">Consultor Jurídico</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMihwFBVV95cUxPbUg5bWNzMWN5NFpNV2x0OVd1QlVHMURZZTFBU2lMQVBERVpqYXVtYXlQeDU1RGtVWVVVSWV1dTNiaGVHTjR5MzBleUVKYWs4THNFaHVHczJqX3FBeVpublc3NWVQMFZHYWdDZXVVZWxRS0hJZDU2QW1fVGc3c2hfSFkwWDhENms?oc=5" target="_blank">O PL 3.540/2026 e a concorrência no resseguro</a>
+              <p class="news-desc">O debate sobre o PL 3.540/2026 aborda a abertura e a concorrência no mercado de resseguros brasileiro. A discussão é central para a precificação de riscos de grandes projetos de infraestrutura no país.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="theme-card theme-carbono">
+        <div class="card-header">
+          <h2 class="card-title">Mercado de Carbono & Transição Climática</h2>
+          <span class="item-count-badge">1 matéria</span>
+        </div>
+        <div class="card-body">
+          
+          <div class="subsection">
+            <div class="subsection-title">Segurança Jurídica & Integridade de Créditos</div>
+            
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">Consultor Jurídico</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMiekFVX3lxTFBZZlpfeHZnYUZXNlh6emJaNUR5X2k4dzdrOEpoOGJoZ2t6SFEtWTFCMXNvdnBKaDJDNkdyWUZ2M1FLZzVxN1k3S3ZUbFdhZU42WWZxOUhNbXYyd2kwM3BaMDJFdXFacmhmTThJa29mRk1RMFV4c1Nzb0hn?oc=5" target="_blank">Quem é o dono do crédito de carbono? Titularidade nos contratos de arrendamento e parceria</a>
+              <p class="news-desc">Análise jurídica sobre a titularidade de créditos de carbono em contratos de arrendamento rural. A definição clara da propriedade é essencial para a bancabilidade de projetos de descarbonização.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="theme-card theme-divida">
+        <div class="card-header">
+          <h2 class="card-title">Instrumentos de Dívida & Mercado de Capitais</h2>
+          <span class="item-count-badge">2 matérias</span>
+        </div>
+        <div class="card-body">
+          
+          <div class="subsection">
+            <div class="subsection-title">Regulação CVM & ANBIMA</div>
+            
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">Estadão</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMi6AFBVV95cUxNYWdTOUtkb2kwR012SEtjRl9oWUFJOUg3X3oxcUppVXFJdmhhNTRnMlhvQmxmbEJZcTh6aWV6TGNtazY5MWVlYVVqR1BhYUFnM3JiS1ZOVnB2OTB3a2JsLWVMdUI1MDNpWVpkdDk4bi1Vdm5OeGQ0VFp2bGZXNnNKbUdhenZyVDlBaERpTlJLQ2F4dnNXWDVmd09ZMVBHcFB1X0pQbTVWOVFYTHN1SXJqSkd0NHRlU19qam9jMVpmbjVIcmpXdEx2bzdqQ3hWSlkwMDM3YkRzdldFUlNRWmV3dG1SZWp3VnZh0gHuAUFVX3lxTE04cHdvbVo1NzNfQ3pZdDY4NFAxRjhmaFc4Uk96aFY1TU5fVTJFVXVVWWFST0RvemM0OGpnM2ozdlJhTDFhdHJHVk1OdWU2ZkI1c2NobUJlal9VLXkwRVAwaWJPclFGSGxIUGdUZ3BJRTFjeXk1Q1VvLWl1eERTd0h3UUV3cmpJeVNqQWxuZ1I1SFpmSDd6b2h3emY2NXBOSVE0RW9zMVZXTE5MenB4VnlyS2IwMFVGOTBCRDhrVVFfc1c5VmlQYnRzbnlROXVxeXdVM3BkZHgxQlRHTHZIbllvbFQ0dnVtOElsbktVM1E?oc=5" target="_blank">CMN muda regras de FIDCs após operação revelar uso de fundos pelo crime organizado</a>
+              <p class="news-desc">O Conselho Monetário Nacional (CMN) endureceu as regras para FIDCs visando mitigar riscos de lavagem de dinheiro. A medida impacta a governança e o compliance no mercado de crédito privado.</p>
+            </div>
+          </div>
+          <div class="subsection">
+            <div class="subsection-title">Mercado de Crédito Privado</div>
+            
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">Valor Econômico</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMigwJBVV95cUxPeFBBOXFFclYyc2ZuSF9HbGEyTV9xMjFHY05WV2JVR1I3cXdfcThqUEVOQW5vOUxvb1ZPdzNJaE41WEdtTHJzcXA5UU1LWHlhYzlwMXpsUk51cjVNSUpVSzlwSlJjcUQ1VWxNUzhEV29sN216VG1vWW1QVzNROW5vdEpUQ2pFNHlydmFKem9SSzVuYWFEMmpabjRJSF9uOTRiY2E3aHZ6NWdudHVKSG9VcTYtbE9GdFMxR2tINzMzcWdfd1RXbzl4MzJkRndGa0IzNmRrUmhSU0QwUVhVb3pxcmlrdnpqYy1BQ1FqSU9yUzFhd3ZmUGVLUnJFOHc3VWgySlVZ0gGDAkFVX3lxTE94UEE5cUVyVjJzZm5IX0dsYTJNX3EyMUdjTlZXYlVHUjdxd19xOGpQRU5Bbm85TG9vVk93M0loTjVYR21McnNxcDlRTUtYeWFjOXAxemxSTnVyNU1JSlVLOXBKUmNxRDVVbE1TOERXb2w3bXpUbW9ZbVBXM1E5bm90SlRDakU0eXJ2YUp6b1JLNW5hYUQyalpuNElIX245NGJjYTdodno1Z250dUpIb1VxNi1sT0Z0UzFHa0g3MzNxZ193VFdvOXgzMmRGd0ZrQjM2ZGtSaFJTRDBRWFVvenFyaWt2empjLUFDUWpJT3JTMWF3dmZQZUtSckU4dzdVaDJKVVk?oc=5" target="_blank">A rota da safra: como o mercado de capitais financia o agronegócio muito além da porteira</a>
+              <p class="news-desc">O mercado de capitais tem se consolidado como a principal fonte de financiamento para a cadeia produtiva do agronegócio. O uso de instrumentos como CRAs e FIDCs permite maior capilaridade e eficiência financeira no setor.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      Clipping gerado automaticamente • Atualizado diariamente às 07:30
+    </footer>
+  </div>
+</body>
+</html>
