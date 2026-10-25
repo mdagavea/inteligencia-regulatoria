@@ -1,0 +1,48 @@
+name: Disparo de Email do Clipping
+on:
+  push:
+    paths:
+      - "email_dispatch.json"
+  workflow_dispatch:
+
+jobs:
+  send_email:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enviar e-mail via Gmail SMTP
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: |
+          python3 - << 'EOF'
+          import os, json, smtplib
+          from email.mime.multipart import MIMEMultipart
+          from email.mime.text import MIMEText
+
+          if not os.path.exists('email_dispatch.json'):
+              print('Arquivo email_dispatch.json nao encontrado.')
+              exit(0)
+
+          with open('email_dispatch.json', 'r', encoding='utf-8') as f:
+              data = json.load(f)
+
+          dests = [d.strip() for d in data.get('destinatarios', []) if d.strip()]
+          if not dests:
+              print('Nenhum destinatario.')
+              exit(0)
+
+          user = os.environ['GMAIL_USER']
+          pwd = os.environ['GMAIL_APP_PASSWORD']
+
+          msg = MIMEMultipart('alternative')
+          msg['Subject'] = data.get('assunto', 'Clipping Diario Executivo - DECON/MPOR')
+          msg['From'] = f'Clipping Executivo DECON/MPOR <{user}>'
+          msg['To'] = ', '.join(dests)
+          msg.attach(MIMEText(data.get('corpo_html', ''), 'html', 'utf-8'))
+
+          with smtplib.SMTP_SSL('smtp.gmail.com', 465) as s:
+              s.login(user, pwd)
+              s.sendmail(user, dests, msg.as_string())
+          print('E-mail enviado com sucesso para:', dests)
+          EOF
