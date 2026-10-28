@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Radar Brasil Participativo — Gestão & Dossiês Normativos (28 de Outubro de 2026 às 07:30)</title>
+  <title>Radar de Inteligência Regulatória, Estruturação & Leilões — DECON/MPor (28 de Outubro de 2026 às 10:27)</title>
   <style>
     :root {
       --bg: #f1f5f9;
@@ -54,7 +54,7 @@
       color: #ffffff;
       padding: 22px 28px;
       border-radius: 14px;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -65,7 +65,7 @@
 
     .header-title-area h1 {
       margin: 0;
-      font-size: 1.45rem;
+      font-size: 1.42rem;
       font-weight: 700;
       letter-spacing: -0.02em;
       display: flex;
@@ -76,17 +76,18 @@
     .header-title-area p {
       margin: 5px 0 0 0;
       color: #cbd5e1;
-      font-size: 0.88rem;
+      font-size: 0.87rem;
     }
 
     .header-meta {
       display: flex;
       align-items: center;
       gap: 10px;
+      flex-wrap: wrap;
     }
 
     .date-badge {
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       font-weight: 600;
       color: #e2e8f0;
       background: rgba(255, 255, 255, 0.12);
@@ -108,6 +109,119 @@
 
     .portal-link-btn:hover {
       opacity: 0.9;
+    }
+
+    /* Abas Executivas Principais (3 Pilares do Ciclo de Outorga) */
+    .tabs-nav {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+      background: #e2e8f0;
+      padding: 6px;
+      border-radius: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .tabs-nav { grid-template-columns: 1fr; }
+    }
+
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.65);
+      border: 1px solid transparent;
+      border-radius: 10px;
+      padding: 12px 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      text-align: left;
+      transition: all 0.16s ease;
+      color: #334155;
+    }
+
+    .tab-btn:hover {
+      background: #ffffff;
+      color: #0f172a;
+    }
+
+    .tab-btn.active {
+      background: #0f172a;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
+    }
+
+    .tab-btn-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .tab-btn-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .tab-btn-sub {
+      font-size: 0.75rem;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .tab-btn.active .tab-btn-sub {
+      color: #cbd5e1;
+    }
+
+    .tab-count-pill {
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 4px 11px;
+      border-radius: 20px;
+      background: #cbd5e1;
+      color: #0f172a;
+      white-space: nowrap;
+    }
+
+    .tab-btn.active .tab-count-pill {
+      background: #38bdf8;
+      color: #0f172a;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    /* Banner Contextual Portaria de Riscos e Segurabilidade */
+    .context-banner {
+      background: linear-gradient(90deg, #eff6ff 0%, #f5f3ff 100%);
+      border: 1px solid #bfdbfe;
+      border-left: 5px solid #2563eb;
+      border-radius: 12px;
+      padding: 13px 18px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .context-banner-text {
+      font-size: 0.85rem;
+      color: #1e293b;
+      line-height: 1.45;
+    }
+
+    .context-banner-text strong {
+      color: #1e3a8a;
     }
 
     /* KPI Strip */
@@ -142,7 +256,7 @@
 
     .kpi-info span {
       display: block;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.04em;
@@ -157,7 +271,7 @@
     }
 
     .kpi-icon {
-      font-size: 1.6rem;
+      font-size: 1.55rem;
       width: 44px;
       height: 44px;
       border-radius: 10px;
@@ -231,7 +345,7 @@
       box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15);
     }
 
-    /* Lista de Cards de Dossiê */
+    /* Lista de Cards */
     .dossier-list {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -242,7 +356,7 @@
       .dossier-list { grid-template-columns: 1fr; }
     }
 
-    .dossier-card {
+    .dossier-card, .est-card, .leilao-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 12px;
@@ -255,7 +369,7 @@
       position: relative;
     }
 
-    .dossier-card:hover {
+    .dossier-card:hover, .est-card:hover, .leilao-card:hover {
       box-shadow: 0 6px 16px rgba(0,0,0,0.07);
     }
 
@@ -263,6 +377,17 @@
     .dossier-card.vertical-seguros { border-left: 5px solid var(--color-seguros); }
     .dossier-card.vertical-carbono { border-left: 5px solid var(--color-carbono); }
     .dossier-card.vertical-divida { border-left: 5px solid var(--color-divida); }
+
+    .est-card.cat-EVTEA_ESTRUTURACAO { border-left: 5px solid #0284c7; }
+    .est-card.cat-GRANDE_VULTO_ART102 { border-left: 5px solid #7c3aed; }
+    .est-card.cat-OBRA_SEGURO_RETOMADA { border-left: 5px solid #d97706; }
+    .est-card.cat-SEGURO_GARANTIA { border-left: 5px solid #9333ea; }
+    .est-card.cat-CARTEIRA_ESTRUTURADOR { border-left: 5px solid #059669; }
+
+    .leilao-card.setor-portos_hidrovias { border-left: 5px solid #0284c7; }
+    .leilao-card.setor-aeroportos { border-left: 5px solid #6366f1; }
+    .leilao-card.setor-rodovias_ferrovias { border-left: 5px solid #d97706; }
+    .leilao-card.setor-nacional_energia_clima { border-left: 5px solid #059669; }
 
     .card-top-meta {
       display: flex;
@@ -291,6 +416,7 @@
     .badge-seguros { background: var(--bg-seguros); color: var(--color-seguros); }
     .badge-carbono { background: var(--bg-carbono); color: var(--color-carbono); }
     .badge-divida { background: var(--bg-divida); color: var(--color-divida); }
+    .badge-risco { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
 
     .badge-orgao {
       background: #f1f5f9;
@@ -317,6 +443,12 @@
     .status-ABERTO { background: var(--open-bg); color: var(--open-color); border: 1px solid #6ee7b7; }
     .status-PRE_PUBLICACAO { background: var(--pre-bg); color: var(--pre-color); border: 1px solid #fcd34d; }
     .status-ENCERRADO_RECENTE { background: #e2e8f0; color: #334155; border: 1px solid #94a3b8; font-weight: 700; }
+
+    .fase-EDITAL_PUBLICADO { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+    .fase-AVALIACAO_TCU_AJUSTES { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+    .fase-ESTRUTURACAO_AUDIENCIA { background: #e0f2fe; color: #075985; border: 1px solid #7dd3fc; }
+    .fase-SUSPENSO { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+    .fase-REALIZADO_RECENTE { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
 
     .dossier-card[data-status="ENCERRADO_RECENTE"] {
       background: #f1f5f9;
@@ -352,7 +484,7 @@
     }
 
     .process-title {
-      font-size: 1.04rem;
+      font-size: 1.03rem;
       font-weight: 700;
       color: #0f172a;
       text-decoration: none;
@@ -379,6 +511,14 @@
 
     .dates-row strong {
       color: var(--text-secondary);
+    }
+
+    .val-highlight {
+      color: #0f172a !important;
+      background: #e0f2fe;
+      padding: 1px 7px;
+      border-radius: 4px;
+      font-weight: 700;
     }
 
     .dossier-box {
@@ -414,6 +554,13 @@
       border-radius: 0 6px 6px 0;
     }
 
+    .incidencia-box-seguros {
+      background: #faf5ff;
+      border-left: 3px solid #7c3aed;
+      padding: 8px 12px;
+      border-radius: 0 6px 6px 0;
+    }
+
     .docs-area {
       margin-top: auto;
       padding-top: 10px;
@@ -425,7 +572,7 @@
     }
 
     .doc-btn {
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       font-weight: 600;
       text-decoration: none;
       padding: 5px 10px;
@@ -463,6 +610,13 @@
       border: 1px solid #fed7aa;
     }
 
+    .doc-btn-matriz {
+      background: #fef2f2;
+      color: #b91c1c;
+      border: 1px solid #fca5a5;
+      font-weight: 700;
+    }
+
     .doc-btn-secondary {
       background: #f1f5f9;
       color: #334155;
@@ -496,75 +650,103 @@
   <div class="container">
     <header>
       <div class="header-title-area">
-        <h1>🏛️ Radar Brasil Participativo — Gestão & Dossiês Normativos</h1>
-        <p>Monitoramento de Consultas Públicas, Audiências, Tomadas de Subsídios, Planos Setoriais e Minutas em Pré-Publicação</p>
+        <h1>🏛️ Radar de Inteligência Regulatória, Estruturação & Leilões — DECON/MPor</h1>
+        <p>Monitoramento integrado do Ciclo de Outorgas: Participação Social (Brasil Participativo), Estruturação/EVTEAs (Infra S.A., BNDES, PNCP) e Leilões (ANTAQ, ANAC, ANTT, B3)</p>
       </div>
       <div class="header-meta">
-        <span class="date-badge">Atualizado em 28 de Outubro de 2026 às 07:30</span>
-        <a class="portal-link-btn" style="background:#f8fafc; color:#0f172a;" href="https://mdagavea.github.io/inteligencia-regulatoria/clipping.html">📰 Clipping de Notícias</a>
-        <a class="portal-link-btn" href="https://brasilparticipativo.presidencia.gov.br/processes" target="_blank">Portal Brasil Participativo ↗</a>
+        <span class="date-badge">Atualizado em 28 de Outubro de 2026 às 10:27</span>
+        <a class="portal-link-btn" style="background:#f8fafc; color:#0f172a;" href="https://mdagavea.github.io/inteligencia-regulatoria/clipping.html">📰 Clipping Diário</a>
+        <a class="portal-link-btn" href="https://brasilparticipativo.presidencia.gov.br/processes" target="_blank">Brasil Participativo ↗</a>
       </div>
     </header>
 
-    <!-- KPIs -->
-    <div class="kpi-grid">
-      <div class="kpi-card" onclick="filtrarStatus('TODOS')">
-        <div class="kpi-info">
-          <span>Total no Radar</span>
-          <strong>32</strong>
+    <!-- Navegação Principal em 3 Abas Executivas -->
+    <nav class="tabs-nav" aria-label="Seções do Radar">
+      <button class="tab-btn active" id="btn-tab-participativo" onclick="selecionarAba('participativo')">
+        <div class="tab-btn-left">
+          <span class="tab-btn-title">🏛️ 1. Consultas & Participação Social</span>
+          <span class="tab-btn-sub">Brasil Participativo • Consultas, Audiências e Pré-Publicação</span>
         </div>
-        <div class="kpi-icon" style="background: #f1f5f9; color: #0f172a;">📋</div>
-      </div>
-      <div class="kpi-card" onclick="filtrarStatus('LANCADO_48H')">
-        <div class="kpi-info">
-          <span>Lançados (Últimas 48h)</span>
-          <strong style="color: var(--new-color);">1</strong>
+        <span class="tab-count-pill">32 ativos</span>
+      </button>
+
+      <button class="tab-btn" id="btn-tab-estruturacao" onclick="selecionarAba('estruturacao')">
+        <div class="tab-btn-left">
+          <span class="tab-btn-title">📐 2. Estruturação, EVTEAs & Contratações</span>
+          <span class="tab-btn-sub">Infra S.A., BNDES, LabTrans & PNCP (Riscos, Segurabilidade e Art. 102)</span>
         </div>
-        <div class="kpi-icon" style="background: var(--new-bg); color: var(--new-color);">🆕</div>
-      </div>
-      <div class="kpi-card" onclick="filtrarStatus('PRAZO_URGENTE')">
-        <div class="kpi-info">
-          <span>Prazo Crítico (≤ 7 dias)</span>
-          <strong style="color: var(--urgent-color);">6</strong>
+        <span class="tab-count-pill">14 monitorados</span>
+      </button>
+
+      <button class="tab-btn" id="btn-tab-leiloes" onclick="selecionarAba('leiloes')">
+        <div class="tab-btn-left">
+          <span class="tab-btn-title">🔔 3. Radar de Leilões & Outorgas</span>
+          <span class="tab-btn-sub">Portos/Hidrovias (ANTAQ), Aeroportos (ANAC), Rodovias (ANTT) & B3</span>
         </div>
-        <div class="kpi-icon" style="background: var(--urgent-bg); color: var(--urgent-color);">🚨</div>
-      </div>
-      <div class="kpi-card" onclick="filtrarStatus('PRE_PUBLICACAO')">
-        <div class="kpi-info">
-          <span>Radar Pré-Publicação</span>
-          <strong style="color: var(--pre-color);">8</strong>
+        <span class="tab-count-pill">12 na carteira</span>
+      </button>
+    </nav>
+
+    <!-- =================================================================== -->
+    <!-- ABA 1: PROCESSOS PARTICIPATIVOS & NORMATIVOS (BRASIL PARTICIPATIVO) -->
+    <!-- =================================================================== -->
+    <section class="tab-panel active" id="panel-participativo">
+      <div class="kpi-grid">
+        <div class="kpi-card" onclick="filtrarStatus('TODOS')">
+          <div class="kpi-info">
+            <span>Total no Radar</span>
+            <strong>32</strong>
+          </div>
+          <div class="kpi-icon" style="background: #f1f5f9; color: #0f172a;">📋</div>
         </div>
-        <div class="kpi-icon" style="background: var(--pre-bg); color: var(--pre-color);">📡</div>
-      </div>
-    </div>
-
-    <!-- Barra de Filtros -->
-    <div class="filter-bar">
-      <div class="filter-group" id="status-filters">
-        <span class="filter-label">Status:</span>
-        <button class="filter-btn active" data-status="TODOS" onclick="filtrarStatus('TODOS')">Todos (<span id="cnt-todos">32</span>)</button>
-        <button class="filter-btn" data-status="LANCADO_48H" onclick="filtrarStatus('LANCADO_48H')">🆕 Lançados 48h (<span id="cnt-48h">1</span>)</button>
-        <button class="filter-btn" data-status="PRAZO_URGENTE" onclick="filtrarStatus('PRAZO_URGENTE')">🚨 Prazo ≤ 7d (<span id="cnt-urg">6</span>)</button>
-        <button class="filter-btn" data-status="ABERTO" onclick="filtrarStatus('ABERTO')">🟢 Prazo Regular (<span id="cnt-abe">15</span>)</button>
-        <button class="filter-btn" data-status="PRE_PUBLICACAO" onclick="filtrarStatus('PRE_PUBLICACAO')">📡 Pré-Publicação (<span id="cnt-pre">8</span>)</button>
-        <button class="filter-btn" data-status="ENCERRADO_RECENTE" onclick="filtrarStatus('ENCERRADO_RECENTE')">⏹️ Prazo Vencido 72h (<span id="cnt-enc">2</span>)</button>
-      </div>
-
-      <div class="filter-group" id="vertical-filters">
-        <span class="filter-label">Vertical:</span>
-        <button class="filter-btn active" data-vertical="TODAS" onclick="filtrarVertical('TODAS')">Todas</button>
-        <button class="filter-btn" data-vertical="infra" onclick="filtrarVertical('infra')">Infraestrutura & Outorgas</button>
-        <button class="filter-btn" data-vertical="seguros" onclick="filtrarVertical('seguros')">Seguros & Garantias</button>
-        <button class="filter-btn" data-vertical="carbono" onclick="filtrarVertical('carbono')">Clima & Sustentabilidade</button>
-        <button class="filter-btn" data-vertical="divida" onclick="filtrarVertical('divida')">Finanças & Crédito</button>
+        <div class="kpi-card" onclick="filtrarStatus('LANCADO_48H')">
+          <div class="kpi-info">
+            <span>Lançados (Últimas 48h)</span>
+            <strong style="color: var(--new-color);">1</strong>
+          </div>
+          <div class="kpi-icon" style="background: var(--new-bg); color: var(--new-color);">🆕</div>
+        </div>
+        <div class="kpi-card" onclick="filtrarStatus('PRAZO_URGENTE')">
+          <div class="kpi-info">
+            <span>Prazo Crítico (≤ 7 dias)</span>
+            <strong style="color: var(--urgent-color);">6</strong>
+          </div>
+          <div class="kpi-icon" style="background: var(--urgent-bg); color: var(--urgent-color);">🚨</div>
+        </div>
+        <div class="kpi-card" onclick="filtrarStatus('PRE_PUBLICACAO')">
+          <div class="kpi-info">
+            <span>Radar Pré-Publicação</span>
+            <strong style="color: var(--pre-color);">8</strong>
+          </div>
+          <div class="kpi-icon" style="background: var(--pre-bg); color: var(--pre-color);">📡</div>
+        </div>
       </div>
 
-      <input type="text" id="search-box" class="search-input" placeholder="🔍 Filtrar por órgão, sigla, tema..." oninput="aplicarFiltros()">
-    </div>
+      <div class="filter-bar">
+        <div class="filter-group" id="status-filters">
+          <span class="filter-label">Status:</span>
+          <button class="filter-btn active" data-status="TODOS" onclick="filtrarStatus('TODOS')">Todos (<span id="cnt-todos">32</span>)</button>
+          <button class="filter-btn" data-status="LANCADO_48H" onclick="filtrarStatus('LANCADO_48H')">🆕 Lançados 48h (<span id="cnt-48h">1</span>)</button>
+          <button class="filter-btn" data-status="PRAZO_URGENTE" onclick="filtrarStatus('PRAZO_URGENTE')">🚨 Prazo ≤ 7d (<span id="cnt-urg">6</span>)</button>
+          <button class="filter-btn" data-status="ABERTO" onclick="filtrarStatus('ABERTO')">🟢 Prazo Regular (<span id="cnt-abe">15</span>)</button>
+          <button class="filter-btn" data-status="PRE_PUBLICACAO" onclick="filtrarStatus('PRE_PUBLICACAO')">📡 Pré-Publicação (<span id="cnt-pre">8</span>)</button>
+          <button class="filter-btn" data-status="ENCERRADO_RECENTE" onclick="filtrarStatus('ENCERRADO_RECENTE')">⏹️ Prazo Vencido 72h (<span id="cnt-enc">2</span>)</button>
+        </div>
 
-    <!-- Cards de Dossiês -->
-    <div class="dossier-list" id="dossier-container">
-      
+        <div class="filter-group" id="vertical-filters">
+          <span class="filter-label">Vertical:</span>
+          <button class="filter-btn active" data-vertical="TODAS" onclick="filtrarVertical('TODAS')">Todas</button>
+          <button class="filter-btn" data-vertical="infra" onclick="filtrarVertical('infra')">Infraestrutura & Outorgas</button>
+          <button class="filter-btn" data-vertical="seguros" onclick="filtrarVertical('seguros')">Seguros & Garantias</button>
+          <button class="filter-btn" data-vertical="carbono" onclick="filtrarVertical('carbono')">Clima & Sustentabilidade</button>
+          <button class="filter-btn" data-vertical="divida" onclick="filtrarVertical('divida')">Finanças & Crédito</button>
+        </div>
+
+        <input type="text" id="search-box" class="search-input" placeholder="🔍 Filtrar por órgão, sigla, tema..." oninput="aplicarFiltros()">
+      </div>
+
+      <div class="dossier-list" id="dossier-container">
+        
       <article class="dossier-card vertical-infra" data-status="LANCADO_48H" data-vertical="infra" data-deadline-iso="2026-11-25" data-fim-br="25/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
@@ -1439,6 +1621,40 @@
         </div>
       </article>
 
+      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra" data-deadline-iso="2026-12-21" data-fim-br="21/12/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ Inmetro</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-PRE_PUBLICACAO">📡 Pré-Publicação (Rascunho na API)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/save-ca" target="_blank" rel="noopener noreferrer">Sistemas de Abastecimento de Veículos Elétricos em Corrente Alternada (SAVE-CA).</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #796</span>
+          <span><strong>Cadastro no Portal:</strong> 27/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 22/10/2026 até 21/12/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Revisão da Portaria Inmetro nº 19/2026, que estabelece a regulamentação técnica metrológica para Sistemas de Abastecimento de Veículos Elétricos em Corrente Alternada (SAVE-CA).</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">A padronização técnica de infraestrutura de recarga é crítica para a viabilidade da mobilidade elétrica e para o planejamento de concessões rodoviárias que preveem a instalação de eletropostos.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/save-ca" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+        </div>
+      </article>
+
       <article class="dossier-card vertical-divida" data-status="PRE_PUBLICACAO" data-vertical="divida" data-deadline-iso="2026-12-25" data-fim-br="25/12/2026">
         <div class="card-top-meta">
           <div class="badges-left">
@@ -1540,22 +1756,22 @@
         <div class="dossier-box">
           <div class="dossier-section">
             <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
-            <p class="dossier-text">Consulta Pública nº 4/2026 sobre a revisão da Resolução ANM nº 68/2020, dispondo sobre o planejamento, apresentação, atualização, execução e aprovação do Plano de Fechamento e Reabilitação de Minas.</p>
+            <p class="dossier-text">Revisão da Resolução ANM nº 68/2020, que dispõe sobre o planejamento, execução e monitoramento do Plano de Fechamento de Mina.</p>
           </div>
           <div class="incidencia-box">
             <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
-            <p class="dossier-text">Possui forte impacto ambiental, em passivos socioambientais, exigências de garantias financeiras de descomissionamento e conformidade regulatória na mineração.</p>
+            <p class="dossier-text">O fechamento de mina envolve passivos ambientais e garantias financeiras de longo prazo, impactando diretamente a gestão de riscos de engenharia e a sustentabilidade das operações de infraestrutura minerária.</p>
           </div>
         </div>
 
         <div class="docs-area">
           <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/fechamentodemina" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="http://www.in.gov.br/web/dou/-/aviso-de-retificacao-740756169" target="_blank" rel="noopener noreferrer">📜 Ato Oficial no DOU</a>
           <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNDNoQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b75816de2a89617ce45060e1c2f8f7564ab9c954/Moderniza%C3%A7%C3%A3o%20da%20Resolu%C3%A7%C3%A3o%20ANM%20n%C2%BA%2068%20(Fechamento%20e%20Reabilita%C3%A7%C3%A3o%20de%20Minas).pdf" target="_blank" rel="noopener noreferrer">📎 Modernização da Resolução ANM nº 68 (Fechamento e Reabilitação de Minas)...</a>
           <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNWJoQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--ab107ee94cd03a2756b4bca030e427155172a9fa/Chamada%20a%20A%C3%A7%C3%A3o%20640x320%20(2).jpg" target="_blank" rel="noopener noreferrer">📎 Chamada a Ação 640x320 (2).jpg</a>
           <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNWZoQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--1f2cccce8e4cb9a7e365c8fa28fb5df57ab72940/Chamada%20a%20A%C3%A7%C3%A3o%20640x320%20(3).jpg" target="_blank" rel="noopener noreferrer">📎 Chamada a Ação 640x320 (3).jpg</a>
           <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNWpoQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--3d3b8476b0eb9266aa7bd42af45dcad55b3a3d74/Chamada%20a%20A%C3%A7%C3%A3o%20640x320.jpg" target="_blank" rel="noopener noreferrer">📎 Chamada a Ação 640x320.jpg</a>
           <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNW5oQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--3ab0422e6ae20db030dca3efac3ac10a1d6247e9/Mobile%20359x220.jpg" target="_blank" rel="noopener noreferrer">📎 Mobile 359x220.jpg</a>
-          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNXJoQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--8afe37949b17d955bdd61d4f7bc791f92773a7e3/Banner%20Topo%20Desktop%201480x220.jpg" target="_blank" rel="noopener noreferrer">📎 Banner Topo Desktop 1480x220.jpg</a>
         </div>
       </article>
 
@@ -1590,41 +1806,6 @@
 
         <div class="docs-area">
           <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/consulta-147-compl" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
-        </div>
-      </article>
-
-      <article class="dossier-card vertical-carbono" data-status="PRE_PUBLICACAO" data-vertical="carbono" data-deadline-iso="2026-12-21" data-fim-br="21/12/2026">
-        <div class="card-top-meta">
-          <div class="badges-left">
-            <span class="badge badge-carbono">Clima & Sustentabilidade</span>
-            <span class="badge badge-orgao">🏛️ Inmetro</span>
-            <span class="badge badge-modalidade">Consulta Pública</span>
-          </div>
-          <span class="deadline-pill status-PRE_PUBLICACAO">📡 Pré-Publicação (Rascunho na API)</span>
-        </div>
-
-        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/save-ca" target="_blank" rel="noopener noreferrer">Sistemas de Abastecimento de Veículos Elétricos em Corrente Alternada (SAVE-CA).</a>
-
-        <div class="dates-row">
-          <span><strong>ID:</strong> #796</span>
-          <span><strong>Cadastro no Portal:</strong> 27/10/2026</span>
-          <span><strong>Janela de Contribuição:</strong> 22/10/2026 até 21/12/2026</span>
-        </div>
-
-        <div class="dossier-box">
-          <div class="dossier-section">
-            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
-            <p class="dossier-text">Revisão da regulamentação técnica metrológica para Sistemas de Abastecimento de Veículos Elétricos em Corrente Alternada (SAVE-CA). Define padrões de medição e segurança para infraestrutura de recarga.</p>
-          </div>
-          <div class="incidencia-box">
-            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
-            <p class="dossier-text">Fundamental para a padronização da infraestrutura de mobilidade elétrica, impactando o desenvolvimento de redes de recarga em rodovias e terminais logísticos.</p>
-          </div>
-        </div>
-
-        <div class="docs-area">
-          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/save-ca" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
-          <a class="doc-btn doc-btn-dou" href="https://www.jusbrasil.com.br/diarios/documentos/7714300091/publicacao-do-processo-n-52600010911-2025-46-disponibilizado-em-22-10-2026-dou" target="_blank" rel="noopener noreferrer">📜 Ato Oficial no DOU</a>
         </div>
       </article>
 
@@ -1743,17 +1924,1074 @@
           <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOVRIQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--f3c43b152429bba99381e8546f32e07d2bbb1f49/Min_Interm_ITA_-_Port_167_Aqs_Testes_e_Ensaios_PCE_v18.pdf" target="_blank" rel="noopener noreferrer">📎 Min_Interm_ITA_-_Port_167_Aqs_Testes_e_Ensaios_PCE_v18.pdf</a>
         </div>
       </article>
-    </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- ABA 2: ESTRUTURAÇÃO, EVTEAS & CONTRATAÇÕES ESTRATÉGICAS             -->
+    <!-- =================================================================== -->
+    <section class="tab-panel" id="panel-estruturacao">
+      <div class="context-banner">
+        <div class="context-banner-text">
+          <strong>🛡️ Foco Estratégico DECON/MPor (Atuação Ex-Ante):</strong> Monitoramento de editais de <strong>EVTEAs e Modelagem</strong> (Infra S.A., BNDES, LabTrans, DNIT) e <strong>Contratações de Grande Vulto / Seguro-Garantia com Cláusula de Retomada (Art. 102 da Lei 14.133/2021)</strong> no PNCP — subsidiando a Portaria de Diretrizes de Análise e Alocação de Riscos e Estudos de Segurabilidade nas Outorgas.
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card" onclick="filtrarCategoriaEst('TODAS')">
+          <div class="kpi-info">
+            <span>Total Monitorado</span>
+            <strong>14</strong>
+          </div>
+          <div class="kpi-icon" style="background: #f1f5f9; color: #0f172a;">📐</div>
+        </div>
+        <div class="kpi-card" onclick="filtrarCategoriaEst('EVTEA_ESTRUTURACAO')">
+          <div class="kpi-info">
+            <span>Editais de EVTEA & Estudos</span>
+            <strong style="color: #0284c7;">3</strong>
+          </div>
+          <div class="kpi-icon" style="background: #e0f2fe; color: #0284c7;">📊</div>
+        </div>
+        <div class="kpi-card" onclick="filtrarCategoriaEst('OBRAS_SEGUROS')">
+          <div class="kpi-info">
+            <span>Obras & Seguros (Lei 14.133)</span>
+            <strong style="color: #7c3aed;">6</strong>
+          </div>
+          <div class="kpi-icon" style="background: #f3e8ff; color: #7c3aed;">🛡️</div>
+        </div>
+        <div class="kpi-card" onclick="filtrarCategoriaEst('CARTEIRA_ESTRUTURADOR')">
+          <div class="kpi-info">
+            <span>Carteira BNDES & LabTrans</span>
+            <strong style="color: #059669;">5</strong>
+          </div>
+          <div class="kpi-icon" style="background: #d1fae5; color: #059669;">🏦</div>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <div class="filter-group" id="est-cat-filters">
+          <span class="filter-label">Recorte:</span>
+          <button class="filter-btn active" data-est-cat="TODAS" onclick="filtrarCategoriaEst('TODAS')">Todos (14)</button>
+          <button class="filter-btn" data-est-cat="EVTEA_ESTRUTURACAO" onclick="filtrarCategoriaEst('EVTEA_ESTRUTURACAO')">📐 Editais de EVTEA & Engenharia (3)</button>
+          <button class="filter-btn" data-est-cat="OBRAS_SEGUROS" onclick="filtrarCategoriaEst('OBRAS_SEGUROS')">🛡️ Obras Grande Vulto & Seguro-Garantia / Retomada (6)</button>
+          <button class="filter-btn" data-est-cat="CARTEIRA_ESTRUTURADOR" onclick="filtrarCategoriaEst('CARTEIRA_ESTRUTURADOR')">🏦 Carteira BNDES & LabTrans (5)</button>
+        </div>
+
+        <input type="text" id="search-box-est" class="search-input" placeholder="🔍 Filtrar por BR-285, Infra S.A., DNIT, BNDES, seguro..." oninput="aplicarFiltrosEst()">
+      </div>
+
+      <div class="dossier-list" id="est-container">
+        
+      <article class="est-card cat-EVTEA_ESTRUTURACAO" data-est-cat="EVTEA_ESTRUTURACAO" data-deadline-iso="2027-01-06" data-fim-br="06/01/2027">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">📐 EVTEA & Estruturação de Concessão</span>
+            <span class="badge badge-orgao">🏛️ Infra S.A. (MT / MPor)</span>
+            <span class="badge badge-risco">🛡️ Matriz de Riscos / Segurabilidade</span>
+          </div>
+          <span class="deadline-pill est-deadline-pill status-ABERTO">⏳ Propostas: 70d restantes (até 06/01/2027)</span>
+        </div>
+
+        <a class="process-title" href="https://www.infrasa.gov.br/licitacoes/rle-edital-no-016-2026/" target="_blank" rel="noopener noreferrer">RLE nº 016/2026 (Infra S.A.) — Contratação de EVTEA para Concessão de 2.179,5 km de Rodovias Federais</a>
+
+        <div class="dates-row">
+          <span><strong>Valor Estimado / Teto:</strong> <span class="val-highlight">R$ 28,88 mi</span></span>
+          <span><strong>Modalidade:</strong> RLE (Lei das Estatais 13.303)</span>
+          <span><strong>Publicação:</strong> 27/10/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Escopo do Estudo (EVTEA) / Contratação</div>
+            <p class="dossier-text">Contratação de estudos de viabilidade técnica, econômica e ambiental para a estruturação de desestatizações rodoviárias. O projeto abrange uma extensão total de 2.179,5 km de rodovias federais.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Alocação de Riscos, Segurabilidade & Garantias (Ótica DECON/MPor)</div>
+            <p class="dossier-text">O foco deve ser a robustez da Matriz de Riscos e a inclusão de cláusulas de segurabilidade desde a fase de EVTEA, garantindo a mitigação de riscos de demanda e engenharia antes do leilão.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://pncp.gov.br/app/editais/42150664000187/2026/66" target="_blank" rel="noopener noreferrer">🏛️ Abrir Edital e Anexos no PNCP</a>
+          <a class="doc-btn doc-btn-secondary" href="https://www.infrasa.gov.br/wp-content/uploads/2026/10/001-Edital-correto.pdf" target="_blank" rel="noopener noreferrer">📄 Edital nº 016/2026</a>
+          <a class="doc-btn doc-btn-matriz" href="https://www.infrasa.gov.br/wp-content/uploads/2026/10/008_AnexoVI_MatrizdeRisco.pdf" target="_blank" rel="noopener noreferrer">🛡️ Anexo VI - Matriz de Risco</a>
+          <a class="doc-btn doc-btn-pdf" href="https://www.infrasa.gov.br/wp-content/uploads/2026/10/SEI_11953946_Termo_de_Referencia_Obras_e_Serv._Eng.___INFRASA_2.pdf" target="_blank" rel="noopener noreferrer">📑 Anexo I - Termo de Referência</a>
+          <a class="doc-btn doc-btn-pdf" href="https://www.infrasa.gov.br/wp-content/uploads/2026/10/003_AnexoI-TR_ETP.pdf" target="_blank" rel="noopener noreferrer">📐 Anexo I do TR - Estudo Técnico Preliminar</a>
+          <a class="doc-btn doc-btn-pdf" href="https://www.infrasa.gov.br/wp-content/uploads/2026/10/013_ANEXO_XII_B_LOTE_02_MALHA_BR_116_285_RS.xlsx" target="_blank" rel="noopener noreferrer">💰 Anexo XII B - Lote 02 - MALHA BR 116-285-RS</a>
+          <a class="doc-btn doc-btn-pdf" href="https://www.infrasa.gov.br/wp-content/uploads/2026/10/013_ANEXO_XII_A_LOTE_01_MALHA_BR_158_070_364_MT.xlsx" target="_blank" rel="noopener noreferrer">💰 Anexo XII A - Lote 01 - MALHA BR 158-070-364-MT</a>
+        </div>
+      </article>
+
+      <article class="est-card cat-EVTEA_ESTRUTURACAO" data-est-cat="EVTEA_ESTRUTURACAO" data-deadline-iso="2027-01-07" data-fim-br="07/01/2027">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">📐 EVTEA & Estruturação de Concessão</span>
+            <span class="badge badge-orgao">🏛️ Infra S.A. (MT / MPor)</span>
+            
+          </div>
+          <span class="deadline-pill est-deadline-pill status-ABERTO">⏳ Propostas: 71d restantes (até 07/01/2027)</span>
+        </div>
+
+        <a class="process-title" href="https://www.infrasa.gov.br/licitacoes/rle-edital-no-017-2026/" target="_blank" rel="noopener noreferrer">RLE nº 017/2026 (Infra S.A.) — Supervisão e Fiscalização das Obras da FIOL II (Lotes 06FA e 06FC)</a>
+
+        <div class="dates-row">
+          <span><strong>Valor Estimado / Teto:</strong> <span class="val-highlight">R$ 27,16 mi</span></span>
+          <span><strong>Modalidade:</strong> RLE (Lei das Estatais 13.303)</span>
+          <span><strong>Publicação:</strong> 28/10/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Escopo do Estudo (EVTEA) / Contratação</div>
+            <p class="dossier-text">Serviços de engenharia consultiva para supervisão e apoio à fiscalização das obras de implantação da Ferrovia de Integração Oeste-Leste II (EF-334). O trecho compreende 140,552 km entre Caetité/BA e Barreiras/BA.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Alocação de Riscos, Segurabilidade & Garantias (Ótica DECON/MPor)</div>
+            <p class="dossier-text">A supervisão é crítica para o monitoramento de riscos contratuais; recomenda-se alinhar a fiscalização com os gatilhos de acionamento do Seguro-Garantia com Cláusula de Retomada.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://pncp.gov.br/app/editais/42150664000187/2026/69" target="_blank" rel="noopener noreferrer">🏛️ Abrir Edital e Anexos no PNCP</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.transportes.gov.br/sei/controlador.php?acao=procedimento_trabalhar&acao_origem=procedimento_controlar&acao_retorno=procedimento_controlar&id_procedimento=12000723&infra_sistema=100000100&infra_unidade_atual=110002204&infra_hash=3c2b71f71bb6e34a1d434f770159f8023eb25948f8dd3775b738d87c2b2de4e0" target="_blank" rel="noopener noreferrer">🗂️ Processo Eletrônico (SEI)</a>
+          <a class="doc-btn doc-btn-secondary" href="https://www.infrasa.gov.br/wp-content/uploads/2026/10/Edital-2.pdf" target="_blank" rel="noopener noreferrer">📄 Edital nº 017/2026</a>
+          <a class="doc-btn doc-btn-pdf" href="https://www.infrasa.gov.br/wp-content/uploads/2026/10/Termo-de-Referencia-1.pdf" target="_blank" rel="noopener noreferrer">📑 Termo de Referência</a>
+          <a class="doc-btn doc-btn-pdf" href="https://www.infrasa.gov.br/wp-content/uploads/2026/10/Estudo-Tecnico-Preliminar.pdf" target="_blank" rel="noopener noreferrer">📐 Anexo I do TR - Estudo Técnico Preliminar</a>
+          <a class="doc-btn doc-btn-pdf" href="https://www.infrasa.gov.br/wp-content/uploads/2026/10/Anexos-XIV-e-XV-do-TR-Orcamento-e-Composicao-de-Custos.pdf" target="_blank" rel="noopener noreferrer">💰 Anexo XIV e XV do TR - Orçamento e Composição de Custos</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.infrasa.gov.br/wp-content/uploads/2026/10/Aviso-DOU-17-2026.pdf" target="_blank" rel="noopener noreferrer">📜 Aviso de Licitação - DOU</a>
+        </div>
+      </article>
+
+      <article class="est-card cat-EVTEA_ESTRUTURACAO" data-est-cat="EVTEA_ESTRUTURACAO" data-deadline-iso="2026-11-04" data-fim-br="04/11/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">📐 EVTEA & Estruturação de Concessão</span>
+            <span class="badge badge-orgao">🏛️ DNIT (RJ)</span>
+            <span class="badge badge-risco">🛡️ Matriz de Riscos / Segurabilidade</span>
+          </div>
+          <span class="deadline-pill est-deadline-pill status-PRAZO_URGENTE">⏳ Propostas: 7d restantes (até 04/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://pncp.gov.br/app/editais/04892707001425/2026/16" target="_blank" rel="noopener noreferrer">Edital nº 67/2026 (DNIT/RJ) — EVTEA para Hidrovias e Portos na Laguna de Araruama</a>
+
+        <div class="dates-row">
+          <span><strong>Valor Estimado / Teto:</strong> <span class="val-highlight">R$ 6,68 mi</span></span>
+          <span><strong>Modalidade:</strong> Concorrência - Eletrônica • Lei 14.133/2021</span>
+          <span><strong>Publicação:</strong> 10/09/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Escopo do Estudo (EVTEA) / Contratação</div>
+            <p class="dossier-text">Elaboração de EVTEA para a implantação de infraestrutura hidroviária e instalações portuárias na laguna de Araruama, Rio de Janeiro. O objetivo é viabilizar o desenvolvimento logístico e de transporte na região.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Alocação de Riscos, Segurabilidade & Garantias (Ótica DECON/MPor)</div>
+            <p class="dossier-text">O estudo deve contemplar a alocação de riscos ambientais e de licenciamento, essenciais para a futura segurabilidade do projeto e atratividade de investimentos privados.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://pncp.gov.br/app/editais/04892707001425/2026/16" target="_blank" rel="noopener noreferrer">🏛️ Abrir Edital e Anexos no PNCP</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.dnit.gov.br/sei/controlador.php?acao=procedimento_trabalhar&id_procedimento=25714107" target="_blank" rel="noopener noreferrer">🗂️ Processo Eletrônico (SEI)</a>
+          <a class="doc-btn doc-btn-secondary" href="https://cnetmobile.estaleiro.serpro.gov.br/comprasnet-web/public/compras/acompanhamento-compra?compra=39301903000672026" target="_blank" rel="noopener noreferrer">🛒 Compras.gov.br (Acompanhamento)</a>
+        </div>
+      </article>
+
+      <article class="est-card cat-OBRA_SEGURO_RETOMADA" data-est-cat="OBRA_SEGURO_RETOMADA" data-deadline-iso="2026-11-05" data-fim-br="05/11/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-divida">🏗️ Obra & Seguro-Garantia (Lei 14.133)</span>
+            <span class="badge badge-orgao">🏛️ DNIT (RS)</span>
+            <span class="badge badge-risco">🛡️ Matriz de Riscos / Segurabilidade</span>
+          </div>
+          <span class="deadline-pill est-deadline-pill status-ABERTO">⏳ Propostas: 8d restantes (até 05/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://pncp.gov.br/app/editais/04892707000534/2026/27" target="_blank" rel="noopener noreferrer">Edital nº 46/2026 (DNIT/RS) — Manutenção Rodoviária na BR-471/RS</a>
+
+        <div class="dates-row">
+          <span><strong>Valor Estimado / Teto:</strong> <span class="val-highlight">R$ 118,18 mi</span></span>
+          <span><strong>Modalidade:</strong> Pregão - Eletrônico • Lei 14.133/2021</span>
+          <span><strong>Publicação:</strong> 02/09/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Escopo do Estudo (EVTEA) / Contratação</div>
+            <p class="dossier-text">Execução de serviços de manutenção e recuperação (P.A.T.O) em 221,3 km da rodovia BR-471/RS. O contrato visa garantir a trafegabilidade e segurança do segmento rodoviário.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Alocação de Riscos, Segurabilidade & Garantias (Ótica DECON/MPor)</div>
+            <p class="dossier-text">Este contrato é elegível para a aplicação do Seguro-Garantia com Cláusula de Retomada (Art. 102 da Lei 14.133/2021), visando assegurar a continuidade da manutenção em caso de inadimplência.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://pncp.gov.br/app/editais/04892707000534/2026/27" target="_blank" rel="noopener noreferrer">🏛️ Abrir Edital e Anexos no PNCP</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.dnit.gov.br/sei/controlador.php?acao=procedimento_trabalhar&acao_origem=protocolo_pesquisa_rapida&id_protocolo=20266197&infra_sistema=100000100&infra_unidade_atual=110000246&infra_hash=02de3be0ba1f22f28d6a60d3185a093fc873cea8c68c8cceaad05be8d4b335d3" target="_blank" rel="noopener noreferrer">🗂️ Processo Eletrônico (SEI)</a>
+          <a class="doc-btn doc-btn-secondary" href="https://cnetmobile.estaleiro.serpro.gov.br/comprasnet-web/public/compras/acompanhamento-compra?compra=39301205000462026" target="_blank" rel="noopener noreferrer">🛒 Compras.gov.br (Acompanhamento)</a>
+        </div>
+      </article>
+
+      <article class="est-card cat-OBRA_SEGURO_RETOMADA" data-est-cat="OBRA_SEGURO_RETOMADA" data-deadline-iso="2026-11-10" data-fim-br="10/11/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-divida">🏗️ Obra & Seguro-Garantia (Lei 14.133)</span>
+            <span class="badge badge-orgao">🏛️ DNIT (BA)</span>
+            <span class="badge badge-risco">🛡️ Matriz de Riscos / Segurabilidade</span>
+          </div>
+          <span class="deadline-pill est-deadline-pill status-ABERTO">⏳ Propostas: 13d restantes (até 10/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://pncp.gov.br/app/editais/04892707001930/2026/42" target="_blank" rel="noopener noreferrer">Edital nº 71/2026 (DNIT/BA) — Manutenção Rodoviária na BR-242/BA</a>
+
+        <div class="dates-row">
+          <span><strong>Valor Estimado / Teto:</strong> <span class="val-highlight">R$ 108,98 mi</span></span>
+          <span><strong>Modalidade:</strong> Pregão - Eletrônico • Lei 14.133/2021</span>
+          <span><strong>Publicação:</strong> 23/10/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Escopo do Estudo (EVTEA) / Contratação</div>
+            <p class="dossier-text">Serviços de conservação e recuperação rodoviária no segmento km 665,2 ao km 773,2 da BR-242/BA. A obra integra o Plano Anual de Trabalho e Orçamento (PATO) da unidade de Barreiras.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Alocação de Riscos, Segurabilidade & Garantias (Ótica DECON/MPor)</div>
+            <p class="dossier-text">A aplicação da Cláusula de Retomada é recomendada para mitigar riscos de descontinuidade operacional em rodovias estratégicas para o escoamento de carga.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://pncp.gov.br/app/editais/04892707001930/2026/42" target="_blank" rel="noopener noreferrer">🏛️ Abrir Edital e Anexos no PNCP</a>
+          <a class="doc-btn doc-btn-secondary" href="https://cnetmobile.estaleiro.serpro.gov.br/comprasnet-web/public/compras/acompanhamento-compra?compra=39302705000712026" target="_blank" rel="noopener noreferrer">🛒 Compras.gov.br (Acompanhamento)</a>
+        </div>
+      </article>
+
+      <article class="est-card cat-OBRA_SEGURO_RETOMADA" data-est-cat="OBRA_SEGURO_RETOMADA" data-deadline-iso="2026-11-09" data-fim-br="09/11/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-divida">🏗️ Obra & Seguro-Garantia (Lei 14.133)</span>
+            <span class="badge badge-orgao">🏛️ DNIT (BA)</span>
+            <span class="badge badge-risco">🛡️ Matriz de Riscos / Segurabilidade</span>
+          </div>
+          <span class="deadline-pill est-deadline-pill status-ABERTO">⏳ Propostas: 12d restantes (até 09/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://pncp.gov.br/app/editais/04892707001930/2026/40" target="_blank" rel="noopener noreferrer">Edital nº 58/2026 (DNIT/BA) — Manutenção Rodoviária na BR-030/BA</a>
+
+        <div class="dates-row">
+          <span><strong>Valor Estimado / Teto:</strong> <span class="val-highlight">R$ 90,45 mi</span></span>
+          <span><strong>Modalidade:</strong> Pregão - Eletrônico • Lei 14.133/2021</span>
+          <span><strong>Publicação:</strong> 22/10/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Escopo do Estudo (EVTEA) / Contratação</div>
+            <p class="dossier-text">Execução de serviços de conservação e recuperação no trecho da BR-030/BA entre o km 96,50 e o km 191,50. O projeto visa a preservação do pavimento e segurança viária.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Alocação de Riscos, Segurabilidade & Garantias (Ótica DECON/MPor)</div>
+            <p class="dossier-text">A gestão de riscos deve prever a utilização do Seguro-Garantia com Cláusula de Retomada para garantir a execução integral do cronograma de manutenção.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://pncp.gov.br/app/editais/04892707001930/2026/40" target="_blank" rel="noopener noreferrer">🏛️ Abrir Edital e Anexos no PNCP</a>
+          <a class="doc-btn doc-btn-sei" href="https://www.gov.br/pncp/pt-br" target="_blank" rel="noopener noreferrer">🗂️ Processo Eletrônico (SEI)</a>
+          <a class="doc-btn doc-btn-secondary" href="https://cnetmobile.estaleiro.serpro.gov.br/comprasnet-web/public/compras/acompanhamento-compra?compra=39302705000582026" target="_blank" rel="noopener noreferrer">🛒 Compras.gov.br (Acompanhamento)</a>
+        </div>
+      </article>
+
+      <article class="est-card cat-OBRA_SEGURO_RETOMADA" data-est-cat="OBRA_SEGURO_RETOMADA" data-deadline-iso="2026-12-07" data-fim-br="07/12/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-divida">🏗️ Obra & Seguro-Garantia (Lei 14.133)</span>
+            <span class="badge badge-orgao">🏛️ SCPAR PORTO DE SAO FRANCISCO DO SUL S.A.</span>
+            
+          </div>
+          <span class="deadline-pill est-deadline-pill status-ABERTO">⏳ Propostas: 40d restantes (até 07/12/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://pncp.gov.br/app/editais/17315067000118/2026/12" target="_blank" rel="noopener noreferrer">Edital nº 037/2026 (SCPAR) — Aprofundamento do Berço 3 do Porto de Imbituba</a>
+
+        <div class="dates-row">
+          <span><strong>Valor Estimado / Teto:</strong> <span class="val-highlight">Valor sob estimação / sigiloso</span></span>
+          <span><strong>Modalidade:</strong> Pregão - Eletrônico • Lei 14.133/2021</span>
+          <span><strong>Publicação:</strong> 01/10/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Escopo do Estudo (EVTEA) / Contratação</div>
+            <p class="dossier-text">Contratação semi-integrada para projeto executivo e execução de dragagem e remoção de rochas no Berço 3 do Porto de Imbituba. A obra visa aumentar a capacidade operacional do terminal.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Alocação de Riscos, Segurabilidade & Garantias (Ótica DECON/MPor)</div>
+            <p class="dossier-text">O regime de contratação semi-integrada exige uma Matriz de Riscos detalhada e a obrigatoriedade de Seguro-Garantia com Cláusula de Retomada para mitigar riscos de execução complexa.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://pncp.gov.br/app/editais/17315067000118/2026/12" target="_blank" rel="noopener noreferrer">🏛️ Abrir Edital e Anexos no PNCP</a>
+          <a class="doc-btn doc-btn-secondary" href="https://licitacoes-e2.bb.com.br/aop-inter-estatico/visualizar-processo-publico/1099498" target="_blank" rel="noopener noreferrer">🛒 Compras.gov.br (Acompanhamento)</a>
+        </div>
+      </article>
+
+      <article class="est-card cat-OBRA_SEGURO_RETOMADA" data-est-cat="OBRA_SEGURO_RETOMADA" data-deadline-iso="2026-10-30" data-fim-br="30/10/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-divida">🏗️ Obra & Seguro-Garantia (Lei 14.133)</span>
+            <span class="badge badge-orgao">🏛️ ADMINISTRACAO DOS PORTOS DE PARANAGUA E ANTON</span>
+            
+          </div>
+          <span class="deadline-pill est-deadline-pill status-PRAZO_URGENTE">⏳ Propostas: 2d restantes (até 30/10/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://pncp.gov.br/app/editais/79621439000191/2026/60" target="_blank" rel="noopener noreferrer">Edital nº LE510/2026 (Portos PR) — Componente Indígena do PBA do Porto de Paranaguá</a>
+
+        <div class="dates-row">
+          <span><strong>Valor Estimado / Teto:</strong> <span class="val-highlight">Valor sob estimação / sigiloso</span></span>
+          <span><strong>Modalidade:</strong> Pregão - Eletrônico • Lei 14.133/2021</span>
+          <span><strong>Publicação:</strong> 05/10/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Escopo do Estudo (EVTEA) / Contratação</div>
+            <p class="dossier-text">Elaboração do Componente Indígena do Plano Básico Ambiental (CI-PBA) para o Porto de Paranaguá. O estudo é requisito para a regularização do licenciamento ambiental da dragagem de aprofundamento.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Alocação de Riscos, Segurabilidade & Garantias (Ótica DECON/MPor)</div>
+            <p class="dossier-text">O risco de licenciamento é um fator crítico; a segurabilidade do projeto depende da correta mitigação dos riscos socioambientais identificados neste componente.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://pncp.gov.br/app/editais/79621439000191/2026/60" target="_blank" rel="noopener noreferrer">🏛️ Abrir Edital e Anexos no PNCP</a>
+          <a class="doc-btn doc-btn-secondary" href="https://licitacoes-e2.bb.com.br/aop-inter-estatico/visualizar-processo-publico/1102026" target="_blank" rel="noopener noreferrer">🛒 Compras.gov.br (Acompanhamento)</a>
+        </div>
+      </article>
+
+      <article class="est-card cat-SEGURO_GARANTIA" data-est-cat="SEGURO_GARANTIA" data-deadline-iso="2026-11-26" data-fim-br="26/11/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-seguros">🛡️ Contratação de Seguro-Garantia</span>
+            <span class="badge badge-orgao">🏛️ MINISTERIO DE MINAS E ENERGIA</span>
+            
+          </div>
+          <span class="deadline-pill est-deadline-pill status-ABERTO">⏳ Propostas: 29d restantes (até 26/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://pncp.gov.br/app/editais/37115383000153/2025/95" target="_blank" rel="noopener noreferrer">Edital nº 91077/2025 (MME) — Seguro-Garantia Judicial para INB</a>
+
+        <div class="dates-row">
+          <span><strong>Valor Estimado / Teto:</strong> <span class="val-highlight">Valor sob estimação / sigiloso</span></span>
+          <span><strong>Modalidade:</strong> Pregão - Eletrônico • Lei 14.133/2021</span>
+          <span><strong>Publicação:</strong> 08/07/2025</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Escopo do Estudo (EVTEA) / Contratação</div>
+            <p class="dossier-text">Contratação de seguradora para emissão de apólices de seguro-garantia judicial para a INB. O objetivo é substituir depósitos judiciais em processos trabalhistas e cíveis.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Alocação de Riscos, Segurabilidade & Garantias (Ótica DECON/MPor)</div>
+            <p class="dossier-text">A gestão de garantias financeiras via seguro é uma prática de eficiência patrimonial que deve ser monitorada quanto à solvência da seguradora e conformidade com a Lei 14.133/2021.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://pncp.gov.br/app/editais/37115383000153/2025/95" target="_blank" rel="noopener noreferrer">🏛️ Abrir Edital e Anexos no PNCP</a>
+          <a class="doc-btn doc-btn-secondary" href="https://cnetmobile.estaleiro.serpro.gov.br/comprasnet-web/public/landing?destino=acompanhamento-compra&compra=11320605910772025" target="_blank" rel="noopener noreferrer">🛒 Compras.gov.br (Acompanhamento)</a>
+        </div>
+      </article>
+
+      <article class="est-card cat-CARTEIRA_ESTRUTURADOR" data-est-cat="CARTEIRA_ESTRUTURADOR" data-deadline-iso="" data-fim-br="Estruturação Contínua">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-carbono">🏦 Carteira Ativa de Estruturação</span>
+            <span class="badge badge-orgao">🏛️ BNDES • Portos & Canais Aquaviários</span>
+            <span class="badge badge-risco">🛡️ Matriz de Riscos / Segurabilidade</span>
+          </div>
+          <span class="deadline-pill est-deadline-pill status-LANCADO_48H">📅 Estruturação Contínua</span>
+        </div>
+
+        <a class="process-title" href="https://www.bndes.gov.br/wps/portal/site/home/transparencia/desestatizacao/processos-em-andamento?1dmy&urile=wcm%3apath%3a%2Fbndes_institucional%2Fhome%2Ftransparencia%2Fdesestatizacao%2Fprojetos-em-andamento%2Ftrensurb-empresa-de-trens-urbanos-de-porto-alegre-s.a." target="_blank" rel="noopener noreferrer">Estruturação de Concessão — Porto de Santos e Canal de Acesso</a>
+
+        <div class="dates-row">
+          <span><strong>Valor Estimado / Teto:</strong> <span class="val-highlight">Modelagem em Curso</span></span>
+          <span><strong>Modalidade:</strong> Estruturação de Concessão / FEP BNDES</span>
+          <span><strong>Publicação:</strong> Carteira Ativa 2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Escopo do Estudo (EVTEA) / Contratação</div>
+            <p class="dossier-text">Modelagem técnica e econômico-financeira para investimentos em infraestrutura aquaviária e dragagem no Porto de Santos. O projeto é conduzido pelo BNDES em parceria com o MPor e ANTAQ.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Alocação de Riscos, Segurabilidade & Garantias (Ótica DECON/MPor)</div>
+            <p class="dossier-text">A estruturação deve integrar uma Matriz de Riscos robusta, considerando a complexidade da dragagem e a necessidade de garantias de performance de longo prazo.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://www.bndes.gov.br/wps/portal/site/home/transparencia/desestatizacao/processos-em-andamento?1dmy&urile=wcm%3apath%3a%2Fbndes_institucional%2Fhome%2Ftransparencia%2Fdesestatizacao%2Fprojetos-em-andamento%2Ftrensurb-empresa-de-trens-urbanos-de-porto-alegre-s.a." target="_blank" rel="noopener noreferrer">🏦 Página do Projeto no BNDES</a>
+          <a class="doc-btn doc-btn-secondary" href="https://hubdeprojetos.bndes.gov.br/pt/projetos" target="_blank" rel="noopener noreferrer">🌐 BNDES Hub de Projetos</a>
+        </div>
+      </article>
+
+      <article class="est-card cat-CARTEIRA_ESTRUTURADOR" data-est-cat="CARTEIRA_ESTRUTURADOR" data-deadline-iso="" data-fim-br="Estruturação Contínua">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-carbono">🏦 Carteira Ativa de Estruturação</span>
+            <span class="badge badge-orgao">🏛️ BNDES • Portos & Terminais</span>
+            <span class="badge badge-risco">🛡️ Matriz de Riscos / Segurabilidade</span>
+          </div>
+          <span class="deadline-pill est-deadline-pill status-LANCADO_48H">📅 Estruturação Contínua</span>
+        </div>
+
+        <a class="process-title" href="https://www.bndes.gov.br/wps/portal/site/home/transparencia/desestatizacao/processos-em-andamento?1dmy&urile=wcm%3apath%3a%2Fbndes_institucional%2Fhome%2Ftransparencia%2Fdesestatizacao%2Fprojetos-em-andamento%2Frfp-04-2025-porto-rio-grande-do-norte" target="_blank" rel="noopener noreferrer">RFP 04/2025 — Estruturação de Parceria Portuária no Rio Grande do Norte</a>
+
+        <div class="dates-row">
+          <span><strong>Valor Estimado / Teto:</strong> <span class="val-highlight">Modelagem em Curso</span></span>
+          <span><strong>Modalidade:</strong> Estruturação de Concessão / FEP BNDES</span>
+          <span><strong>Publicação:</strong> Carteira Ativa 2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Escopo do Estudo (EVTEA) / Contratação</div>
+            <p class="dossier-text">Contratação de estudos técnicos e modelagem para implantação e operação de terminal portuário no Rio Grande do Norte. O foco é a viabilização de novos ativos portuários via FEP BNDES.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Alocação de Riscos, Segurabilidade & Garantias (Ótica DECON/MPor)</div>
+            <p class="dossier-text">A modelagem deve prever mecanismos de alocação de riscos de demanda e construção, com estudos de segurabilidade que garantam a bancabilidade do projeto.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://www.bndes.gov.br/wps/portal/site/home/transparencia/desestatizacao/processos-em-andamento?1dmy&urile=wcm%3apath%3a%2Fbndes_institucional%2Fhome%2Ftransparencia%2Fdesestatizacao%2Fprojetos-em-andamento%2Frfp-04-2025-porto-rio-grande-do-norte" target="_blank" rel="noopener noreferrer">🏦 Página do Projeto no BNDES</a>
+          <a class="doc-btn doc-btn-secondary" href="https://hubdeprojetos.bndes.gov.br/pt/projetos" target="_blank" rel="noopener noreferrer">🌐 BNDES Hub de Projetos</a>
+        </div>
+      </article>
+
+      <article class="est-card cat-CARTEIRA_ESTRUTURADOR" data-est-cat="CARTEIRA_ESTRUTURADOR" data-deadline-iso="" data-fim-br="Estruturação Contínua">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-carbono">🏦 Carteira Ativa de Estruturação</span>
+            <span class="badge badge-orgao">🏛️ BNDES • Hidrovias & Navegação Interior</span>
+            <span class="badge badge-risco">🛡️ Matriz de Riscos / Segurabilidade</span>
+          </div>
+          <span class="deadline-pill est-deadline-pill status-LANCADO_48H">📅 Estruturação Contínua</span>
+        </div>
+
+        <a class="process-title" href="https://www.bndes.gov.br/wps/portal/site/home/transparencia/desestatizacao/processos-em-andamento?1dmy&urile=wcm%3apath%3a%2Fbndes_institucional%2Fhome%2Ftransparencia%2Fdesestatizacao%2Fprojetos-em-andamento%2Frfp-11-2024-hidrovias-rio-tapajos-e-rio-tocantins" target="_blank" rel="noopener noreferrer">RFP 11/2024 — Estruturação de Concessão das Hidrovias Tapajós e Tocantins</a>
+
+        <div class="dates-row">
+          <span><strong>Valor Estimado / Teto:</strong> <span class="val-highlight">Modelagem em Curso</span></span>
+          <span><strong>Modalidade:</strong> Estruturação de Concessão / FEP BNDES</span>
+          <span><strong>Publicação:</strong> Carteira Ativa 2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Escopo do Estudo (EVTEA) / Contratação</div>
+            <p class="dossier-text">Elaboração de EVTEA e modelagem para concessões hidroviárias nos corredores do Arco Norte. O projeto visa otimizar a logística de transporte fluvial na região.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Alocação de Riscos, Segurabilidade & Garantias (Ótica DECON/MPor)</div>
+            <p class="dossier-text">A estruturação deve focar na mitigação de riscos hidrológicos e de licenciamento, essenciais para a segurabilidade de concessões de longo prazo em hidrovias.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://www.bndes.gov.br/wps/portal/site/home/transparencia/desestatizacao/processos-em-andamento?1dmy&urile=wcm%3apath%3a%2Fbndes_institucional%2Fhome%2Ftransparencia%2Fdesestatizacao%2Fprojetos-em-andamento%2Frfp-11-2024-hidrovias-rio-tapajos-e-rio-tocantins" target="_blank" rel="noopener noreferrer">🏦 Página do Projeto no BNDES</a>
+          <a class="doc-btn doc-btn-secondary" href="https://hubdeprojetos.bndes.gov.br/pt/projetos" target="_blank" rel="noopener noreferrer">🌐 BNDES Hub de Projetos</a>
+        </div>
+      </article>
+
+      <article class="est-card cat-CARTEIRA_ESTRUTURADOR" data-est-cat="CARTEIRA_ESTRUTURADOR" data-deadline-iso="" data-fim-br="Estruturação Contínua">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-carbono">🏦 Carteira Ativa de Estruturação</span>
+            <span class="badge badge-orgao">🏛️ BNDES • Rodovias Federais</span>
+            <span class="badge badge-risco">🛡️ Matriz de Riscos / Segurabilidade</span>
+          </div>
+          <span class="deadline-pill est-deadline-pill status-LANCADO_48H">📅 Estruturação Contínua</span>
+        </div>
+
+        <a class="process-title" href="https://www.bndes.gov.br/wps/portal/site/home/transparencia/desestatizacao/processos-em-andamento?1dmy&urile=wcm%3apath%3a%2Fbndes_institucional%2Fhome%2Ftransparencia%2Fdesestatizacao%2Fprojetos-em-andamento%2Frfp-014-2024" target="_blank" rel="noopener noreferrer">RFP 14/2024 — Estruturação de Concessões de Rodovias Federais (Fase III)</a>
+
+        <div class="dates-row">
+          <span><strong>Valor Estimado / Teto:</strong> <span class="val-highlight">Modelagem em Curso</span></span>
+          <span><strong>Modalidade:</strong> Estruturação de Concessão / FEP BNDES</span>
+          <span><strong>Publicação:</strong> Carteira Ativa 2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Escopo do Estudo (EVTEA) / Contratação</div>
+            <p class="dossier-text">Desenvolvimento de matriz de riscos, estudos de tráfego e modelagem econômico-financeira para novos lotes de concessões rodoviárias. O trabalho é realizado em conjunto com o MT e ANTT.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Alocação de Riscos, Segurabilidade & Garantias (Ótica DECON/MPor)</div>
+            <p class="dossier-text">A padronização da Matriz de Riscos e a inclusão de cláusulas de segurabilidade são fundamentais para atrair investidores e garantir a execução dos investimentos previstos.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://www.bndes.gov.br/wps/portal/site/home/transparencia/desestatizacao/processos-em-andamento?1dmy&urile=wcm%3apath%3a%2Fbndes_institucional%2Fhome%2Ftransparencia%2Fdesestatizacao%2Fprojetos-em-andamento%2Frfp-014-2024" target="_blank" rel="noopener noreferrer">🏦 Página do Projeto no BNDES</a>
+          <a class="doc-btn doc-btn-secondary" href="https://hubdeprojetos.bndes.gov.br/pt/projetos" target="_blank" rel="noopener noreferrer">🌐 BNDES Hub de Projetos</a>
+        </div>
+      </article>
+
+      <article class="est-card cat-CARTEIRA_ESTRUTURADOR" data-est-cat="CARTEIRA_ESTRUTURADOR" data-deadline-iso="" data-fim-br="Execução Contínua">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-carbono">🏦 Carteira Ativa de Estruturação</span>
+            <span class="badge badge-orgao">🏛️ LabTrans / UFSC (MPor & MT)</span>
+            <span class="badge badge-risco">🛡️ Matriz de Riscos / Segurabilidade</span>
+          </div>
+          <span class="deadline-pill est-deadline-pill status-LANCADO_48H">📅 Execução Contínua</span>
+        </div>
+
+        <a class="process-title" href="https://www.labtrans.ufsc.br/" target="_blank" rel="noopener noreferrer">LabTrans/UFSC — Estudos de Planejamento Portuário, Hidroviário e Modelagem Regulatória</a>
+
+        <div class="dates-row">
+          <span><strong>Valor Estimado / Teto:</strong> <span class="val-highlight">Cooperação Técnica Federal</span></span>
+          <span><strong>Modalidade:</strong> Termo de Execução Descentralizada (TED)</span>
+          <span><strong>Publicação:</strong> Ciclo 2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Escopo do Estudo (EVTEA) / Contratação</div>
+            <p class="dossier-text">Cooperação técnica para desenvolvimento de estudos setoriais, poligonais portuárias e parâmetros de matriz de riscos. O projeto subsidia as políticas públicas do MPor, MT e agências reguladoras.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Alocação de Riscos, Segurabilidade & Garantias (Ótica DECON/MPor)</div>
+            <p class="dossier-text">Este TED é o pilar para a criação de diretrizes de segurabilidade e alocação de riscos que serão replicadas em todos os futuros EVTEAs do Ministério.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-secondary" href="https://www.labtrans.ufsc.br/" target="_blank" rel="noopener noreferrer">🎓 Portal LabTrans / UFSC</a>
+          <a class="doc-btn doc-btn-secondary" href="https://www.gov.br/portos-e-aeroportos/pt-br" target="_blank" rel="noopener noreferrer">⚓ Planos e Estudos MPor</a>
+        </div>
+      </article>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- ABA 3: RADAR DE LEILÕES & OUTORGAS (MPOR, ANTAQ, ANAC, ANTT & B3)   -->
+    <!-- =================================================================== -->
+    <section class="tab-panel" id="panel-leiloes">
+      <div class="kpi-grid">
+        <div class="kpi-card" onclick="filtrarSetorLeilao('TODOS'); filtrarFaseLeilao('TODAS');">
+          <div class="kpi-info">
+            <span>Projetos na Carteira</span>
+            <strong>12</strong>
+          </div>
+          <div class="kpi-icon" style="background: #f1f5f9; color: #0f172a;">🔔</div>
+        </div>
+        <div class="kpi-card" onclick="filtrarFaseLeilao('EDITAL_PUBLICADO')">
+          <div class="kpi-info">
+            <span>Edital Publicado / B3</span>
+            <strong style="color: #047857;">4</strong>
+          </div>
+          <div class="kpi-icon" style="background: #d1fae5; color: #047857;">📢</div>
+        </div>
+        <div class="kpi-card" onclick="filtrarFaseLeilao('AVALIACAO_TCU_AJUSTES')">
+          <div class="kpi-info">
+            <span>No TCU / Ajustes Pré-Edital</span>
+            <strong style="color: #b45309;">6</strong>
+          </div>
+          <div class="kpi-icon" style="background: #fef3c7; color: #b45309;">⚖️</div>
+        </div>
+        <div class="kpi-card" onclick="filtrarSetorLeilao('MPOR_FOCO')">
+          <div class="kpi-info">
+            <span>Carteira MPor (Portos/Hidro/Aero)</span>
+            <strong style="color: #0284c7;">7</strong>
+          </div>
+          <div class="kpi-icon" style="background: #e0f2fe; color: #0284c7;">⚓</div>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <div class="filter-group" id="leilao-setor-filters">
+          <span class="filter-label">Setor:</span>
+          <button class="filter-btn active" data-setor="TODOS" onclick="filtrarSetorLeilao('TODOS')">Todos (12)</button>
+          <button class="filter-btn" data-setor="MPOR_FOCO" onclick="filtrarSetorLeilao('MPOR_FOCO')">🏛️ Universo MPor (7)</button>
+          <button class="filter-btn" data-setor="portos_hidrovias" onclick="filtrarSetorLeilao('portos_hidrovias')">⚓ Portos & Hidrovias</button>
+          <button class="filter-btn" data-setor="aeroportos" onclick="filtrarSetorLeilao('aeroportos')">✈️ Aeroportos</button>
+          <button class="filter-btn" data-setor="rodovias_ferrovias" onclick="filtrarSetorLeilao('rodovias_ferrovias')">🛣️ Rodovias & Ferrovias</button>
+          <button class="filter-btn" data-setor="nacional_energia_clima" onclick="filtrarSetorLeilao('nacional_energia_clima')">⚡ Relevância Nacional (Energia/Clima)</button>
+        </div>
+
+        <div class="filter-group" id="leilao-fase-filters">
+          <span class="filter-label">Fase:</span>
+          <button class="filter-btn active" data-fase="TODAS" onclick="filtrarFaseLeilao('TODAS')">Todas</button>
+          <button class="filter-btn" data-fase="EDITAL_PUBLICADO" onclick="filtrarFaseLeilao('EDITAL_PUBLICADO')">📢 Edital Publicado</button>
+          <button class="filter-btn" data-fase="AVALIACAO_TCU_AJUSTES" onclick="filtrarFaseLeilao('AVALIACAO_TCU_AJUSTES')">⚖️ No TCU / Ajustes</button>
+          <button class="filter-btn" data-fase="ESTRUTURACAO_AUDIENCIA" onclick="filtrarFaseLeilao('ESTRUTURACAO_AUDIENCIA')">📐 Em Estruturação</button>
+        </div>
+
+        <input type="text" id="search-box-leilao" class="search-input" placeholder="🔍 Filtrar por MUC04, Itajaí, Tecon, Galeão..." oninput="aplicarFiltrosLeilao()">
+      </div>
+
+      <div class="dossier-list" id="leilao-container">
+        
+      <article class="leilao-card setor-portos_hidrovias" data-setor="portos_hidrovias" data-fase="EDITAL_PUBLICADO">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">⚓ Portos & Hidrovias (MPor / ANTAQ)</span>
+            <span class="badge badge-orgao">🏛️ MPor / ANTAQ</span>
+            <span class="badge badge-modalidade">🔖 MUC04</span>
+          </div>
+          <span class="deadline-pill fase-EDITAL_PUBLICADO">📢 Edital Publicado / Em Andamento</span>
+        </div>
+
+        <a class="process-title" href="https://www.gov.br/antaq/pt-br/assuntos/leiloes" target="_blank" rel="noopener noreferrer">Leilão nº 05/2026-ANTAQ — Terminal Portuário MUC04 (Porto de Fortaleza/CE)</a>
+
+        <div class="dates-row">
+          <span><strong>CAPEX / Investimento:</strong> <span class="val-highlight">R$ 429,0 milhões</span></span>
+          <span><strong>Prazo Concessão:</strong> 25 anos</span>
+          <span><strong>Cronograma:</strong> Edital Publicado (Ciclo 4T/2026) (B3 — São Paulo)</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Resumo Executivo do Projeto & Outorga</div>
+            <p class="dossier-text">Arrendamento de terminal dedicado à movimentação e armazenagem de cargas conteinerizadas e gerais no Porto Organizado de Fortaleza (CE), com previsão de R$ 429 milhões em investimentos.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Matriz de Riscos, Segurabilidade & Garantias Contratuais</div>
+            <p class="dossier-text">Exige garantia de proposta para participação na B3, seguro-garantia de execução contratual (performance bond) escalonado conforme o cronograma de obras e apólices de Riscos de Engenharia e Riscos Nomeados/Operacionais.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://www.gov.br/antaq/pt-br/assuntos/leiloes" target="_blank" rel="noopener noreferrer">⚓ Painel de Leilões ANTAQ</a>
+          <a class="doc-btn doc-btn-secondary" href="https://www.gov.br/portos-e-aeroportos/pt-br" target="_blank" rel="noopener noreferrer">🏛️ Carteira MPor</a>
+        </div>
+      </article>
+
+      <article class="leilao-card setor-portos_hidrovias" data-setor="portos_hidrovias" data-fase="EDITAL_PUBLICADO">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">⚓ Portos & Hidrovias (MPor / ANTAQ)</span>
+            <span class="badge badge-orgao">🏛️ MPor / ANTAQ</span>
+            <span class="badge badge-modalidade">🔖 IQI16</span>
+          </div>
+          <span class="deadline-pill fase-EDITAL_PUBLICADO">📢 Edital Publicado / Em Andamento</span>
+        </div>
+
+        <a class="process-title" href="https://www.gov.br/antaq/pt-br/assuntos/leiloes" target="_blank" rel="noopener noreferrer">Leilão nº 04/2026-ANTAQ — Terminal IQI16 de Granéis Minerais e Fertilizantes (Porto do Itaqui/MA)</a>
+
+        <div class="dates-row">
+          <span><strong>CAPEX / Investimento:</strong> <span class="val-highlight">R$ 218,5 milhões</span></span>
+          <span><strong>Prazo Concessão:</strong> 25 anos</span>
+          <span><strong>Cronograma:</strong> Edital em Andamento (4T/2026) (B3 — São Paulo)</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Resumo Executivo do Projeto & Outorga</div>
+            <p class="dossier-text">Arrendamento portuário estratégico no Arco Norte dedicado à movimentação e armazenagem de granéis sólidos minerais, especialmente fertilizantes (IQI16), localizado no Porto Organizado do Itaqui (MA).</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Matriz de Riscos, Segurabilidade & Garantias Contratuais</div>
+            <p class="dossier-text">Forte demanda por garantias de execução para obras de armazenagem estática e sistemas de recepção ferroviária/rodoviária no Itaqui.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://www.gov.br/antaq/pt-br/assuntos/leiloes" target="_blank" rel="noopener noreferrer">⚓ Painel de Leilões ANTAQ</a>
+        </div>
+      </article>
+
+      <article class="leilao-card setor-portos_hidrovias" data-setor="portos_hidrovias" data-fase="AVALIACAO_TCU_AJUSTES">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">⚓ Portos & Hidrovias (MPor / ANTAQ)</span>
+            <span class="badge badge-orgao">🏛️ MPor / ANTAQ / TCU</span>
+            <span class="badge badge-modalidade">🔖 CANAL-ITAJAI</span>
+          </div>
+          <span class="deadline-pill fase-AVALIACAO_TCU_AJUSTES">⚖️ No TCU / Ajustes Pré-Edital</span>
+        </div>
+
+        <a class="process-title" href="https://agenciainfra.com/blog/tecon-10-e-canal-de-itajai-devem-ganhar-ritmo-no-governo-apos-eleicoes/" target="_blank" rel="noopener noreferrer">Concessão do Canal de Acesso Aquaviário ao Complexo Portuário de Itajaí e Navegantes (SC)</a>
+
+        <div class="dates-row">
+          <span><strong>CAPEX / Investimento:</strong> <span class="val-highlight">R$ 311,0 milhões</span></span>
+          <span><strong>Prazo Concessão:</strong> 25 anos</span>
+          <span><strong>Cronograma:</strong> Pós-Aprovação TCU • Publicação do Edital (B3 — São Paulo)</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Resumo Executivo do Projeto & Outorga</div>
+            <p class="dossier-text">Segundo leilão de canal de acesso aquaviário da história do país (após Paranaguá). Com o aval do TCU e retomada de ritmo após o período eleitoral, prevê dragagens periódicas de aprofundamento/manutenção e sinalização náutica.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Matriz de Riscos, Segurabilidade & Garantias Contratuais</div>
+            <p class="dossier-text">Caso paradigmático para alocação de riscos geológicos/hidrodinâmicos (assoreamento extremo e eventos climáticos em SC) e estruturação de garantias e seguros de dragagem e responsabilidade civil aquaviária.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://agenciainfra.com/blog/tecon-10-e-canal-de-itajai-devem-ganhar-ritmo-no-governo-apos-eleicoes/" target="_blank" rel="noopener noreferrer">📰 Bastidores Agência iNFRA (28/10)</a>
+          <a class="doc-btn doc-btn-secondary" href="https://www.gov.br/antaq/pt-br/assuntos/leiloes" target="_blank" rel="noopener noreferrer">⚓ Leilões ANTAQ</a>
+        </div>
+      </article>
+
+      <article class="leilao-card setor-portos_hidrovias" data-setor="portos_hidrovias" data-fase="AVALIACAO_TCU_AJUSTES">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">⚓ Portos & Hidrovias (MPor / ANTAQ)</span>
+            <span class="badge badge-orgao">🏛️ MPor / ANTAQ / TCU</span>
+            <span class="badge badge-modalidade">🔖 STS10</span>
+          </div>
+          <span class="deadline-pill fase-AVALIACAO_TCU_AJUSTES">⚖️ No TCU / Ajustes Pré-Edital</span>
+        </div>
+
+        <a class="process-title" href="https://agenciainfra.com/blog/mpor-preve-34-novos-leiloes-portuarios-com-ate-r-23-bi-em-investimentos/" target="_blank" rel="noopener noreferrer">Arrendamento do Megaterminal Tecon Santos 10 (STS10 — Porto de Santos/SP)</a>
+
+        <div class="dates-row">
+          <span><strong>CAPEX / Investimento:</strong> <span class="val-highlight">R$ 5,6 bilhões</span></span>
+          <span><strong>Prazo Concessão:</strong> 25 anos</span>
+          <span><strong>Cronograma:</strong> Deliberação TCU / Edital Previsto (B3 — São Paulo)</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Resumo Executivo do Projeto & Outorga</div>
+            <p class="dossier-text">Maior projeto de arrendamento portuário da carteira do MPor (integrante do pacote de 34 leilões que somam R$ 23 bi). Amplia em 50% a capacidade de movimentação de contêineres e carga geral no Saboó (Porto de Santos).</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Matriz de Riscos, Segurabilidade & Garantias Contratuais</div>
+            <p class="dossier-text">Pelo porte multibilionário do CAPEX (R$ 5,6 bi), é referência central para a Portaria de Segurabilidade do MPor: capacidade de resseguro facultativo, seguro-garantia de grande vulto e matriz de riscos socioambientais.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://agenciainfra.com/blog/mpor-preve-34-novos-leiloes-portuarios-com-ate-r-23-bi-em-investimentos/" target="_blank" rel="noopener noreferrer">📰 Carteira de 34 Leilões MPor (R$ 23 bi)</a>
+          <a class="doc-btn doc-btn-secondary" href="https://www.gov.br/antaq/pt-br/assuntos/leiloes" target="_blank" rel="noopener noreferrer">⚓ Leilões ANTAQ</a>
+        </div>
+      </article>
+
+      <article class="leilao-card setor-portos_hidrovias" data-setor="portos_hidrovias" data-fase="AVALIACAO_TCU_AJUSTES">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">⚓ Portos & Hidrovias (MPor / ANTAQ)</span>
+            <span class="badge badge-orgao">🏛️ MPor / ANTAQ</span>
+            <span class="badge badge-modalidade">🔖 HIDROVIA-PARAGUAI</span>
+          </div>
+          <span class="deadline-pill fase-AVALIACAO_TCU_AJUSTES">⚖️ No TCU / Ajustes Pré-Edital</span>
+        </div>
+
+        <a class="process-title" href="https://www.gov.br/antaq/pt-br/assuntos/leiloes" target="_blank" rel="noopener noreferrer">Concessão da Hidrovia do Rio Paraguai (Tramo Sul — Corumbá/MS a Foz do Rio Apa)</a>
+
+        <div class="dates-row">
+          <span><strong>CAPEX / Investimento:</strong> <span class="val-highlight">R$ 63,8 milhões (CAPEX direto) + OPEX</span></span>
+          <span><strong>Prazo Concessão:</strong> 15 anos (+15)</span>
+          <span><strong>Cronograma:</strong> Fase Final TCU / Edital (B3 — São Paulo)</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Resumo Executivo do Projeto & Outorga</div>
+            <p class="dossier-text">Primeira concessão hidroviária do Brasil. Abrange 600 km no Rio Paraguai para garantir calado operacional ao escoamento de minério de ferro e grãos com tarifa módica e sustentabilidade ambiental no Pantanal.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Matriz de Riscos, Segurabilidade & Garantias Contratuais</div>
+            <p class="dossier-text">Modelagem pioneira de matriz de riscos hidrológicos (secas severas no Pantanal), licenciamento ambiental e garantias de performance de dragagem.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://www.gov.br/antaq/pt-br/assuntos/leiloes" target="_blank" rel="noopener noreferrer">⚓ Painel ANTAQ</a>
+        </div>
+      </article>
+
+      <article class="leilao-card setor-aeroportos" data-setor="aeroportos" data-fase="AVALIACAO_TCU_AJUSTES">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">✈️ Aeroportos (MPor / ANAC)</span>
+            <span class="badge badge-orgao">🏛️ MPor / ANAC</span>
+            <span class="badge badge-modalidade">🔖 AMPLIAR-BLOCOS</span>
+          </div>
+          <span class="deadline-pill fase-AVALIACAO_TCU_AJUSTES">⚖️ No TCU / Ajustes Pré-Edital</span>
+        </div>
+
+        <a class="process-title" href="https://www.gov.br/portos-e-aeroportos/pt-br" target="_blank" rel="noopener noreferrer">Programa AmpliAR — Concessão Simplificada de Aeroportos Regionais (Amazônia Legal e Nordeste)</a>
+
+        <div class="dates-row">
+          <span><strong>CAPEX / Investimento:</strong> <span class="val-highlight">R$ 3,5 bilhões (meta global)</span></span>
+          <span><strong>Prazo Concessão:</strong> Aditivo Contratual / 30 anos</span>
+          <span><strong>Cronograma:</strong> Ciclo de Ofertas B3 (B3 — São Paulo)</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Resumo Executivo do Projeto & Outorga</div>
+            <p class="dossier-text">Mecanismo competitivo desenhado pelo MPor e ANAC pelo qual atuais concessionárias aeroportuárias disputam a assunção de blocos de aeroportos regionais deficitários mediante reequilíbrio contratual.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Matriz de Riscos, Segurabilidade & Garantias Contratuais</div>
+            <p class="dossier-text">Inovação em matriz de riscos de engenharia em localidades remotas da Amazônia Legal e adequação das apólices de seguro-garantia dos contratos principais.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://www.gov.br/portos-e-aeroportos/pt-br" target="_blank" rel="noopener noreferrer">✈️ Portal MPor</a>
+        </div>
+      </article>
+
+      <article class="leilao-card setor-aeroportos" data-setor="aeroportos" data-fase="AVALIACAO_TCU_AJUSTES">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">✈️ Aeroportos (MPor / ANAC)</span>
+            <span class="badge badge-orgao">🏛️ MPor / ANAC / TCU</span>
+            <span class="badge badge-modalidade">🔖 GIG-GALEAO</span>
+          </div>
+          <span class="deadline-pill fase-AVALIACAO_TCU_AJUSTES">⚖️ No TCU / Ajustes Pré-Edital</span>
+        </div>
+
+        <a class="process-title" href="https://www.gov.br/portos-e-aeroportos/pt-br" target="_blank" rel="noopener noreferrer">Venda Assistida / Repactuação da Concessão do Aeroporto Internacional do Galeão (RJ)</a>
+
+        <div class="dates-row">
+          <span><strong>CAPEX / Investimento:</strong> <span class="val-highlight">R$ 4,8 bilhões (outorga/investimentos)</span></span>
+          <span><strong>Prazo Concessão:</strong> Até 2039</span>
+          <span><strong>Cronograma:</strong> Solução Consensual TCU / Certame B3 (B3 — São Paulo)</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Resumo Executivo do Projeto & Outorga</div>
+            <p class="dossier-text">Processo competitivo decorrente de solução consensual (SecexConsenso/TCU, MPor e ANAC) para reestruturação do contrato do Aeroporto do Galeão, revisão do pagamento de outorga e saída da Infraero da SPE.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Matriz de Riscos, Segurabilidade & Garantias Contratuais</div>
+            <p class="dossier-text">Benchmark para repactuação de matriz de risco de demanda aeroportuária, transição de controle acionário e substituição de garantias contratuais.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://www.gov.br/portos-e-aeroportos/pt-br" target="_blank" rel="noopener noreferrer">✈️ Portal MPor</a>
+        </div>
+      </article>
+
+      <article class="leilao-card setor-rodovias_ferrovias" data-setor="rodovias_ferrovias" data-fase="ESTRUTURACAO_AUDIENCIA">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-divida">🛣️ Rodovias & Ferrovias (MT / ANTT)</span>
+            <span class="badge badge-orgao">🏛️ MT / ANTT</span>
+            <span class="badge badge-modalidade">🔖 CN3-ROTA-AGRO</span>
+          </div>
+          <span class="deadline-pill fase-ESTRUTURACAO_AUDIENCIA">📐 Em Estruturação / Pós-Audiência</span>
+        </div>
+
+        <a class="process-title" href="https://www.gov.br/antt/pt-br/assuntos/rodovias/novos-projetos-em-rodovias/copy_of_rodovias2013contratacao-bndes-6-700m-2013lotes-centro-oeste-e-norte" target="_blank" rel="noopener noreferrer">Concessão Rodoviária BR-070/174/364/MT/RO — Rota Agro Central (CN3 • 2.570 km)</a>
+
+        <div class="dates-row">
+          <span><strong>CAPEX / Investimento:</strong> <span class="val-highlight">R$ 16,2 bilhões (CAPEX + OPEX)</span></span>
+          <span><strong>Prazo Concessão:</strong> 30 anos</span>
+          <span><strong>Cronograma:</strong> Pipeline Prioritário ANTT (B3 — São Paulo)</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Resumo Executivo do Projeto & Outorga</div>
+            <p class="dossier-text">Concessão de 2.570 km no corredor de escoamento de grãos entre Mato Grosso e Rondônia (acesso às hidrovias do Madeira/Arco Norte), estruturada em parceria com o BNDES.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Matriz de Riscos, Segurabilidade & Garantias Contratuais</div>
+            <p class="dossier-text">Adota a nova geração de contratos da ANTT com conta vinculada, mecanismo de compartilhamento de risco cambial/insumos e seguro-garantia escalonado.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://www.gov.br/antt/pt-br/assuntos/rodovias/novos-projetos-em-rodovias/copy_of_rodovias2013contratacao-bndes-6-700m-2013lotes-centro-oeste-e-norte" target="_blank" rel="noopener noreferrer">🛣️ Ficha do Projeto na ANTT</a>
+        </div>
+      </article>
+
+      <article class="leilao-card setor-rodovias_ferrovias" data-setor="rodovias_ferrovias" data-fase="ESTRUTURACAO_AUDIENCIA">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-divida">🛣️ Rodovias & Ferrovias (MT / ANTT)</span>
+            <span class="badge badge-orgao">🏛️ MT / ANTT</span>
+            <span class="badge badge-modalidade">🔖 BR-116-392-RS</span>
+          </div>
+          <span class="deadline-pill fase-ESTRUTURACAO_AUDIENCIA">📐 Em Estruturação / Pós-Audiência</span>
+        </div>
+
+        <a class="process-title" href="https://www.gov.br/antt/pt-br/assuntos/rodovias/novos-projetos-em-rodovias/BR-116_392_RS%20-%20Rota%20Portuaria%20do%20Sul" target="_blank" rel="noopener noreferrer">Concessão Rodoviária BR-116/392/RS — Rota Portuária do Sul (Acesso ao Porto do Rio Grande)</a>
+
+        <div class="dates-row">
+          <span><strong>CAPEX / Investimento:</strong> <span class="val-highlight">R$ 7,4 bilhões (CAPEX + OPEX)</span></span>
+          <span><strong>Prazo Concessão:</strong> 30 anos</span>
+          <span><strong>Cronograma:</strong> Pipeline Prioritário ANTT (B3 — São Paulo)</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Resumo Executivo do Projeto & Outorga</div>
+            <p class="dossier-text">Corredor logístico estratégico de ligação direta ao Porto do Rio Grande (RS). Incorpora novas diretrizes de resiliência climática após os eventos hidrológicos extremos no Rio Grande do Sul.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Matriz de Riscos, Segurabilidade & Garantias Contratuais</div>
+            <p class="dossier-text">Diretamente conectado ao tema de riscos climáticos e segurabilidade: modelagem de gatilhos para eventos extremos e cobertura de obras de arte especiais.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://www.gov.br/antt/pt-br/assuntos/rodovias/novos-projetos-em-rodovias/BR-116_392_RS%20-%20Rota%20Portuaria%20do%20Sul" target="_blank" rel="noopener noreferrer">🛣️ Ficha do Projeto na ANTT</a>
+        </div>
+      </article>
+
+      <article class="leilao-card setor-rodovias_ferrovias" data-setor="rodovias_ferrovias" data-fase="AVALIACAO_TCU_AJUSTES">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-divida">🛣️ Rodovias & Ferrovias (MT / ANTT)</span>
+            <span class="badge badge-orgao">🏛️ MT / ANTT</span>
+            <span class="badge badge-modalidade">🔖 BR-116-324-BA</span>
+          </div>
+          <span class="deadline-pill fase-AVALIACAO_TCU_AJUSTES">⚖️ No TCU / Ajustes Pré-Edital</span>
+        </div>
+
+        <a class="process-title" href="https://www.gov.br/antt/pt-br/assuntos/rodovias/novos-projetos-em-rodovias/BR-116-324-BA" target="_blank" rel="noopener noreferrer">Concessão Rodoviária BR-116/324/BA — Rota 2 de Julho (663 km na Bahia, acesso ao Porto de Aratu/Salvador)</a>
+
+        <div class="dates-row">
+          <span><strong>CAPEX / Investimento:</strong> <span class="val-highlight">R$ 24,0 bilhões (CAPEX + OPEX)</span></span>
+          <span><strong>Prazo Concessão:</strong> 30 anos</span>
+          <span><strong>Cronograma:</strong> Edital Previsto após TCU (B3 — São Paulo)</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Resumo Executivo do Projeto & Outorga</div>
+            <p class="dossier-text">Relicitação/nova concessão do principal eixo rodoviário da Bahia (antiga ViaBahia), conectando Feira de Santana a Salvador e aos portos baianos, com amplo pacote de duplicações e fluxo livre (free flow).</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Matriz de Riscos, Segurabilidade & Garantias Contratuais</div>
+            <p class="dossier-text">Exige robusto pacote de garantias de execução para as obras iniciais (trabalhos iniciais e recuperação intensiva) e gestão de risco de receita no Free Flow.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://www.gov.br/antt/pt-br/assuntos/rodovias/novos-projetos-em-rodovias/BR-116-324-BA" target="_blank" rel="noopener noreferrer">🛣️ Ficha do Projeto na ANTT</a>
+        </div>
+      </article>
+
+      <article class="leilao-card setor-nacional_energia_clima" data-setor="nacional_energia_clima" data-fase="EDITAL_PUBLICADO">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-carbono">⚡ Grandes Leilões Nacionais (Energia, Clima & Finanças)</span>
+            <span class="badge badge-orgao">🏛️ MME / ANEEL</span>
+            <span class="badge badge-modalidade">🔖 LRCAP-BATERIAS</span>
+          </div>
+          <span class="deadline-pill fase-EDITAL_PUBLICADO">📢 Edital Publicado / Em Andamento</span>
+        </div>
+
+        <a class="process-title" href="https://agenciainfra.com/blog/aneel-aprova-editais-dos-leiloes-de-baterias-marcados-para-dezembro/" target="_blank" rel="noopener noreferrer">Leilão de Reserva de Capacidade na Forma de Armazenamento por Baterias (ANEEL)</a>
+
+        <div class="dates-row">
+          <span><strong>CAPEX / Investimento:</strong> <span class="val-highlight">R$ 7,5 bilhões (estimado)</span></span>
+          <span><strong>Prazo Concessão:</strong> 10 a 15 anos (Suprimento)</span>
+          <span><strong>Cronograma:</strong> Dezembro de 2026 (CCEE / B3)</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Resumo Executivo do Projeto & Outorga</div>
+            <p class="dossier-text">Editais aprovados pela ANEEL em 27/10/2026 para o inédito leilão de sistemas de armazenamento de energia em baterias (BESS), visando dar flexibilidade operativa e segurança ao Sistema Interligado Nacional (SIN) em dezembro.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Matriz de Riscos, Segurabilidade & Garantias Contratuais</div>
+            <p class="dossier-text">Marco regulatório para seguros de tecnologia/riscos de engenharia de sistemas BESS (incêndio térmico, performance de degradação e garantia de fiel cumprimento).</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://agenciainfra.com/blog/aneel-aprova-editais-dos-leiloes-de-baterias-marcados-para-dezembro/" target="_blank" rel="noopener noreferrer">📰 Aprovação dos Editais ANEEL (27/10)</a>
+        </div>
+      </article>
+
+      <article class="leilao-card setor-nacional_energia_clima" data-setor="nacional_energia_clima" data-fase="EDITAL_PUBLICADO">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-carbono">⚡ Grandes Leilões Nacionais (Energia, Clima & Finanças)</span>
+            <span class="badge badge-orgao">🏛️ MF / Tesouro Nacional / BID</span>
+            <span class="badge badge-modalidade">🔖 ECO-INVEST-5</span>
+          </div>
+          <span class="deadline-pill fase-EDITAL_PUBLICADO">📢 Edital Publicado / Em Andamento</span>
+        </div>
+
+        <a class="process-title" href="https://www.gov.br/fazenda/pt-br/assuntos/novo-brasil-ecologico/eco-invest" target="_blank" rel="noopener noreferrer">5º Leilão do Programa Eco Invest Brasil — Mobilização de Capital Privado e Hedge Cambial para Transição Ecológica</a>
+
+        <div class="dates-row">
+          <span><strong>CAPEX / Investimento:</strong> <span class="val-highlight">Alavancagem Multibilionária</span></span>
+          <span><strong>Prazo Concessão:</strong> Linhas de Financiamento / Blending</span>
+          <span><strong>Cronograma:</strong> Ciclo 4T/2026 (Ministério da Fazenda / STN)</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Resumo Executivo do Projeto & Outorga</div>
+            <p class="dossier-text">Quinto certame do Eco Invest Brasil voltado a destravar financiamento privado competitivo e proteção cambial para projetos de infraestrutura sustentável, armazenamento de energia (baterias) e descarbonização.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">🛡️ Matriz de Riscos, Segurabilidade & Garantias Contratuais</div>
+            <p class="dossier-text">Instrumento de blended finance e mitigação de risco cambial em projetos de concessão de longa maturação (portos verdes, hidrovias, ferrovias e energia).</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://www.gov.br/fazenda/pt-br/assuntos/novo-brasil-ecologico/eco-invest" target="_blank" rel="noopener noreferrer">🍃 Portal Eco Invest (Ministério da Fazenda)</a>
+        </div>
+      </article>
+      </div>
+    </section>
 
     <footer>
-      Radar Brasil Participativo • Extração via API GraphQL Oficial (Decidim) & Curadoria Normativa Gemini
+      Radar DECON/MPor • Integração Brasil Participativo (GraphQL), Infra S.A. (REST API), PNCP (API Oficial), BNDES, ANTAQ, ANAC, ANTT & Curadoria Gemini
     </footer>
   </div>
 
   <script>
     let statusAtual = 'TODOS';
     let verticalAtual = 'TODAS';
+    let catEstAtual = 'TODAS';
+    let setorLeilaoAtual = 'TODOS';
+    let faseLeilaoAtual = 'TODAS';
 
+    function selecionarAba(aba) {
+      ['participativo', 'estruturacao', 'leiloes'].forEach(nome => {
+        const btn = document.getElementById('btn-tab-' + nome);
+        const panel = document.getElementById('panel-' + nome);
+        if (btn) btn.classList.toggle('active', nome === aba);
+        if (panel) panel.classList.toggle('active', nome === aba);
+      });
+      if (history.replaceState) {
+        history.replaceState(null, null, '#' + aba);
+      }
+    }
+
+    // Suporte a deep-link por hash (#estruturacao ou #leiloes)
+    window.addEventListener('DOMContentLoaded', () => {
+      const h = (window.location.hash || '').replace('#', '').trim();
+      if (['participativo', 'estruturacao', 'leiloes'].includes(h)) {
+        selecionarAba(h);
+      }
+    });
+
+    // Filtros Aba 1
     function filtrarStatus(st) {
       statusAtual = st;
       document.querySelectorAll('#status-filters .filter-btn').forEach(btn => {
@@ -1790,6 +3028,75 @@
       });
     }
 
+    // Filtros Aba 2 (Estruturação & Contratações)
+    function filtrarCategoriaEst(cat) {
+      catEstAtual = cat;
+      document.querySelectorAll('#est-cat-filters .filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-est-cat') === cat);
+      });
+      aplicarFiltrosEst();
+    }
+
+    function aplicarFiltrosEst() {
+      const termo = (document.getElementById('search-box-est').value || '').toLowerCase().trim();
+      const cards = document.querySelectorAll('.est-card');
+      cards.forEach(card => {
+        const c = card.getAttribute('data-est-cat');
+        const texto = card.innerText.toLowerCase();
+        let matchCat = false;
+        if (catEstAtual === 'TODAS') {
+          matchCat = true;
+        } else if (catEstAtual === 'OBRAS_SEGUROS') {
+          matchCat = ['GRANDE_VULTO_ART102', 'OBRA_SEGURO_RETOMADA', 'SEGURO_GARANTIA'].includes(c);
+        } else {
+          matchCat = (c === catEstAtual);
+        }
+        const matchTexto = (!termo) || texto.includes(termo);
+        card.style.display = (matchCat && matchTexto) ? 'flex' : 'none';
+      });
+    }
+
+    // Filtros Aba 3 (Leilões)
+    function filtrarSetorLeilao(setor) {
+      setorLeilaoAtual = setor;
+      document.querySelectorAll('#leilao-setor-filters .filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-setor') === setor);
+      });
+      aplicarFiltrosLeilao();
+    }
+
+    function filtrarFaseLeilao(fase) {
+      faseLeilaoAtual = fase;
+      document.querySelectorAll('#leilao-fase-filters .filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-fase') === fase);
+      });
+      aplicarFiltrosLeilao();
+    }
+
+    function aplicarFiltrosLeilao() {
+      const termo = (document.getElementById('search-box-leilao').value || '').toLowerCase().trim();
+      const cards = document.querySelectorAll('.leilao-card');
+      cards.forEach(card => {
+        const s = card.getAttribute('data-setor');
+        const f = card.getAttribute('data-fase');
+        const texto = card.innerText.toLowerCase();
+
+        let matchSetor = false;
+        if (setorLeilaoAtual === 'TODOS') {
+          matchSetor = true;
+        } else if (setorLeilaoAtual === 'MPOR_FOCO') {
+          matchSetor = ['portos_hidrovias', 'aeroportos'].includes(s);
+        } else {
+          matchSetor = (s === setorLeilaoAtual);
+        }
+
+        const matchFase = (faseLeilaoAtual === 'TODAS') || (f === faseLeilaoAtual);
+        const matchTexto = (!termo) || texto.includes(termo);
+
+        card.style.display = (matchSetor && matchFase && matchTexto) ? 'flex' : 'none';
+      });
+    }
+
     function pad2(n) {
       return String(n).padStart(2, '0');
     }
@@ -1808,7 +3115,6 @@
         const pill = card.querySelector('.deadline-pill');
         if (!isoDate || !pill) return;
 
-        // Considera encerramento às 23:59:59 (horário de Brasília -03:00) do dia final
         const limite = new Date(isoDate + 'T23:59:59-03:00');
         const diffMs = limite - agora;
 
@@ -1832,7 +3138,6 @@
             pill.innerHTML = `🟢 Aberto • <span class="countdown-mono">⏳ ${relogio}</span> (até ${fimBr})`;
           }
         } else {
-          // Prazo encerrado! Verifica se ainda está dentro da janela de retenção de 72h
           const horasVencido = Math.floor(Math.abs(diffMs) / 3600000);
           const diasVencido = Math.floor(horasVencido / 24);
           if (horasVencido <= 72) {
@@ -1844,12 +3149,27 @@
             const txtTempo = diasVencido >= 1 ? `há ${diasVencido}d` : `há ${horasVencido}h`;
             pill.innerHTML = `⏹️ Prazo Vencido ${txtTempo} (em ${fimBr})`;
           } else {
-            // Passou de 72h após o vencimento: oculta automaticamente
             if (card.getAttribute('data-expired-purge') !== '1') {
               card.setAttribute('data-expired-purge', '1');
               mudancaStatus = true;
             }
           }
+        }
+      });
+
+      // Atualiza também os contadores regressivos da Aba 2 (Estruturação / Licitações)
+      document.querySelectorAll('.est-card').forEach(card => {
+        const isoDate = card.getAttribute('data-deadline-iso');
+        const fimBr = card.getAttribute('data-fim-br') || '';
+        const pill = card.querySelector('.est-deadline-pill');
+        if (!isoDate || !pill) return;
+        const limite = new Date(isoDate + 'T18:00:00-03:00');
+        const diffMs = limite - agora;
+        if (diffMs > 0) {
+          const totalMin = Math.floor(diffMs / 60000);
+          const dias = Math.floor(totalMin / 1440);
+          const horas = Math.floor((totalMin % 1440) / 60);
+          pill.innerHTML = `⏳ Propostas: <span class="countdown-mono">${dias}d ${pad2(horas)}h</span> (até ${fimBr})`;
         }
       });
 
