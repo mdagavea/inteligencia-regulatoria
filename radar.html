@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Radar de Inteligência Regulatória, Estruturação & Leilões — DECON/MPor (29 de Outubro de 2026 às 07:30)</title>
+  <title>Radar de Inteligência Regulatória, Estruturação & Leilões — DECON/MPor (30 de Outubro de 2026 às 07:31)</title>
   <style>
     :root {
       --bg: #f1f5f9;
@@ -653,7 +653,7 @@
         <p>Monitoramento integrado do Ciclo de Outorgas: Participação Social (Brasil Participativo), Estruturação/EVTEAs (Infra S.A., BNDES, PNCP) e Leilões (ANTAQ, ANAC, ANTT, B3)</p>
       </div>
       <div class="header-meta">
-        <span class="date-badge">Atualizado em 29 de Outubro de 2026 às 07:30</span>
+        <span class="date-badge">Atualizado em 30 de Outubro de 2026 às 07:31</span>
         <a class="portal-link-btn" style="background:#f8fafc; color:#0f172a;" href="https://mdagavea.github.io/inteligencia-regulatoria/clipping.html">📰 Clipping Diário</a>
         <a class="portal-link-btn" href="https://brasilparticipativo.presidencia.gov.br/processes" target="_blank">Brasil Participativo ↗</a>
       </div>
@@ -666,7 +666,7 @@
           <span class="tab-btn-title">🏛️ 1. Consultas & Participação Social</span>
           <span class="tab-btn-sub">Brasil Participativo • Consultas, Audiências e Pré-Publicação</span>
         </div>
-        <span class="tab-count-pill">34 ativos</span>
+        <span class="tab-count-pill">46 ativos</span>
       </button>
 
       <button class="tab-btn" id="btn-tab-estruturacao" onclick="selecionarAba('estruturacao')">
@@ -674,7 +674,7 @@
           <span class="tab-btn-title">📐 2. Estruturação, EVTEAs & Contratações</span>
           <span class="tab-btn-sub">DNIT, BNDES, Infra S.A. & PNCP (Escopo, Riscos & Seguros na Fonte)</span>
         </div>
-        <span class="tab-count-pill">6 verificados</span>
+        <span class="tab-count-pill">7 verificados</span>
       </button>
 
       <button class="tab-btn" id="btn-tab-leiloes" onclick="selecionarAba('leiloes')">
@@ -694,28 +694,28 @@
         <div class="kpi-card" onclick="filtrarStatus('TODOS')">
           <div class="kpi-info">
             <span>Total no Radar</span>
-            <strong>34</strong>
+            <strong>46</strong>
           </div>
           <div class="kpi-icon" style="background: #f1f5f9; color: #0f172a;">📋</div>
         </div>
         <div class="kpi-card" onclick="filtrarStatus('LANCADO_48H')">
           <div class="kpi-info">
             <span>Lançados (Últimas 48h)</span>
-            <strong style="color: var(--new-color);">2</strong>
+            <strong style="color: var(--new-color);">18</strong>
           </div>
           <div class="kpi-icon" style="background: var(--new-bg); color: var(--new-color);">🆕</div>
         </div>
         <div class="kpi-card" onclick="filtrarStatus('PRAZO_URGENTE')">
           <div class="kpi-info">
             <span>Prazo Crítico (≤ 7 dias)</span>
-            <strong style="color: var(--urgent-color);">7</strong>
+            <strong style="color: var(--urgent-color);">11</strong>
           </div>
           <div class="kpi-icon" style="background: var(--urgent-bg); color: var(--urgent-color);">🚨</div>
         </div>
         <div class="kpi-card" onclick="filtrarStatus('PRE_PUBLICACAO')">
           <div class="kpi-info">
             <span>Radar Pré-Publicação</span>
-            <strong style="color: var(--pre-color);">8</strong>
+            <strong style="color: var(--pre-color);">4</strong>
           </div>
           <div class="kpi-icon" style="background: var(--pre-bg); color: var(--pre-color);">📡</div>
         </div>
@@ -724,12 +724,12 @@
       <div class="filter-bar">
         <div class="filter-group" id="status-filters">
           <span class="filter-label">Status:</span>
-          <button class="filter-btn active" data-status="TODOS" onclick="filtrarStatus('TODOS')">Todos (<span id="cnt-todos">34</span>)</button>
-          <button class="filter-btn" data-status="LANCADO_48H" onclick="filtrarStatus('LANCADO_48H')">🆕 Lançados 48h (<span id="cnt-48h">2</span>)</button>
-          <button class="filter-btn" data-status="PRAZO_URGENTE" onclick="filtrarStatus('PRAZO_URGENTE')">🚨 Prazo ≤ 7d (<span id="cnt-urg">7</span>)</button>
-          <button class="filter-btn" data-status="ABERTO" onclick="filtrarStatus('ABERTO')">🟢 Prazo Regular (<span id="cnt-abe">13</span>)</button>
-          <button class="filter-btn" data-status="PRE_PUBLICACAO" onclick="filtrarStatus('PRE_PUBLICACAO')">📡 Pré-Publicação (<span id="cnt-pre">8</span>)</button>
-          <button class="filter-btn" data-status="ENCERRADO_RECENTE" onclick="filtrarStatus('ENCERRADO_RECENTE')">⏹️ Prazo Vencido 72h (<span id="cnt-enc">4</span>)</button>
+          <button class="filter-btn active" data-status="TODOS" onclick="filtrarStatus('TODOS')">Todos (<span id="cnt-todos">46</span>)</button>
+          <button class="filter-btn" data-status="LANCADO_48H" onclick="filtrarStatus('LANCADO_48H')">🆕 Lançados 48h (<span id="cnt-48h">18</span>)</button>
+          <button class="filter-btn" data-status="PRAZO_URGENTE" onclick="filtrarStatus('PRAZO_URGENTE')">🚨 Prazo ≤ 7d (<span id="cnt-urg">11</span>)</button>
+          <button class="filter-btn" data-status="ABERTO" onclick="filtrarStatus('ABERTO')">🟢 Prazo Regular (<span id="cnt-abe">10</span>)</button>
+          <button class="filter-btn" data-status="PRE_PUBLICACAO" onclick="filtrarStatus('PRE_PUBLICACAO')">📡 Pré-Publicação (<span id="cnt-pre">4</span>)</button>
+          <button class="filter-btn" data-status="ENCERRADO_RECENTE" onclick="filtrarStatus('ENCERRADO_RECENTE')">⏹️ Prazo Vencido 72h (<span id="cnt-enc">3</span>)</button>
         </div>
 
         <div class="filter-group" id="vertical-filters">
@@ -746,42 +746,622 @@
 
       <div class="dossier-list" id="dossier-container">
         
-      <article class="dossier-card vertical-infra" data-status="LANCADO_48H" data-vertical="infra" data-deadline-iso="2026-12-14" data-fim-br="14/12/2026">
+      <article class="dossier-card vertical-infra" data-status="LANCADO_48H" data-vertical="infra" data-deadline-iso="2026-11-11" data-fim-br="11/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
-            <span class="badge badge-orgao">🏛️ ANAC / SIA</span>
-            <span class="badge badge-modalidade">Consulta Setorial</span>
+            <span class="badge badge-orgao">🏛️ ANTT</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
           </div>
-          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 46d restantes (até 14/12/2026)</span>
+          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 12d restantes (até 11/11/2026)</span>
         </div>
 
-        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/cs-12-sia-2026" target="_blank" rel="noopener noreferrer">Consulta Setorial nº 12/SIA/2026 - Proposta de edição da Instrução Suplementar nº 153.117-001, Revisão A, intitulada "Supervisão permanente de pátio"</a>
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/rp-antt-10-2025" target="_blank" rel="noopener noreferrer">[RP ANTT nº 010/2025] Discutir a proposta de revisão do Marco Regulatório Setorial de Ferrovias – Direitos e Garantias aos Usuários e Serviço Adequado (Minuta de Resolução 1B – RSF1).</a>
 
         <div class="dates-row">
-          <span><strong>ID:</strong> #799</span>
-          <span><strong>Publicação:</strong> 28/10/2026</span>
-          <span><strong>Janela de Contribuição:</strong> 28/10/2026 até 14/12/2026</span>
+          <span><strong>ID:</strong> #165</span>
+          <span><strong>Cadastro no Portal:</strong> 29/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 02/11/2025 até 11/11/2026</span>
         </div>
 
         <div class="dossier-box">
           <div class="dossier-section">
             <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
-            <p class="dossier-text">Proposta de edição da Instrução Suplementar nº 153.117-001, Revisão A, intitulada 'Supervisão permanente de pátio', no âmbito da aviação civil.</p>
+            <p class="dossier-text">Revisão do Marco Regulatório Setorial de Ferrovias (Minuta de Resolução 1B – RSF1), focando em direitos e garantias aos usuários e definição de serviço adequado.</p>
           </div>
           <div class="incidencia-box">
             <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
-            <p class="dossier-text">Impacta diretamente as normas operacionais e de segurança aeroportuária para a gestão de pátios em aeródromos, exigindo monitoramento pelas concessionárias aeroportuárias.</p>
+            <p class="dossier-text">Impacta diretamente a matriz de riscos e as obrigações contratuais de concessionárias ferroviárias, exigindo análise sobre a estabilidade regulatória dos contratos vigentes.</p>
           </div>
         </div>
 
         <div class="docs-area">
-          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/cs-12-sia-2026" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
-          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/web/dou/-/aviso-de-consulta-setorial-n-12/sia/2026-740857794" target="_blank" rel="noopener noreferrer">📜 Ato Oficial no DOU</a>
-          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_processo_exibir.php?wwaVxfLBZplmUo_e4kgh5Gmp7SKjbPe64RCrMqfDZ_NhLNY7YbezU_yOW8hxuKxDha6tHNxgiW3Gt2u3iN_xJkUX-yi-WIorhiLjs5nsC5MwUXdOho1oYaKNnnyrh6XV" target="_blank" rel="noopener noreferrer">🗂️ SEI: 00058.075286/2025-88</a>
-          <a class="doc-btn doc-btn-pdf" href="https://www.gov.br/anac/pt-br/acesso-a-informacao/participacao-social/consultas-setoriais/consultas/2026/cs-12-sia-2026/justificativa.pdf" target="_blank" rel="noopener noreferrer">Justificativa</a>
-          <a class="doc-btn doc-btn-pdf" href="https://www.gov.br/anac/pt-br/acesso-a-informacao/participacao-social/consultas-setoriais/consultas/2026/cs-12-sia-2026/tabela-justiticativa.pdf" target="_blank" rel="noopener noreferrer">Tabela da Justificativa</a>
-          <a class="doc-btn doc-btn-secondary" href="https://brasilparticipativo.presidencia.gov.br/processes/cs-12-sia-2026/f/6025/" target="_blank" rel="noopener noreferrer">Faça a sua contribuição aqui (IS nº 153.117-001A )</a>
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/rp-antt-10-2025" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-secondary" href="https://www.youtube.com/watch?v=U1XJQgJUBGA" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=U1XJQgJUBGA</a>
+          <a class="doc-btn doc-btn-secondary" href="https://participantt.antt.gov.br/eventos?CodigoAudiencia=640" target="_blank" rel="noopener noreferrer">📝 Enviar Contribuição (ParticipANTT)</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="LANCADO_48H" data-vertical="infra" data-deadline-iso="2026-11-14" data-fim-br="14/11/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ ANTAQ</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 15d restantes (até 14/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/antaq2" target="_blank" rel="noopener noreferrer">ANTAQ - Consulta Pública nº 06/2025 - Revisão e simplificação do estoque regulatório da navegação interior</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #174</span>
+          <span><strong>Cadastro no Portal:</strong> 29/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 01/10/2025 até 14/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Revisão e simplificação do estoque regulatório da navegação interior, incluindo critérios de outorga, afretamento e acordos operacionais.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Essencial para a modernização da logística hidroviária; a simplificação de outorgas pode reduzir custos de conformidade e atrair novos investimentos para o setor.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/antaq2" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/en/web/dou/-/aviso-de-audiencia-publica-n-6/2025-antaq-657899310" target="_blank" rel="noopener noreferrer">📜 Ato Oficial no DOU</a>
+          <a class="doc-btn doc-btn-secondary" href="https://web3.antaq.gov.br/sistemas/sisapinternet/audienciapublicaconsultar.aspx?Audiencia=638" target="_blank" rel="noopener noreferrer">https://web3.antaq.gov.br/sistemas/sisapinternet/audienciapublicaconsultar.aspx?</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-divida" data-status="LANCADO_48H" data-vertical="divida" data-deadline-iso="2026-11-17" data-fim-br="17/11/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-divida">Finanças & Crédito</span>
+            <span class="badge badge-orgao">🏛️ MME / EPE</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 18d restantes (até 17/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/mme240" target="_blank" rel="noopener noreferrer">Consulta Pública n° 240 de 29/10/2026 - Minuta de diretrizes e Informe Técnico EPE com a Proposta de Formulação dos Preços de Referência e do Custo de Combustível (Ccomb) para o Leilão dos Sistemas Isolados de 2027.</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #803</span>
+          <span><strong>Publicação:</strong> 29/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 29/10/2026 até 17/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Definição de diretrizes e preços de referência para o Custo de Combustível (Ccomb) no Leilão dos Sistemas Isolados de 2027.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">O custo de combustível impacta diretamente o equilíbrio econômico-financeiro dos contratos de geração de energia em sistemas isolados, afetando o risco de crédito dos projetos.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/mme240" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/web/dou/-/portaria-sntep/mme-n-3.250-de-20-de-outubro-de-2026-741166987" target="_blank" rel="noopener noreferrer">📜 Ato Oficial no DOU</a>
+          <a class="doc-btn doc-btn-secondary" href="https://consultas-publicas.mme.gov.br/home" target="_blank" rel="noopener noreferrer">portal de Consultas Públicas do MME</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-carbono" data-status="LANCADO_48H" data-vertical="carbono" data-deadline-iso="2026-11-28" data-fim-br="28/11/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-carbono">Clima & Sustentabilidade</span>
+            <span class="badge badge-orgao">🏛️ FGVces</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 29d restantes (até 28/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/relatoemadaptacaoFGVces" target="_blank" rel="noopener noreferrer">Consulta Pública sobre Diretrizes para Relato Empresarial - Programa Brasileiro de Relato Empresarial em Adaptação a Mudança do Clima - FGVces</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #125</span>
+          <span><strong>Cadastro no Portal:</strong> 29/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 06/11/2025 até 28/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Diretrizes para o Programa Brasileiro de Relato Empresarial em Adaptação à Mudança do Clima (PBRA).</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">O alinhamento a padrões de relato climático é fundamental para o acesso a financiamento verde e debêntures incentivadas, sendo um tema transversal de ESG para grandes projetos.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/relatoemadaptacaoFGVces" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeXBpQVE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--2b1ddaa0ba48d7b28e0102c4d198904062bc81e3/ConsultPublica_Banner_Celular%20Programa%20Brasileiro%20%20(359%20x%20220%20px)%20(4).png" target="_blank" rel="noopener noreferrer">📎 ConsultPublica_Banner_Celular Programa Brasileiro  (359 x 220 px) (4).png</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeFp3QVE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--5fa5378a427635704ca9dc7378f8fd72e6a19605/Consulta_Publica_Programa%20Brasileiro%20de%20Relato%20Empresarial%20em%20Adapta%C3%A7%C3%A3o.pdf" target="_blank" rel="noopener noreferrer">📎 Consulta_Publica_Programa Brasileiro de Relato Empresarial em Adaptação.pdf</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="LANCADO_48H" data-vertical="infra" data-deadline-iso="2026-11-30" data-fim-br="30/11/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ MME</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 31d restantes (até 30/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/mme239" target="_blank" rel="noopener noreferrer">Consulta Pública nº 239, de 29/10/2026 (Diretrizes para elaboração do POTEE do MME)</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #802</span>
+          <span><strong>Publicação:</strong> 29/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 29/10/2026 até 30/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Diretrizes para elaboração do Plano de Outorgas de Transmissão de Energia Elétrica (POTEE).</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Define o pipeline de leilões de transmissão; essencial para o planejamento de investimentos e estruturação de garantias financeiras em projetos de energia.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/mme239" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/web/dou/-/portaria-sntep/mme-n-3.256-de-26-de-outubro-de-2026-741166906" target="_blank" rel="noopener noreferrer">📜 Ato Oficial no DOU</a>
+          <a class="doc-btn doc-btn-secondary" href="https://consultas-publicas.mme.gov.br/home" target="_blank" rel="noopener noreferrer">https://consultas-publicas.mme.gov.br/home</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="LANCADO_48H" data-vertical="infra" data-deadline-iso="2026-12-11" data-fim-br="11/12/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ ANTT</span>
+            <span class="badge badge-modalidade">Audiência Pública</span>
+          </div>
+          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 42d restantes (até 11/12/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/ap-antt-8-2025" target="_blank" rel="noopener noreferrer">[AP ANTT nº 008/2025] Proposta de revisão da Resolução ANTT nº 5.867, de 14 de janeiro de 2020, que estabelece as regras gerais, a metodologia e os coeficientes dos pisos mínimos, referentes ao quilômetro</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #161</span>
+          <span><strong>Cadastro no Portal:</strong> 29/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 12/11/2025 até 11/12/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Revisão da metodologia e coeficientes dos pisos mínimos do transporte rodoviário de cargas (PNPM-TRC).</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Impacta diretamente a logística de insumos e a estrutura de custos de transporte, afetando a competitividade de projetos de infraestrutura e o equilíbrio de contratos de frete.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/ap-antt-8-2025" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-secondary" href="https://forms.office.com/r/wnQYhkunaf" target="_blank" rel="noopener noreferrer">https://forms.office.com/r/wnQYhkunaf</a>
+          <a class="doc-btn doc-btn-secondary" href="https://participantt.antt.gov.br/eventos?CodigoAudiencia=647" target="_blank" rel="noopener noreferrer">📝 Enviar Contribuição (ParticipANTT)</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="LANCADO_48H" data-vertical="infra" data-deadline-iso="2026-12-12" data-fim-br="12/12/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ ANTT</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 43d restantes (até 12/12/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/cp-antt-2-2025" target="_blank" rel="noopener noreferrer">[CP ANTT nº 002/2025] Colher sugestões e contribuições escritas às minutas de Edital de processo competitivo, Termo Aditivo e seus anexos, ao PER e ao Modelo Econômico-Financeiro, que visa à proposta de readaptação e otimização do contrato de concessão relativo à Rodovia BR-116/SP/PR, atualmente sob concessão da Concessionária Autopista Régis Bittencourt S.A.</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #159</span>
+          <span><strong>Cadastro no Portal:</strong> 29/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 13/11/2025 até 12/12/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Readaptação e otimização do contrato de concessão da Rodovia BR-116/SP/PR (Autopista Régis Bittencourt).</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Processo piloto de reequilíbrio via sandbox regulatório (IN TCU 91/2022); serve de benchmark para futuras renegociações de contratos de concessão rodoviária.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/cp-antt-2-2025" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-secondary" href="https://participantt.antt.gov.br/eventos?CodigoAudiencia=648" target="_blank" rel="noopener noreferrer">📝 Enviar Contribuição (ParticipANTT)</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-divida" data-status="LANCADO_48H" data-vertical="divida" data-deadline-iso="2026-12-14" data-fim-br="14/12/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-divida">Finanças & Crédito</span>
+            <span class="badge badge-orgao">🏛️ ANA</span>
+            <span class="badge badge-modalidade">Tomada de Subsídios</span>
+          </div>
+          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 45d restantes (até 14/12/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/ts006" target="_blank" rel="noopener noreferrer">Tomada de Subsídios 006/2025</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #149</span>
+          <span><strong>Cadastro no Portal:</strong> 29/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 25/11/2025 até 14/12/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Regulação tarifária do serviço de adução de água bruta do Projeto de Integração do Rio São Francisco (PISF).</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">A definição de tarifas de água bruta impacta a viabilidade econômica de projetos de irrigação e saneamento, sendo um componente chave para o financiamento de infraestrutura hídrica.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/ts006" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/web/dou/-/aviso-de-tomada-de-subsidios-n-6/2025-670928017" target="_blank" rel="noopener noreferrer">📜 Ato Oficial no DOU</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-carbono" data-status="LANCADO_48H" data-vertical="carbono" data-deadline-iso="2026-12-25" data-fim-br="25/12/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-carbono">Clima & Sustentabilidade</span>
+            <span class="badge badge-orgao">🏛️ MMA</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 56d restantes (até 25/12/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/pnmc" target="_blank" rel="noopener noreferrer">Consulta Pública sobre o anteprojeto de Lei de revisão da Política Nacional sobre Mudança do Clima - PNMC</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #91</span>
+          <span><strong>Cadastro no Portal:</strong> 29/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 01/10/2025 até 25/12/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Anteprojeto de Lei de revisão da Política Nacional sobre Mudança do Clima (PNMC).</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">A revisão da PNMC ditará as diretrizes de descarbonização para todos os setores de infraestrutura, afetando metas de emissões em contratos de concessão e acesso a financiamento verde.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/pnmc" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBd2hWQVE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--c544f15e57afad304c544f25f04272389d2268c1/CIM%20ARTES%20CONSULTA%20PUBLICA_569x317PX.jpg" target="_blank" rel="noopener noreferrer">📎 CIM ARTES CONSULTA PUBLICA_569x317PX.jpg</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNUJiQVE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--917ee794dae7c4c443fc8eb608006c5ebc9a7714/anteprojeto_pnmc_consulta-publica.pdf" target="_blank" rel="noopener noreferrer">📎 anteprojeto_pnmc_consulta-publica.pdf</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-carbono" data-status="LANCADO_48H" data-vertical="carbono" data-deadline-iso="2026-12-26" data-fim-br="26/12/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-carbono">Clima & Sustentabilidade</span>
+            <span class="badge badge-orgao">🏛️ ANP / SBQ</span>
+            <span class="badge badge-modalidade">Consulta e Audiência Públicas</span>
+          </div>
+          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 57d restantes (até 26/12/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/ANP13-2025" target="_blank" rel="noopener noreferrer">Consulta e Audiência Públicas ANP nº 13/2025</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #141</span>
+          <span><strong>Cadastro no Portal:</strong> 29/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 11/11/2025 até 26/12/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Regulamentação da individualização das metas de Certificado de Garantia de Origem (CGOB) para produtores e importadores de gás natural.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">O mecanismo de certificação de origem impacta a transição energética de ativos de infraestrutura que utilizam gás natural e a precificação de ativos no mercado de carbono.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/ANP13-2025" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.gov.br/anp/pt-br/assuntos/consultas-e-audiencias-publicas/consulta-audiencia-publica/2025/arquivos-consultas-audiencias-publicas-2025/cp-ap-13-2025/aviso-cp-ap-13-2025.pdf" target="_blank" rel="noopener noreferrer">📜 Ato Oficial no DOU</a>
+          <a class="doc-btn doc-btn-secondary" href="https://www.gov.br/anp/pt-br/assuntos/consultas-e-audiencias-publicas/consulta-audiencia-publica/2025/consulta-e-audiencia-publicas-no-13-2025" target="_blank" rel="noopener noreferrer">https://www.gov.br/anp/pt-br/assuntos/consultas-e-audiencias-publicas/consulta-a</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="LANCADO_48H" data-vertical="infra" data-deadline-iso="2026-12-29" data-fim-br="29/12/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ ANM</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 60d restantes (até 29/12/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/fechamentodemina" target="_blank" rel="noopener noreferrer">Consulta Pública nº 4/2026 - Revisão da Resolução ANM nº 68/2020 - Plano de Fechamento de Mina</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #789</span>
+          <span><strong>Publicação:</strong> 30/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 30/10/2026 até 29/12/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Revisão da Resolução ANM nº 68/2020 sobre o Plano de Fechamento de Mina.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">O fechamento de mina envolve passivos ambientais e garantias financeiras de alto risco; a revisão das regras de execução e monitoramento é crítica para a gestão de riscos de engenharia.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/fechamentodemina" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="http://www.in.gov.br/web/dou/-/aviso-de-retificacao-740756169" target="_blank" rel="noopener noreferrer">📜 Ato Oficial no DOU</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNDNoQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b75816de2a89617ce45060e1c2f8f7564ab9c954/Moderniza%C3%A7%C3%A3o%20da%20Resolu%C3%A7%C3%A3o%20ANM%20n%C2%BA%2068%20(Fechamento%20e%20Reabilita%C3%A7%C3%A3o%20de%20Minas).pdf" target="_blank" rel="noopener noreferrer">📎 Modernização da Resolução ANM nº 68 (Fechamento e Reabilitação de Minas)...</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNWJoQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--ab107ee94cd03a2756b4bca030e427155172a9fa/Chamada%20a%20A%C3%A7%C3%A3o%20640x320%20(2).jpg" target="_blank" rel="noopener noreferrer">📎 Chamada a Ação 640x320 (2).jpg</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNWZoQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--1f2cccce8e4cb9a7e365c8fa28fb5df57ab72940/Chamada%20a%20A%C3%A7%C3%A3o%20640x320%20(3).jpg" target="_blank" rel="noopener noreferrer">📎 Chamada a Ação 640x320 (3).jpg</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNWpoQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--3d3b8476b0eb9266aa7bd42af45dcad55b3a3d74/Chamada%20a%20A%C3%A7%C3%A3o%20640x320.jpg" target="_blank" rel="noopener noreferrer">📎 Chamada a Ação 640x320.jpg</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNW5oQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--3ab0422e6ae20db030dca3efac3ac10a1d6247e9/Mobile%20359x220.jpg" target="_blank" rel="noopener noreferrer">📎 Mobile 359x220.jpg</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-seguros" data-status="LANCADO_48H" data-vertical="seguros" data-deadline-iso="2026-11-16" data-fim-br="16/11/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-seguros">Seguros & Garantias</span>
+            <span class="badge badge-orgao">🏛️ SUSEP / CGPEC</span>
+            <span class="badge badge-modalidade">Tomada de Subsídios</span>
+          </div>
+          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 17d restantes (até 16/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/susep-normascontabeisppm" target="_blank" rel="noopener noreferrer">Tomada de Subsídios - Normas Contábeis do Mercado de Proteção Patrimonial Mutualista</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #805</span>
+          <span><strong>Publicação:</strong> 29/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 29/10/2026 até 16/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Manual de Práticas e Procedimentos Contábeis do Mercado de Proteção Patrimonial Mutualista e respectivo elenco de contas.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">A padronização contábil de entidades de proteção patrimonial é relevante para a gestão de riscos e solvência, impactando a competitividade frente ao mercado segurador tradicional.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/susep-normascontabeisppm" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBM3JtQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--6c1f56e5a10438ebb0d15fd5862b0c5642f0da39/Manual%20Pr%C3%A1ticas%20e%20Procedimentos%20Cont%C3%A1beis%20Adm%20PPM%20e%20Grupo%20PPM%20(3).pdf" target="_blank" rel="noopener noreferrer">📎 Manual Práticas e Procedimentos Contábeis Adm PPM e Grupo PPM (3).pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBM3ZtQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--73e390c4eea269e6c15a420e3164a5322a4acf86/GPPM%20-%20ELENCO%20DE%20CONTAS%20-%20VERSAO%20PUBLICACAO.xlsx" target="_blank" rel="noopener noreferrer">📎 GPPM - ELENCO DE CONTAS - VERSAO PUBLICACAO.xlsx</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBM3ptQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--99084e1c667d0f909cb8bb7949658486db30e8a0/APPM%20-%20ELENCO%20DE%20CONTAS%20-%20VERSAO%20PUBLICACAO.xlsx" target="_blank" rel="noopener noreferrer">📎 APPM - ELENCO DE CONTAS - VERSAO PUBLICACAO.xlsx</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="LANCADO_48H" data-vertical="infra" data-deadline-iso="2026-11-27" data-fim-br="27/11/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ DNIT</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 28d restantes (até 27/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/norma-dnit-093-em-drenagem" target="_blank" rel="noopener noreferrer">Consulta pública do Projeto de Revisão de Norma DNIT 093 – EM – Drenagem – Tubo dreno corrugado de polietileno de alta densidade (PEAD) para drenagem subsuperficial e profunda – Especificação de material</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #804</span>
+          <span><strong>Publicação:</strong> 29/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 29/10/2026 até 27/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Revisão da Norma DNIT 093 – Especificação de material para tubo dreno corrugado de PEAD para drenagem subsuperficial e profunda.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Alterações em normas técnicas de materiais impactam diretamente o orçamento de obras rodoviárias e a qualidade da infraestrutura entregue, influenciando custos de manutenção.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/norma-dnit-093-em-drenagem" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="LANCADO_48H" data-vertical="infra" data-deadline-iso="2026-11-27" data-fim-br="27/11/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ Exército / DFPC</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 28d restantes (até 27/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/consulta-147-compl" target="_blank" rel="noopener noreferrer">Consulta Pública nº 08/2026 - Revisão Portaria nº 147 - COLOG, de 21 de novembro de 2019 - Normas Administrativas para o Exercício de Atividades com Explosivos e seus Acessórios e com Produtos que contém Nitrato de Amônio</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #795</span>
+          <span><strong>Publicação:</strong> 29/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 29/10/2026 até 27/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Revisão da Portaria nº 147-COLOG sobre normas administrativas para atividades com explosivos e produtos controlados.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">A regulação de explosivos é crítica para o cronograma de obras de infraestrutura pesada (túneis, mineração e terraplenagem); mudanças podem afetar custos e prazos de execução.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/consulta-147-compl" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/web/dou/-/aviso-de-consulta-publica-n-8/2026-740831387" target="_blank" rel="noopener noreferrer">📜 Ato Oficial no DOU</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBL2psQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--fad1bbcaebd426865326089799185bfb42929a88/Minuta%20Revisao%20Port%20n%C2%BA%20147%20v1.pdf" target="_blank" rel="noopener noreferrer">📎 Minuta Revisao Port nº 147 v1.pdf</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="LANCADO_48H" data-vertical="infra" data-deadline-iso="2026-12-21" data-fim-br="21/12/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ Inmetro</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 52d restantes (até 21/12/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/save-ca" target="_blank" rel="noopener noreferrer">Sistemas de Abastecimento de Veículos Elétricos em Corrente Alternada (SAVE-CA).</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #796</span>
+          <span><strong>Cadastro no Portal:</strong> 29/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 22/10/2026 até 21/12/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Revisão da Portaria Inmetro nº 19/2026 que estabelece a regulamentação técnica metrológica para Sistemas de Abastecimento de Veículos Elétricos em Corrente Alternada (SAVE-CA).</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Impacta diretamente a padronização de infraestrutura de recarga em rodovias e terminais logísticos, essencial para a viabilidade de frotas elétricas em concessões.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/save-ca" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-carbono" data-status="LANCADO_48H" data-vertical="carbono" data-deadline-iso="2026-12-27" data-fim-br="27/12/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-carbono">Clima & Sustentabilidade</span>
+            <span class="badge badge-orgao">🏛️ MMA / SNMC</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 58d restantes (até 27/12/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/programahfcs" target="_blank" rel="noopener noreferrer">Programa Brasileiro de Redução do Consumo dos HFCs - Etapa I</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #122</span>
+          <span><strong>Cadastro no Portal:</strong> 29/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 27/11/2025 até 27/12/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Programa Brasileiro de Redução do Consumo dos HFCs - Etapa I.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">A regulação de gases de efeito estufa impacta diretamente a operação de sistemas de refrigeração em terminais logísticos, armazéns frigorificados e infraestrutura aeroportuária.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/programahfcs" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.520-de-25-de-novembro-de-2025-671620876" target="_blank" rel="noopener noreferrer">📜 Ato Oficial no DOU</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOUZtQVE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--c219ae53eb373190e79dee2471390a478384da2e/Programa%20HFC_Etapa%20I_Consulta%20P%C3%BAblica_VF_1%20Capa.pdf" target="_blank" rel="noopener noreferrer">📎 Programa HFC_Etapa I_Consulta Pública_VF_1 Capa.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOUptQVE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--63fd0c0ae60d51dc8f773ae8d3458e3f420b441e/Programa%20HFC_Etapa%20I_Consulta%20P%C3%BAblica_VF_2%20Sum%C3%A1rio.pdf" target="_blank" rel="noopener noreferrer">📎 Programa HFC_Etapa I_Consulta Pública_VF_2 Sumário.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOU5tQVE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--47de7e04b19912bd2ddc51c1acd6bae6f2e44f0d/Programa%20HFC_Etapa%20I_Consulta%20P%C3%BAblica_VF_3%20Introdu%C3%A7%C3%A3o.pdf" target="_blank" rel="noopener noreferrer">📎 Programa HFC_Etapa I_Consulta Pública_VF_3 Introdução.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOVJtQVE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--a57c8608d36c075757cb8b38c278d3659887db8e/Programa%20HFC_Etapa%20I_Consulta%20P%C3%BAblica_VF_4%20Matriz%20Institucional.pdf" target="_blank" rel="noopener noreferrer">📎 Programa HFC_Etapa I_Consulta Pública_VF_4 Matriz Institucional.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOVptQVE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--f02e71daf6762fc4317e43ed304cb3d263a86179/Programa%20HFC_Etapa%20I_Consulta%20P%C3%BAblica_VF_5%20Diagn%C3%B3stico%20Consumo.pdf" target="_blank" rel="noopener noreferrer">📎 Programa HFC_Etapa I_Consulta Pública_VF_5 Diagnóstico Consumo.pdf</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="LANCADO_48H" data-vertical="infra" data-deadline-iso="2026-12-29" data-fim-br="29/12/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ ANAC / SAR</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 60d restantes (até 29/12/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/cp-anac-12-2025" target="_blank" rel="noopener noreferrer">Consulta Pública nº 12/2025 - Proposta de emendas aos Regulamentos Brasileiros da Aviação Civil - RBACs nºs 21 e 45</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #132</span>
+          <span><strong>Cadastro no Portal:</strong> 29/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 12/11/2025 até 29/12/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Emendas aos RBACs nºs 21 e 45 sobre certificação de produtos aeronáuticos e terminologias.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Ajustes regulatórios na certificação de produtos impactam a cadeia de suprimentos e a manutenção de ativos aeroportuários.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/cp-anac-12-2025" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/web/dou/-/aviso-de-consulta-publica-n-12/2025-668502433" target="_blank" rel="noopener noreferrer">📜 Ato Oficial no DOU</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_processo_exibir.php?wwaVxfLBZplmUo_e4kgh5Gmp7SKjbPe64RCrMqfDZ_NhLNY7YbezU_yOW8hxuKxDha6tHNxgiW3Gt2u3iN_xJoQpiJZ0szipweZ4D3u0YY-H0yCLVklKgvxn1dtG3_Ob" target="_blank" rel="noopener noreferrer">🗂️ SEI: 00066.005011/2023-16</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLScdlBZSXZzhH8qjTMh7XKTuGeka1pyqelWY61FtVXKJUUYeEMXw2ty7lAORZ8QIrr0xC2tvGPZqxo9JQDFk1Icz6" target="_blank" rel="noopener noreferrer">🗂️ SEI: Minuta de Resolução</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLScf4uOgP6UNJ-10Sz0kQkvwiJCOGutwdCk2UJ51KNNZ32CQ6PxBJabfcqNVjb-K2mIcrcaqlZBkoNlLJZRDlhxT4" target="_blank" rel="noopener noreferrer">🗂️ SEI: Emenda ao RBAC 21</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLScefMVVDw6RRsrPRDM-ZKN4gsSM4YSnz_3Cz3iot1lEKQbZbi9scB6TAWc98mON6RdgvGP5SXT6TGcb-wT6Zb1X0" target="_blank" rel="noopener noreferrer">🗂️ SEI: Emenda ao RBAC 45</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLSceDPSHAsvJVFXa0rxS1Bh2UyCbNhrH8afYzosfemfa6i6IBCnckFhIEJhtgiynMatZfPeTzJBOoLkwERKKg-wd0" target="_blank" rel="noopener noreferrer">🗂️ SEI: Quadro comparativo</a>
         </div>
       </article>
 
@@ -792,7 +1372,7 @@
             <span class="badge badge-orgao">🏛️ Governo do RS</span>
             <span class="badge badge-modalidade">Planos Participativos</span>
           </div>
-          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 63d restantes (até 31/12/2026)</span>
+          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 62d restantes (até 31/12/2026)</span>
         </div>
 
         <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/pactors25" target="_blank" rel="noopener noreferrer">Pacto RS 25</a>
@@ -832,7 +1412,7 @@
             <span class="badge badge-orgao">🏛️ ANTT / SUROD</span>
             <span class="badge badge-modalidade">Reunião Participativa</span>
           </div>
-          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Encerra AMANHÃ (30/10/2026)</span>
+          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Encerra HOJE (30/10/2026)</span>
         </div>
 
         <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/rp-antt-8-2026" target="_blank" rel="noopener noreferrer">[RP ANTT nº 008/2026] Reforma Tributária do Consumo, relativamente aos anos-calendário de 2027 e 2028, nos contratos de concessão de exploração de infraestrutura rodoviária sob gestão da ANTT</a>
@@ -867,7 +1447,7 @@
             <span class="badge badge-orgao">🏛️ SENATRAN</span>
             <span class="badge badge-modalidade">Consulta Pública</span>
           </div>
-          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Vence em 5 dias (03/11/2026)</span>
+          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Vence em 4 dias (03/11/2026)</span>
         </div>
 
         <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/minuta-resolucao-tanque-adicional-arla-32" target="_blank" rel="noopener noreferrer">Minuta de resolução que altera a Resolução Contran nº 958, de 17 de maio de 2022, para permitir a instalação e uso de tanque adicional de Arla 32 em veículos.</a>
@@ -901,7 +1481,7 @@
             <span class="badge badge-orgao">🏛️ ANP</span>
             <span class="badge badge-modalidade">Consulta Pública e Audiência Pública</span>
           </div>
-          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Vence em 5 dias (03/11/2026)</span>
+          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Vence em 4 dias (03/11/2026)</span>
         </div>
 
         <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/ANP-20-2026" target="_blank" rel="noopener noreferrer">Consulta e Audiência Públicas ANP nº 20/2026</a>
@@ -936,7 +1516,7 @@
             <span class="badge badge-orgao">🏛️ MT / SNTF</span>
             <span class="badge badge-modalidade">Consulta Pública</span>
           </div>
-          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Vence em 7 dias (05/11/2026)</span>
+          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Vence em 6 dias (05/11/2026)</span>
         </div>
 
         <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/ConsultaPublicaPSTF" target="_blank" rel="noopener noreferrer">Consulta Pública: Versão preliminar do Plano Setorial de Transporte Ferroviário (PSTF)</a>
@@ -972,7 +1552,7 @@
             <span class="badge badge-orgao">🏛️ MT / SNTR</span>
             <span class="badge badge-modalidade">Consulta Pública</span>
           </div>
-          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Vence em 7 dias (05/11/2026)</span>
+          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Vence em 6 dias (05/11/2026)</span>
         </div>
 
         <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/consulta-publica-plano-setorial-transporte-rodoviario-pstr" target="_blank" rel="noopener noreferrer">Consulta Pública: Versão preliminar do Plano Setorial de Transporte Rodoviário</a>
@@ -1008,7 +1588,7 @@
             <span class="badge badge-orgao">🏛️ MPOR / SNP</span>
             <span class="badge badge-modalidade">Consulta Pública</span>
           </div>
-          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Vence em 7 dias (05/11/2026)</span>
+          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Vence em 6 dias (05/11/2026)</span>
         </div>
 
         <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/portos-e-aeroportos-PSPORT2050" target="_blank" rel="noopener noreferrer">Consulta Pública sobre o Plano Setorial Portuário (PSPORT) 2050.</a>
@@ -1045,7 +1625,7 @@
             <span class="badge badge-orgao">🏛️ ANM</span>
             <span class="badge badge-modalidade">Consulta Pública</span>
           </div>
-          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Vence em 7 dias (05/11/2026)</span>
+          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Vence em 6 dias (05/11/2026)</span>
         </div>
 
         <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/DUP" target="_blank" rel="noopener noreferrer">Consulta Pública ANM nº 03/2026 - Declaração de Utilidade Pública - DUP</a>
@@ -1077,14 +1657,14 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-06" data-fim-br="06/11/2026">
+      <article class="dossier-card vertical-infra" data-status="PRAZO_URGENTE" data-vertical="infra" data-deadline-iso="2026-11-06" data-fim-br="06/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
             <span class="badge badge-orgao">🏛️ MME</span>
             <span class="badge badge-modalidade">Consulta Pública</span>
           </div>
-          <span class="deadline-pill status-ABERTO">🟢 Aberto • 8 dias restantes (até 06/11/2026)</span>
+          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Vence em 7 dias (06/11/2026)</span>
         </div>
 
         <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/MME235" target="_blank" rel="noopener noreferrer">Consulta Pública nº 235 de 08/10/2026 - Minuta do Relatório Síntese do Plano Decenal de Expansão de Energia 2036 - PDE 2036</a>
@@ -1113,14 +1693,14 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-carbono" data-status="ABERTO" data-vertical="carbono" data-deadline-iso="2026-11-06" data-fim-br="06/11/2026">
+      <article class="dossier-card vertical-carbono" data-status="PRAZO_URGENTE" data-vertical="carbono" data-deadline-iso="2026-11-06" data-fim-br="06/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-carbono">Clima & Sustentabilidade</span>
             <span class="badge badge-orgao">🏛️ MDIC / SCPR</span>
             <span class="badge badge-modalidade">Tomada de Subsídios</span>
           </div>
-          <span class="deadline-pill status-ABERTO">🟢 Aberto • 8 dias restantes (até 06/11/2026)</span>
+          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Vence em 7 dias (06/11/2026)</span>
         </div>
 
         <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/ts-infrasustentavel" target="_blank" rel="noopener noreferrer">Tomada de Subsídios - Avaliação e Certificação da Infraestrutura Sustentável</a>
@@ -1148,14 +1728,14 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-divida" data-status="ABERTO" data-vertical="divida" data-deadline-iso="2026-11-06" data-fim-br="06/11/2026">
+      <article class="dossier-card vertical-divida" data-status="PRAZO_URGENTE" data-vertical="divida" data-deadline-iso="2026-11-06" data-fim-br="06/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-divida">Finanças & Crédito</span>
             <span class="badge badge-orgao">🏛️ CADE</span>
             <span class="badge badge-modalidade">Consulta Pública</span>
           </div>
-          <span class="deadline-pill status-ABERTO">🟢 Aberto • 8 dias restantes (até 06/11/2026)</span>
+          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Vence em 7 dias (06/11/2026)</span>
         </div>
 
         <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/ricade" target="_blank" rel="noopener noreferrer">Emenda ao Regimento Interno do Conselho Administrativo de Defesa Econômica</a>
@@ -1186,6 +1766,40 @@
         </div>
       </article>
 
+      <article class="dossier-card vertical-carbono" data-status="PRAZO_URGENTE" data-vertical="carbono" data-deadline-iso="2026-11-06" data-fim-br="06/11/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-carbono">Clima & Sustentabilidade</span>
+            <span class="badge badge-orgao">🏛️ IBAMA</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-PRAZO_URGENTE">🚨 Vence em 7 dias (06/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/consultafnp" target="_blank" rel="noopener noreferrer">Consulta Pública sobre proposta de Instrução Normativa do Ibama para o cadastro e a colheita de florestas nativas plantadas no Sinaflor</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #739</span>
+          <span><strong>Publicação:</strong> 06/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 06/10/2026 até 06/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Proposta de Instrução Normativa para regular o cadastro, colheita e controle de origem de florestas nativas plantadas no âmbito do Sinaflor.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Impacta o licenciamento ambiental, a regularidade de insumos florestais e a cadeia de suprimentos de projetos com passivos ou exigências de compensação florestal.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/consultafnp" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+        </div>
+      </article>
+
       <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-13" data-fim-br="13/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
@@ -1193,7 +1807,7 @@
             <span class="badge badge-orgao">🏛️ ANTT / SUROD</span>
             <span class="badge badge-modalidade">Reunião Participativa</span>
           </div>
-          <span class="deadline-pill status-ABERTO">🟢 Aberto • 15 dias restantes (até 13/11/2026)</span>
+          <span class="deadline-pill status-ABERTO">🟢 Aberto • 14 dias restantes (até 13/11/2026)</span>
         </div>
 
         <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/rp-antt-7-2026" target="_blank" rel="noopener noreferrer">[RP ANTT nº 007/2026] Minuta do Edital do Sandbox Regulatório destinado à adoção de procedimento alternativo de análise de projetos e autorização de início de obras obrigatórias previstas nos contratos de concessão rodoviária federal e respectivos PER</a>
@@ -1228,7 +1842,7 @@
             <span class="badge badge-orgao">🏛️ MPOR / SNP</span>
             <span class="badge badge-modalidade">Consulta Pública</span>
           </div>
-          <span class="deadline-pill status-ABERTO">🟢 Aberto • 15 dias restantes (até 13/11/2026)</span>
+          <span class="deadline-pill status-ABERTO">🟢 Aberto • 14 dias restantes (até 13/11/2026)</span>
         </div>
 
         <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/portos-aeroportos-portaria530" target="_blank" rel="noopener noreferrer">Consulta Pública sobre proposta de modernização Portaria n.º 530, de 13 de agosto de 2019.</a>
@@ -1267,7 +1881,7 @@
             <span class="badge badge-orgao">🏛️ ANTT / SUFER</span>
             <span class="badge badge-modalidade">Tomada de Subsídios</span>
           </div>
-          <span class="deadline-pill status-ABERTO">🟢 Aberto • 21 dias restantes (até 19/11/2026)</span>
+          <span class="deadline-pill status-ABERTO">🟢 Aberto • 20 dias restantes (até 19/11/2026)</span>
         </div>
 
         <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/ts-antt-6-2026" target="_blank" rel="noopener noreferrer">[TS ANTT nº 006/2026] Colher dados, informações, evidências e contribuições técnicas junto às autorizatárias de ferrovias federais, órgãos públicos, agentes do setor e demais interessados para fundamentar o aprimoramento e a revisão do processo de acompanhamento das outorgas por autorização</a>
@@ -1302,7 +1916,7 @@
             <span class="badge badge-orgao">🏛️ MDIC / SDES</span>
             <span class="badge badge-modalidade">Consulta Pública</span>
           </div>
-          <span class="deadline-pill status-ABERTO">🟢 Aberto • 22 dias restantes (até 20/11/2026)</span>
+          <span class="deadline-pill status-ABERTO">🟢 Aberto • 21 dias restantes (até 20/11/2026)</span>
         </div>
 
         <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/TSB2edicao" target="_blank" rel="noopener noreferrer">Consulta Pública da Segunda Edição da TSB</a>
@@ -1331,7 +1945,7 @@
           <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBN2pjQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--7b1d5eb64f6effb1ba352b3d0566418811b391e1/P.4(iv)_CNAE%20C_Proposta%20do%20Caderno%20T%C3%A9cnico%20Setorial%20CP_V3.pdf" target="_blank" rel="noopener noreferrer">📎 P.4(iv)_CNAE C_Proposta do Caderno Técnico Setorial CP_V3.pdf</a>
           <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBM3JkQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--293473de127582dc5533f5603734d0f618f8f942/P.4(iv)_CNAE%20D_Proposta%20do%20Caderno%20T%C3%A9cnico%20Setorial%20CP_V4.pdf" target="_blank" rel="noopener noreferrer">📎 P.4(iv)_CNAE D_Proposta do Caderno Técnico Setorial CP_V4.pdf</a>
           <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBN3JjQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--dc7d86a921bfa78c8f82d6b996425d3422e0975b/P.4(iv)_CNAE%20E_Proposta%20Caderno%20T%C3%A9cnico%20Setorial%20CP_V3.pdf" target="_blank" rel="noopener noreferrer">📎 P.4(iv)_CNAE E_Proposta Caderno Técnico Setorial CP_V3.pdf</a>
-          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNzdjQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--db420aeb8af6ef66ec89d8b6f71504291ed0e648/P.4(iv)_CNAE%20F_Proposta%20do%20Caderno%20T%C3%A9cnico%20Setorial_CP_V3-1.pdf" target="_blank" rel="noopener noreferrer">📎 P.4(iv)_CNAE F_Proposta do Caderno Técnico Setorial_CP_V3-1.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMVBtQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--cfdf4a0fac333b58e25639324163d28a66aa19a8/P.4(iv)_CNAE%20F_Proposta%20do%20Caderno%20T%C3%A9cnico%20Setorial_CP_V3.1.pdf" target="_blank" rel="noopener noreferrer">📎 P.4(iv)_CNAE F_Proposta do Caderno Técnico Setorial_CP_V3.1.pdf</a>
         </div>
       </article>
 
@@ -1342,7 +1956,42 @@
             <span class="badge badge-orgao">🏛️ ICMBio</span>
             <span class="badge badge-modalidade">Consulta Pública</span>
           </div>
-          <span class="deadline-pill status-ABERTO">🟢 Aberto • 27 dias restantes (até 25/11/2026)</span>
+          <span class="deadline-pill status-ABERTO">🟢 Aberto • 26 dias restantes (até 25/11/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/in-planejamento-priorizacao" target="_blank" rel="noopener noreferrer">Minuta da IN de Planejamento e Priorização de Delegação de Serviços de Apoio à Visitação</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #777</span>
+          <span><strong>Publicação:</strong> 26/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 26/10/2026 até 25/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Minuta de IN sobre critérios de priorização para delegação de serviços de apoio à visitação em Unidades de Conservação e instituição do PPPC.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Define o marco regulatório para concessões de uso público em áreas protegidas, um mercado em expansão para investimentos privados em infraestrutura turística.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/in-planejamento-priorizacao" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/web/dou/-/aviso-de-consulta-publica-n-34/2026-740197233" target="_blank" rel="noopener noreferrer">📜 Ato Oficial no DOU</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-25" data-fim-br="25/11/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ ICMBio</span>
+            <span class="badge badge-modalidade">Consulta Pública</span>
+          </div>
+          <span class="deadline-pill status-ABERTO">🟢 Aberto • 26 dias restantes (até 25/11/2026)</span>
         </div>
 
         <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/portaria-estruturacao" target="_blank" rel="noopener noreferrer">Minuta da Portaria de Estruturação de Projetos de Delegação de Serviços de Apoio à Visitação</a>
@@ -1377,7 +2026,7 @@
             <span class="badge badge-orgao">🏛️ ANAC / SIA</span>
             <span class="badge badge-modalidade">Consulta Setorial</span>
           </div>
-          <span class="deadline-pill status-ABERTO">🟢 Aberto • 39 dias restantes (até 07/12/2026)</span>
+          <span class="deadline-pill status-ABERTO">🟢 Aberto • 38 dias restantes (até 07/12/2026)</span>
         </div>
 
         <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/cs-11-sia-2026" target="_blank" rel="noopener noreferrer">Consulta Setorial nº 11/SIA/2026 - Proposta de edição da Instrução Suplementar nº 154-003, Revisão C, que trata dos auxílios visuais para pistas de pouso e decolagem e pistas de táxi</a>
@@ -1417,7 +2066,7 @@
             <span class="badge badge-orgao">🏛️ ANAC / SSA</span>
             <span class="badge badge-modalidade">Tomada de Subsídios</span>
           </div>
-          <span class="deadline-pill status-ABERTO">🟢 Aberto • 61 dias restantes (até 29/12/2026)</span>
+          <span class="deadline-pill status-ABERTO">🟢 Aberto • 60 dias restantes (até 29/12/2026)</span>
         </div>
 
         <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/ts-01-ssa-2026" target="_blank" rel="noopener noreferrer">Tomada de Subsídios nº 01/SSA/2026 - Condições de acesso à infraestrutura aeroportuária e os critérios aplicáveis à alocação de slots no Aeroporto de São Paulo/Congonhas - Deputado Freitas Nobre (SBSP)</a>
@@ -1448,40 +2097,6 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-carbono" data-status="ABERTO" data-vertical="carbono" data-deadline-iso="2026-11-06" data-fim-br="06/11/2026">
-        <div class="card-top-meta">
-          <div class="badges-left">
-            <span class="badge badge-carbono">Clima & Sustentabilidade</span>
-            <span class="badge badge-orgao">🏛️ IBAMA</span>
-            <span class="badge badge-modalidade">Consulta Pública</span>
-          </div>
-          <span class="deadline-pill status-ABERTO">🟢 Aberto • 8 dias restantes (até 06/11/2026)</span>
-        </div>
-
-        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/consultafnp" target="_blank" rel="noopener noreferrer">Consulta Pública sobre proposta de Instrução Normativa do Ibama para o cadastro e a colheita de florestas nativas plantadas no Sinaflor</a>
-
-        <div class="dates-row">
-          <span><strong>ID:</strong> #739</span>
-          <span><strong>Publicação:</strong> 06/10/2026</span>
-          <span><strong>Janela de Contribuição:</strong> 06/10/2026 até 06/11/2026</span>
-        </div>
-
-        <div class="dossier-box">
-          <div class="dossier-section">
-            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
-            <p class="dossier-text">Proposta de Instrução Normativa para regular o cadastro, colheita e controle de origem de florestas nativas plantadas no âmbito do Sinaflor.</p>
-          </div>
-          <div class="incidencia-box">
-            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
-            <p class="dossier-text">Impacta o licenciamento ambiental, a regularidade de insumos florestais e a cadeia de suprimentos de projetos com passivos ou exigências de compensação florestal.</p>
-          </div>
-        </div>
-
-        <div class="docs-area">
-          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/consultafnp" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
-        </div>
-      </article>
-
       <article class="dossier-card vertical-carbono" data-status="ABERTO" data-vertical="carbono" data-deadline-iso="2026-11-22" data-fim-br="22/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
@@ -1489,7 +2104,7 @@
             <span class="badge badge-orgao">🏛️ MME / Eletromobilidade</span>
             <span class="badge badge-modalidade">Consulta Pública</span>
           </div>
-          <span class="deadline-pill status-ABERTO">🟢 Aberto • 24 dias restantes (até 22/11/2026)</span>
+          <span class="deadline-pill status-ABERTO">🟢 Aberto • 23 dias restantes (até 22/11/2026)</span>
         </div>
 
         <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/MME237" target="_blank" rel="noopener noreferrer">Coleta de contribuições para subsidiar o diagnóstico nacional sobre a infraestrutura de recarga de veículos elétricos</a>
@@ -1525,7 +2140,7 @@
             <span class="badge badge-orgao">🏛️ SENATRAN</span>
             <span class="badge badge-modalidade">Consulta Pública</span>
           </div>
-          <span class="deadline-pill status-ABERTO">🟢 Aberto • 24 dias restantes (até 22/11/2026)</span>
+          <span class="deadline-pill status-ABERTO">🟢 Aberto • 23 dias restantes (até 22/11/2026)</span>
         </div>
 
         <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/homologacao-veiculos-concessao-renavam-emissao-cat" target="_blank" rel="noopener noreferrer">Minuta de Portaria que estabelece o procedimento para a homologação de veículos e equipamentos veiculares, a concessão do código de marca/modelo/versão de veículos do Registro Nacional de Veículos Automotores - Renavam e a emissão do Certificado de Adequação à Legislação de Trânsito - CAT, para efeito de cadastro, registro, e licenciamento junto ao Sistema Nacional de Trânsito - SNT.</a>
@@ -1552,47 +2167,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra" data-deadline-iso="2026-03-31" data-fim-br="31/03/2026">
-        <div class="card-top-meta">
-          <div class="badges-left">
-            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
-            <span class="badge badge-orgao">🏛️ ANAC</span>
-            <span class="badge badge-modalidade">Consulta Pública</span>
-          </div>
-          <span class="deadline-pill status-PRE_PUBLICACAO">📡 Pré-Publicação (Rascunho na API)</span>
-        </div>
-
-        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/cp-anac-02-2026" target="_blank" rel="noopener noreferrer">Consulta Pública nº 02/2026 - Proposta de resolução que estabelece procedimentos, recursos materiais e prazos para modernização dos equipamentos utilizados nos canais de inspeção nos aeroportos brasileiros</a>
-
-        <div class="dates-row">
-          <span><strong>ID:</strong> #255</span>
-          <span><strong>Publicação:</strong> 27/01/2026</span>
-          <span><strong>Janela de Contribuição:</strong> 28/01/2026 até 31/03/2026</span>
-        </div>
-
-        <div class="dossier-box">
-          <div class="dossier-section">
-            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
-            <p class="dossier-text">Proposta de resolução para modernização dos equipamentos de inspeção nos canais de segurança dos aeroportos brasileiros. Estabelece novos padrões técnicos e prazos de implementação para as concessionárias aeroportuárias.</p>
-          </div>
-          <div class="incidencia-box">
-            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
-            <p class="dossier-text">Impacto direto no CAPEX das concessionárias de aeroportos e na matriz de riscos dos contratos de concessão, exigindo análise sobre o reequilíbrio econômico-financeiro decorrente da modernização obrigatória.</p>
-          </div>
-        </div>
-
-        <div class="docs-area">
-          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/cp-anac-02-2026" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
-          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/web/dou/-/aviso-de-prorrogacaoconsulta-publica-n-2/2026-693246945" target="_blank" rel="noopener noreferrer">📜 Ato Oficial no DOU</a>
-          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_processo_exibir.php?wwaVxfLBZplmUo_e4kgh5Gmp7SKjbPe64RCrMqfDZ_NhLNY7YbezU_yOW8hxuKxDha6tHNxgiW3Gt2u3iN_xJm6449qZgQoBswkoZJ2IG_pP2Jp57_ym-hFgLx_yv_20" target="_blank" rel="noopener noreferrer">🗂️ SEI: 00058.024978/2025-68</a>
-          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLScdWiFsdiMocQBMVnFqzdEGcbxPOx-EElayOvNVrZecIADWhjmJifQzR3xTJucd6ZjYo_c8IVnitDKnMuNAUM5an" target="_blank" rel="noopener noreferrer">🗂️ SEI: Minuta de Resolução</a>
-          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLScd2VF-9BCarD-jEoHhPZmX-ft1qG8MdYEtd6TVzl49ytqtRzFb5b9gV395X3HgrAaLpo4KVBKBGE9wzyjk5OKz0" target="_blank" rel="noopener noreferrer">🗂️ SEI: Análise de Impacto Regulatório [versão pública]</a>
-          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLScfZhDLFJ7lgEubnzc2f8SVfS_meKxZxS1GJSZZpWUI4cieDeuAWlPqWOcVI4_s68N3TYYPmkunjZJt0glzTcZoU" target="_blank" rel="noopener noreferrer">🗂️ SEI: Justificativa</a>
-          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLSceuEA0F_ddjKXQiLBqO_DIcbpRPTzbdFyLsY-CYWI7fEsi4tjUFX9b-KXB1F8bQF9b7hJJyrACrs7Hkh8QN1P4u" target="_blank" rel="noopener noreferrer">🗂️ SEI: Relatório</a>
-        </div>
-      </article>
-
-      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra" data-deadline-iso="2026-11-18" data-fim-br="18/11/2026">
+      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra" data-deadline-iso="2026-11-23" data-fim-br="23/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -1607,102 +2182,22 @@
         <div class="dates-row">
           <span><strong>ID:</strong> #740</span>
           <span><strong>Publicação:</strong> 02/10/2026</span>
-          <span><strong>Janela de Contribuição:</strong> 29/10/2026 até 18/11/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 03/11/2026 até 23/11/2026</span>
         </div>
 
         <div class="dossier-box">
           <div class="dossier-section">
             <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
-            <p class="dossier-text">Minuta de Portaria que estabelece critérios e procedimentos para o monitoramento e a classificação da situação operacional de navegabilidade das hidrovias nacionais não concedidas. O ato visa padronizar a governança e a resposta técnica para a manutenção da infraestrutura hidroviária.</p>
+            <p class="dossier-text">Portaria que estabelece critérios e procedimentos para o monitoramento e classificação da situação operacional de navegabilidade das hidrovias nacionais não concedidas.</p>
           </div>
           <div class="incidencia-box">
             <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
-            <p class="dossier-text">A padronização dos níveis operacionais impacta diretamente a previsibilidade logística e a matriz de riscos de operadores de navegação interior, sendo essencial para o planejamento de investimentos em infraestrutura logística.</p>
+            <p class="dossier-text">A padronização da governança de hidrovias é fundamental para a estruturação de novos projetos de concessão e para a segurança jurídica dos operadores logísticos.</p>
           </div>
         </div>
 
         <div class="docs-area">
           <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/portaria-dos-niveis-operacionais-de-hidrovias" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
-        </div>
-      </article>
-
-      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra" data-deadline-iso="2026-12-25" data-fim-br="25/12/2026">
-        <div class="card-top-meta">
-          <div class="badges-left">
-            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
-            <span class="badge badge-orgao">🏛️ MS / PPI / BNDES</span>
-            <span class="badge badge-modalidade">Consulta Pública</span>
-          </div>
-          <span class="deadline-pill status-PRE_PUBLICACAO">📡 Pré-Publicação (Rascunho na API)</span>
-        </div>
-
-        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/cibs" target="_blank" rel="noopener noreferrer">Parceria Público-Privada do Complexo Industrial de Biotecnologia em Saúde (CIBS)</a>
-
-        <div class="dates-row">
-          <span><strong>ID:</strong> #704</span>
-          <span><strong>Publicação:</strong> 15/09/2026</span>
-          <span><strong>Janela de Contribuição:</strong> 26/10/2026 até 25/12/2026</span>
-        </div>
-
-        <div class="dossier-box">
-          <div class="dossier-section">
-            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
-            <p class="dossier-text">Minutas de edital e contrato para a Parceria Público-Privada (PPP) do Complexo Industrial de Biotecnologia em Saúde (CIBS). O projeto envolve a estruturação de concessão para construção e operação de infraestrutura produtiva de alta complexidade, com investimento de R$ 7,2 bilhões.</p>
-          </div>
-          <div class="incidencia-box">
-            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
-            <p class="dossier-text">O projeto é um marco em PPPs de infraestrutura social/industrial. É essencial analisar a matriz de riscos, as garantias contratuais exigidas e a modelagem financeira estruturada pelo BNDES/IFC, dado o vulto do investimento e a natureza estratégica do ativo.</p>
-          </div>
-        </div>
-
-        <div class="docs-area">
-          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/cibs" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
-          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBM2ZpQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--563ebd55834af2d9e6dfabb964b6e4415f11a238/1.%20CIBS%20-%20C1%20-%20Edital%20de%20Concess%C3%A3o%20de%20Infraestrutura.pdf" target="_blank" rel="noopener noreferrer">📎 1. CIBS - C1 - Edital de Concessão de Infraestrutura.pdf</a>
-          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBM2ppQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--5736f4bcad5965757ac6296b1601acf831c94d53/2.%20CIBS%20-%20C1%20-%20Anexo%20I%20-%20Modelo%20de%20declara%C3%A7%C3%A3o.pdf" target="_blank" rel="noopener noreferrer">📎 2. CIBS - C1 - Anexo I - Modelo de declaração.pdf</a>
-          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBM25pQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--5f3e0593fe24f4b4f3a55f9b2d52ba16911c4f23/3.%20CIBS%20-%20C1%20-%20Anexo%20III%20-%20Contrato%20de%20Concess%C3%A3o%20de%20Infraestrutura.pdf" target="_blank" rel="noopener noreferrer">📎 3. CIBS - C1 - Anexo III - Contrato de Concessão de Infraestrutura.pdf</a>
-          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBM3JpQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--af4abfd66b2a83bf969ea58bb209c7512d3d02fb/4.%20CIBS%20-%20C1%20-%20Anexo%201%20-%20Gloss%C3%A1rio.pdf" target="_blank" rel="noopener noreferrer">📎 4. CIBS - C1 - Anexo 1 - Glossário.pdf</a>
-          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBM3ppQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--4817901ff55c93113612a91a29a8dca26a4d9644/5.%20CIBS%20-%20C1%20-%20Anexo%202%20-%20%C3%81rea%20da%20Concess%C3%A3o.pdf" target="_blank" rel="noopener noreferrer">📎 5. CIBS - C1 - Anexo 2 - Área da Concessão.pdf</a>
-          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBK2ppQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--fb88485f4ad5869e5f4703ace25e5ad2ed02271d/6.%20CIBS%20-%20C1%20-%20Anexo%203%20-%20Fases%20da%20Concess%C3%A3o.pdf" target="_blank" rel="noopener noreferrer">📎 6. CIBS - C1 - Anexo 3 - Fases da Concessão.pdf</a>
-        </div>
-      </article>
-
-      <article class="dossier-card vertical-carbono" data-status="PRE_PUBLICACAO" data-vertical="carbono" data-deadline-iso="2026-12-29" data-fim-br="29/12/2026">
-        <div class="card-top-meta">
-          <div class="badges-left">
-            <span class="badge badge-carbono">Clima & Sustentabilidade</span>
-            <span class="badge badge-orgao">🏛️ ANM</span>
-            <span class="badge badge-modalidade">Consulta Pública</span>
-          </div>
-          <span class="deadline-pill status-PRE_PUBLICACAO">📡 Pré-Publicação (Rascunho na API)</span>
-        </div>
-
-        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/fechamentodemina" target="_blank" rel="noopener noreferrer">Consulta Pública nº 4/2026 - Revisão da Resolução ANM nº 68/2020 - Plano de Fechamento de Mina</a>
-
-        <div class="dates-row">
-          <span><strong>ID:</strong> #789</span>
-          <span><strong>Publicação:</strong> 23/10/2026</span>
-          <span><strong>Janela de Contribuição:</strong> 30/10/2026 até 29/12/2026</span>
-        </div>
-
-        <div class="dossier-box">
-          <div class="dossier-section">
-            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
-            <p class="dossier-text">Revisão da Resolução ANM nº 68/2020, que dispõe sobre o planejamento, execução e monitoramento do Plano de Fechamento de Mina.</p>
-          </div>
-          <div class="incidencia-box">
-            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
-            <p class="dossier-text">O fechamento de mina envolve passivos ambientais e garantias financeiras de longo prazo, impactando diretamente a gestão de riscos de engenharia e a sustentabilidade das operações de infraestrutura minerária.</p>
-          </div>
-        </div>
-
-        <div class="docs-area">
-          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/fechamentodemina" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
-          <a class="doc-btn doc-btn-dou" href="http://www.in.gov.br/web/dou/-/aviso-de-retificacao-740756169" target="_blank" rel="noopener noreferrer">📜 Ato Oficial no DOU</a>
-          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNDNoQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b75816de2a89617ce45060e1c2f8f7564ab9c954/Moderniza%C3%A7%C3%A3o%20da%20Resolu%C3%A7%C3%A3o%20ANM%20n%C2%BA%2068%20(Fechamento%20e%20Reabilita%C3%A7%C3%A3o%20de%20Minas).pdf" target="_blank" rel="noopener noreferrer">📎 Modernização da Resolução ANM nº 68 (Fechamento e Reabilitação de Minas)...</a>
-          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNWJoQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--ab107ee94cd03a2756b4bca030e427155172a9fa/Chamada%20a%20A%C3%A7%C3%A3o%20640x320%20(2).jpg" target="_blank" rel="noopener noreferrer">📎 Chamada a Ação 640x320 (2).jpg</a>
-          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNWZoQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--1f2cccce8e4cb9a7e365c8fa28fb5df57ab72940/Chamada%20a%20A%C3%A7%C3%A3o%20640x320%20(3).jpg" target="_blank" rel="noopener noreferrer">📎 Chamada a Ação 640x320 (3).jpg</a>
-          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNWpoQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--3d3b8476b0eb9266aa7bd42af45dcad55b3a3d74/Chamada%20a%20A%C3%A7%C3%A3o%20640x320.jpg" target="_blank" rel="noopener noreferrer">📎 Chamada a Ação 640x320.jpg</a>
-          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNW5oQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--3ab0422e6ae20db030dca3efac3ac10a1d6247e9/Mobile%20359x220.jpg" target="_blank" rel="noopener noreferrer">📎 Mobile 359x220.jpg</a>
         </div>
       </article>
 
@@ -1737,80 +2232,52 @@
 
         <div class="docs-area">
           <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/novocampusinca" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
-          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOS9nQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--04ee96e070a5c42fe591acc175808c6bdfec9b8c/Minuta%20de%20Edital.pdf" target="_blank" rel="noopener noreferrer">📎 Minuta de Edital.pdf</a>
-          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBK0hnQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--23689ff52d4598008c09b4ff5a30ee901ae0fcf6/ANEXO%20III%20-%20MINUTA%20DE%20CONTRATO.pdf" target="_blank" rel="noopener noreferrer">📎 ANEXO III - MINUTA DE CONTRATO.pdf</a>
-          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBK1BnQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--57fade70c206babfb9b97775f4bff121f7e95058/ANEXO%2001%20-%20CADERNO%20DE%20ENCARGOS%20SERVI%C3%87OS.pdf" target="_blank" rel="noopener noreferrer">📎 ANEXO 01 - CADERNO DE ENCARGOS SERVIÇOS.pdf</a>
-          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBK1RnQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--722fd87728c8a19ffcd096a3c90b98df19a41eb4/ANEXO%202%20-%20DIRETRIZES%20DE%20OBRAS%20E%20ENGENHARIA.pdf" target="_blank" rel="noopener noreferrer">📎 ANEXO 2 - DIRETRIZES DE OBRAS E ENGENHARIA.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNmZsQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--e81725b87dc8205ad4be1bdd026243819653fae2/Minuta%20de%20Edital.pdf" target="_blank" rel="noopener noreferrer">📎 Minuta de Edital.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNmpsQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--882855f8cf7a754286d6bfaafe70856343dedae6/ANEXO%20III%20-%20MINUTA%20DE%20CONTRATO.pdf" target="_blank" rel="noopener noreferrer">📎 ANEXO III - MINUTA DE CONTRATO.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNm5sQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--69004d17fe39305d129753df44a3ddf93b98b785/ANEXO%2001%20-%20CADERNO%20DE%20ENCARGOS%20SERVI%C3%87OS.pdf" target="_blank" rel="noopener noreferrer">📎 ANEXO 01 - CADERNO DE ENCARGOS SERVIÇOS.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNnJsQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--2e89288598ca859bfd080abb076cefb9c187d43e/ANEXO%202%20-%20DIRETRIZES%20DE%20OBRAS%20E%20ENGENHARIA.pdf" target="_blank" rel="noopener noreferrer">📎 ANEXO 2 - DIRETRIZES DE OBRAS E ENGENHARIA.pdf</a>
           <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeWpsQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--27fdb47d2d53af0dd66d24b76085a46a3474f621/Ap%C3%AAndice%201%20-%20Campus%20Integrado%20INCA%20-%20Projetos%20de%20Arquitetura.pdf" target="_blank" rel="noopener noreferrer">📎 Apêndice 1 - Campus Integrado INCA - Projetos de Arquitetura.pdf</a>
           <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeTNsQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--52ef3320d1224ccfdad7db68391bfcec18ce9112/Ap%C3%AAndice%202%20-%20Campus%20Integrado%20INCA%20-%20Projetos%20de%20Engenharia%20Referenciais.pdf" target="_blank" rel="noopener noreferrer">📎 Apêndice 2 - Campus Integrado INCA - Projetos de Engenharia Referenciais...</a>
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra" data-deadline-iso="2026-11-30" data-fim-br="30/11/2026">
+      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra" data-deadline-iso="2026-12-14" data-fim-br="14/12/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
-            <span class="badge badge-orgao">🏛️ Exército / DFPC</span>
-            <span class="badge badge-modalidade">Consulta Pública</span>
+            <span class="badge badge-orgao">🏛️ ANAC / SIA</span>
+            <span class="badge badge-modalidade">Consulta Setorial</span>
           </div>
           <span class="deadline-pill status-PRE_PUBLICACAO">📡 Pré-Publicação (Rascunho na API)</span>
         </div>
 
-        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/consulta-147-compl" target="_blank" rel="noopener noreferrer">Consulta Pública nº 08/2026 - Revisão Portaria nº 147 - COLOG, de 21 de novembro de 2019 - Normas Administrativas para o Exercício de Atividades com Explosivos e seus Acessórios e com Produtos que contém Nitrato de Amônio</a>
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/cs-12-sia-2026" target="_blank" rel="noopener noreferrer">Consulta Setorial nº 12/SIA/2026 - Proposta de edição da Instrução Suplementar nº 153.117-001, Revisão A, intitulada "Supervisão permanente de pátio"</a>
 
         <div class="dates-row">
-          <span><strong>ID:</strong> #795</span>
-          <span><strong>Publicação:</strong> 26/10/2026</span>
-          <span><strong>Janela de Contribuição:</strong> 29/10/2026 até 30/11/2026</span>
+          <span><strong>ID:</strong> #799</span>
+          <span><strong>Publicação:</strong> 28/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 28/10/2026 até 14/12/2026</span>
         </div>
 
         <div class="dossier-box">
           <div class="dossier-section">
             <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
-            <p class="dossier-text">Revisão da Portaria nº 147/2019 que regula atividades com explosivos e nitrato de amônio. Define normas administrativas para fabricação, transporte e uso desses produtos em obras de infraestrutura.</p>
+            <p class="dossier-text">Edição da Instrução Suplementar nº 153.117-001, Revisão A, sobre supervisão permanente de pátio aeroportuário.</p>
           </div>
           <div class="incidencia-box">
             <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
-            <p class="dossier-text">Relevante para o setor de mineração e grandes obras de infraestrutura (túneis, rodovias, ferrovias) que dependem de explosivos; monitorar custos de conformidade e prazos de licenciamento.</p>
+            <p class="dossier-text">Impacta diretamente os procedimentos operacionais e de segurança (compliance) das concessionárias de aeroportos.</p>
           </div>
         </div>
 
         <div class="docs-area">
-          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/consulta-147-compl" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
-        </div>
-      </article>
-
-      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra" data-deadline-iso="2026-12-21" data-fim-br="21/12/2026">
-        <div class="card-top-meta">
-          <div class="badges-left">
-            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
-            <span class="badge badge-orgao">🏛️ Inmetro</span>
-            <span class="badge badge-modalidade">Consulta Pública</span>
-          </div>
-          <span class="deadline-pill status-PRE_PUBLICACAO">📡 Pré-Publicação (Rascunho na API)</span>
-        </div>
-
-        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/save-ca" target="_blank" rel="noopener noreferrer">Sistemas de Abastecimento de Veículos Elétricos em Corrente Alternada (SAVE-CA).</a>
-
-        <div class="dates-row">
-          <span><strong>ID:</strong> #796</span>
-          <span><strong>Cadastro no Portal:</strong> 27/10/2026</span>
-          <span><strong>Janela de Contribuição:</strong> 22/10/2026 até 21/12/2026</span>
-        </div>
-
-        <div class="dossier-box">
-          <div class="dossier-section">
-            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
-            <p class="dossier-text">Revisão da Portaria Inmetro nº 19/2026, que estabelece a regulamentação técnica metrológica para Sistemas de Abastecimento de Veículos Elétricos em Corrente Alternada (SAVE-CA).</p>
-          </div>
-          <div class="incidencia-box">
-            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
-            <p class="dossier-text">A padronização técnica é fundamental para a infraestrutura de recarga em rodovias e terminais logísticos, impactando a viabilidade de projetos de mobilidade elétrica e a transição energética no setor de transportes.</p>
-          </div>
-        </div>
-
-        <div class="docs-area">
-          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/save-ca" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/cs-12-sia-2026" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/web/dou/-/aviso-de-consulta-setorial-n-12/sia/2026-740857794" target="_blank" rel="noopener noreferrer">📜 Ato Oficial no DOU</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_processo_exibir.php?wwaVxfLBZplmUo_e4kgh5Gmp7SKjbPe64RCrMqfDZ_NhLNY7YbezU_yOW8hxuKxDha6tHNxgiW3Gt2u3iN_xJkUX-yi-WIorhiLjs5nsC5MwUXdOho1oYaKNnnyrh6XV" target="_blank" rel="noopener noreferrer">🗂️ SEI: 00058.075286/2025-88</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLScdTIVH1dhSf4p2V69gxHvc4pXTJHiYL0m5M7GIxAF5f-qHJ4OUAl8lUhrxKLQh-Oa_bsfUF4D4tDRy5wnvK1QSU" target="_blank" rel="noopener noreferrer">🗂️ SEI: Minuta de IS nº 153.117-001 Revisão A</a>
+          <a class="doc-btn doc-btn-pdf" href="https://www.gov.br/anac/pt-br/acesso-a-informacao/participacao-social/consultas-setoriais/consultas/2026/cs-12-sia-2026/justificativa.pdf" target="_blank" rel="noopener noreferrer">Justificativa</a>
+          <a class="doc-btn doc-btn-pdf" href="https://www.gov.br/anac/pt-br/acesso-a-informacao/participacao-social/consultas-setoriais/consultas/2026/cs-12-sia-2026/tabela-justiticativa.pdf" target="_blank" rel="noopener noreferrer">Tabela da Justificativa</a>
+          <a class="doc-btn doc-btn-secondary" href="https://novoaudpub.anac.gov.br/NovoAudPub/Contribuicao/ManterContribuicao?idAudiencia=2279" target="_blank" rel="noopener noreferrer">Formulário para envio de contribuições</a>
         </div>
       </article>
 
@@ -1851,6 +2318,41 @@
           <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMDdYQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--cfae423e10f4f7d339b2509cbea3efb1fec7a487/L13874%20-%20Lei%20da%20Liberdade%20Econ%C3%B4mica.pdf" target="_blank" rel="noopener noreferrer">📎 L13874 - Lei da Liberdade Econômica.pdf</a>
           <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMC9YQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--1bc1d96a3092b977c2d3ec766fa72b5fb984e803/D10411%20-%20An%C3%A1lise%20de%20Impacto%20Regulat%C3%B3rio.pdf" target="_blank" rel="noopener noreferrer">📎 D10411 - Análise de Impacto Regulatório.pdf</a>
           <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMURYQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--a28997652dd4024150aeada4f1c34c31543615e2/P118%20-%20Lista%20de%20PCE.pdf" target="_blank" rel="noopener noreferrer">📎 P118 - Lista de PCE.pdf</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="ENCERRADO_RECENTE" data-vertical="infra" data-deadline-iso="2026-10-27" data-fim-br="27/10/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ ANTT</span>
+            <span class="badge badge-modalidade">Tomada de Subsídios</span>
+          </div>
+          <span class="deadline-pill status-ENCERRADO_RECENTE">⏹️ Encerrado em 27/10/2026</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/ts-antt-7-2025" target="_blank" rel="noopener noreferrer">[TS ANTT nº 007/2025] Colher contribuições para o aperfeiçoamento do Termo de Referência de Sandbox Regulatório para projeto do Corredor Logístico Sustentável de Transporte na Rodovia BR-153/277/369, com foco na sustentabilidade e inovação.</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #163</span>
+          <span><strong>Cadastro no Portal:</strong> 29/10/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 23/10/2025 até 27/10/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Termo de Referência de Sandbox Regulatório para o Corredor Logístico Sustentável (BR-153/277/369).</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">O uso de sandbox em rodovias é um precedente importante para a inovação em contratos de concessão e modelos de financiamento de infraestrutura sustentável.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/ts-antt-7-2025" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-secondary" href="https://participantt.antt.gov.br/eventos?CodigoAudiencia=646" target="_blank" rel="noopener noreferrer">📝 Enviar Contribuição (ParticipANTT)</a>
         </div>
       </article>
 
@@ -1926,82 +2428,6 @@
           <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNi9QQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--bd7ebd72f040c858ba69d98de71d8eb0370f8257/Matriz_de_Projetos_e_Acoes_PNLR_Consulta_Publica_rev28082026.xlsx" target="_blank" rel="noopener noreferrer">📎 Matriz_de_Projetos_e_Acoes_PNLR_Consulta_Publica_rev28082026.xlsx</a>
         </div>
       </article>
-
-      <article class="dossier-card vertical-infra" data-status="ENCERRADO_RECENTE" data-vertical="infra" data-deadline-iso="2026-10-26" data-fim-br="26/10/2026">
-        <div class="card-top-meta">
-          <div class="badges-left">
-            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
-            <span class="badge badge-orgao">🏛️ ANAC / SPL</span>
-            <span class="badge badge-modalidade">Consulta Pública</span>
-          </div>
-          <span class="deadline-pill status-ENCERRADO_RECENTE">⏹️ Encerrado em 26/10/2026</span>
-        </div>
-
-        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/cp-anac-13-2026" target="_blank" rel="noopener noreferrer">Consulta Pública nº 13/2026 - Proposta sobre emenda ao Regulamento Brasileiro da Aviação Civil - RBAC nº 141 e ao RBAC nº 183</a>
-
-        <div class="dates-row">
-          <span><strong>ID:</strong> #687</span>
-          <span><strong>Publicação:</strong> 10/09/2026</span>
-          <span><strong>Janela de Contribuição:</strong> 10/09/2026 até 26/10/2026</span>
-        </div>
-
-        <div class="dossier-box">
-          <div class="dossier-section">
-            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
-            <p class="dossier-text">Proposta de emenda ao RBAC nº 141 (Centros de Instrução de Aviação Civil) e ao RBAC nº 183 (Credenciamento de Pessoas).</p>
-          </div>
-          <div class="incidencia-box">
-            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
-            <p class="dossier-text">Reflete a atualização dos padrões regulatórios e de qualificação técnica exigidos no setor de aviação civil, com impacto transversal na cadeia de serviços aeroespaciais.</p>
-          </div>
-        </div>
-
-        <div class="docs-area">
-          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/cp-anac-13-2026" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
-          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/en/web/dou/-/aviso-de-consulta-publica-n-13/2026-730866969" target="_blank" rel="noopener noreferrer">📜 Ato Oficial no DOU</a>
-          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_processo_exibir.php?dtJDn3LXdOIhJ65NwJhQTGM6TrhtAZuGPq1rA1WOOH0zn6akV5odGj-RPfDfIu2Yi4QPtBMzl5EqI8Qy1JaCPpyjEQTYWvZbrahxf7GSDTAcrIvWuZdlWLtLQZihIT2l" target="_blank" rel="noopener noreferrer">🗂️ SEI: 00058.023009/2022-47</a>
-          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLSceF8vh9TTqRTbBYBBbgDJJnrR2kbyiojVJMR3wlF5piXiGwONL_7zAizvD7Z3e1_y5yD9SHWsdQMnwgLRKi4mxG" target="_blank" rel="noopener noreferrer">🗂️ SEI: Minuta de Resolução</a>
-          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLScfvp9FmHGBytc8lC5EAnkcwL-30lwSbkhIlpCpH9br1eXYGYgrZ5M3g4jWeSFUUjt6qlNxFdE0R58UV4HlSd50n" target="_blank" rel="noopener noreferrer">🗂️ SEI: Minuta do RBAC nº 141</a>
-          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLSce8yJd4cwOGNpOxX7UvesjRXKwdNY3TpK9D1j3OD6pzET3jwQ1Ll6HGqv3YHPcd3qzzfCYHdmNVQjTXR3jd_ctJ" target="_blank" rel="noopener noreferrer">🗂️ SEI: Minuta do RBAC nº 183</a>
-          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLSceuuZiYuuZwFiOqJ_C1BfHBwVnuBGexeMXO3JjXwmhtQ7GxBjBmGm_Qi-gY6CJor1pJsjlHg7dbyd9DLnQcZW_Y" target="_blank" rel="noopener noreferrer">🗂️ SEI: Quadro comparativo</a>
-        </div>
-      </article>
-
-      <article class="dossier-card vertical-infra" data-status="ENCERRADO_RECENTE" data-vertical="infra" data-deadline-iso="2026-10-26" data-fim-br="26/10/2026">
-        <div class="card-top-meta">
-          <div class="badges-left">
-            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
-            <span class="badge badge-orgao">🏛️ DFPC / Exército</span>
-            <span class="badge badge-modalidade">Consulta Pública</span>
-          </div>
-          <span class="deadline-pill status-ENCERRADO_RECENTE">⏹️ Encerrado em 26/10/2026</span>
-        </div>
-
-        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/consulta-publica-ita-estudos-eng" target="_blank" rel="noopener noreferrer">Consulta Pública nº 06/2026 - Instrução Técnico-Administrativa - Aquisição de PCE para Testes e Estudos de Engenharia</a>
-
-        <div class="dates-row">
-          <span><strong>ID:</strong> #672</span>
-          <span><strong>Publicação:</strong> 17/09/2026</span>
-          <span><strong>Janela de Contribuição:</strong> 01/10/2026 até 26/10/2026</span>
-        </div>
-
-        <div class="dossier-box">
-          <div class="dossier-section">
-            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
-            <p class="dossier-text">Instrução Técnico-Administrativa para aquisição de PCE por fabricantes para fins de testes industriais e estudos de engenharia, detalhando o rito de aprovação e rastreabilidade.</p>
-          </div>
-          <div class="incidencia-box">
-            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
-            <p class="dossier-text">Relevante para empresas de engenharia e fabricantes que operam em projetos de infraestrutura, pois define o rito procedimental para o uso de materiais controlados em P&D e testes de campo.</p>
-          </div>
-        </div>
-
-        <div class="docs-area">
-          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/consulta-publica-ita-estudos-eng" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
-          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/web/dou/-/aviso-de-consulta-publica-n-6/2026-736682386" target="_blank" rel="noopener noreferrer">📜 Ato Oficial no DOU</a>
-          <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOVRIQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--f3c43b152429bba99381e8546f32e07d2bbb1f49/Min_Interm_ITA_-_Port_167_Aqs_Testes_e_Ensaios_PCE_v18.pdf" target="_blank" rel="noopener noreferrer">📎 Min_Interm_ITA_-_Port_167_Aqs_Testes_e_Ensaios_PCE_v18.pdf</a>
-        </div>
-      </article>
       </div>
     </section>
 
@@ -2019,7 +2445,7 @@
         <div class="kpi-card" onclick="filtrarCategoriaEst('TODAS')">
           <div class="kpi-info">
             <span>Total Verificado</span>
-            <strong>6</strong>
+            <strong>7</strong>
           </div>
           <div class="kpi-icon" style="background: #f1f5f9; color: #0f172a;">📐</div>
         </div>
@@ -2033,7 +2459,7 @@
         <div class="kpi-card" onclick="filtrarCategoriaEst('PRIORIDADE_B_COMPARACAO')">
           <div class="kpi-info">
             <span>Prioridade B (Comparação Federal)</span>
-            <strong style="color: #7c3aed;">2</strong>
+            <strong style="color: #7c3aed;">3</strong>
           </div>
           <div class="kpi-icon" style="background: #f3e8ff; color: #7c3aed;">🛣️</div>
         </div>
@@ -2049,9 +2475,9 @@
       <div class="filter-bar">
         <div class="filter-group" id="est-cat-filters">
           <span class="filter-label">Recorte:</span>
-          <button class="filter-btn active" data-est-cat="TODAS" onclick="filtrarCategoriaEst('TODAS')">Todos (6)</button>
+          <button class="filter-btn active" data-est-cat="TODAS" onclick="filtrarCategoriaEst('TODAS')">Todos (7)</button>
           <button class="filter-btn" data-est-cat="PRIORIDADE_A_MPOR" onclick="filtrarCategoriaEst('PRIORIDADE_A_MPOR')">⚓ Prioridade A — Portos, Aeroportos & Hidrovias (4)</button>
-          <button class="filter-btn" data-est-cat="PRIORIDADE_B_COMPARACAO" onclick="filtrarCategoriaEst('PRIORIDADE_B_COMPARACAO')">⚖️ Prioridade B — Comparação Federal (2)</button>
+          <button class="filter-btn" data-est-cat="PRIORIDADE_B_COMPARACAO" onclick="filtrarCategoriaEst('PRIORIDADE_B_COMPARACAO')">⚖️ Prioridade B — Comparação Federal (3)</button>
           <button class="filter-btn" data-est-cat="PROPOSTAS_ABERTAS" onclick="filtrarCategoriaEst('PROPOSTAS_ABERTAS')">⏳ Editais com Propostas Abertas (2)</button>
         </div>
 
@@ -2067,7 +2493,7 @@
             <span class="badge badge-orgao">🏛️ DNIT/RJ (MT)</span>
             <span class="badge badge-destaque">⭐ Destaque Prioritário</span>
           </div>
-          <span class="deadline-pill est-deadline-pill status-PRAZO_URGENTE">⏳ Propostas: 6d restantes (até 04/11/2026)</span>
+          <span class="deadline-pill est-deadline-pill status-PRAZO_URGENTE">⏳ Propostas: 5d restantes (até 04/11/2026)</span>
         </div>
 
         <a class="process-title" href="https://pncp.gov.br/app/editais/04892707001425/2026/16" target="_blank" rel="noopener noreferrer">DNIT/RJ — Concorrência Eletrônica Edital nº 67/2026 — Elaboração de EVTEA para Implantação de Hidrovias e Instalações Portuárias na Laguna de Araruama/RJ</a>
@@ -2091,11 +2517,11 @@
 
         <div class="docs-area">
           <a class="doc-btn doc-btn-primary" href="https://pncp.gov.br/app/editais/04892707001425/2026/16" target="_blank" rel="noopener noreferrer">🏛️ Página do Edital no PNCP</a>
-          <a class="doc-btn doc-btn-secondary" href="https://pncp.gov.br:15958/pncp-api/v1/orgaos/04892707001425/compras/2026/16/arquivos/1" target="_blank" rel="noopener noreferrer">📄 Edital (Edital 0247 16 07 EVTA   e 67 26 retificado c)</a>
-          <a class="doc-btn doc-btn-pdf" href="https://pncp.gov.br:15958/pncp-api/v1/orgaos/04892707001425/compras/2026/16/arquivos/2" target="_blank" rel="noopener noreferrer">📑 Termo de Referência (Termo_de_Referencia___Araruama_v1.0.pdf)</a>
-          <a class="doc-btn doc-btn-pdf" href="https://pncp.gov.br:15958/pncp-api/v1/orgaos/04892707001425/compras/2026/16/arquivos/3" target="_blank" rel="noopener noreferrer">📐 Anexo II – Especificação Técnica (Anexo_II___Especificacao_Tecnica_V.)</a>
-          <a class="doc-btn doc-btn-secondary" href="https://pncp.gov.br:15958/pncp-api/v1/orgaos/04892707001425/compras/2026/16/arquivos/4" target="_blank" rel="noopener noreferrer">📎 SEI_25901572_Despacho__DNIT_.pdf</a>
-          <a class="doc-btn doc-btn-pdf" href="https://pncp.gov.br:15958/pncp-api/v1/orgaos/04892707001425/compras/2026/16/arquivos/5" target="_blank" rel="noopener noreferrer">📐 ETP (8/2026.pdf)</a>
+          <a class="doc-btn doc-btn-secondary" href="https://pncp.gov.br/pncp-api/v1/orgaos/04892707001425/compras/2026/16/arquivos/1" target="_blank" rel="noopener noreferrer">📄 Edital (Edital 0247 16 07 EVTA   e 67 26 retificado c)</a>
+          <a class="doc-btn doc-btn-pdf" href="https://pncp.gov.br/pncp-api/v1/orgaos/04892707001425/compras/2026/16/arquivos/2" target="_blank" rel="noopener noreferrer">📑 Termo de Referência (Termo_de_Referencia___Araruama_v1.0.pdf)</a>
+          <a class="doc-btn doc-btn-pdf" href="https://pncp.gov.br/pncp-api/v1/orgaos/04892707001425/compras/2026/16/arquivos/3" target="_blank" rel="noopener noreferrer">📐 Anexo II – Especificação Técnica (Anexo_II___Especificacao_Tecnica_V.)</a>
+          <a class="doc-btn doc-btn-secondary" href="https://pncp.gov.br/pncp-api/v1/orgaos/04892707001425/compras/2026/16/arquivos/4" target="_blank" rel="noopener noreferrer">📎 SEI_25901572_Despacho__DNIT_.pdf</a>
+          <a class="doc-btn doc-btn-pdf" href="https://pncp.gov.br/pncp-api/v1/orgaos/04892707001425/compras/2026/16/arquivos/5" target="_blank" rel="noopener noreferrer">📐 ETP (8/2026.pdf)</a>
         </div>
       </article>
 
@@ -2229,7 +2655,7 @@
             <span class="badge badge-orgao">🏛️ Infra S.A. (MT)</span>
             
           </div>
-          <span class="deadline-pill est-deadline-pill status-ABERTO">⏳ Propostas: 69d restantes (até 06/01/2027)</span>
+          <span class="deadline-pill est-deadline-pill status-ABERTO">⏳ Propostas: 68d restantes (até 06/01/2027)</span>
         </div>
 
         <a class="process-title" href="https://www.infrasa.gov.br/licitacoes/rle-edital-no-016-2026/" target="_blank" rel="noopener noreferrer">Infra S.A. — RLE Edital nº 016/2026 (Edital PNCP nº 61/2026) — Elaboração de EVTEA de Rodovias Federais (Lote 1: BR-158/070/364/MT | Lote 2: BR-116/285/RS e SC)</a>
@@ -2302,6 +2728,48 @@
           <a class="doc-btn doc-btn-matriz" href="https://www.bndes.gov.br/wps/wcm/connect/site/0c84140b-88f2-4076-a900-14fa624762e9/6.+Anexo+VI+-+MATRIZ+DE+RISCOS.pdf?MOD=AJPERES&CVID=pzU1fzh" target="_blank" rel="noopener noreferrer">🛡️ Anexo VI – Matriz de Riscos (Consultoria)</a>
           <a class="doc-btn doc-btn-pdf" href="https://www.bndes.gov.br/wps/wcm/connect/site/3adc8450-65e0-4d1d-9867-60e001a94c90/Contrato+270-2025+-+Assinado.pdf?MOD=AJPERES&CVID=pzU1y5M" target="_blank" rel="noopener noreferrer">📝 Contrato OCS nº 270/2025 (PDF)</a>
           <a class="doc-btn doc-btn-dou" href="https://www.bndes.gov.br/wps/wcm/connect/site/4574f96b-0d02-4a1d-87bf-76e062f3b098/Extrato+de+Informa%C3%A7%C3%B5es+-+RFP+014_2024+-+Rodovias+NE-+2530km.pdf?MOD=AJPERES&CVID=pzU1MuN" target="_blank" rel="noopener noreferrer">📜 Extrato de Informações – RFP 014/2024 (PDF)</a>
+        </div>
+      </article>
+
+      <article class="est-card cat-PRIORIDADE_B_COMPARACAO" data-est-cat="PRIORIDADE_B_COMPARACAO" data-proposta-aberta="0" data-deadline-iso="" data-fim-br="Consultar Edital">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-seguros">⚖️ Prioridade B — EVTEA & Modelagem Federal (Comparação)</span>
+            <span class="badge badge-orgao">🏛️ Infra S.A. (MT)</span>
+            
+          </div>
+          <span class="deadline-pill est-deadline-pill status-LANCADO_48H">📅 Consultar Edital</span>
+        </div>
+
+        <a class="process-title" href="https://www.infrasa.gov.br/licitacoes/rle-edital-no-019-2026/" target="_blank" rel="noopener noreferrer">Infra S.A. — RLE Edital nº 019/2026 — Elaboração de estudos técnicos para estruturação de projetos de infraestrutura</a>
+
+        <div class="dates-row">
+          <span><strong>Valor Estimado / Contratado:</strong> <span class="val-highlight">Ver Caderno Orçamentário</span></span>
+          <span><strong>Instrumento:</strong> RLE (Lei das Estatais 13.303/2016)</span>
+          <span><strong>Data / Marco:</strong> 29/10/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Ficha Documental — Objeto, Valor, Situação & Onde está o Escopo</div>
+            <p class="dossier-text">Objeto: Contratação de serviços técnicos especializados para elaboração de estudos de viabilidade (EVTEA) e estruturação de projetos. Valor: Conforme Caderno Orçamentário (Anexo III do PB). Prazo/Situação: Conforme Edital nº 019/2026. Documento de escopo: Termo de Referência e Especificações Técnicas constantes no Edital.</p>
+          </div>
+          <div class="incidencia-box-seguros">
+            <div class="dossier-label" style="color:#6d28d9;">📋 O que o Documento Oficial diz sobre Seguros, Garantias & Matriz de Riscos</div>
+            <p class="dossier-text" style="line-height:1.55;">• Anexo VIII do PB: Define a Matriz de Riscos específica para a execução do contrato de consultoria entre a Infra S.A. e a contratada. • Anexo X do PB: Estabelece o Mapa de Riscos Processuais referente à condução do certame e gestão do contrato de consultoria. • Garantias e Seguros: As exigências de garantias contratuais e coberturas securitárias para a execução dos serviços de consultoria estão detalhadas nas cláusulas do Edital nº 019/2026 e na minuta do contrato anexa.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://www.infrasa.gov.br/licitacoes/rle-edital-no-019-2026/" target="_blank" rel="noopener noreferrer">🌐 Página Oficial da Licitação (Infra S.A.)</a>
+          <a class="doc-btn doc-btn-secondary" href="https://www.infrasa.gov.br/wp-content/uploads/2026/10/1.-Edital-65.pdf" target="_blank" rel="noopener noreferrer">📄 Edital nº 019/2026</a>
+          <a class="doc-btn doc-btn-pdf" href="https://www.infrasa.gov.br/wp-content/uploads/2026/10/2.1-Estudo_Tecnico_Preliminar_Corrigido.pdf" target="_blank" rel="noopener noreferrer">📐 Estudo Técnico Preliminar - ETP</a>
+          <a class="doc-btn doc-btn-matriz" href="https://www.infrasa.gov.br/wp-content/uploads/2026/10/2.12-Anexo-X-do-PB-Mapa-de-Riscos-Processuais.pdf" target="_blank" rel="noopener noreferrer">🛡️ Anexo X do PB - Mapa de Riscos Processuais (Contrato Consultoria)</a>
+          <a class="doc-btn doc-btn-matriz" href="https://www.infrasa.gov.br/wp-content/uploads/2026/10/2.10.-Anexo-VIII-do-PB-Matriz-de-Riscos.pdf" target="_blank" rel="noopener noreferrer">🛡️ Anexo VIII do PB - Matriz de Riscos (Contrato Consultoria)</a>
+          <a class="doc-btn doc-btn-pdf" href="https://www.infrasa.gov.br/wp-content/uploads/2026/10/2.5.-Abexo-III-do-PB-Orcamento-Referencial.xlsx" target="_blank" rel="noopener noreferrer">💰 Anexo III do PB - Orçamento Referencial</a>
+          <a class="doc-btn doc-btn-pdf" href="https://www.infrasa.gov.br/wp-content/uploads/2026/10/2.3.-Anexo-II-do-PB-Caderno-de-Orcamento.pdf" target="_blank" rel="noopener noreferrer">💰 Anexo II do PB - Caderno de Orçamento</a>
+          <a class="doc-btn doc-btn-pdf" href="https://www.infrasa.gov.br/wp-content/uploads/2026/10/3.2.-Anexo-II-da-Minuta-de-Contrato.pdf" target="_blank" rel="noopener noreferrer">📝 Anexo II da Minuta de Contrato</a>
+          <a class="doc-btn doc-btn-pdf" href="https://www.infrasa.gov.br/wp-content/uploads/2026/10/3.1.-Anexo-I-da-Minuta-de-Contrato-LGPD.pdf" target="_blank" rel="noopener noreferrer">📝 Anexo I da Minuta de Contrato - LGPD</a>
         </div>
       </article>
       </div>
