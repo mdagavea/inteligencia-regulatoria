@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regramento de Captura, Priorização e Capacidade — Clipping Diário DECON/MPOR</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap');
+
+  :root {
+    --bg-cream: #F4EFE6;
+    --bg-card: #FFFFFF;
+    --bg-subtle: #FAF7F2;
+    --navy: #1F3A5F;
+    --navy-dark: #152843;
+    --coral: #D2694A;
+    --ochre: #C18C24;
+    --teal: #2F8291;
+    --sage: #3D6B58;
+    --text-main: #1E293B;
+    --text-muted: #526071;
+    --border: #DFD8CC;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  @page {
+    size: 297mm 210mm;
+    margin: 0;
+  }
+
+  body {
+    background-color: #2B3440;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    gap: 24px;
+  }
+
+  @media print {
+    body {
+      background-color: var(--bg-cream);
+      padding: 0;
+      gap: 0;
+      display: block;
+    }
+    .no-print {
+      display: none !important;
+    }
+  }
+
+  .slide {
+    width: 297mm;
+    height: 210mm;
+    background-color: var(--bg-cream);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 11mm 14mm 9mm 14mm;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .slide:last-of-type {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  @media print {
+    .slide {
+      box-shadow: none;
+    }
+  }
+
+  /* Top Accent Bar */
+  .top-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--navy) 0%, var(--navy) 45%, var(--coral) 45%, var(--coral) 75%, var(--teal) 75%, var(--teal) 100%);
+  }
+
+  /* Header */
+  .slide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1.5px solid var(--border);
+    padding-bottom: 7px;
+    margin-bottom: 8px;
+  }
+
+  .header-left .eyebrow {
+    font-size: 8.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--coral);
+    margin-bottom: 2px;
+  }
+
+  .header-left h1 {
+    font-family: 'Newsreader', Georgia, serif;
+    font-size: 18.5pt;
+    font-weight: 700;
+    color: var(--navy-dark);
+    line-height: 1.1;
+  }
+
+  .header-right {
+    text-align: right;
+  }
+
+  .badge-pill {
+    display: inline-block;
+    background-color: var(--navy);
+    color: #FFFFFF;
+    font-size: 7.5pt;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 99px;
+    letter-spacing: 0.4px;
+    margin-bottom: 2px;
+  }
+
+  .header-right .meta {
+    font-size: 7.5pt;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* Section Titles */
+  .section-label {
+    font-size: 8pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.9px;
+    color: var(--navy);
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .section-label::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: var(--coral);
+    border-radius: 2px;
+  }
+
+  /* Motors Grid (Slide 1 Top) */
+  .motors-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 9px;
+  }
+
+  .motor-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--navy);
+    border-radius: 6px;
+    padding: 7px 9px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .motor-card.m-vip { border-top-color: var(--coral); }
+  .motor-card.m-rss { border-top-color: var(--navy); }
+  .motor-card.m-gmail { border-top-color: var(--ochre); }
+  .motor-card.m-open { border-top-color: var(--teal); }
+
+  .motor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+
+  .motor-title {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: var(--navy-dark);
+  }
+
+  .motor-quota {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7pt;
+    font-weight: 600;
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--border);
+    color: var(--navy);
+    padding: 1px 5px;
+    border-radius: 4px;
+  }
+
+  .motor-desc {
+    font-size: 7.3pt;
+    color: var(--text-muted);
+    line-height: 1.32;
+    margin-bottom: 4px;
+  }
+
+  .motor-sources {
+    font-size: 7pt;
+    font-weight: 600;
+    color: var(--text-main);
+    background-color: var(--bg-subtle);
+    padding: 3px 6px;
+    border-radius: 4px;
+    line-height: 1.25;
+  }
+
+  /* Verticals Table (Slide 1 Bottom) */
+  .verticals-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .verticals-table th {
+    background-color: var(--navy);
+    color: #FFFFFF;
+    font-size: 7.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 5.5px 8px;
+    text-align: left;
+  }
+
+  .verticals-table td {
+    padding: 5.5px 8px;
+    border-bottom: 1px solid var(--border);
+    font-size: 7.4pt;
+    vertical-align: top;
+    line-height: 1.3;
+  }
+
+  .verticals-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .verticals-table tr:nth-child(even) td {
+    background-color: var(--bg-subtle);
+  }
+
+  .v-name {
+    font-weight: 700;
+    color: var(--navy-dark);
+    font-size: 7.8pt;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .v-tag {
+    display: inline-block;
+    font-size: 6.5pt;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+
+  .tag-infra { background: #E6EEF8; color: #1F3A5F; }
+  .tag-seg { background: #FDECE6; color: #B84A29; }
+  .tag-carb { background: #E6F4EA; color: #266041; }
+  .tag-div { background: #FEF5E6; color: #9A6B13; }
+  .tag-tech { background: #E6F3F5; color: #1F6875; }
+
+  .sub-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .sub-list li {
+    position: relative;
+    padding-left: 9px;
+    margin-bottom: 1.5px;
+    color: var(--text-main);
+    font-weight: 500;
+  }
+
+  .sub-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--coral);
+    font-weight: bold;
+  }
+
+  .code-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 6.7pt;
+    color: var(--navy);
+    background-color: #EEF2F6;
+    padding: 1px 4px;
+    border-radius: 3px;
+  }
+
+  /* Slide 2 Layout */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .panel {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 10px;
+  }
+
+  .priority-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .p-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    background-color: var(--bg-subtle);
+    border-left: 3px solid var(--navy);
+    padding: 4.5px 7px;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .p-step.p1 { border-left-color: var(--coral); }
+  .p-step.p2 { border-left-color: var(--navy); }
+  .p-step.p3 { border-left-color: var(--ochre); }
+  .p-step.p4 { border-left-color: var(--teal); }
+
+  .p-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7.5pt;
+    font-weight: 700;
+    color: #FFFFFF;
+    background-color: var(--navy);
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .p-step.p1 .p-num { background-color: var(--coral); }
+  .p-step.p3 .p-num { background-color: var(--ochre); }
+  .p-step.p4 .p-num { background-color: var(--teal); }
+
+  .p-text {
+    font-size: 7.3pt;
+    line-height: 1.28;
+  }
+
+  .p-text strong {
+    color: var(--navy-dark);
+  }
+
+  /* Architecture / Dual Layer Box */
+  .arch-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+
+  .layer-box {
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 6px 8px;
+    background-color: var(--bg-subtle);
+  }
+
+  .layer-box.vitrine {
+    border-top: 3px solid var(--coral);
+    background-color: #FFFDFB;
+  }
+
+  .layer-box.gaveta {
+    border-top: 3px solid var(--navy);
+  }
+
+  .layer-title {
+    font-size: 7.8pt;
+    font-weight: 700;
+    color: var(--navy-dark);
+    margin-bottom: 2px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .layer-desc {
+    font-size: 7.1pt;
+    color: var(--text-muted);
+    line-height: 1.28;
+  }
+
+  .guardrails-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+  }
+
+  .guard-item {
+    font-size: 7pt;
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 6px;
+    line-height: 1.25;
+  }
+
+  .guard-item strong {
+    color: var(--navy-dark);
+    display: block;
+    margin-bottom: 1px;
+  }
+
+  /* Capacity Tiers Table (Slide 2 Bottom) */
+  .tiers-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .tiers-table th {
+    background-color: var(--navy-dark);
+    color: #FFFFFF;
+    font-size: 7.3pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    padding: 5.5px 7px;
+    text-align: center;
+  }
+
+  .tiers-table th:first-child,
+  .tiers-table td:first-child {
+    text-align: left;
+    padding-left: 9px;
+  }
+
+  .tiers-table td {
+    padding: 5.5px 7px;
+    border-bottom: 1px solid var(--border);
+    font-size: 7.4pt;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .tiers-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .tiers-table tr.active-tier td {
+    background-color: #FDF3EE;
+    font-weight: 600;
+    border-top: 1.5px solid var(--coral);
+    border-bottom: 1.5px solid var(--coral);
+  }
+
+  .tier-badge {
+    display: inline-block;
+    font-size: 6.5pt;
+    font-weight: 700;
+    padding: 1.5px 6px;
+    border-radius: 99px;
+    text-transform: uppercase;
+  }
+
+  .tb-base { background: #E2E8F0; color: #475569; }
+  .tb-active { background: var(--coral); color: #FFFFFF; }
+  .tb-future { background: #E6EEF8; color: var(--navy); }
+
+  /* Footer */
+  .slide-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 5px;
+    font-size: 7pt;
+    color: var(--text-muted);
+  }
+
+  .footer-brand {
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  .web-toolbar {
+    width: 297mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #152843;
+    color: #F4EFE6;
+    padding: 10px 18px;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    font-size: 9.5pt;
+  }
+
+  .web-toolbar-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  .btn-toolbar {
+    text-decoration: none;
+    font-size: 8.5pt;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.15s;
+  }
+
+  .btn-toolbar:hover {
+    opacity: 0.9;
+  }
+
+  .btn-pdf {
+    background-color: var(--coral);
+    color: #FFFFFF;
+  }
+
+  .btn-clip {
+    background-color: rgba(255, 255, 255, 0.12);
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+  }
+</style>
+</head>
+<body>
+
+<div class="web-toolbar no-print">
+  <div>
+    <strong>DECON / MPOR</strong> • Apresentação Executiva: Regramento de Captura, Priorização e Degraus de Capacidade
+  </div>
+  <div class="web-toolbar-actions">
+    <a href="Regramento_Clipping_Executivo_DECON_MPOR.pdf" download class="btn-toolbar btn-pdf">⬇ Baixar PDF Original</a>
+    <button onclick="window.print()" class="btn-toolbar btn-clip">🖨 Imprimir / Salvar PDF</button>
+    <a href="clipping.html" class="btn-toolbar btn-clip">📰 Abrir Clipping Diário</a>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 1 ==================== -->
+<section class="slide">
+  <div class="top-bar"></div>
+
+  <div>
+    <header class="slide-header">
+      <div class="header-left">
+        <div class="eyebrow">Inteligência Regulatória & Econômica • DECON / MPOR</div>
+        <h1>Regramento de Captura e Priorização Temática — Clipping Executivo</h1>
+      </div>
+      <div class="header-right">
+        <span class="badge-pill">LAMINA 1 / 2 • ARQUITETURA DE FONTES E TEMAS</span>
+        <div class="meta">Automação em Nuvem (GitHub Actions) • Disparo seg–sex às 07h30 BRT</div>
+      </div>
+    </header>
+
+    <!-- 4 Motores -->
+    <div class="section-label">1. Arquitetura de Varredura Diária: Os 4 Motores Simultâneos (Hierarquia de Veículos)</div>
+    <div class="motors-grid">
+      <div class="motor-card m-vip">
+        <div>
+          <div class="motor-header">
+            <span class="motor-title">1. Via Expressa VIP</span>
+            <span class="motor-quota">9 vagas / tema</span>
+          </div>
+          <p class="motor-desc">Busca dedicada na grande imprensa econômica e agências de risco. Fura a fila de portais genéricos.</p>
+        </div>
+        <div class="motor-sources">
+          Valor Econômico • Broadcast • Estadão • Folha • O Globo • Reuters • Agência iNFRA • JOTA • CNseg
+        </div>
+      </div>
+
+      <div class="motor-card m-rss">
+        <div>
+          <div class="motor-header">
+            <span class="motor-title">2. Feeds Diretos (RSS)</span>
+            <span class="motor-quota">41 vagas brutas</span>
+          </div>
+          <p class="motor-desc">Conexão direta na fonte primária especializada, sem depender de indexação de terceiros.</p>
+        </div>
+        <div class="motor-sources">
+          Agência iNFRA (15) • Capital Reset (10) • JOTA Info (10) • Andreessen Horowitz / a16z (6)
+        </div>
+      </div>
+
+      <div class="motor-card m-gmail">
+        <div>
+          <div class="motor-header">
+            <span class="motor-title">3. Newsletters (Gmail)</span>
+            <span class="motor-quota">20 vagas brutas</span>
+          </div>
+          <p class="motor-desc">Leitura automatizada via HTTPS Atom das assinaturas e briefings executivos recebidos na caixa dedicada.</p>
+        </div>
+        <div class="motor-sources">
+          Reset News • JOTA • Notícias do Seguro • McKinsey • CFA Institute • GARP • Environmental Finance
+        </div>
+      </div>
+
+      <div class="motor-card m-open">
+        <div>
+          <div class="motor-header">
+            <span class="motor-title">4. Varredura Aberta</span>
+            <span class="motor-quota">8 vagas / tema</span>
+          </div>
+          <p class="motor-desc">Captura complementar em portais setoriais e órgãos oficiais, com bloqueio de redes sociais e ruído.</p>
+        </div>
+        <div class="motor-sources">
+          Gov.br • BNDES • CVM • SUSEP • ANTT • ANTAQ • ANAC • Portos e Navios • MegaWhat • EPBR
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabela de 5 Verticais -->
+    <div class="section-label">2. Matriz de Captura por Vertical Temática, Subseções Fixas e Veículos Dominantes</div>
+    <table class="verticals-table">
+      <thead>
+        <tr>
+          <th style="width: 19%;">Vertical Temática</th>
+          <th style="width: 31%;">Eixos de Busca e Termos-Chave (Queries)</th>
+          <th style="width: 30%;">Subseções Editoriais Fixas (3 por Card)</th>
+          <th style="width: 20%;">Fontes Prioritárias na Vertical</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <span class="v-name">1. Infraestrutura & Outorgas</span>
+            <span class="v-tag tag-infra">Core MPOR & Transportes</span>
+          </td>
+          <td>
+            <span class="code-pill">concessão</span> <span class="code-pill">leilão</span> <span class="code-pill">outorga</span> <span class="code-pill">PPI</span> <span class="code-pill">reequilíbrio</span> combinados com <span class="code-pill">ANTT</span> <span class="code-pill">ANTAQ</span> <span class="code-pill">ANAC</span> <span class="code-pill">porto</span> <span class="code-pill">rodovia</span> <span class="code-pill">ferrovia</span> <span class="code-pill">hidrovia</span>
+          </td>
+          <td>
+            <ul class="sub-list">
+              <li>Leilões, Editais & PPI</li>
+              <li>Regulação & Contratos (ANTT/ANAC/ANTAQ/Portos)</li>
+              <li>Reequilíbrio & Matriz de Riscos</li>
+            </ul>
+          </td>
+          <td>Agência iNFRA, Valor, Estadão/Broadcast, JOTA, TCU, MPOR, ANTAQ e ANTT</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="v-name">2. Seguros de Grandes Riscos</span>
+            <span class="v-tag tag-seg">Garantias & Sinistros</span>
+          </td>
+          <td>
+            <span class="code-pill">seguro garantia</span> <span class="code-pill">performance bond</span> <span class="code-pill">SUSEP</span> <span class="code-pill">CNseg</span> <span class="code-pill">grandes riscos</span> <span class="code-pill">resseguro</span> aplicados a obras, regulação e infraestrutura
+          </td>
+          <td>
+            <ul class="sub-list">
+              <li>Seguro Garantia & Performance Bonds</li>
+              <li>Regulação SUSEP, CNseg & Mercado Corporativo</li>
+              <li>Resseguro & Riscos Climáticos</li>
+            </ul>
+          </td>
+          <td>CNseg (Notícias do Seguro), SUSEP, Valor Finanças, Sonho Seguro, JOTA</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="v-name">3. Mercado de Carbono & Clima</span>
+            <span class="v-tag tag-carb">Transição & ESG</span>
+          </td>
+          <td>
+            <span class="code-pill">SBCE</span> <span class="code-pill">mercado de carbono</span> <span class="code-pill">crédito de carbono</span> <span class="code-pill">Fundo Clima</span> <span class="code-pill">Eco Invest</span> <span class="code-pill">finanças verdes</span> <span class="code-pill">transição ecológica</span>
+          </td>
+          <td>
+            <ul class="sub-list">
+              <li>SBCE, Eco Invest & Financiamento Climático</li>
+              <li>Transição Energética, Minerais Críticos & ESG</li>
+              <li>Segurança Jurídica & Integridade de Créditos</li>
+            </ul>
+          </td>
+          <td>Capital Reset, Valor / Globo Rural, Environmental Finance, GARP, BNDES, MF</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="v-name">4. Instrumentos de Dívida & Capitais</span>
+            <span class="v-tag tag-div">Funding & Project Finance</span>
+          </td>
+          <td>
+            <span class="code-pill">debêntures de infraestrutura</span> <span class="code-pill">debêntures incentivadas</span> <span class="code-pill">Lei 14.801</span> <span class="code-pill">Lei 12.431</span> <span class="code-pill">CVM</span> <span class="code-pill">ANBIMA</span> <span class="code-pill">FIDC</span>
+          </td>
+          <td>
+            <ul class="sub-list">
+              <li>Debêntures & Leis 12.431 / 14.801</li>
+              <li>Regulação CVM, ANBIMA & BNDES</li>
+              <li>Mercado de Crédito Privado & Títulos Verdes</li>
+            </ul>
+          </td>
+          <td>Valor Finanças, Broadcast, CVM, ANBIMA, BNDES, CFA Institute</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="v-name">5. Tecnologia, IA & Gestão Aplicada</span>
+            <span class="v-tag tag-tech">Produtividade & GovTech</span>
+          </td>
+          <td>
+            <span class="code-pill">inteligência artificial</span> <span class="code-pill">data center</span> <span class="code-pill">McKinsey</span> <span class="code-pill">GovTech</span> <span class="code-pill">automação</span> aplicados a infraestrutura, energia, governo e gestão
+          </td>
+          <td>
+            <ul class="sub-list">
+              <li>IA, Automação & Produtividade Executiva</li>
+              <li>Infraestrutura Digital, Energia & GovTech / FinTech</li>
+              <li>Estratégia & Tendências Globais (McKinsey / a16z)</li>
+            </ul>
+          </td>
+          <td>McKinsey, a16z, Substack (Jeff Su), Valor, Folha, O Globo</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer class="slide-footer">
+    <span class="footer-brand">DECON / MPOR • Diretoria de Economia e Finanças</span>
+    <span>Janela Temporal Inteligente: 24h (terça a sexta) | 72h (segunda-feira, cobrindo sexta/sábado/domingo) | Fallback automático de 72h em dias de feriado</span>
+    <span>Página 1 de 2</span>
+  </footer>
+</section>
+
+<!-- ==================== SLIDE 2 ==================== -->
+<section class="slide">
+  <div class="top-bar"></div>
+
+  <div>
+    <header class="slide-header">
+      <div class="header-left">
+        <div class="eyebrow">Governança Editorial, Desempate e Escalabilidade • DECON / MPOR</div>
+        <h1>Regras de Priorização na IA, Dupla Camada Visual e Degraus de Capacidade</h1>
+      </div>
+      <div class="header-right">
+        <span class="badge-pill">LAMINA 2 / 2 • CURADORIA E CAPACIDADE</span>
+        <div class="meta">Configuração Ativa: <strong>Degrau 1 — Moderado (38 a 45 matérias/dia)</strong></div>
+      </div>
+    </header>
+
+    <div class="two-col">
+      <!-- Coluna Esquerda: Ordem de Priorização -->
+      <div class="panel">
+        <div class="section-label">3. Ordem de Priorização e Desempate na Curadoria (IA)</div>
+        <div class="priority-steps">
+          <div class="p-step p1">
+            <div class="p-num">1</div>
+            <div class="p-text">
+              <strong>Relevância Direta para a Agenda DECON/MPOR:</strong> Atos normativos, leilões, outorgas, seguro garantia de concessões, debêntures incentivadas/infraestrutura (Leis 12.431 e 14.801), Eco Invest, Fundo Clima e regulação de ANTAQ, ANTT, ANAC, SUSEP e CVM.
+            </div>
+          </div>
+          <div class="p-step p2">
+            <div class="p-num">2</div>
+            <div class="p-text">
+              <strong>Hierarquia de Autoridade do Veículo (Desempate):</strong> Se dois veículos noticiam o mesmo fato, prevalece o veículo de maior profundidade analítica (<em>Valor, Estadão, Folha, O Globo, Agência iNFRA, JOTA, Capital Reset, CNseg</em>) sobre portais agregadores.
+            </div>
+          </div>
+          <div class="p-step p3">
+            <div class="p-num">3</div>
+            <div class="p-text">
+              <strong>Deduplicação por Fato Gerador:</strong> Notícias repetidas em múltiplas fontes são fundidas em uma única nota analítica, preservando os números concretos (R$, %, prazos e nomes de projetos) e atribuindo o link ao veículo líder.
+            </div>
+          </div>
+          <div class="p-step p4">
+            <div class="p-num">4</div>
+            <div class="p-text">
+              <strong>Equilíbrio de Subseções:</strong> Preenchimento obrigatório das 3 subseções temáticas de cada vertical sempre que houver insumo real no dia, evitando concentração em um único subtema.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna Direita: Dupla Camada e Guardrails -->
+      <div class="panel">
+        <div class="section-label">4. Arquitetura em Dupla Camada (Sem Poluição Visual)</div>
+        <div class="arch-grid">
+          <div class="layer-box vitrine">
+            <div class="layer-title">
+              <span>Camada A: Vitrine Principal</span>
+              <span class="code-pill">destaque</span>
+            </div>
+            <p class="layer-desc">
+              <strong>Sempre visível no e-mail e no painel web.</strong> Travada em <strong>3 a 4 matérias por vertical</strong> (com bullets executivos de impacto). Garante leitura rápida em 3 minutos pelo corpo diretivo.
+            </p>
+          </div>
+          <div class="layer-box gaveta">
+            <div class="layer-title">
+              <span>Camada B: Gaveta Recolhida</span>
+              <span class="code-pill">complementar</span>
+            </div>
+            <p class="layer-desc">
+              <strong>Bloco expansível ("Radar Complementar").</strong> Acomoda <strong>4 a 5 matérias adicionais por vertical</strong> em formato compacto de 1 linha. Permite aprofundamento técnico sem alongar o e-mail.
+            </p>
+          </div>
+        </div>
+
+        <div class="section-label" style="margin-top: 6px;">5. Travas de Segurança e Eficiência Operacional</div>
+        <div class="guardrails-list">
+          <div class="guard-item">
+            <strong>🔒 Anti-Alucinação de Links (ID Determinístico)</strong>
+            A IA escolhe apenas o código <code>[ID]</code> da notícia; o Python injeta o link e o veículo originais, eliminando links quebrados.
+          </div>
+          <div class="guard-item">
+            <strong>🛡️ Filtro Pré-IA Auditável + Bloqueio Social</strong>
+            Bloqueio automático de redes sociais (Instagram, X, TikTok) e filtro por palavras-chave com log auditável de descartes.
+          </div>
+          <div class="guard-item">
+            <strong>☁️ Autonomia 100% em Nuvem (Zero PC Local)</strong>
+            Execução diária em servidores GitHub Actions às 07h30, independente de computadores ligados na rede local.
+          </div>
+          <div class="guard-item">
+            <strong>⚡ Cache Inteligente (Economia de Cota)</strong>
+            Artigos já processados recebem assinatura única (Hash/URL) e não consomem novas chamadas de IA em reexecuções.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabela de Degraus de Capacidade -->
+    <div class="section-label">6. Matriz de Escalabilidade: Os 3 Degraus de Capacidade do Clipping DECON/MPOR</div>
+    <table class="tiers-table">
+      <thead>
+        <tr>
+          <th style="width: 18%;">Nível / Degrau</th>
+          <th style="width: 13%;">Rede Bruta Capturada</th>
+          <th style="width: 12%;">Cota VIP / Tema</th>
+          <th style="width: 12%;">Cota Aberta / Tema</th>
+          <th style="width: 15%;">Feeds Diretos + Gmail</th>
+          <th style="width: 14%;">Vitrine Principal (Visível)</th>
+          <th style="width: 16%;">Gaveta Complementar + Total Curado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <strong>Baseline Original</strong><br>
+            <span class="tier-badge tb-base">Histórico Inicial</span>
+          </td>
+          <td>~82 a 95 itens/dia</td>
+          <td>6 por tema</td>
+          <td>6 por tema</td>
+          <td>33 RSS + 15 Gmail</td>
+          <td>3 a 4 por card<br><span style="font-size:6.5pt;color:var(--text-muted);">(~18 destaques)</span></td>
+          <td>1 a 2 por card<br><strong>Total: ~25 a 27 matérias</strong></td>
+        </tr>
+        <tr class="active-tier">
+          <td>
+            <strong>Degrau 1: Moderado</strong><br>
+            <span class="tier-badge tb-active">✓ ATIVO HOJE</span>
+          </td>
+          <td><strong>~125 a 140 itens/dia</strong><br><span style="font-size:6.5pt;color:var(--coral);">(+45% de cobertura)</span></td>
+          <td><strong>9 por tema</strong></td>
+          <td><strong>8 por tema</strong></td>
+          <td><strong>41 RSS + 20 Gmail</strong></td>
+          <td><strong>3 a 4 por card (Fixo)</strong><br><span style="font-size:6.5pt;color:var(--coral);">Zero poluição visual</span></td>
+          <td><strong>4 a 5 por card</strong><br><strong>Total: ~38 a 45 matérias</strong></td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Degrau 2: Denso</strong><br>
+            <span class="tier-badge tb-future">Expansão Sob Demanda</span>
+          </td>
+          <td>~160 a 180 itens/dia<br><span style="font-size:6.5pt;color:var(--text-muted);">(+90% de cobertura)</span></td>
+          <td>12 por tema</td>
+          <td>10 por tema</td>
+          <td>50 RSS + 25 Gmail</td>
+          <td>4 por card (Fixo)<br><span style="font-size:6.5pt;color:var(--text-muted);">(~20 destaques)</span></td>
+          <td>6 a 8 por card<br><strong>Total: ~50 a 60 matérias</strong></td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Degrau 3: Exaustivo</strong><br>
+            <span class="tier-badge tb-future">Monitoramento Máximo</span>
+          </td>
+          <td>~210+ itens/dia<br><span style="font-size:6.5pt;color:var(--text-muted);">(+130% de cobertura)</span></td>
+          <td>15 por tema</td>
+          <td>12 por tema</td>
+          <td>62 RSS + 30 Gmail</td>
+          <td>4 a 5 por card<br><span style="font-size:6.5pt;color:var(--text-muted);">(~22 a 25 destaques)</span></td>
+          <td>8 a 10 por card<br><strong>Total: ~65 a 75 matérias</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer class="slide-footer">
+    <span class="footer-brand">DECON / MPOR • Diretoria de Economia e Finanças</span>
+    <span>Qualquer transição entre os Degraus 1, 2 e 3 exige apenas o ajuste de parâmetros numéricos em <code>coletor.py</code> e <code>curador.py</code>, sem alteração estrutural.</span>
+    <span>Página 2 de 2</span>
+  </footer>
+</section>
+
+</body>
+</html>
