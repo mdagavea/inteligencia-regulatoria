@@ -37,3 +37,5 @@
 * [x] **Migração 100% para a Nuvem (`mdagavea/inteligencia-regulatoria` + GitHub Actions)**: workflow `.github/workflows/clipping_diario_nuvem.yml` rodando de segunda a sexta às 07:30 BRT independente da máquina local, com trava anti-duplicidade (`--skip-if-exists`) e sincronizador `sincronizar_nuvem.py`.
 * [x] **Modo de Contingência Determinístico sem IA (`curar_noticias_contingencia_sem_ia`)**.
 * [x] **Economia de Tokens na API (`termos_filtro.json`, `log_descartados_filtro.txt` e `historico_noticias_cache.json`)** e separação de `MEMORIA_PROJETO.md` vs. `HISTORICO_PROJETO.md`.
+* [x] **Leitura IMAP Estruturada de Newsletters (`fetch_gmail_imap_newsletters`) e Parser de Boletins de Assinantes da Agência iNFRA (`_parse_boletim_agencia_infra`)**: desmembramento automático de reportagens exclusivas (`#1`, `#2`, `#3`) e atos estratégicos do DOU (`#Diario`), Pautas (`#Agenda`) e `#Fique` com links oficiais desembrulhados (`in.gov.br`, `gov.br`, `mailchi.mp`) e fallback HTTPS na porta 443.
+* [x] **Diagnóstico do Trial Agência iNFRA, Dossiê "Agenda EVTEA 2.0" (Acórdão ANTAQ 640/2026) e Roadmap Futuro (`ANALISE_TRIAL_AGENCIA_INFRA_E_ROADMAP.md`)**.

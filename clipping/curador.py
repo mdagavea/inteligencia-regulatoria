@@ -21,6 +21,8 @@ ALLOWED_FEED_HOSTS = {
     "news.google.com",
     "agenciainfra.com",
     "www.agenciainfra.com",
+    "mailchi.mp",
+    "us14.campaign-archive.com",
     "capitalreset.uol.com.br",
     "jota.info",
     "www.jota.info",
@@ -31,12 +33,19 @@ ALLOWED_FEED_HOSTS = {
 
 
 def _url_segura_permitida(url: str) -> bool:
-    """Garante que apenas URLs HTTPS oriundas dos servidores oficiais dos nossos coletores sejam aceitas."""
+    """Garante que apenas URLs HTTPS oriundas dos servidores oficiais dos nossos coletores ou órgãos públicos (.gov.br/.leg.br/.jus.br) sejam aceitas."""
     if not url or not isinstance(url, str):
         return False
     try:
         parsed = urllib.parse.urlparse(url.strip())
-        return parsed.scheme == "https" and (parsed.hostname or "").lower() in ALLOWED_FEED_HOSTS
+        host = (parsed.hostname or "").lower()
+        if parsed.scheme != "https" or not host:
+            return False
+        if host in ALLOWED_FEED_HOSTS:
+            return True
+        if host.endswith((".gov.br", ".leg.br", ".jus.br")):
+            return True
+        return False
     except Exception:
         return False
 
@@ -58,7 +67,7 @@ Sua tarefa é analisar o lote de notícias brutas e newsletters coletadas hoje (
 
 CRITÉRIOS DE CURADORIA E PRIORIDADE DE FONTES:
 - PRIORIZE SEMPRE os veículos de primeira linha e fontes especializadas: Valor Econômico, Broadcast, Reuters, Estadão, Folha de S.Paulo, O Globo, Agência iNFRA, JOTA, Capital Reset / Reset News, CNseg, McKinsey, a16z, Environmental Finance e órgãos oficiais (Gov.br, BNDES, CVM, SUSEP, ANTT, ANTAQ, ANAC).
-- Na vertical "infra", dê atenção especial às matérias exclusivas da "Agência iNFRA" (que trazem bastidores de ANTT, ANTAQ, ANAC, MME, portos, rodovias e ferrovias), combinando-as com os grandes jornais (Valor, Estadão, O Globo, Folha, Reuters, JOTA).
+- Na vertical "infra" (e também em "divida" e "carbono" quando aplicável), dê atenção especial às matérias exclusivas e aos atos do DOU/Radar oriundos do Boletim de Assinantes da "Agência iNFRA (iNFRA Transportes)" e "Agência iNFRA (iNFRAEnergia)" (que trazem furos sobre debêntures, concessões, EVTEAs, acórdãos da ANTAQ/ANTT/ANAC/TCU, decretos do PPI/PND e portarias do MPor/MT antes de saírem no site aberto), combinando-os de forma equilibrada com os grandes jornais (Valor, Estadão, O Globo, Folha, Reuters, JOTA).
 - Descarte blogs regionais desconhecidos, fofocas políticas genéricas, acidentes de trânsito ou gadgets de consumo (ex.: rumores de celulares/jogos) que não tenham relação com regulação, investimentos, infraestrutura, finanças ou produtividade executiva.
 - Na vertical "tech", selecione APENAS pautas que cruzem tecnologia/IA/gestão com o nosso trabalho: infraestrutura digital (data centers, demanda energética da IA), aplicação de IA no setor público/financeiro/jurídico, produtividade executiva (Substack/McKinsey/a16z) ou estratégia corporativa e regulatória. Se um artigo estiver em inglês (ex.: a16z ou McKinsey), traduza o título e faça o resumo executivo em português.
 - Quando uma newsletter do Gmail (ex.: Reset News, JOTA, McKinsey) abordar um tema de carbono, dívida, seguros, infra ou tech, aloque-a na vertical correspondente mantendo a indicação da fonte.
