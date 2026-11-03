@@ -563,6 +563,286 @@
     color: #FFFFFF;
     border: 1px solid rgba(255, 255, 255, 0.25);
   }
+
+  /* ==================== RESPONSIVIDADE MOBILE / TABLET ==================== */
+  @media screen and (max-width: 1140px) {
+    body {
+      padding: 10px 8px 24px 8px;
+      gap: 14px;
+    }
+
+    .web-toolbar {
+      width: 100%;
+      max-width: 100%;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      padding: 12px 14px;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .web-toolbar-actions {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-toolbar {
+      flex: 1 1 auto;
+      text-align: center;
+      font-size: 12px;
+      padding: 8px 10px;
+    }
+
+    .slide {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      min-height: 0;
+      overflow: visible;
+      padding: 18px 14px 16px 14px;
+      border-radius: 10px;
+      gap: 14px;
+    }
+
+    .slide-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+
+    .header-left .eyebrow {
+      font-size: 11px;
+    }
+
+    .header-left h1 {
+      font-size: 20px;
+      line-height: 1.22;
+    }
+
+    .header-right {
+      text-align: left;
+      width: 100%;
+    }
+
+    .badge-pill {
+      font-size: 10px;
+      padding: 4px 10px;
+      margin-bottom: 4px;
+    }
+
+    .header-right .meta {
+      font-size: 11.5px;
+    }
+
+    .section-label {
+      font-size: 11.5px;
+      margin-top: 6px;
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+
+    .motors-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .motor-card {
+      padding: 12px;
+    }
+
+    .motor-title {
+      font-size: 14px;
+    }
+
+    .motor-quota {
+      font-size: 11px;
+      padding: 2px 7px;
+    }
+
+    .motor-desc {
+      font-size: 12.5px;
+      line-height: 1.42;
+      margin-bottom: 8px;
+    }
+
+    .motor-sources {
+      font-size: 11.5px;
+      padding: 6px 8px;
+      line-height: 1.38;
+    }
+
+    .two-col {
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .panel {
+      padding: 12px;
+    }
+
+    .priority-steps {
+      gap: 8px;
+    }
+
+    .p-step {
+      padding: 8px 10px;
+    }
+
+    .p-num {
+      width: 22px;
+      height: 22px;
+      font-size: 11px;
+    }
+
+    .p-text {
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+
+    .arch-grid {
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .layer-box {
+      padding: 10px 12px;
+    }
+
+    .layer-title {
+      font-size: 13.5px;
+      margin-bottom: 4px;
+    }
+
+    .layer-desc {
+      font-size: 12.5px;
+      line-height: 1.42;
+    }
+
+    .guardrails-list {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .guard-item {
+      font-size: 12px;
+      padding: 8px 10px;
+      line-height: 1.4;
+    }
+
+    .slide-footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      font-size: 11px;
+      margin-top: 12px;
+      padding-top: 10px;
+      line-height: 1.38;
+    }
+  }
+
+  @media screen and (max-width: 820px) {
+    .motors-grid {
+      grid-template-columns: 1fr;
+    }
+
+    /* Transforma tabelas largas em cards empilhados no celular */
+    .verticals-table,
+    .verticals-table tbody,
+    .tiers-table,
+    .tiers-table tbody {
+      display: block;
+      width: 100%;
+    }
+
+    .verticals-table thead,
+    .tiers-table thead {
+      display: none;
+    }
+
+    .verticals-table tr,
+    .tiers-table tr {
+      display: block;
+      width: 100%;
+      margin-bottom: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background-color: var(--bg-card);
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+
+    .verticals-table tr:last-child,
+    .tiers-table tr:last-child {
+      margin-bottom: 0;
+    }
+
+    .verticals-table td,
+    .tiers-table td,
+    .tiers-table td:first-child {
+      display: block;
+      width: 100% !important;
+      text-align: left !important;
+      padding: 9px 12px !important;
+      font-size: 12.5px !important;
+      line-height: 1.42 !important;
+      border-bottom: 1px solid #EFEAE1;
+    }
+
+    .verticals-table td:last-child,
+    .tiers-table td:last-child {
+      border-bottom: none;
+    }
+
+    .verticals-table td:first-child,
+    .tiers-table td:first-child {
+      background-color: var(--bg-subtle);
+      border-bottom: 1.5px solid var(--border);
+      padding: 10px 12px !important;
+    }
+
+    .tiers-table tr.active-tier {
+      border: 2px solid var(--coral);
+    }
+
+    .tiers-table tr.active-tier td:first-child {
+      background-color: #FDECE6;
+    }
+
+    .v-name {
+      font-size: 14px !important;
+      margin-bottom: 4px;
+    }
+
+    .v-tag, .tier-badge {
+      font-size: 10px !important;
+      padding: 2px 7px !important;
+    }
+
+    .code-pill {
+      font-size: 11px !important;
+      padding: 2px 5px !important;
+      display: inline-block;
+      margin-bottom: 2px;
+    }
+
+    td[data-label]::before {
+      content: attr(data-label);
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -667,85 +947,85 @@
             <span class="v-name">1. Infraestrutura & Outorgas</span>
             <span class="v-tag tag-infra">Core MPOR & Transportes</span>
           </td>
-          <td>
+          <td data-label="Eixos de Busca e Termos-Chave (Queries)">
             <span class="code-pill">concessão</span> <span class="code-pill">leilão</span> <span class="code-pill">outorga</span> <span class="code-pill">PPI</span> <span class="code-pill">reequilíbrio</span> combinados com <span class="code-pill">ANTT</span> <span class="code-pill">ANTAQ</span> <span class="code-pill">ANAC</span> <span class="code-pill">porto</span> <span class="code-pill">rodovia</span> <span class="code-pill">ferrovia</span> <span class="code-pill">hidrovia</span>
           </td>
-          <td>
+          <td data-label="Subseções Editoriais Fixas (3 por Card)">
             <ul class="sub-list">
               <li>Leilões, Editais & PPI</li>
               <li>Regulação & Contratos (ANTT/ANAC/ANTAQ/Portos)</li>
               <li>Reequilíbrio & Matriz de Riscos</li>
             </ul>
           </td>
-          <td>Agência iNFRA, Valor, Estadão/Broadcast, JOTA, TCU, MPOR, ANTAQ e ANTT</td>
+          <td data-label="Fontes Prioritárias na Vertical">Agência iNFRA, Valor, Estadão/Broadcast, JOTA, TCU, MPOR, ANTAQ e ANTT</td>
         </tr>
         <tr>
           <td>
             <span class="v-name">2. Seguros de Grandes Riscos</span>
             <span class="v-tag tag-seg">Garantias & Sinistros</span>
           </td>
-          <td>
+          <td data-label="Eixos de Busca e Termos-Chave (Queries)">
             <span class="code-pill">seguro garantia</span> <span class="code-pill">performance bond</span> <span class="code-pill">SUSEP</span> <span class="code-pill">CNseg</span> <span class="code-pill">grandes riscos</span> <span class="code-pill">resseguro</span> aplicados a obras, regulação e infraestrutura
           </td>
-          <td>
+          <td data-label="Subseções Editoriais Fixas (3 por Card)">
             <ul class="sub-list">
               <li>Seguro Garantia & Performance Bonds</li>
               <li>Regulação SUSEP, CNseg & Mercado Corporativo</li>
               <li>Resseguro & Riscos Climáticos</li>
             </ul>
           </td>
-          <td>CNseg (Notícias do Seguro), SUSEP, Valor Finanças, Sonho Seguro, JOTA</td>
+          <td data-label="Fontes Prioritárias na Vertical">CNseg (Notícias do Seguro), SUSEP, Valor Finanças, Sonho Seguro, JOTA</td>
         </tr>
         <tr>
           <td>
             <span class="v-name">3. Mercado de Carbono & Clima</span>
             <span class="v-tag tag-carb">Transição & ESG</span>
           </td>
-          <td>
+          <td data-label="Eixos de Busca e Termos-Chave (Queries)">
             <span class="code-pill">SBCE</span> <span class="code-pill">mercado de carbono</span> <span class="code-pill">crédito de carbono</span> <span class="code-pill">Fundo Clima</span> <span class="code-pill">Eco Invest</span> <span class="code-pill">finanças verdes</span> <span class="code-pill">transição ecológica</span>
           </td>
-          <td>
+          <td data-label="Subseções Editoriais Fixas (3 por Card)">
             <ul class="sub-list">
               <li>SBCE, Eco Invest & Financiamento Climático</li>
               <li>Transição Energética, Minerais Críticos & ESG</li>
               <li>Segurança Jurídica & Integridade de Créditos</li>
             </ul>
           </td>
-          <td>Capital Reset, Valor / Globo Rural, Environmental Finance, GARP, BNDES, MF</td>
+          <td data-label="Fontes Prioritárias na Vertical">Capital Reset, Valor / Globo Rural, Environmental Finance, GARP, BNDES, MF</td>
         </tr>
         <tr>
           <td>
             <span class="v-name">4. Instrumentos de Dívida & Capitais</span>
             <span class="v-tag tag-div">Funding & Project Finance</span>
           </td>
-          <td>
+          <td data-label="Eixos de Busca e Termos-Chave (Queries)">
             <span class="code-pill">debêntures de infraestrutura</span> <span class="code-pill">debêntures incentivadas</span> <span class="code-pill">Lei 14.801</span> <span class="code-pill">Lei 12.431</span> <span class="code-pill">CVM</span> <span class="code-pill">ANBIMA</span> <span class="code-pill">FIDC</span>
           </td>
-          <td>
+          <td data-label="Subseções Editoriais Fixas (3 por Card)">
             <ul class="sub-list">
               <li>Debêntures & Leis 12.431 / 14.801</li>
               <li>Regulação CVM, ANBIMA & BNDES</li>
               <li>Mercado de Crédito Privado & Títulos Verdes</li>
             </ul>
           </td>
-          <td>Valor Finanças, Broadcast, CVM, ANBIMA, BNDES, CFA Institute</td>
+          <td data-label="Fontes Prioritárias na Vertical">Valor Finanças, Broadcast, CVM, ANBIMA, BNDES, CFA Institute</td>
         </tr>
         <tr>
           <td>
             <span class="v-name">5. Tecnologia, IA & Gestão Aplicada</span>
             <span class="v-tag tag-tech">Produtividade & GovTech</span>
           </td>
-          <td>
+          <td data-label="Eixos de Busca e Termos-Chave (Queries)">
             <span class="code-pill">inteligência artificial</span> <span class="code-pill">data center</span> <span class="code-pill">McKinsey</span> <span class="code-pill">GovTech</span> <span class="code-pill">automação</span> aplicados a infraestrutura, energia, governo e gestão
           </td>
-          <td>
+          <td data-label="Subseções Editoriais Fixas (3 por Card)">
             <ul class="sub-list">
               <li>IA, Automação & Produtividade Executiva</li>
               <li>Infraestrutura Digital, Energia & GovTech / FinTech</li>
               <li>Estratégia & Tendências Globais (McKinsey / a16z)</li>
             </ul>
           </td>
-          <td>McKinsey, a16z, Substack (Jeff Su), Valor, Folha, O Globo</td>
+          <td data-label="Fontes Prioritárias na Vertical">McKinsey, a16z, Substack (Jeff Su), Valor, Folha, O Globo</td>
         </tr>
       </tbody>
     </table>
@@ -872,48 +1152,48 @@
             <strong>Baseline Original</strong><br>
             <span class="tier-badge tb-base">Histórico Inicial</span>
           </td>
-          <td>~82 a 95 itens/dia</td>
-          <td>6 por tema</td>
-          <td>6 por tema</td>
-          <td>33 RSS + 15 Gmail</td>
-          <td>3 a 4 por card<br><span style="font-size:6.5pt;color:var(--text-muted);">(~18 destaques)</span></td>
-          <td>1 a 2 por card<br><strong>Total: ~25 a 27 matérias</strong></td>
+          <td data-label="Rede Bruta Capturada">~82 a 95 itens/dia</td>
+          <td data-label="Cota VIP / Tema">6 por tema</td>
+          <td data-label="Cota Aberta / Tema">6 por tema</td>
+          <td data-label="Feeds Diretos + Gmail">33 RSS + 15 Gmail</td>
+          <td data-label="Vitrine Principal (Visível)">3 a 4 por card<br><span style="font-size:6.5pt;color:var(--text-muted);">(~18 destaques)</span></td>
+          <td data-label="Gaveta Complementar + Total Curado">1 a 2 por card<br><strong>Total: ~25 a 27 matérias</strong></td>
         </tr>
         <tr class="active-tier">
           <td>
             <strong>Degrau 1: Moderado</strong><br>
             <span class="tier-badge tb-active">✓ ATIVO HOJE</span>
           </td>
-          <td><strong>~125 a 140 itens/dia</strong><br><span style="font-size:6.5pt;color:var(--coral);">(+45% de cobertura)</span></td>
-          <td><strong>9 por tema</strong></td>
-          <td><strong>8 por tema</strong></td>
-          <td><strong>41 RSS + 20 Gmail</strong></td>
-          <td><strong>3 a 4 por card (Fixo)</strong><br><span style="font-size:6.5pt;color:var(--coral);">Zero poluição visual</span></td>
-          <td><strong>4 a 5 por card</strong><br><strong>Total: ~38 a 45 matérias</strong></td>
+          <td data-label="Rede Bruta Capturada"><strong>~125 a 140 itens/dia</strong><br><span style="font-size:6.5pt;color:var(--coral);">(+45% de cobertura)</span></td>
+          <td data-label="Cota VIP / Tema"><strong>9 por tema</strong></td>
+          <td data-label="Cota Aberta / Tema"><strong>8 por tema</strong></td>
+          <td data-label="Feeds Diretos + Gmail"><strong>41 RSS + 20 Gmail</strong></td>
+          <td data-label="Vitrine Principal (Visível)"><strong>3 a 4 por card (Fixo)</strong><br><span style="font-size:6.5pt;color:var(--coral);">Zero poluição visual</span></td>
+          <td data-label="Gaveta Complementar + Total Curado"><strong>4 a 5 por card</strong><br><strong>Total: ~38 a 45 matérias</strong></td>
         </tr>
         <tr>
           <td>
             <strong>Degrau 2: Denso</strong><br>
             <span class="tier-badge tb-future">Expansão Sob Demanda</span>
           </td>
-          <td>~160 a 180 itens/dia<br><span style="font-size:6.5pt;color:var(--text-muted);">(+90% de cobertura)</span></td>
-          <td>12 por tema</td>
-          <td>10 por tema</td>
-          <td>50 RSS + 25 Gmail</td>
-          <td>4 por card (Fixo)<br><span style="font-size:6.5pt;color:var(--text-muted);">(~20 destaques)</span></td>
-          <td>6 a 8 por card<br><strong>Total: ~50 a 60 matérias</strong></td>
+          <td data-label="Rede Bruta Capturada">~160 a 180 itens/dia<br><span style="font-size:6.5pt;color:var(--text-muted);">(+90% de cobertura)</span></td>
+          <td data-label="Cota VIP / Tema">12 por tema</td>
+          <td data-label="Cota Aberta / Tema">10 por tema</td>
+          <td data-label="Feeds Diretos + Gmail">50 RSS + 25 Gmail</td>
+          <td data-label="Vitrine Principal (Visível)">4 por card (Fixo)<br><span style="font-size:6.5pt;color:var(--text-muted);">(~20 destaques)</span></td>
+          <td data-label="Gaveta Complementar + Total Curado">6 a 8 por card<br><strong>Total: ~50 a 60 matérias</strong></td>
         </tr>
         <tr>
           <td>
             <strong>Degrau 3: Exaustivo</strong><br>
             <span class="tier-badge tb-future">Monitoramento Máximo</span>
           </td>
-          <td>~210+ itens/dia<br><span style="font-size:6.5pt;color:var(--text-muted);">(+130% de cobertura)</span></td>
-          <td>15 por tema</td>
-          <td>12 por tema</td>
-          <td>62 RSS + 30 Gmail</td>
-          <td>4 a 5 por card<br><span style="font-size:6.5pt;color:var(--text-muted);">(~22 a 25 destaques)</span></td>
-          <td>8 a 10 por card<br><strong>Total: ~65 a 75 matérias</strong></td>
+          <td data-label="Rede Bruta Capturada">~210+ itens/dia<br><span style="font-size:6.5pt;color:var(--text-muted);">(+130% de cobertura)</span></td>
+          <td data-label="Cota VIP / Tema">15 por tema</td>
+          <td data-label="Cota Aberta / Tema">12 por tema</td>
+          <td data-label="Feeds Diretos + Gmail">62 RSS + 30 Gmail</td>
+          <td data-label="Vitrine Principal (Visível)">4 a 5 por card<br><span style="font-size:6.5pt;color:var(--text-muted);">(~22 a 25 destaques)</span></td>
+          <td data-label="Gaveta Complementar + Total Curado">8 a 10 por card<br><strong>Total: ~65 a 75 matérias</strong></td>
         </tr>
       </tbody>
     </table>
