@@ -303,6 +303,29 @@ def coletar_processos_brasil_participativo(dias_historico_encerrados: int = 20):
         if item and item["relevante_bruto"]:
             candidatos.append(item)
 
+    # 3. Complementa com portais próprios de Agências Reguladoras (ANTT ParticipANTT e ANTAQ Gov.br), deduplicando
+    try:
+        extras_agencias = coletar_complemento_agencias(hoje=hoje, agora_lim_48h=agora_lim)
+        for ext in extras_agencias:
+            duplicado = False
+            num_ext = ext.get("_num_norma", "")
+            org_ext = (ext.get("orgao_informado") or "").split()[0].lower()
+            for cand in candidatos:
+                tit_c = (cand.get("titulo") or "").lower()
+                org_c = (cand.get("orgao_informado") or "").lower()
+                if num_ext and num_ext in tit_c and org_ext in (tit_c + " " + org_c):
+                    # Mescla documentos caso já exista no Brasil Participativo
+                    urls_existentes = {d["url"] for d in cand.get("documentos", [])}
+                    for d_ext in ext.get("documentos", []):
+                        if d_ext["url"] not in urls_existentes:
+                            cand.setdefault("documentos", []).append(d_ext)
+                    duplicado = True
+                    break
+            if not duplicado:
+                candidatos.append(ext)
+    except Exception as e:
+        print(f"   [Aviso] Falha parcial ao coletar portais próprios de ANTT/ANTAQ: {e}")
+
     # Ordena priorizando: 1) Lançados 48h, 2) Prazo Urgente, 3) Abertos (menor prazo primeiro), 4) Pré-publicação
     ordem_prioridade = {
         "LANCADO_48H": 1,
@@ -314,10 +337,194 @@ def coletar_processos_brasil_participativo(dias_historico_encerrados: int = 20):
     candidatos.sort(key=lambda x: (
         ordem_prioridade.get(x["status_ciclo"], 9),
         x["dias_restantes"] if x["dias_restantes"] is not None else 999,
-        -int(x["id"])
+        -int(str(x["id"])) if str(x["id"]).isdigit() else 0
     ))
 
     return candidatos
+
+
+def coletar_complemento_agencias(hoje: date, agora_lim_48h: datetime) -> list:
+    """Coleta processos abertos nos portais próprios da ANTT (ParticipANTT) e ANTAQ (Gov.br)."""
+    resultados = []
+    ctx = criar_contexto_ssl()
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) RadarParticipativo/1.0"}
+
+    # A) ANTT — API JSON ParticipANTT
+    try:
+        url_antt = "https://participantt.antt.gov.br/api/ManterEvento?Situacao=2&PageSize=50&PageNumber=1"
+        req = urllib.request.Request(url_antt, headers=headers)
+        with urllib.request.urlopen(req, context=ctx, timeout=20) as r:
+            dados_antt = json.loads(r.read().decode("utf-8", errors="replace"))
+        itens_antt = ((dados_antt.get("result") or {}).get("items")) or []
+        for ev in itens_antt:
+            ev_id = ev.get("id")
+            tipo_ev = (ev.get("tipoEvento") or "Processo Participativo").strip()
+            numero = (ev.get("numero") or "").strip()
+            desc_html = ev.get("descricao") or ""
+            desc_txt, links_html = extrair_texto_e_links_html(desc_html)
+            if not desc_txt:
+                continue
+            # Exclui planos de dados abertos administrativos sem relação com outorgas/regulação
+            if "plano de dados abertos" in desc_txt.lower():
+                continue
+            if not REGEX_TEMAS_INTERESSE.search(f"{tipo_ev} {numero} {desc_txt}"):
+                continue
+
+            d_ini = parse_iso_date((ev.get("dtInicioValidade") or "")[:10]) or hoje
+            d_fim = parse_iso_date((ev.get("dtFimValidade") or "")[:10])
+            dias_rest = (d_fim - hoje).days if d_fim else None
+            if dias_rest is not None and dias_rest < -3:
+                continue
+
+            lanc_48h = bool((hoje - d_ini).days <= 2)
+            if dias_rest is not None and dias_rest < 0:
+                st_ciclo = "ENCERRADO_RECENTE"
+            elif lanc_48h:
+                st_ciclo = "LANCADO_48H"
+            elif dias_rest is not None and dias_rest <= 7:
+                st_ciclo = "PRAZO_URGENTE"
+            else:
+                st_ciclo = "ABERTO"
+
+            url_ev = f"https://participantt.antt.gov.br/Site/AudienciaPublica/ConsultarAvisoAudienciaPublica?idEvento={ev_id}"
+            docs = [{
+                "rotulo": "📝 Abrir e Contribuir no ParticipANTT",
+                "url": url_ev,
+                "categoria": "CONTRIBUIR",
+            }] + links_html
+
+            resumo_tit = desc_txt.split(".")[0][:140].strip()
+            titulo_fmt = f"ANTT — {tipo_ev} nº {numero}: {resumo_tit}"
+
+            resultados.append({
+                "id": f"900{ev_id}",
+                "_num_norma": numero,
+                "slug": f"antt-{tipo_ev.lower().replace(' ', '-')}-{numero.replace('/', '-')}",
+                "url": url_ev,
+                "publicado": True,
+                "tipo_catalogo": tipo_ev,
+                "titulo": titulo_fmt,
+                "subtitulo": f"Portal ParticipANTT • Período: {ev.get('periodoValidade', '')}",
+                "descricao_texto": desc_txt[:2500],
+                "orgao_informado": "ANTT (ParticipANTT)",
+                "contato": "participantt.antt.gov.br",
+                "data_publicacao": f"{d_ini.isoformat()} 09:00",
+                "data_publicacao_br": d_ini.strftime("%d/%m/%Y"),
+                "data_atualizacao_iso": f"{d_ini.isoformat()}T09:00:00",
+                "data_inicio_br": d_ini.strftime("%d/%m/%Y"),
+                "data_fim_br": d_fim.strftime("%d/%m/%Y") if d_fim else "—",
+                "data_fim_iso": d_fim.isoformat() if d_fim else "",
+                "dias_restantes": dias_rest,
+                "lancado_48h": lanc_48h,
+                "status_ciclo": st_ciclo,
+                "documentos": docs,
+                "relevante_bruto": True,
+            })
+    except Exception as e:
+        print(f"   [Aviso] Coleta ANTT ParticipANTT: {e}")
+
+    # B) ANTAQ — Portal Gov.br Audiências Públicas em Andamento
+    try:
+        url_antaq = "https://www.gov.br/antaq/pt-br/acesso-a-informacao/participacao-social/audiencias-e-consultas-publicas/audiencias-publicas-em-andamento"
+        req = urllib.request.Request(url_antaq, headers=headers)
+        with urllib.request.urlopen(req, context=ctx, timeout=20) as r:
+            html_antaq = r.read().decode("utf-8", errors="replace")
+        soup = BeautifulSoup(html_antaq, "html.parser")
+        core = soup.select_one("#content-core") or soup
+
+        for idx_p, p_tag in enumerate(core.find_all("p"), 1):
+            txt = re.sub(r"\s{2,}", " ", p_tag.get_text(" ", strip=True))
+            if "2026" not in txt or "audiência pública" not in txt.lower():
+                continue
+            a_tag = p_tag.find("a", href=True)
+            href = a_tag["href"].strip() if a_tag else ""
+            if not href or "gov.br/antaq" not in href:
+                continue
+
+            m_num = re.search(r"(\d{1,2}/2026)", txt)
+            num_ap = m_num.group(1) if m_num else f"{idx_p}/2026"
+
+            # Inspeciona a subpágina para extrair datas de início/fim e anexos PDF
+            req_sub = urllib.request.Request(href, headers=headers)
+            with urllib.request.urlopen(req_sub, context=ctx, timeout=15) as r_sub:
+                sub_html = r_sub.read().decode("utf-8", errors="replace")
+            sub_soup = BeautifulSoup(sub_html, "html.parser").select_one("#content-core") or BeautifulSoup(sub_html, "html.parser")
+            sub_txt = re.sub(r"\s{2,}", " ", sub_soup.get_text(" ", strip=True))
+
+            datas_br = re.findall(r"\b(\d{2}/\d{2}/2026)\b", sub_txt)
+            datas_obj = []
+            for d_s in datas_br:
+                try:
+                    dd, mm, yyyy = map(int, d_s.split("/"))
+                    datas_obj.append(date(yyyy, mm, dd))
+                except Exception:
+                    pass
+            if not datas_obj:
+                continue
+            d_ini = min(datas_obj)
+            d_fim = max(datas_obj)
+            dias_rest = (d_fim - hoje).days
+            if dias_rest < -3:
+                continue
+
+            lanc_48h = bool((hoje - d_ini).days <= 2 and (hoje - d_ini).days >= 0)
+            if dias_rest < 0:
+                st_ciclo = "ENCERRADO_RECENTE"
+            elif lanc_48h:
+                st_ciclo = "LANCADO_48H"
+            elif dias_rest <= 7:
+                st_ciclo = "PRAZO_URGENTE"
+            else:
+                st_ciclo = "ABERTO"
+
+            docs_antaq = []
+            vistas_u = set()
+            for a_doc in sub_soup.find_all("a", href=True):
+                u_doc = a_doc["href"].strip()
+                t_doc = a_doc.get_text(" ", strip=True) or "Documento ANTAQ"
+                if not u_doc.startswith("http") or u_doc in vistas_u:
+                    continue
+                if "gov.br/antaq/pt-br/acesso-a-informacao" not in u_doc and not u_doc.lower().endswith(".pdf"):
+                    continue
+                if u_doc.rstrip("/").endswith("participacao-social") or u_doc.rstrip("/").endswith("antaq/pt-br"):
+                    continue
+                vistas_u.add(u_doc)
+                cat_d = classificar_link(u_doc, t_doc)
+                docs_antaq.append({
+                    "rotulo": _formatar_rotulo_link(t_doc, u_doc, cat_d),
+                    "url": u_doc,
+                    "categoria": cat_d,
+                })
+
+            num_limpo = int(re.sub(r"\D", "", num_ap.split("/")[0]) or idx_p)
+            resultados.append({
+                "id": f"910{num_limpo:03d}",
+                "_num_norma": num_ap,
+                "slug": f"antaq-ap-{num_ap.replace('/', '-')}",
+                "url": href,
+                "publicado": True,
+                "tipo_catalogo": "Audiência Pública",
+                "titulo": f"ANTAQ — {txt[:180]}",
+                "subtitulo": f"Portal ANTAQ • Contribuições: {d_ini.strftime('%d/%m/%Y')} a {d_fim.strftime('%d/%m/%Y')}",
+                "descricao_texto": f"{txt}\n\n{sub_txt[:1800]}",
+                "orgao_informado": "ANTAQ (Portal Próprio)",
+                "contato": "antaq.gov.br",
+                "data_publicacao": f"{d_ini.isoformat()} 09:00",
+                "data_publicacao_br": d_ini.strftime("%d/%m/%Y"),
+                "data_atualizacao_iso": f"{d_ini.isoformat()}T09:00:00",
+                "data_inicio_br": d_ini.strftime("%d/%m/%Y"),
+                "data_fim_br": d_fim.strftime("%d/%m/%Y"),
+                "data_fim_iso": d_fim.isoformat(),
+                "dias_restantes": dias_rest,
+                "lancado_48h": lanc_48h,
+                "status_ciclo": st_ciclo,
+                "documentos": docs_antaq,
+                "relevante_bruto": True,
+            })
+    except Exception as e:
+        print(f"   [Aviso] Coleta ANTAQ Portal Próprio: {e}")
+
+    return resultados
 
 
 def normalizar_processo(p: dict, tipo_catalogo: str, publicado: bool, hoje: date, agora_lim_48h: datetime):

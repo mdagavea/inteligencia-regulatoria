@@ -1,0 +1,183 @@
+{
+  "_comentario": "Arquivo de configuracao do filtro tematico do Radar DECON/MPor (Aba 1 e Aba 4 - SFN). Edite livremente as listas abaixo sem precisar alterar o codigo Python.",
+  "exclusoes_sfn": [
+    {
+      "termo": "open insurance",
+      "motivo": "Open Insurance / Sistema de Seguros Aberto"
+    },
+    {
+      "termo": "open finance",
+      "motivo": "Open Finance"
+    },
+    {
+      "termo": "títulos de capitalização",
+      "motivo": "Títulos de Capitalização"
+    },
+    {
+      "termo": "operação de capitalização",
+      "motivo": "Operação de Capitalização"
+    },
+    {
+      "termo": "seguros de pessoas",
+      "motivo": "Seguros de Pessoas (Varejo)"
+    },
+    {
+      "termo": "prevenção à lavagem",
+      "motivo": "PLD/FT"
+    },
+    {
+      "termo": "cooperativas de crédito",
+      "motivo": "Cooperativas de Crédito"
+    },
+    {
+      "termo": "normativo contábil aplicado aos fundos",
+      "motivo": "Contabilidade Geral de Fundos (sem vínculo específico com Infra/FIDC/FI-Infra)"
+    },
+    {
+      "termo": "pronunciamentos contábeis",
+      "motivo": "Pronunciamentos Contábeis Gerais (CPC)"
+    },
+    {
+      "termo": "prazo para guarda de documentos",
+      "motivo": "Rotina Administrativa (Guarda de Documentos)"
+    }
+  ],
+  "regras_inclusao_sfn": [
+    {
+      "vertical": "seguros",
+      "rotulo": "seguro-garantia / performance bond",
+      "termos": [
+        "seguro-garantia",
+        "seguro garantia",
+        "performance bond",
+        "garantia de execução"
+      ]
+    },
+    {
+      "vertical": "seguros",
+      "rotulo": "seguros de danos / grandes riscos",
+      "termos": [
+        "grandes riscos",
+        "riscos de engenharia",
+        "riscos nomeados",
+        "seguro de danos",
+        "seguros de danos"
+      ]
+    },
+    {
+      "vertical": "seguros",
+      "rotulo": "provisões técnicas, capital de risco e solvência",
+      "termos": [
+        "provisões técnicas",
+        "ativos redutores",
+        "capitais de risco",
+        "capital de risco",
+        "limite de retenção",
+        "resolução cnsp 432",
+        "resolução cnsp nº 432",
+        "circular susep 648",
+        "circular susep nº 648"
+      ]
+    },
+    {
+      "vertical": "seguros",
+      "rotulo": "resseguro / retrocessão",
+      "termos": [
+        "resseguro",
+        "ressegurador",
+        "retrocessão"
+      ]
+    },
+    {
+      "vertical": "seguros",
+      "rotulo": "SRO / registro de operações de seguros (Res. CNSP 415)",
+      "termos": [
+        "sistema de registro de operações",
+        "registro de apólices",
+        "resolução cnsp 415",
+        "resolução cnsp nº 415"
+      ]
+    },
+    {
+      "vertical": "seguros",
+      "rotulo": "responsabilidade civil / sinistros / riscos catastróficos",
+      "termos": [
+        "responsabilidade civil",
+        "sinistro",
+        "catástrofe",
+        "alagamento",
+        "inundação"
+      ]
+    },
+    {
+      "vertical": "seguros",
+      "rotulo": "contratos de seguro / Marco Legal dos Seguros (Lei 15.040)",
+      "termos": [
+        "resolução alternativa de conflitos",
+        "lei nº 15.040",
+        "lei 15.040",
+        "contratos de seguro",
+        "contrato de seguro"
+      ]
+    },
+    {
+      "vertical": "carbono",
+      "rotulo": "sustentabilidade / risco climático / ESG",
+      "termos": [
+        "sustentabilidade",
+        "risco climático",
+        "grsac",
+        "prsac",
+        "taxonomia",
+        "sbce",
+        "carbono",
+        "esg",
+        "asg",
+        "ifrs s1",
+        "ifrs s2",
+        "cbps"
+      ]
+    },
+    {
+      "vertical": "divida",
+      "rotulo": "debêntures de infraestrutura / FIP-IE / FI-Infra",
+      "termos": [
+        "debênture",
+        "debêntures",
+        "lei 12.431",
+        "lei 14.801",
+        "fip-ie",
+        "fi-infra",
+        "project finance"
+      ]
+    },
+    {
+      "vertical": "divida",
+      "rotulo": "valores mobiliários / ofertas públicas / securitização",
+      "termos": [
+        "fidc",
+        "securitização",
+        "oferta pública",
+        "ofertas públicas",
+        "valores mobiliários",
+        "títulos sustentáveis",
+        "green bond"
+      ]
+    },
+    {
+      "vertical": "infra",
+      "rotulo": "infraestrutura / concessões",
+      "termos": [
+        "infraestrutura",
+        "concessão",
+        "concessões",
+        "ppp",
+        "porto",
+        "aeroporto",
+        "hidrovia",
+        "rodovia",
+        "ferrovia"
+      ]
+    }
+  ]
+}

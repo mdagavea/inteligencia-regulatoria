@@ -1,13 +1,21 @@
 import os
 import re
 import json
+import hashlib
 import urllib.parse
+from datetime import date
+from pathlib import Path
 from difflib import SequenceMatcher
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 
 load_dotenv()
+
+PASTA_CLIPPING = Path(__file__).parent.resolve()
+ARQUIVO_TERMOS_CLIPPING = PASTA_CLIPPING / "termos_filtro.json"
+ARQUIVO_LOG_DESCARTADOS_CLIPPING = PASTA_CLIPPING / "log_descartados_filtro.txt"
+ARQUIVO_CACHE_NOTICIAS = PASTA_CLIPPING / "historico_noticias_cache.json"
 
 ALLOWED_FEED_HOSTS = {
     "news.google.com",
@@ -227,21 +235,91 @@ def curar_noticias_contingencia_sem_ia(noticias_brutas):
     return _vincular_links_originais(agrupado, noticias_brutas)
 
 
+def _filtrar_ruido_pre_ia(noticias_brutas):
+    """
+    Aplica o filtro de termos_filtro.json ANTES da chamada à IA e grava log dos itens descartados.
+    """
+    termos_excluir = []
+    if ARQUIVO_TERMOS_CLIPPING.exists():
+        try:
+            cfg = json.loads(ARQUIVO_TERMOS_CLIPPING.read_text(encoding="utf-8"))
+            termos_excluir = [t.lower().strip() for t in cfg.get("termos_ruido_excluir", []) if t.strip()]
+        except Exception:
+            pass
+
+    aprovadas = []
+    descartadas = []
+    for n in noticias_brutas:
+        texto = f"{n.get('title', '')} {n.get('summary', '')}".lower()
+        termo_achado = next((t for t in termos_excluir if t in texto), None)
+        if termo_achado:
+            descartadas.append((n, f"Termo de ruído: {termo_achado}"))
+        else:
+            aprovadas.append(n)
+
+    if descartadas:
+        hoje_iso = date.today().isoformat()
+        with open(ARQUIVO_LOG_DESCARTADOS_CLIPPING, "a", encoding="utf-8") as f:
+            for n, motivo in descartadas:
+                tit = (n.get("title") or "").replace("\n", " ").strip()
+                src = (n.get("source") or "Fonte").strip()
+                f.write(f"{hoje_iso} | {src} | {tit} | {motivo}\n")
+
+    return aprovadas
+
+
+def _hash_noticia(n: dict) -> str:
+    base = f"{(n.get('link') or '').strip()}|{(n.get('title') or '').strip().lower()}"
+    return hashlib.sha256(base.encode("utf-8")).hexdigest()[:20]
+
+
+def _carregar_cache_noticias() -> dict:
+    if ARQUIVO_CACHE_NOTICIAS.exists():
+        try:
+            return json.loads(ARQUIVO_CACHE_NOTICIAS.read_text(encoding="utf-8"))
+        except Exception:
+            pass
+    return {"itens": {}}
+
+
+def _salvar_cache_noticias(cache: dict):
+    try:
+        # Mantém apenas os últimos 600 itens no cache para não crescer indefinidamente
+        itens = cache.get("itens", {})
+        if len(itens) > 600:
+            chaves = list(itens.keys())[-600:]
+            cache["itens"] = {k: itens[k] for k in chaves}
+        ARQUIVO_CACHE_NOTICIAS.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception:
+        pass
+
+
 def curar_noticias_com_gemini(noticias_brutas, api_key=None):
-    """Envia o lote de notícias para o Gemini organizar e resumir, injetando os links originais via Python."""
+    """
+    Aplica as 4 regras de economia de chamadas à API Gemini:
+    1. O filtro de termos (termos_filtro.json) roda antes da IA;
+    2. Itens já processados anteriormente (por hash de endereço/título) são reaproveitados;
+    3. Uma única chamada em lote para os itens do dia;
+    4. Envia apenas título e resumo curto (até 280 caracteres), nunca a página inteira.
+    """
+    noticias_filtradas = _filtrar_ruido_pre_ia(noticias_brutas)
     key = api_key or os.getenv("GEMINI_API_KEY")
     if not key:
         print("   [Aviso] GEMINI_API_KEY ausente. Usando modo de contingência determinístico (sem IA).")
-        return curar_noticias_contingencia_sem_ia(noticias_brutas)
+        return curar_noticias_contingencia_sem_ia(noticias_filtradas)
+
+    cache = _carregar_cache_noticias()
+    itens_cache = cache.setdefault("itens", {})
 
     client = genai.Client(api_key=key)
 
-    # Prepara o payload de texto das notícias (sem enviar as URLs longas para não poluir tokens nem induzir transcrição)
+    # Prepara o payload enviando apenas título e resumo curto (nunca URLs nem páginas inteiras)
     payload_linhas = []
-    for i, n in enumerate(noticias_brutas, 1):
+    for i, n in enumerate(noticias_filtradas, 1):
+        resumo_curto = (n.get("summary") or "")[:280]
         payload_linhas.append(
             f"[ID: {i}] Fonte: {n['source']} | Vertical sugerida: {n.get('vertical_original', '')} | "
-            f"Título: {n['title']} | Resumo bruto: {n['summary']}"
+            f"Título: {n['title']} | Resumo bruto: {resumo_curto}"
         )
 
     prompt_final = f"{PROMPT_CURADORIA}\n\nNOTÍCIAS E NEWSLETTERS BRUTAS DO DIA:\n" + "\n".join(payload_linhas)
@@ -274,12 +352,19 @@ def curar_noticias_com_gemini(noticias_brutas, api_key=None):
 
     if not response or not response.text:
         print(f"   [Aviso] Modelos Gemini indisponíveis ({ultimo_erro}). Acionando modo de contingência sem IA.")
-        return curar_noticias_contingencia_sem_ia(noticias_brutas)
+        return curar_noticias_contingencia_sem_ia(noticias_filtradas)
 
     try:
         dados_brutos_ia = json.loads(response.text)
-        return _vincular_links_originais(dados_brutos_ia, noticias_brutas)
+        vinculados = _vincular_links_originais(dados_brutos_ia, noticias_filtradas)
+        hoje_iso = date.today().isoformat()
+        for vert, lista in vinculados.items():
+            for it in lista:
+                h = hashlib.sha256(f"{it.get('link','')}|{it.get('titulo','').lower()}".encode("utf-8")).hexdigest()[:20]
+                itens_cache[h] = {"vertical": vert, "item": it, "data": hoje_iso}
+        _salvar_cache_noticias(cache)
+        return vinculados
     except Exception as e:
         print(f"   [Aviso] Falha ao decodificar JSON da IA ({e}). Acionando modo de contingência sem IA.")
-        return curar_noticias_contingencia_sem_ia(noticias_brutas)
+        return curar_noticias_contingencia_sem_ia(noticias_filtradas)
 

@@ -115,18 +115,22 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
       opacity: 0.9;
     }}
 
-    /* Abas Executivas Principais (3 Pilares do Ciclo de Outorga) */
+    /* Abas Executivas Principais (4 Pilares do Radar) */
     .tabs-nav {{
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
       margin-bottom: 18px;
       background: #e2e8f0;
       padding: 6px;
       border-radius: 14px;
     }}
 
-    @media (max-width: 900px) {{
+    @media (max-width: 1180px) {{
+      .tabs-nav {{ grid-template-columns: repeat(2, 1fr); }}
+    }}
+
+    @media (max-width: 720px) {{
       .tabs-nav {{ grid-template-columns: 1fr; }}
     }}
 
@@ -688,6 +692,14 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
         </div>
         <span class="tab-count-pill">{leil_total} na carteira</span>
       </button>
+
+      <button class="tab-btn" id="btn-tab-sfn" onclick="selecionarAba('sfn')">
+        <div class="tab-btn-left">
+          <span class="tab-btn-title">🛡️ 4. SFN, Seguros & Capitais</span>
+          <span class="tab-btn-sub">SUSEP, CVM, BCB, PREVIC, SRE/MF & ANBIMA (Fora do Brasil Participativo)</span>
+        </div>
+        <span class="tab-count-pill">{sfn_total_aprovados} no filtro</span>
+      </button>
     </nav>
 
     <!-- =================================================================== -->
@@ -873,8 +885,58 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
       </div>
     </section>
 
+    <!-- =================================================================== -->
+    <!-- ABA 4: SFN, SEGUROS & CAPITAIS (SUSEP, CVM, BCB, PREVIC, ANBIMA)    -->
+    <!-- =================================================================== -->
+    <section class="tab-panel" id="panel-sfn">
+      <div class="context-banner">
+        <div class="context-banner-text">
+          <strong>🛡️ Regulação do Sistema Financeiro, Seguros & Mercado de Capitais (Fora do Brasil Participativo):</strong> Monitoramento 100% factual (sem IA obrigatória) das consultas e audiências públicas em portais próprios de <strong>SUSEP/CNSP, CVM, BCB, PREVIC, SRE/MF e ANBIMA (autorregulação)</strong>. Exibe na vitrine principal apenas os processos aderentes ao filtro temático da DECON/MPor e mantém transparência total na gaveta inferior sobre os processos ativos de outros temas.
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <span>No Filtro Temático</span>
+            <strong style="color: #0284c7;">{sfn_total_aprovados}</strong>
+          </div>
+          <div class="kpi-icon" style="background: #e0f2fe; color: #0284c7;">🛡️</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <span>Prazo Aberto / Ativos</span>
+            <strong style="color: #059669;">{sfn_kpi_abertos}</strong>
+          </div>
+          <div class="kpi-icon" style="background: #d1fae5; color: #059669;">🟢</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <span>Prazo Crítico (≤ 7 dias)</span>
+            <strong style="color: var(--urgent-color);">{sfn_kpi_urgentes}</strong>
+          </div>
+          <div class="kpi-icon" style="background: var(--urgent-bg); color: var(--urgent-color);">🚨</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <span>Retidos Fora do Filtro</span>
+            <strong style="color: #64748b;">{sfn_total_fora}</strong>
+          </div>
+          <div class="kpi-icon" style="background: #f1f5f9; color: #475569;">🔎</div>
+        </div>
+      </div>
+
+      {painel_fontes_sfn_html}
+
+      <div class="dossier-list" id="sfn-container">
+        {cards_sfn_html}
+      </div>
+
+      {gaveta_fora_filtro_sfn_html}
+    </section>
+
     <footer>
-      Radar DECON/MPor • Integração Brasil Participativo (GraphQL), Infra S.A. (REST API), PNCP (API Oficial), BNDES, ANTAQ, ANAC, ANTT & Curadoria Gemini
+      Radar DECON/MPor • Integração Brasil Participativo (GraphQL), ANTT (ParticipANTT), ANTAQ, SUSEP (SAFE/SCP), CVM, Infra S.A., PNCP, BNDES & Curadoria Gemini
     </footer>
   </div>
 
@@ -886,7 +948,7 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
     let faseLeilaoAtual = 'TODAS';
 
     function selecionarAba(aba) {{
-      ['participativo', 'estruturacao', 'leiloes'].forEach(nome => {{
+      ['participativo', 'estruturacao', 'leiloes', 'sfn'].forEach(nome => {{
         const btn = document.getElementById('btn-tab-' + nome);
         const panel = document.getElementById('panel-' + nome);
         if (btn) btn.classList.toggle('active', nome === aba);
@@ -897,10 +959,10 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
       }}
     }}
 
-    // Suporte a deep-link por hash (#estruturacao ou #leiloes)
+    // Suporte a deep-link por hash (#estruturacao, #leiloes ou #sfn)
     window.addEventListener('DOMContentLoaded', () => {{
       const h = (window.location.hash || '').replace('#', '').trim();
-      if (['participativo', 'estruturacao', 'leiloes'].includes(h)) {{
+      if (['participativo', 'estruturacao', 'leiloes', 'sfn'].includes(h)) {{
         selecionarAba(h);
       }}
     }});
@@ -1328,28 +1390,137 @@ def _renderizar_cards_leiloes(itens_leiloes: list) -> str:
     return "\n".join(blocos)
 
 
+def _renderizar_aba_sfn(dados_sfn: dict) -> tuple:
+    """Renderiza a barra de origens monitoradas, os cards aprovados pelo filtro e a gaveta transparente dos retidos fora do filtro."""
+    aprovados = (dados_sfn or {}).get("aprovados") or []
+    fora_filtro = (dados_sfn or {}).get("fora_do_filtro") or []
+    fontes = (dados_sfn or {}).get("fontes_monitoradas") or []
+
+    pilulas_fontes = []
+    for f in fontes:
+        cor = "#047857" if f.get("status") == "ATIVO_AUTOMATICO" else "#334155"
+        bg = "#ecfdf5" if f.get("status") == "ATIVO_AUTOMATICO" else "#f8fafc"
+        icone = "✅" if f.get("status") == "ATIVO_AUTOMATICO" else "🔗"
+        pilulas_fontes.append(
+            f'<a href="{f.get("url", "#")}" target="_blank" rel="noopener noreferrer" '
+            f'style="text-decoration:none;background:{bg};border:1px solid #cbd5e1;color:{cor};padding:6px 12px;border-radius:18px;font-size:0.76rem;font-weight:600;">'
+            f'{icone} <strong>{f.get("sigla", "")}:</strong> {f.get("rotulo", "")} ↗</a>'
+        )
+    painel_fontes_html = f"""
+      <div class="filter-bar" style="margin-bottom:16px;padding:12px 16px;">
+        <div class="filter-group" style="flex-wrap:wrap;gap:8px;">
+          <span class="filter-label">Origens SFN & Seguros:</span>
+          {''.join(pilulas_fontes)}
+        </div>
+      </div>"""
+
+    blocos_aprovados = []
+    if not aprovados:
+        blocos_aprovados.append('<div class="empty-state">Nenhuma consulta pública ativa no SFN casou com o filtro temático hoje.</div>')
+    else:
+        for it in aprovados:
+            vert = it.get("vertical", "seguros")
+            nome_vert = NOMES_VERTICAIS.get(vert, "Seguros & Garantias")
+            st = it.get("status_ciclo", "ABERTO")
+            badge_prazo = formatar_badge_prazo(it)
+            botoes_docs = renderizar_botoes_documentos({
+                "url": it.get("url_principal", "#"),
+                "documentos": it.get("documentos", []),
+            })
+            obs_html = f'<div class="dossier-section"><div class="dossier-label">📎 Observações Oficiais / Contato da Área</div><p class="dossier-text">{it.get("observacoes") or ""} {("• E-mail: " + it["email_area"]) if it.get("email_area") else ""}</p></div>' if (it.get("observacoes") or it.get("email_area")) else ""
+            resumo_ia_html = f'<div class="dossier-section"><div class="dossier-label">🤖 Resumo Factual Sintético</div><p class="dossier-text">{it["resumo_ia"]}</p></div>' if it.get("resumo_ia") else ""
+
+            blocos_aprovados.append(f"""
+      <article class="dossier-card vertical-{vert}" data-deadline-iso="{it.get('data_fim_iso', '')}" data-fim-br="{it.get('data_fim_br', '—')}">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-{vert}">{nome_vert}</span>
+            <span class="badge badge-orgao">🏛️ {it.get('entidade', 'SFN')}</span>
+            <span class="badge badge-modalidade">🎯 Filtro: {it.get('termo_casado', '')}</span>
+          </div>
+          <span class="deadline-pill status-{st}">{badge_prazo}</span>
+        </div>
+
+        <a class="process-title" href="{it.get('url_principal', '#')}" target="_blank" rel="noopener noreferrer">{it.get('modalidade_numero', '')} — {it.get('entidade_nome', '')}</a>
+
+        <div class="dates-row">
+          <span><strong>Entidade:</strong> {it.get('entidade', '')}</span>
+          <span><strong>Abertura:</strong> {it.get('data_inicio_br', '—')}</span>
+          <span><strong>Prazo Final:</strong> <strong>{it.get('data_fim_br', '—')}</strong></span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Ementa / Objeto Literal (Texto Oficial da Fonte)</div>
+            <p class="dossier-text">{it.get('ementa', '')}</p>
+          </div>
+          {resumo_ia_html}
+          {obs_html}
+        </div>
+
+        <div class="docs-area">
+          {botoes_docs}
+        </div>
+      </article>""")
+
+    gaveta_html = ""
+    if fora_filtro:
+        linhas_fora = []
+        for f_it in fora_filtro:
+            linhas_fora.append(f"""
+          <div style="padding:10px 14px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+            <div>
+              <strong style="color:#0f172a;font-size:0.86rem;">[{f_it.get('entidade')}] {f_it.get('modalidade_numero')}</strong>
+              <span style="background:#f1f5f9;color:#475569;padding:2px 8px;border-radius:10px;font-size:0.74rem;margin-left:6px;">Motivo: {f_it.get('motivo_exclusao')}</span>
+              <div style="color:#475569;font-size:0.8rem;margin-top:3px;">{f_it.get('ementa', '')[:220]}</div>
+            </div>
+            <div style="white-space:nowrap;font-size:0.78rem;">
+              <span style="color:#64748b;margin-right:8px;">Prazo: {f_it.get('data_fim_br')}</span>
+              <a href="{f_it.get('url_principal', '#')}" target="_blank" rel="noopener noreferrer" style="color:#0284c7;font-weight:700;text-decoration:none;">Conferir na Fonte ↗</a>
+            </div>
+          </div>""")
+
+        gaveta_html = f"""
+      <details style="margin-top:20px;background:#ffffff;border:1px solid #cbd5e1;border-radius:12px;overflow:hidden;">
+        <summary style="padding:14px 18px;cursor:pointer;font-weight:700;color:#334155;font-size:0.88rem;background:#f8fafc;">
+          🔎 Transparência do Filtro: {len(fora_filtro)} processo(s) ativo(s) em SUSEP/CVM fora do filtro temático (clique para inspecionar)
+        </summary>
+        <div>
+          {''.join(linhas_fora)}
+        </div>
+      </details>"""
+
+    return painel_fontes_html, "\n".join(blocos_aprovados), gaveta_html
+
+
 def gerar_painel_radar_html(
     dossies: list,
     pasta_saida,
     itens_estruturacao: list = None,
     itens_leiloes: list = None,
+    dados_sfn: dict = None,
 ) -> tuple:
     pasta_path = Path(pasta_saida)
 
-    # Caso chamado pelo gerar_clipping.py sem passar explicitamente as abas 2 e 3, coleta e cura automaticamente
-    if itens_estruturacao is None or itens_leiloes is None:
+    # Caso chamado pelo gerar_clipping.py sem passar explicitamente as abas 2, 3 e 4, coleta e cura automaticamente
+    if itens_estruturacao is None or itens_leiloes is None or dados_sfn is None:
         try:
             import coletor_estruturacao_leiloes
             import curador_participativo
+            import coletor_sfn
             if itens_estruturacao is None:
                 brutos_est = coletor_estruturacao_leiloes.coletar_tudo_aba_estruturacao()
                 itens_estruturacao = curador_participativo.curar_estruturacao_e_licitacoes(brutos_est, pasta_path)
             if itens_leiloes is None:
                 itens_leiloes = coletor_estruturacao_leiloes.coletar_radar_leiloes()
+            if dados_sfn is None:
+                dados_sfn = coletor_sfn.coletar_tudo_aba_sfn()
+                dados_sfn = curador_participativo.enriquecer_sfn_com_ia_lote(dados_sfn, pasta_path)
         except Exception as e:
-            print(f"   [Aviso] Coleta complementar Abas 2/3: {e}")
+            print(f"   [Aviso] Coleta complementar Abas 2/3/4: {e}")
             itens_estruturacao = itens_estruturacao or []
             itens_leiloes = itens_leiloes or []
+            dados_sfn = dados_sfn or {"aprovados": [], "fora_do_filtro": [], "fontes_monitoradas": []}
 
     hoje = datetime.now()
     meses = {
@@ -1435,6 +1606,14 @@ def gerar_painel_radar_html(
 
     cards_estruturacao_html = _renderizar_cards_estruturacao(itens_estruturacao)
     cards_leiloes_html = _renderizar_cards_leiloes(itens_leiloes)
+    painel_fontes_sfn_html, cards_sfn_html, gaveta_fora_filtro_sfn_html = _renderizar_aba_sfn(dados_sfn)
+
+    sfn_aprovados_lista = (dados_sfn or {}).get("aprovados") or []
+    sfn_fora_lista = (dados_sfn or {}).get("fora_do_filtro") or []
+    sfn_total_aprovados = len(sfn_aprovados_lista)
+    sfn_total_fora = len(sfn_fora_lista)
+    sfn_kpi_abertos = sum(1 for x in sfn_aprovados_lista if (x.get("dias_restantes") is None or x.get("dias_restantes") >= 0))
+    sfn_kpi_urgentes = sum(1 for x in sfn_aprovados_lista if x.get("status_ciclo") == "PRAZO_URGENTE")
 
     html_final = TEMPLATE_RADAR_HTML.format(
         data_formatada=data_formatada,
@@ -1455,6 +1634,13 @@ def gerar_painel_radar_html(
         leil_kpi_tcu=leil_kpi_tcu,
         leil_kpi_mpor=leil_kpi_mpor,
         cards_leiloes_html=cards_leiloes_html,
+        sfn_total_aprovados=sfn_total_aprovados,
+        sfn_total_fora=sfn_total_fora,
+        sfn_kpi_abertos=sfn_kpi_abertos,
+        sfn_kpi_urgentes=sfn_kpi_urgentes,
+        painel_fontes_sfn_html=painel_fontes_sfn_html,
+        cards_sfn_html=cards_sfn_html,
+        gaveta_fora_filtro_sfn_html=gaveta_fora_filtro_sfn_html,
     )
 
     caminho_atual = os.path.join(pasta_saida, "radar_atual.html")

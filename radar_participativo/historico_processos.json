@@ -102,7 +102,9 @@
     "608": "2026-10-30",
     "163": "2026-10-30",
     "66": "2026-10-30",
-    "797": "2026-11-02"
+    "797": "2026-11-02",
+    "910008": "2026-11-03",
+    "806": "2026-11-03"
   },
   "analises_ia": {
     "782_2026-10-21": {
@@ -1550,6 +1552,26 @@
       "relevancia": "N/A",
       "objeto_normativo": "Regulamentação do financiamento de jogos eletrônicos com recursos públicos geridos pela Ancine.",
       "pontos_atencao": "O processo trata exclusivamente de fomento à indústria cultural e audiovisual, não possuindo aderência com infraestrutura, seguros de grandes riscos, transição climática ou financiamento de projetos de infraestrutura."
+    },
+    "910008_2026-11-09T09:00": {
+      "id": "910008",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Audiência Pública",
+      "orgao_sigla": "ANTAQ",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Aprimoramento da norma que regula critérios, prazos e procedimentos de circularização, bloqueio e afretamento de embarcações na cabotagem e apoio marítimo. O processo visa revisar as Resoluções ANTAQ nº 129/2025 e nº 62/2021.",
+      "pontos_atencao": "Impacto direto na logística de transporte marítimo e custos operacionais de navegação; essencial monitorar as restrições de afretamento que afetam a competitividade do setor de infraestrutura portuária."
+    },
+    "719_2026-11-03T09:45": {
+      "id": "719",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "SEPPI / BNDES",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Estruturação de projeto de Parceria Público-Privada (PPP) para o Novo Campus Integrado do INCA, envolvendo estudos de viabilidade, minuta de edital e contrato de concessão administrativa.",
+      "pontos_atencao": "Trata-se de um projeto de infraestrutura social estruturado pelo BNDES; é fundamental analisar a matriz de riscos, as garantias contratuais e as exigências de performance para obras e serviços de engenharia."
     }
   },
   "analises_estruturacao_v2": {
@@ -1601,5 +1623,12 @@
       "escopo_sintetico": "Objeto: Contratação de serviços técnicos especializados para elaboração de estudos de viabilidade (EVTEA) e estruturação de projetos. Valor: Conforme Caderno Orçamentário (Anexo III do PB). Prazo/Situação: Conforme Edital nº 019/2026. Documento de escopo: Termo de Referência e Especificações Técnicas constantes no Edital.",
       "analise_riscos_segurabilidade": "• Anexo VIII do PB: Define a Matriz de Riscos específica para a execução do contrato de consultoria entre a Infra S.A. e a contratada. • Anexo X do PB: Estabelece o Mapa de Riscos Processuais referente à condução do certame e gestão do contrato de consultoria. • Garantias e Seguros: As exigências de garantias contratuais e coberturas securitárias para a execução dos serviços de consultoria estão detalhadas nas cláusulas do Edital nº 019/2026 e na minuta do contrato anexa."
     }
+  },
+  "analises_sfn_ia": {
+    "https://www.in.gov.br/web/dou/-/edital-de-consulta-publica-n-13/2026/susep-740112834#5fdc04622361c3c4": "A proposta altera a Resolução CNSP nº 415 de 2021.",
+    "https://www.in.gov.br/web/dou/-/edital-de-consulta-publica-n-14/2026/susep-740059842#b86261d787731554": "A proposta altera a Circular Susep nº 648 de 2021, que trata de provisões técnicas, capitais de risco e ativos garantidores.",
+    "https://www.in.gov.br/web/dou/-/edital-de-consulta-publica-n-15/2026/susep-740086793#1461b7796c88f0a3": "A proposta altera a Resolução CNSP nº 432 de 2021, que dispõe sobre provisões técnicas, capitais de risco, normas contábeis e auditorias.",
+    "https://www.in.gov.br/web/dou/-/edital-de-consulta-publica-n-10/2026/susep-735196827#f84033fc920bff32": "A minuta regulamenta o credenciamento de entidades e pessoas para a resolução alternativa de conflitos em contratos de seguro conforme a Lei nº 15.040 de 2024.",
+    "https://www.in.gov.br/web/dou/-/edital-de-consulta-publica-n-7/2026/susep-735270680#ff1c8f4e1a55774b": "A proposta estabelece procedimentos operacionais para oferta de riscos, aceitação de propostas de resseguro e comprovação de insuficiência de capacidade de resseguradores."
   }
 }

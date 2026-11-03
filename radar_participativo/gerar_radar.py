@@ -9,6 +9,7 @@ load_dotenv(PASTA_PROJETO / ".env")
 
 import coletor_participativo
 import coletor_estruturacao_leiloes
+import coletor_sfn
 import curador_participativo
 import renderizador_participativo
 import publicador_web
@@ -17,7 +18,7 @@ import publicador_web
 def executar_radar(abrir_navegador=True):
     sys.stdout.reconfigure(encoding="utf-8")
     print("=" * 72)
-    print("INICIANDO RADAR DECON/MPOR — PARTICIPAÇÃO, ESTRUTURAÇÃO & LEILÕES")
+    print("INICIANDO RADAR DECON/MPOR — 4 ABAS (PARTICIPAÇÃO, EVTEAS, LEILÕES & SFN)")
     print("=" * 72)
 
     api_key = os.getenv("GEMINI_API_KEY")
@@ -25,31 +26,37 @@ def executar_radar(abrir_navegador=True):
         print("\n[Aviso] GEMINI_API_KEY não definida — executando o Radar em modo factual sem IA.")
         api_key = None
 
-    print("\n[1/5] Aba 1: Consultando API GraphQL oficial do Brasil Participativo...")
+    print("\n[1/6] Aba 1: Consultando Brasil Participativo + Portais Próprios (ANTT e ANTAQ)...")
     candidatos = coletor_participativo.coletar_processos_brasil_participativo()
     dossies = curador_participativo.curar_processos_participativos(candidatos, PASTA_PROJETO, api_key=api_key)
     print(f"   -> {len(dossies)} processos participativos estratégicos aprovados.")
 
-    print("\n[2/5] Aba 2: Coletando e curando Estruturação, EVTEAs & Contratações (Infra S.A., PNCP, BNDES, LabTrans)...")
+    print("\n[2/6] Aba 2: Coletando e curando Estruturação, EVTEAs & Contratações (Infra S.A., PNCP, BNDES, LabTrans)...")
     brutos_est = coletor_estruturacao_leiloes.coletar_tudo_aba_estruturacao()
     itens_estruturacao = curador_participativo.curar_estruturacao_e_licitacoes(brutos_est, PASTA_PROJETO, api_key=api_key)
     print(f"   -> {len(itens_estruturacao)} itens de estruturação/contratação analisados.")
 
-    print("\n[3/5] Aba 3: Atualizando Radar de Leilões & Outorgas (ANTAQ, ANAC, ANTT, B3 & Nacionais)...")
+    print("\n[3/6] Aba 3: Atualizando Radar de Leilões & Outorgas (ANTAQ, ANAC, ANTT, B3 & Nacionais)...")
     itens_leiloes = coletor_estruturacao_leiloes.coletar_radar_leiloes()
     print(f"   -> {len(itens_leiloes)} leilões estratégicos monitorados na carteira.")
 
-    print("\n[4/5] Renderizando Painel Executivo Unificado em 3 Abas (radar_atual.html)...")
+    print("\n[4/6] Aba 4: Coletando e filtrando SFN, Seguros & Capitais (SUSEP e CVM via termos_filtro.json)...")
+    dados_sfn = coletor_sfn.coletar_tudo_aba_sfn()
+    dados_sfn = curador_participativo.enriquecer_sfn_com_ia_lote(dados_sfn, PASTA_PROJETO, api_key=api_key)
+    print(f"   -> {len(dados_sfn['aprovados'])} processos no filtro temático (+ {len(dados_sfn['fora_do_filtro'])} retidos fora do filtro e gravados em log).")
+
+    print("\n[5/6] Renderizando Painel Executivo Unificado em 4 Abas (radar_atual.html)...")
     _, caminho_atual = renderizador_participativo.gerar_painel_radar_html(
         dossies,
         PASTA_PROJETO,
         itens_estruturacao=itens_estruturacao,
         itens_leiloes=itens_leiloes,
+        dados_sfn=dados_sfn,
     )
     print(f"   -> Painel contínuo atualizado: {caminho_atual}")
 
-    print("\n[5/5] Publicando versão Web no GitHub Pages (Link Contínuo)...")
-    url_web = publicador_web.publicar_arquivo_html(caminho_atual, "radar.html", "Radar DECON/MPor 3 Abas (Contínuo)")
+    print("\n[6/6] Publicando versão Web no GitHub Pages (Link Contínuo)...")
+    url_web = publicador_web.publicar_arquivo_html(caminho_atual, "radar.html", "Radar DECON/MPor 4 Abas (Contínuo)")
     if url_web:
         print(f"   -> Link Web atualizado: {url_web}")
 

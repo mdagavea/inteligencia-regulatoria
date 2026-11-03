@@ -983,6 +983,7 @@ def render_faixa_participativo(processos_recentes, caminho_radar_html=None):
         <div class="participativo-actions">
           <a class="participativo-radar-link" href="{link_radar}#estruturacao" target="_blank" rel="noopener noreferrer">📐 EVTEAs & Contratações ↗</a>
           <a class="participativo-radar-link" href="{link_radar}#leiloes" target="_blank" rel="noopener noreferrer">🔔 Leilões ↗</a>
+          <a class="participativo-radar-link" href="{link_radar}#sfn" target="_blank" rel="noopener noreferrer">🛡️ SFN, Seguros & Capitais ↗</a>
           <a class="participativo-radar-link" href="{link_radar}" target="_blank" rel="noopener noreferrer">Abrir Painel Completo ↗</a>
         </div>
       </div>
@@ -1024,6 +1025,7 @@ def render_faixa_participativo(processos_recentes, caminho_radar_html=None):
           <span class="drawer-chevron">Espiar lista ▾</span>
           <a class="participativo-radar-link" href="{link_radar}#estruturacao" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">📐 EVTEAs & Contratações ↗</a>
           <a class="participativo-radar-link" href="{link_radar}#leiloes" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">🔔 Leilões ↗</a>
+          <a class="participativo-radar-link" href="{link_radar}#sfn" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">🛡️ SFN, Seguros & Capitais ↗</a>
           <a class="participativo-radar-link" href="{link_radar}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Abrir Radar Completo ↗</a>
         </div>
       </summary>

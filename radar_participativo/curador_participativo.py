@@ -87,7 +87,7 @@ def chamar_gemini_lote(lote_processos: list, api_key: str) -> dict:
             f"Subtítulo: {p['subtitulo']}\n"
             f"Período: {p['data_inicio_br']} a {p['data_fim_br']}\n"
             f"Documentos Anexos: {docs_nomes}\n"
-            f"Descrição Completa: {p['descricao_texto']}\n"
+            f"Resumo: {p['descricao_texto'][:450]}\n"
             f"---"
         )
 
@@ -352,3 +352,76 @@ def curar_estruturacao_e_licitacoes(itens_brutos: list, pasta_projeto: Path, api
         resultado.append(novo)
 
     return resultado
+
+
+PROMPT_RESUMO_FACTUAL_SFN = """
+Você é um analista documental técnico. Para cada consulta pública abaixo (que já passou no filtro temático), redija um resumo estritamente factual de 1 frase curta em português sintetizando o ato normativo alterado e o tema central.
+REGRAS:
+- Proibido opinião, juízo de valor, "ótica DECON" ou "recomenda-se".
+- Use apenas os dados do título e da ementa fornecidos.
+Retorne ESTRITAMENTE um JSON no formato:
+{"resumos": [{"id": "SUSEP_CP_15_2026", "resumo_ia": "..."}]}
+"""
+
+
+def enriquecer_sfn_com_ia_lote(dados_sfn: dict, pasta_projeto: Path, api_key: str = None) -> dict:
+    """
+    Aplica as 4 regras de economia de chamadas de API na Aba 4 (SFN):
+    1. O filtro regex já rodou antes (apenas dados_sfn['aprovados'] são avaliados);
+    2. Apenas itens novos (identificados por hash_cache_ia = URL + SHA256 do texto) vão à IA;
+    3. Uma única chamada em lote para todos os itens novos;
+    4. Envia apenas título e resumo curto (ementa[:380]). Se a IA não rodar, omite o resumo_ia sem texto genérico.
+    """
+    if not dados_sfn or not dados_sfn.get("aprovados"):
+        return dados_sfn
+
+    key = api_key or os.getenv("GEMINI_API_KEY")
+    caminho_hist = Path(pasta_projeto) / "historico_processos.json"
+    historico = carregar_historico(caminho_hist)
+    cache_sfn = historico.setdefault("analises_sfn_ia", {})
+
+    novos_para_ia = []
+    for it in dados_sfn["aprovados"]:
+        h_key = it.get("hash_cache_ia") or it["id"]
+        if h_key not in cache_sfn:
+            novos_para_ia.append(it)
+
+    if novos_para_ia and key:
+        try:
+            client = genai.Client(api_key=key)
+            linhas = [
+                f"ID: {it['id']} | Título: {it['modalidade_numero']} ({it['entidade']}) | Ementa: {it['ementa'][:380]}"
+                for it in novos_para_ia
+            ]
+            prompt = f"{PROMPT_RESUMO_FACTUAL_SFN}\n\nITENS:\n" + "\n".join(linhas)
+            for modelo in ["gemini-3.1-flash-lite", "gemini-3.5-flash-lite", "gemini-3.8-flash"]:
+                try:
+                    resp = client.models.generate_content(
+                        model=modelo,
+                        contents=prompt,
+                        config=types.GenerateContentConfig(
+                            response_mime_type="application/json",
+                            temperature=0.05,
+                        ),
+                    )
+                    if resp and resp.text:
+                        parsed = json.loads(resp.text)
+                        mapa = {str(r.get("id", "")): (r.get("resumo_ia") or "").strip() for r in parsed.get("resumos", [])}
+                        for it in novos_para_ia:
+                            res_txt = mapa.get(it["id"], "")
+                            if res_txt:
+                                h_key = it.get("hash_cache_ia") or it["id"]
+                                cache_sfn[h_key] = res_txt
+                        salvar_historico(caminho_hist, historico)
+                        break
+                except Exception as e:
+                    print(f"   [Aviso SFN IA] Tentativa com {modelo}: {e}")
+                    continue
+        except Exception as e:
+            print(f"   [Aviso SFN IA] Falha geral na chamada opcional de resumo IA: {e}")
+
+    for it in dados_sfn["aprovados"]:
+        h_key = it.get("hash_cache_ia") or it["id"]
+        it["resumo_ia"] = cache_sfn.get(h_key, "")
+
+    return dados_sfn

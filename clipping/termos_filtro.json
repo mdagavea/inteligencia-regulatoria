@@ -1,0 +1,23 @@
+{
+  "_comentario": "Configuracao editavel de filtros de exclusao de ruido do Clipping Diario (aplicada antes da chamada a API Gemini).",
+  "dominios_bloqueados": [
+    "instagram.com",
+    "facebook.com",
+    "tiktok.com",
+    "x.com",
+    "twitter.com",
+    "threads.net",
+    "pinterest.com"
+  ],
+  "termos_ruido_excluir": [
+    "horóscopo",
+    "loteria",
+    "mega-sena",
+    "futebol",
+    "campeonato brasileiro",
+    "escalação",
+    "fofoca",
+    "reality show",
+    "big brother"
+  ]
+}
