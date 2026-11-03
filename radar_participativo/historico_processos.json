@@ -1,0 +1,1605 @@
+{
+  "vistos_primeira_vez": {
+    "782": "2026-10-21",
+    "767": "2026-10-21",
+    "778": "2026-10-21",
+    "780": "2026-10-21",
+    "730": "2026-10-21",
+    "765": "2026-10-21",
+    "781": "2026-10-21",
+    "720": "2026-10-21",
+    "665": "2026-10-21",
+    "663": "2026-10-21",
+    "636": "2026-10-21",
+    "662": "2026-10-21",
+    "687": "2026-10-21",
+    "682": "2026-10-21",
+    "672": "2026-10-21",
+    "763": "2026-10-21",
+    "697": "2026-10-21",
+    "769": "2026-10-21",
+    "245": "2026-10-21",
+    "747": "2026-10-21",
+    "679": "2026-10-21",
+    "750": "2026-10-21",
+    "707": "2026-10-21",
+    "651": "2026-10-21",
+    "74": "2026-10-21",
+    "745": "2026-10-21",
+    "706": "2026-10-21",
+    "699": "2026-10-21",
+    "623": "2026-10-21",
+    "761": "2026-10-21",
+    "760": "2026-10-21",
+    "755": "2026-10-21",
+    "751": "2026-10-21",
+    "739": "2026-10-21",
+    "716": "2026-10-21",
+    "731": "2026-10-21",
+    "725": "2026-10-21",
+    "669": "2026-10-21",
+    "736": "2026-10-21",
+    "540": "2026-10-21",
+    "73": "2026-10-21",
+    "632": "2026-10-21",
+    "173": "2026-10-21",
+    "777": "2026-10-21",
+    "775": "2026-10-21",
+    "768": "2026-10-21",
+    "766": "2026-10-21",
+    "776": "2026-10-21",
+    "784": "2026-10-21",
+    "749": "2026-10-21",
+    "738": "2026-10-21",
+    "735": "2026-10-21",
+    "740": "2026-10-21",
+    "719": "2026-10-21",
+    "704": "2026-10-21",
+    "754": "2026-10-21",
+    "793": "2026-10-25",
+    "788": "2026-10-25",
+    "792": "2026-10-25",
+    "790": "2026-10-25",
+    "791": "2026-10-25",
+    "787": "2026-10-25",
+    "785": "2026-10-25",
+    "786": "2026-10-25",
+    "779": "2026-10-25",
+    "771": "2026-10-25",
+    "772": "2026-10-25",
+    "789": "2026-10-25",
+    "533": "2026-10-27",
+    "795": "2026-10-27",
+    "794": "2026-10-27",
+    "255": "2026-10-28",
+    "724": "2026-10-28",
+    "796": "2026-10-28",
+    "799": "2026-10-28",
+    "46": "2026-10-29",
+    "79": "2026-10-30",
+    "165": "2026-10-30",
+    "143": "2026-10-30",
+    "174": "2026-10-30",
+    "111": "2026-10-30",
+    "805": "2026-10-30",
+    "803": "2026-10-30",
+    "88": "2026-10-30",
+    "128": "2026-10-30",
+    "804": "2026-10-30",
+    "125": "2026-10-30",
+    "802": "2026-10-30",
+    "116": "2026-10-30",
+    "161": "2026-10-30",
+    "159": "2026-10-30",
+    "149": "2026-10-30",
+    "91": "2026-10-30",
+    "141": "2026-10-30",
+    "122": "2026-10-30",
+    "132": "2026-10-30",
+    "157": "2026-10-30",
+    "13": "2026-10-30",
+    "718": "2026-10-30",
+    "608": "2026-10-30",
+    "163": "2026-10-30",
+    "66": "2026-10-30",
+    "797": "2026-11-02"
+  },
+  "analises_ia": {
+    "782_2026-10-21": {
+      "id": "782",
+      "aprovar": false
+    },
+    "767_2026-10-21": {
+      "id": "767",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MPOR / SNP",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Consulta pública sobre o Plano Setorial Portuário (PSPort) 2050, instrumento tático do Planejamento Integrado de Transportes (PIT) que orienta o desenvolvimento e a expansão do setor portuário nacional.",
+      "pontos_atencao": "Essencial para o mapeamento estratégico de investimentos logísticos, priorização de concessões e arrendamentos portuários de longo prazo previstos na carteira de infraestrutura."
+    },
+    "778_2026-10-20": {
+      "id": "778",
+      "aprovar": false
+    },
+    "780_2026-10-21": {
+      "id": "780",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "SENATRAN",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Minuta de Portaria que revisa os procedimentos para a homologação de veículos e equipamentos veiculares, concessão de códigos Renavam e emissão do Certificado de Adequação à Legislação de Trânsito (CAT).",
+      "pontos_atencao": "Impacta diretamente as regras de conformidade e operação da frota de transportadores de cargas e prestadores de serviços logísticos rodoviários, afetando indiretamente custos operacionais e exigências regulatórias."
+    },
+    "730_2026-10-20": {
+      "id": "730",
+      "aprovar": false
+    },
+    "765_2026-10-21": {
+      "id": "765",
+      "aprovar": false
+    },
+    "781_2026-10-21": {
+      "id": "781",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Setorial",
+      "orgao_sigla": "ANAC / SIA",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Proposta de edição da Instrução Suplementar nº 154-003, Revisão C, dispondo sobre os auxílios visuais para pistas de pouso, decolagem e táxi no setor aeroportuário.",
+      "pontos_atencao": "Afeta diretamente os padrões técnicos de engenharia, segurança operacional e os investimentos obrigatórios exigidos das concessionárias de aeroportos em seus contratos de exploração."
+    },
+    "720_2026-10-02": {
+      "id": "720",
+      "aprovar": true,
+      "vertical": "seguros",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MPOR / SE",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de Portaria que estabelece diretrizes de política de seguros para contratos de concessão e exploração privada de infraestrutura aeroportuária, hidroviária e portuária, incluindo critérios de mapeamento de riscos e segurabilidade no EVTEA.",
+      "pontos_atencao": "Tema central para a nossa atuação em seguros de grandes riscos e matrizes contratuais, exigindo análise minuciosa dos novos critérios de exigência de apólices, transferência de riscos e obrigações das concessionárias."
+    },
+    "665_2026-08-31": {
+      "id": "665",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Audiência Pública",
+      "orgao_sigla": "ANTT",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Proposta de Edital de Sandbox Regulatório de Interoperabilidade do Sistema de Livre Passagem (Free Flow) em rodovias federais concedidas.",
+      "pontos_atencao": "Impacta profundamente o modelo operacional, tarifário e tecnológico das concessões rodoviárias federais, abrindo espaço para testes regulatórios de novos modelos de cobrança e arrecadação."
+    },
+    "663_2026-09-08": {
+      "id": "663",
+      "aprovar": false
+    },
+    "636_2026-09-23": {
+      "id": "636",
+      "aprovar": false
+    },
+    "662_2026-09-09": {
+      "id": "662",
+      "aprovar": false
+    },
+    "687_2026-09-11": {
+      "id": "687",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ANAC / SPL",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Proposta de emenda ao RBAC nº 141 (Centros de Instrução de Aviação Civil) e ao RBAC nº 183 (Credenciamento de Pessoas).",
+      "pontos_atencao": "Reflete a atualização dos padrões regulatórios e de qualificação técnica exigidos no setor de aviação civil, com impacto transversal na cadeia de serviços aeroespaciais."
+    },
+    "682_2026-09-10": {
+      "id": "682",
+      "aprovar": false
+    },
+    "672_2026-10-05": {
+      "id": "672",
+      "aprovar": false
+    },
+    "763_2026-10-13": {
+      "id": "763",
+      "aprovar": false
+    },
+    "697_2026-10-01": {
+      "id": "697",
+      "aprovar": false
+    },
+    "769_2026-10-14": {
+      "id": "769",
+      "aprovar": true,
+      "vertical": "divida",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "CAMEX / GECEX",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de Resolução que atualiza as medidas de prevenção e combate à corrupção (compliance) aplicáveis ao sistema de apoio oficial ao crédito à exportação e apólices do FGE.",
+      "pontos_atencao": "Relevante para estruturação financeira, operações de comércio exterior, financiamento de projetos de infraestrutura com bens de capital exportados e exigências de compliance para instituições financeiras e exportadores."
+    },
+    "245_2026-09-29": {
+      "id": "245",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MMA",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Consulta pública para a construção do Programa Nacional de Logística Reversa (PNLR), instrumento de integração e coordenação de sistemas para otimizar a infraestrutura física e logística e proporcionar ganhos de escala.",
+      "pontos_atencao": "Impacto direto na gestão de resíduos e economia circular aplicada à cadeia de suprimentos e operações de infraestrutura, exigindo alinhamento com diretrizes ambientais e de sustentabilidade."
+    },
+    "747_2026-10-09": {
+      "id": "747",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MPOR / SNP",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Proposta de modernização da Portaria nº 530/2019, que disciplina os procedimentos relativos a alterações de contratos de arrendamento portuário, novos investimentos, prorrogações e recomposição do equilíbrio econômico-financeiro.",
+      "pontos_atencao": "Relevância crítica para a estruturação de concessões portuárias, matriz de riscos contratuais e revisões de cronogramas de investimentos privados no setor."
+    },
+    "679_2026-10-13": {
+      "id": "679",
+      "aprovar": false
+    },
+    "750_2026-10-16": {
+      "id": "750",
+      "aprovar": false
+    },
+    "707_2026-10-16": {
+      "id": "707",
+      "aprovar": false
+    },
+    "651_2026-09-28": {
+      "id": "651",
+      "aprovar": false
+    },
+    "74_2026-07-01": {
+      "id": "74",
+      "aprovar": false
+    },
+    "745_2026-10-05": {
+      "id": "745",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "SENATRAN",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de resolução que altera a Resolução Contran nº 958/2022 para permitir a instalação e o uso de tanque adicional de Arla 32 em veículos de transporte rodoviário.",
+      "pontos_atencao": "Impacta diretamente as operações logísticas de frotas de carga, eficiência operacional e custos de conformidade ambiental para o transporte rodoviário."
+    },
+    "706_2026-09-24": {
+      "id": "706",
+      "aprovar": true,
+      "vertical": "divida",
+      "modalidade_exibicao": "Consulta Pública e Audiência Pública",
+      "orgao_sigla": "ANP",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de Resolução que altera normas da ANP para adequação à Lei Complementar nº 225/2026 (Código de Defesa do Contribuinte), atualizando capital social mínimo, exigência de licitude de recursos financeiros e identificação de titular efetivo.",
+      "pontos_atencao": "Impacta exigências regulatórias financeiras, governança societária e comprovação de capacidade econômico-financeira de agentes regulados pelo setor de energia e petróleo."
+    },
+    "699_2026-09-21": {
+      "id": "699",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ANM",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de Resolução sobre a Declaração de Utilidade Pública (DUP) para fins de servidão minerária e desapropriação.",
+      "pontos_atencao": "Essencial para a segurança jurídica de projetos de infraestrutura linear e logística que dependem de desapropriações e servidões de passagem."
+    },
+    "623_2026-10-05": {
+      "id": "623",
+      "aprovar": false
+    },
+    "761_2026-10-09": {
+      "id": "761",
+      "aprovar": false
+    },
+    "760_2026-10-09": {
+      "id": "760",
+      "aprovar": false
+    },
+    "755_2026-10-08": {
+      "id": "755",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MME",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta do Relatório Síntese do Plano Decenal de Expansão de Energia 2036 (PDE 2036).",
+      "pontos_atencao": "Subscreve o planejamento estratégico de longo prazo do setor elétrico e de infraestrutura energética, servindo de base para priorização de investimentos e financiamentos."
+    },
+    "751_2026-10-14": {
+      "id": "751",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "MDIC / SCPR",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Metodologia de Avaliação e Certificação da Infraestrutura Sustentável, abrangendo dimensões econômicas, financeiras, ambientais, sociais e de resiliência climática ao longo do ciclo de vida dos ativos.",
+      "pontos_atencao": "Alinhado diretamente à elegibilidade para emissão de títulos temáticos (green bonds), financiamentos incentivados e critérios ESG para novos projetos de infraestrutura."
+    },
+    "739_2026-10-06": {
+      "id": "739",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "IBAMA",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Proposta de Instrução Normativa para regular o cadastro, colheita e controle de origem de florestas nativas plantadas no âmbito do Sinaflor.",
+      "pontos_atencao": "Impacta o licenciamento ambiental, a regularidade de insumos florestais e a cadeia de suprimentos de projetos com passivos ou exigências de compensação florestal."
+    },
+    "716_2026-09-28": {
+      "id": "716",
+      "aprovar": true,
+      "vertical": "divida",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "CADE",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Reforma do Regimento Interno do Cade, criando comitê de planejamento, agenda pública de prioridades e rito formal para advocacia da concorrência.",
+      "pontos_atencao": "Impacta diretamente a análise de atos de concentração econômica, fusões, aquisições e estruturação de parcerias e concessões no setor de infraestrutura."
+    },
+    "731_2026-10-14": {
+      "id": "731",
+      "aprovar": false
+    },
+    "725_2026-10-06": {
+      "id": "725",
+      "aprovar": false
+    },
+    "669_2026-10-16": {
+      "id": "669",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MF / Subsecretaria de Desenvolvimento Econômico Sustentável",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Consulta pública sobre os cadernos setoriais, temático e metodológico da segunda edição da Taxonomia Sustentável Brasileira (TSB).",
+      "pontos_atencao": "Fundamental para alinhar critérios de financiamento verde e definir quais atividades e infraestruturas serão elegíveis a incentivos baseados em critérios ESG e de transição climática."
+    },
+    "736_2026-10-21": {
+      "id": "736",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "ANAC / SSA",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Tomada de subsídios sobre as condições de acesso à infraestrutura aeroportuária e critérios de alocação de slots no Aeroporto de São Paulo/Congonhas (SBSP).",
+      "pontos_atencao": "Impacta diretamente a regulação econômica aeroportuária, a matriz de concorrência entre companhias aéreas e a eficiência na exploração de ativos concedidos."
+    },
+    "540_2026-07-14": {
+      "id": "540",
+      "aprovar": false
+    },
+    "73_2026-07-01": {
+      "id": "73",
+      "aprovar": false
+    },
+    "632_2026-08-20": {
+      "id": "632",
+      "aprovar": false
+    },
+    "173_2026-05-26": {
+      "id": "173",
+      "aprovar": false
+    },
+    "777_2026-10-21": {
+      "id": "777",
+      "aprovar": false
+    },
+    "775_2026-10-21": {
+      "id": "775",
+      "aprovar": false
+    },
+    "768_2026-10-14": {
+      "id": "768",
+      "aprovar": false
+    },
+    "766_2026-10-14": {
+      "id": "766",
+      "aprovar": true,
+      "vertical": "divida",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "MDIC / GECEX-CAMEX",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de Resolução que atualiza as medidas de prevenção e combate à corrupção (compliance) aplicáveis ao sistema de apoio oficial ao crédito à exportação e seguros vinculados.",
+      "pontos_atencao": "Afeta diretamente o ecossistema de financiamento e garantia de operações de comércio exterior, exigindo revisão das declarações de compromisso e conformidade por parte de instituições financeiras e exportadores."
+    },
+    "776_2026-10-21": {
+      "id": "776",
+      "aprovar": false
+    },
+    "749_2026-10-13": {
+      "id": "749",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MPOR / SNHN",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Proposta do Plano Setorial Hidroviário e Navegação – PSHN 2050, instrumento de planejamento tático do transporte hidroviário integrado ao PNL 2050.",
+      "pontos_atencao": "Mapeia a carteira de projetos prioritários e diretrizes de investimentos para o subsetor hidroviário, essencial para modelagens de concessões e PPPs na infraestrutura aquaviária."
+    },
+    "738_2026-10-14": {
+      "id": "738",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MPOR / SNP",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Revisão da Portaria nº 574/2018, que disciplina a descentralização de competências portuárias e atualiza o Índice de Gestão da Autoridade Portuária (IGAP).",
+      "pontos_atencao": "Modifica os parâmetros de monitoramento de desempenho e autonomia das autoridades portuárias, impactando a governança e a gestão contratual de portos organizados."
+    },
+    "735_2026-10-14": {
+      "id": "735",
+      "aprovar": false
+    },
+    "740_2026-10-20": {
+      "id": "740",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MPOR / SNHN",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Minuta de Portaria que estabelece critérios para monitoramento e classificação da situação operacional de navegabilidade das hidrovias nacionais não concedidas.",
+      "pontos_atencao": "Estabelece níveis operacionais padronizados para hidrovias, influenciando diretamente a previsibilidade logística e a gestão de riscos operacionais no transporte fluvial."
+    },
+    "719_2026-10-20": {
+      "id": "719",
+      "aprovar": true,
+      "vertical": "divida",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MS / BNDES / SEPPI",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Consulta pública do projeto de Parceria Público-Privada (PPP) para implantação, modernização, operação e manutenção do Novo Campus do Instituto Nacional de Câncer (INCA).",
+      "pontos_atencao": "Trata-se de um projeto estruturado pelo BNDES com investimentos estimados em R$ 4,2 bilhões, representando uma oportunidade relevante no mercado de infraestrutura social e project finance."
+    },
+    "704_2026-10-19": {
+      "id": "704",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MS / PPI / BNDES",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minutas de edital e contrato para a Parceria Público-Privada (PPP) do Complexo Industrial de Biotecnologia em Saúde (CIBS). O projeto envolve a estruturação de concessão para construção e operação de infraestrutura produtiva de alta complexidade, com investimento de R$ 7,2 bilhões.",
+      "pontos_atencao": "O projeto é um marco em PPPs de infraestrutura social/industrial. É essencial analisar a matriz de riscos, as garantias contratuais exigidas e a modelagem financeira estruturada pelo BNDES/IFC, dado o vulto do investimento e a natureza estratégica do ativo."
+    },
+    "754_2026-10-14": {
+      "id": "754",
+      "aprovar": false
+    },
+    "793_2026-10-23": {
+      "id": "793",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Reunião Participativa",
+      "orgao_sigla": "ANTT / SUROD",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Proposta de minuta de Instrução Normativa que estabelece a metodologia para apuração e recomposição cautelar dos impactos econômico-financeiros projetados decorrentes da Reforma Tributária do Consumo nos anos-calendário de 2027 e 2028, aplicável aos contratos de concessão rodoviária federal sob gestão da ANTT.",
+      "pontos_atencao": "Impacto direto no reequilíbrio econômico-financeiro dos contratos de concessão e na matriz de riscos das concessionárias rodoviárias diante da transição tributária."
+    },
+    "788_2026-10-23": {
+      "id": "788",
+      "aprovar": false
+    },
+    "792_2026-10-23": {
+      "id": "792",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Reunião Participativa",
+      "orgao_sigla": "ANTT / SUROD",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta do Edital de Sandbox Regulatório destinado à criação de procedimento alternativo de análise de projetos e autorização de início de obras obrigatórias previstas nos contratos de concessão rodoviária federal e respectivos Programas de Exploração da Rodovia (PER).",
+      "pontos_atencao": "Inovação regulatória relevante que altera prazos e fluxos de aprovação de engenharia e cronogramas de investimentos em concessões rodoviárias federais."
+    },
+    "790_2026-10-23": {
+      "id": "790",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "ANTT / SUFER",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Tomada de Subsídios para colher dados, evidências e contribuições técnicas com o objetivo de fundamentar o aprimoramento e a revisão do processo de acompanhamento das outorgas de ferrovias federais concedidas sob o regime de autorização.",
+      "pontos_atencao": "Essencial para o monitoramento regulatório e o ambiente de negócios do setor ferroviário privado, impactando diretrizes de governança e cumprimento de marcos contratuais."
+    },
+    "791_2026-10-23": {
+      "id": "791",
+      "aprovar": false
+    },
+    "787_2026-10-23": {
+      "id": "787",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MME / Eletromobilidade",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Consulta Pública nº 237/2026 destinada a receber contribuições para subsidiar a elaboração de diagnóstico nacional sobre a infraestrutura de recarga de veículos elétricos e sua integração às redes de energia elétrica.",
+      "pontos_atencao": "Relevante para a vertente de transição climática e infraestrutura sustentável, mapeando gargalos regulatórios e de investimentos na expansão da mobilidade elétrica."
+    },
+    "785_2026-10-22": {
+      "id": "785",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MT / SNTF",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Versão preliminar do Plano Setorial de Transporte Ferroviário (PSTF), que estabelece diretrizes e orientações para o planejamento logístico, integração modal, eficiência e segurança viária em alinhamento ao PNL 2050.",
+      "pontos_atencao": "Define o planejamento estratégico de longo prazo para o setor ferroviário, balizando futuras outorgas, priorizações de investimentos e estruturação de novos projetos logísticos."
+    },
+    "780_2026-10-22": {
+      "id": "780",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "SENATRAN",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Minuta de Portaria que revisa os procedimentos para homologação de veículos e equipamentos veiculares, concessão de códigos no Renavam e emissão do Certificado de Adequação à Legislação de Trânsito (CAT).",
+      "pontos_atencao": "Impacta o setor automotivo, a indústria de bens de capital para transporte e os requisitos técnicos regulatórios aplicáveis à frota nacional de cargas e passageiros."
+    },
+    "786_2026-10-22": {
+      "id": "786",
+      "aprovar": false
+    },
+    "740_2026-10-23": {
+      "id": "740",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MPOR / SNHN",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de Portaria que estabelece critérios e procedimentos para o monitoramento e a classificação da situação operacional de navegabilidade das hidrovias nacionais não concedidas, definindo níveis operacionais padronizados.",
+      "pontos_atencao": "Afeta diretamente a governança logística, a previsibilidade operacional e o planejamento de investimentos em infraestrutura hidroviária e de transporte de cargas."
+    },
+    "779_2026-10-23": {
+      "id": "779",
+      "aprovar": false
+    },
+    "771_2026-10-23": {
+      "id": "771",
+      "aprovar": false
+    },
+    "772_2026-10-23": {
+      "id": "772",
+      "aprovar": false
+    },
+    "789_2026-10-23": {
+      "id": "789",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ANM",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Consulta Pública nº 4/2026 sobre a revisão da Resolução ANM nº 68/2020, dispondo sobre o planejamento, apresentação, atualização, execução e aprovação do Plano de Fechamento e Reabilitação de Minas.",
+      "pontos_atencao": "Possui forte impacto ambiental, em passivos socioambientais, exigências de garantias financeiras de descomissionamento e conformidade regulatória na mineração."
+    },
+    "775_2026-10-26": {
+      "id": "775",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ICMBio",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de Portaria que estabelece diretrizes para a estruturação de projetos de permissão e concessão de serviços de apoio à visitação em Unidades de Conservação Federais. O ato visa padronizar o rito de estruturação de delegações de serviços públicos em áreas protegidas.",
+      "pontos_atencao": "Essencial para o acompanhamento de novos modelos de concessão em ativos ambientais, impactando diretamente a estruturação de projetos de infraestrutura turística e a matriz de riscos desses contratos."
+    },
+    "697_2026-10-26": {
+      "id": "697",
+      "aprovar": false
+    },
+    "533_2026-10-26": {
+      "id": "533",
+      "aprovar": false
+    },
+    "779_2026-10-26": {
+      "id": "779",
+      "aprovar": false
+    },
+    "795_2026-10-26": {
+      "id": "795",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "DFPC / Exército",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Revisão da Portaria nº 147/2019 que disciplina normas administrativas para o exercício de atividades com explosivos e produtos controlados contendo nitrato de amônio.",
+      "pontos_atencao": "Impacta diretamente a logística de transporte de cargas perigosas e a cadeia de suprimentos de insumos para obras de infraestrutura pesada (mineração e terraplenagem), exigindo atenção aos custos de conformidade regulatória."
+    },
+    "794_2026-10-26": {
+      "id": "794",
+      "aprovar": false
+    },
+    "754_2026-10-26": {
+      "id": "754",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "DFPC / Exército",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Revisão da Lista de Produtos Controlados pelo Exército (PCE), visando a racionalização e atualização da classificação de produtos conforme a evolução tecnológica e riscos associados.",
+      "pontos_atencao": "A alteração na lista de produtos controlados pode afetar a importação e o uso de equipamentos e insumos essenciais para grandes projetos de engenharia e infraestrutura, sendo vital monitorar a desburocratização do setor."
+    },
+    "672_2026-10-26": {
+      "id": "672",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "DFPC / Exército",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Instrução Técnico-Administrativa para aquisição de PCE por fabricantes para fins de testes industriais e estudos de engenharia, detalhando o rito de aprovação e rastreabilidade.",
+      "pontos_atencao": "Relevante para empresas de engenharia e fabricantes que operam em projetos de infraestrutura, pois define o rito procedimental para o uso de materiais controlados em P&D e testes de campo."
+    },
+    "740_2026-10-27": {
+      "id": "740",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MPOR / SNHN",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de Portaria que estabelece critérios e procedimentos para o monitoramento e a classificação da situação operacional de navegabilidade das hidrovias nacionais não concedidas. O ato visa padronizar a governança e a resposta técnica para a manutenção da infraestrutura hidroviária.",
+      "pontos_atencao": "A padronização dos níveis operacionais impacta diretamente a previsibilidade logística e a matriz de riscos de operadores de navegação interior, sendo essencial para o planejamento de investimentos em infraestrutura logística."
+    },
+    "719_2026-10-27": {
+      "id": "719",
+      "aprovar": true,
+      "vertical": "divida",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "SEPPI / BNDES",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Consulta pública para o projeto de Parceria Público-Privada (PPP) do Novo Campus do INCA, envolvendo investimentos de R$ 4,2 bilhões. O escopo abrange a estruturação de concessão para implantação, modernização, operação e manutenção de infraestrutura hospitalar complexa.",
+      "pontos_atencao": "O projeto representa uma oportunidade relevante de estruturação de ativos de infraestrutura social com garantia de longo prazo, exigindo análise rigorosa da matriz de riscos, garantias financeiras e modelos de financiamento via BNDES."
+    },
+    "775_2026-10-26T13:29": {
+      "id": "775",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ICMBio",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de Portaria que estabelece diretrizes para a estruturação de projetos de permissão e concessão de serviços de apoio à visitação em Unidades de Conservação Federais. O ato visa padronizar o rito de estruturação de delegações de serviços públicos em áreas protegidas.",
+      "pontos_atencao": "Essencial para o acompanhamento de novos modelos de concessão em ativos ambientais, impactando diretamente a estruturação de projetos de infraestrutura turística e a matriz de riscos desses contratos."
+    },
+    "763_2026-10-13T16:45": {
+      "id": "763",
+      "aprovar": false
+    },
+    "769_2026-10-14T18:13": {
+      "id": "769",
+      "aprovar": true,
+      "vertical": "divida",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "CAMEX / GECEX",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de Resolução que atualiza as medidas de prevenção e combate à corrupção (compliance) aplicáveis ao sistema de apoio oficial ao crédito à exportação e apólices do FGE.",
+      "pontos_atencao": "Relevante para estruturação financeira, operações de comércio exterior, financiamento de projetos de infraestrutura com bens de capital exportados e exigências de compliance para instituições financeiras e exportadores."
+    },
+    "245_2026-09-29T07:54": {
+      "id": "245",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MMA",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Consulta pública para a construção do Programa Nacional de Logística Reversa (PNLR), instrumento de integração e coordenação de sistemas para otimizar a infraestrutura física e logística e proporcionar ganhos de escala.",
+      "pontos_atencao": "Impacto direto na gestão de resíduos e economia circular aplicada à cadeia de suprimentos e operações de infraestrutura, exigindo alinhamento com diretrizes ambientais e de sustentabilidade."
+    },
+    "747_2026-10-09T09:12": {
+      "id": "747",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MPOR / SNP",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Proposta de modernização da Portaria nº 530/2019, que disciplina os procedimentos relativos a alterações de contratos de arrendamento portuário, novos investimentos, prorrogações e recomposição do equilíbrio econômico-financeiro.",
+      "pontos_atencao": "Relevância crítica para a estruturação de concessões portuárias, matriz de riscos contratuais e revisões de cronogramas de investimentos privados no setor."
+    },
+    "679_2026-10-13T10:25": {
+      "id": "679",
+      "aprovar": false
+    },
+    "793_2026-10-23T16:50": {
+      "id": "793",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Reunião Participativa",
+      "orgao_sigla": "ANTT / SUROD",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Proposta de minuta de Instrução Normativa que estabelece a metodologia para apuração e recomposição cautelar dos impactos econômico-financeiros projetados decorrentes da Reforma Tributária do Consumo nos anos-calendário de 2027 e 2028, aplicável aos contratos de concessão rodoviária federal sob gestão da ANTT.",
+      "pontos_atencao": "Impacto direto no reequilíbrio econômico-financeiro dos contratos de concessão e na matriz de riscos das concessionárias rodoviárias diante da transição tributária."
+    },
+    "750_2026-10-16T08:41": {
+      "id": "750",
+      "aprovar": false
+    },
+    "707_2026-10-16T13:40": {
+      "id": "707",
+      "aprovar": false
+    },
+    "651_2026-09-28T11:11": {
+      "id": "651",
+      "aprovar": false
+    },
+    "74_2026-07-01T16:36": {
+      "id": "74",
+      "aprovar": false
+    },
+    "745_2026-10-05T15:16": {
+      "id": "745",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "SENATRAN",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de resolução que altera a Resolução Contran nº 958/2022 para permitir a instalação e o uso de tanque adicional de Arla 32 em veículos de transporte rodoviário.",
+      "pontos_atencao": "Impacta diretamente as operações logísticas de frotas de carga, eficiência operacional e custos de conformidade ambiental para o transporte rodoviário."
+    },
+    "706_2026-09-24T15:42": {
+      "id": "706",
+      "aprovar": true,
+      "vertical": "divida",
+      "modalidade_exibicao": "Consulta Pública e Audiência Pública",
+      "orgao_sigla": "ANP",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de Resolução que altera normas da ANP para adequação à Lei Complementar nº 225/2026 (Código de Defesa do Contribuinte), atualizando capital social mínimo, exigência de licitude de recursos financeiros e identificação de titular efetivo.",
+      "pontos_atencao": "Impacta exigências regulatórias financeiras, governança societária e comprovação de capacidade econômico-financeira de agentes regulados pelo setor de energia e petróleo."
+    },
+    "785_2026-10-22T10:17": {
+      "id": "785",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MT / SNTF",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Versão preliminar do Plano Setorial de Transporte Ferroviário (PSTF), que estabelece diretrizes e orientações para o planejamento logístico, integração modal, eficiência e segurança viária em alinhamento ao PNL 2050.",
+      "pontos_atencao": "Define o planejamento estratégico de longo prazo para o setor ferroviário, balizando futuras outorgas, priorizações de investimentos e estruturação de novos projetos logísticos."
+    },
+    "782_2026-10-21T12:15": {
+      "id": "782",
+      "aprovar": false
+    },
+    "767_2026-10-21T11:47": {
+      "id": "767",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MPOR / SNP",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Consulta pública sobre o Plano Setorial Portuário (PSPort) 2050, instrumento tático do Planejamento Integrado de Transportes (PIT) que orienta o desenvolvimento e a expansão do setor portuário nacional.",
+      "pontos_atencao": "Essencial para o mapeamento estratégico de investimentos logísticos, priorização de concessões e arrendamentos portuários de longo prazo previstos na carteira de infraestrutura."
+    },
+    "699_2026-09-21T07:07": {
+      "id": "699",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ANM",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de Resolução sobre a Declaração de Utilidade Pública (DUP) para fins de servidão minerária e desapropriação.",
+      "pontos_atencao": "Essencial para a segurança jurídica de projetos de infraestrutura linear e logística que dependem de desapropriações e servidões de passagem."
+    },
+    "623_2026-10-05T11:33": {
+      "id": "623",
+      "aprovar": false
+    },
+    "778_2026-10-20T18:23": {
+      "id": "778",
+      "aprovar": false
+    },
+    "761_2026-10-09T11:29": {
+      "id": "761",
+      "aprovar": false
+    },
+    "760_2026-10-09T11:03": {
+      "id": "760",
+      "aprovar": false
+    },
+    "755_2026-10-08T10:59": {
+      "id": "755",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MME",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta do Relatório Síntese do Plano Decenal de Expansão de Energia 2036 (PDE 2036).",
+      "pontos_atencao": "Subscreve o planejamento estratégico de longo prazo do setor elétrico e de infraestrutura energética, servindo de base para priorização de investimentos e financiamentos."
+    },
+    "751_2026-10-14T15:44": {
+      "id": "751",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "MDIC / SCPR",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Metodologia de Avaliação e Certificação da Infraestrutura Sustentável, abrangendo dimensões econômicas, financeiras, ambientais, sociais e de resiliência climática ao longo do ciclo de vida dos ativos.",
+      "pontos_atencao": "Alinhado diretamente à elegibilidade para emissão de títulos temáticos (green bonds), financiamentos incentivados e critérios ESG para novos projetos de infraestrutura."
+    },
+    "739_2026-10-06T08:52": {
+      "id": "739",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "IBAMA",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Proposta de Instrução Normativa para regular o cadastro, colheita e controle de origem de florestas nativas plantadas no âmbito do Sinaflor.",
+      "pontos_atencao": "Impacta o licenciamento ambiental, a regularidade de insumos florestais e a cadeia de suprimentos de projetos com passivos ou exigências de compensação florestal."
+    },
+    "716_2026-09-28T17:41": {
+      "id": "716",
+      "aprovar": true,
+      "vertical": "divida",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "CADE",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Reforma do Regimento Interno do Cade, criando comitê de planejamento, agenda pública de prioridades e rito formal para advocacia da concorrência.",
+      "pontos_atencao": "Impacta diretamente a análise de atos de concentração econômica, fusões, aquisições e estruturação de parcerias e concessões no setor de infraestrutura."
+    },
+    "697_2026-10-26T20:14": {
+      "id": "697",
+      "aprovar": false
+    },
+    "788_2026-10-23T13:46": {
+      "id": "788",
+      "aprovar": false
+    },
+    "792_2026-10-23T16:47": {
+      "id": "792",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Reunião Participativa",
+      "orgao_sigla": "ANTT / SUROD",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta do Edital de Sandbox Regulatório destinado à criação de procedimento alternativo de análise de projetos e autorização de início de obras obrigatórias previstas nos contratos de concessão rodoviária federal e respectivos Programas de Exploração da Rodovia (PER).",
+      "pontos_atencao": "Inovação regulatória relevante que altera prazos e fluxos de aprovação de engenharia e cronogramas de investimentos em concessões rodoviárias federais."
+    },
+    "731_2026-10-14T13:56": {
+      "id": "731",
+      "aprovar": false
+    },
+    "725_2026-10-06T10:47": {
+      "id": "725",
+      "aprovar": false
+    },
+    "790_2026-10-23T16:14": {
+      "id": "790",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "ANTT / SUFER",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Tomada de Subsídios para colher dados, evidências e contribuições técnicas com o objetivo de fundamentar o aprimoramento e a revisão do processo de acompanhamento das outorgas de ferrovias federais concedidas sob o regime de autorização.",
+      "pontos_atencao": "Essencial para o monitoramento regulatório e o ambiente de negócios do setor ferroviário privado, impactando diretrizes de governança e cumprimento de marcos contratuais."
+    },
+    "791_2026-10-23T16:37": {
+      "id": "791",
+      "aprovar": false
+    },
+    "669_2026-10-16T16:24": {
+      "id": "669",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MF / Subsecretaria de Desenvolvimento Econômico Sustentável",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Consulta pública sobre os cadernos setoriais, temático e metodológico da segunda edição da Taxonomia Sustentável Brasileira (TSB).",
+      "pontos_atencao": "Fundamental para alinhar critérios de financiamento verde e definir quais atividades e infraestruturas serão elegíveis a incentivos baseados em critérios ESG e de transição climática."
+    },
+    "787_2026-10-23T11:11": {
+      "id": "787",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MME / Eletromobilidade",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Consulta Pública nº 237/2026 destinada a receber contribuições para subsidiar a elaboração de diagnóstico nacional sobre a infraestrutura de recarga de veículos elétricos e sua integração às redes de energia elétrica.",
+      "pontos_atencao": "Relevante para a vertente de transição climática e infraestrutura sustentável, mapeando gargalos regulatórios e de investimentos na expansão da mobilidade elétrica."
+    },
+    "780_2026-10-22T15:01": {
+      "id": "780",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "SENATRAN",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Minuta de Portaria que revisa os procedimentos para homologação de veículos e equipamentos veiculares, concessão de códigos no Renavam e emissão do Certificado de Adequação à Legislação de Trânsito (CAT).",
+      "pontos_atencao": "Impacta o setor automotivo, a indústria de bens de capital para transporte e os requisitos técnicos regulatórios aplicáveis à frota nacional de cargas e passageiros."
+    },
+    "730_2026-10-20T10:05": {
+      "id": "730",
+      "aprovar": false
+    },
+    "765_2026-10-21T09:22": {
+      "id": "765",
+      "aprovar": false
+    },
+    "781_2026-10-21T11:16": {
+      "id": "781",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Setorial",
+      "orgao_sigla": "ANAC / SIA",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Proposta de edição da Instrução Suplementar nº 154-003, Revisão C, dispondo sobre os auxílios visuais para pistas de pouso, decolagem e táxi no setor aeroportuário.",
+      "pontos_atencao": "Afeta diretamente os padrões técnicos de engenharia, segurança operacional e os investimentos obrigatórios exigidos das concessionárias de aeroportos em seus contratos de exploração."
+    },
+    "736_2026-10-21T16:09": {
+      "id": "736",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "ANAC / SSA",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Tomada de subsídios sobre as condições de acesso à infraestrutura aeroportuária e critérios de alocação de slots no Aeroporto de São Paulo/Congonhas (SBSP).",
+      "pontos_atencao": "Impacta diretamente a regulação econômica aeroportuária, a matriz de concorrência entre companhias aéreas e a eficiência na exploração de ativos concedidos."
+    },
+    "540_2026-07-14T09:47": {
+      "id": "540",
+      "aprovar": false
+    },
+    "73_2026-07-01T16:31": {
+      "id": "73",
+      "aprovar": false
+    },
+    "632_2026-08-20T10:42": {
+      "id": "632",
+      "aprovar": false
+    },
+    "173_2026-05-26T17:36": {
+      "id": "173",
+      "aprovar": false
+    },
+    "786_2026-10-22T10:33": {
+      "id": "786",
+      "aprovar": false
+    },
+    "740_2026-10-27T10:23": {
+      "id": "740",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MPOR / SNHN",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de Portaria que estabelece critérios e procedimentos para o monitoramento e a classificação da situação operacional de navegabilidade das hidrovias nacionais não concedidas. O ato visa padronizar a governança e a resposta técnica para a manutenção da infraestrutura hidroviária.",
+      "pontos_atencao": "A padronização dos níveis operacionais impacta diretamente a previsibilidade logística e a matriz de riscos de operadores de navegação interior, sendo essencial para o planejamento de investimentos em infraestrutura logística."
+    },
+    "533_2026-10-26T18:17": {
+      "id": "533",
+      "aprovar": false
+    },
+    "779_2026-10-26T10:55": {
+      "id": "779",
+      "aprovar": false
+    },
+    "795_2026-10-26T16:54": {
+      "id": "795",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "DFPC / Exército",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Revisão da Portaria nº 147/2019 que disciplina normas administrativas para o exercício de atividades com explosivos e produtos controlados contendo nitrato de amônio.",
+      "pontos_atencao": "Impacta diretamente a logística de transporte de cargas perigosas e a cadeia de suprimentos de insumos para obras de infraestrutura pesada (mineração e terraplenagem), exigindo atenção aos custos de conformidade regulatória."
+    },
+    "771_2026-10-23T18:09": {
+      "id": "771",
+      "aprovar": false
+    },
+    "794_2026-10-26T16:56": {
+      "id": "794",
+      "aprovar": false
+    },
+    "719_2026-10-27T09:18": {
+      "id": "719",
+      "aprovar": true,
+      "vertical": "divida",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "SEPPI / BNDES",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Consulta pública para o projeto de Parceria Público-Privada (PPP) do Novo Campus do INCA, envolvendo investimentos de R$ 4,2 bilhões. O escopo abrange a estruturação de concessão para implantação, modernização, operação e manutenção de infraestrutura hospitalar complexa.",
+      "pontos_atencao": "O projeto representa uma oportunidade relevante de estruturação de ativos de infraestrutura social com garantia de longo prazo, exigindo análise rigorosa da matriz de riscos, garantias financeiras e modelos de financiamento via BNDES."
+    },
+    "704_2026-10-19T14:00": {
+      "id": "704",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MS / PPI / BNDES",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minutas de edital e contrato para a Parceria Público-Privada (PPP) do Complexo Industrial de Biotecnologia em Saúde (CIBS). O projeto envolve a estruturação de concessão para construção e operação de infraestrutura produtiva de alta complexidade, com investimento de R$ 7,2 bilhões.",
+      "pontos_atencao": "O projeto é um marco em PPPs de infraestrutura social/industrial. É essencial analisar a matriz de riscos, as garantias contratuais exigidas e a modelagem financeira estruturada pelo BNDES/IFC, dado o vulto do investimento e a natureza estratégica do ativo."
+    },
+    "772_2026-10-23T17:58": {
+      "id": "772",
+      "aprovar": false
+    },
+    "789_2026-10-23T15:38": {
+      "id": "789",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ANM",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Consulta Pública nº 4/2026 sobre a revisão da Resolução ANM nº 68/2020, dispondo sobre o planejamento, apresentação, atualização, execução e aprovação do Plano de Fechamento e Reabilitação de Minas.",
+      "pontos_atencao": "Possui forte impacto ambiental, em passivos socioambientais, exigências de garantias financeiras de descomissionamento e conformidade regulatória na mineração."
+    },
+    "754_2026-10-26T09:10": {
+      "id": "754",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "DFPC / Exército",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Revisão da Lista de Produtos Controlados pelo Exército (PCE), visando a racionalização e atualização da classificação de produtos conforme a evolução tecnológica e riscos associados.",
+      "pontos_atencao": "A alteração na lista de produtos controlados pode afetar a importação e o uso de equipamentos e insumos essenciais para grandes projetos de engenharia e infraestrutura, sendo vital monitorar a desburocratização do setor."
+    },
+    "662_2026-09-09T17:21": {
+      "id": "662",
+      "aprovar": false
+    },
+    "687_2026-09-11T10:18": {
+      "id": "687",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ANAC / SPL",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Proposta de emenda ao RBAC nº 141 (Centros de Instrução de Aviação Civil) e ao RBAC nº 183 (Credenciamento de Pessoas).",
+      "pontos_atencao": "Reflete a atualização dos padrões regulatórios e de qualificação técnica exigidos no setor de aviação civil, com impacto transversal na cadeia de serviços aeroespaciais."
+    },
+    "682_2026-09-10T11:34": {
+      "id": "682",
+      "aprovar": false
+    },
+    "672_2026-10-26T09:43": {
+      "id": "672",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "DFPC / Exército",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Instrução Técnico-Administrativa para aquisição de PCE por fabricantes para fins de testes industriais e estudos de engenharia, detalhando o rito de aprovação e rastreabilidade.",
+      "pontos_atencao": "Relevante para empresas de engenharia e fabricantes que operam em projetos de infraestrutura, pois define o rito procedimental para o uso de materiais controlados em P&D e testes de campo."
+    },
+    "784_2026-10-21T19:45": {
+      "id": "784",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MT / SNTR",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Versão preliminar do Plano Setorial de Transporte Rodoviário (PSTR), que estabelece diretrizes estratégicas para o planejamento, integração logística, segurança viária e desenvolvimento do setor rodoviário nacional. O plano está alinhado ao Plano Nacional de Logística (PNL 2050) e ao Planejamento Integrado de Transportes (PIT).",
+      "pontos_atencao": "O PSTR define as prioridades de investimento e diretrizes de longo prazo que impactarão diretamente a estruturação de futuras concessões rodoviárias e a matriz de riscos dos projetos. É essencial monitorar as metas de eficiência logística e sustentabilidade para alinhar nossas estratégias de financiamento e seguros de engenharia."
+    },
+    "779_2026-10-27T18:18": {
+      "id": "779",
+      "aprovar": false
+    },
+    "775_2026-10-27T20:52": {
+      "id": "775",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ICMBio",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Proposta de portaria para estruturação de projetos de permissão e concessão de serviços de apoio à visitação em Unidades de Conservação Federais. O ato visa padronizar os modelos de delegação de serviços não essenciais em áreas protegidas.",
+      "pontos_atencao": "Essencial para o setor de concessões de infraestrutura turística e ambiental; monitorar as diretrizes de matriz de riscos e obrigações de investimento previstas nos contratos de concessão."
+    },
+    "669_2026-10-27T16:44": {
+      "id": "669",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MDIC / SDES",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Consulta sobre os cadernos setoriais, temático e metodológico da 2ª edição da Taxonomia Sustentável Brasileira (TSB). Define critérios para classificação de atividades econômicas como sustentáveis para fins de financiamento e investimento.",
+      "pontos_atencao": "Impacto direto na elegibilidade de projetos de infraestrutura para emissão de títulos verdes (green bonds) e acesso a linhas de crédito vinculadas a metas de descarbonização."
+    },
+    "255_2026-10-27T17:54": {
+      "id": "255",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ANAC",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Proposta de resolução para modernização dos equipamentos de inspeção nos canais de segurança dos aeroportos brasileiros. Estabelece novos padrões técnicos e prazos de implementação para as concessionárias aeroportuárias.",
+      "pontos_atencao": "Impacto direto no CAPEX das concessionárias de aeroportos e na matriz de riscos dos contratos de concessão, exigindo análise sobre o reequilíbrio econômico-financeiro decorrente da modernização obrigatória."
+    },
+    "724_2026-10-27T15:27": {
+      "id": "724",
+      "aprovar": false
+    },
+    "795_2026-10-27T13:13": {
+      "id": "795",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "Exército / DFPC",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Revisão da Portaria nº 147/2019 que regula atividades com explosivos e nitrato de amônio. Define normas administrativas para fabricação, transporte e uso desses produtos em obras de infraestrutura.",
+      "pontos_atencao": "Relevante para o setor de mineração e grandes obras de infraestrutura (túneis, rodovias, ferrovias) que dependem de explosivos; monitorar custos de conformidade e prazos de licenciamento."
+    },
+    "796_2026-10-27T11:04": {
+      "id": "796",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "Inmetro",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Revisão da regulamentação técnica metrológica para Sistemas de Abastecimento de Veículos Elétricos em Corrente Alternada (SAVE-CA). Define padrões de medição e segurança para infraestrutura de recarga.",
+      "pontos_atencao": "Fundamental para a padronização da infraestrutura de mobilidade elétrica, impactando o desenvolvimento de redes de recarga em rodovias e terminais logísticos."
+    },
+    "794_2026-10-28T09:59": {
+      "id": "794",
+      "aprovar": false
+    },
+    "724_2026-10-28T09:52": {
+      "id": "724",
+      "aprovar": false
+    },
+    "771_2026-10-28T10:25": {
+      "id": "771",
+      "aprovar": false
+    },
+    "796_2026-10-28T10:13": {
+      "id": "796",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "Inmetro",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Revisão da Portaria Inmetro nº 19/2026, que estabelece a regulamentação técnica metrológica para Sistemas de Abastecimento de Veículos Elétricos em Corrente Alternada (SAVE-CA).",
+      "pontos_atencao": "A padronização técnica de infraestrutura de recarga é crítica para a viabilidade da mobilidade elétrica e para o planejamento de concessões rodoviárias que preveem a instalação de eletropostos."
+    },
+    "789_2026-10-28T08:23": {
+      "id": "789",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ANM",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Revisão da Resolução ANM nº 68/2020, que dispõe sobre o planejamento, execução e monitoramento do Plano de Fechamento de Mina.",
+      "pontos_atencao": "O fechamento de mina envolve passivos ambientais e garantias financeiras de longo prazo, impactando diretamente a gestão de riscos de engenharia e a sustentabilidade das operações de infraestrutura minerária."
+    },
+    "771_2026-10-28T10:27": {
+      "id": "771",
+      "aprovar": false,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MS / SCTIE",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Minuta de Resolução sobre procedimentos de recursos administrativos no âmbito do Sistema Nacional de Ética em Pesquisa com Seres Humanos (Sinep) e da Instância Nacional de Ética em Pesquisa (Inaep).",
+      "pontos_atencao": "Processo voltado exclusivamente para a área da saúde e ética em pesquisas clínicas, sem qualquer nexo com infraestrutura, regulação econômica de transportes, seguros de grandes riscos ou financiamento."
+    },
+    "771_2026-10-28T11:09": {
+      "id": "771",
+      "aprovar": false
+    },
+    "799_2026-10-28T11:17": {
+      "id": "799",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Setorial",
+      "orgao_sigla": "ANAC / SIA",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Proposta de edição da Instrução Suplementar nº 153.117-001, Revisão A, intitulada 'Supervisão permanente de pátio', no âmbito da aviação civil.",
+      "pontos_atencao": "Impacta diretamente as normas operacionais e de segurança aeroportuária para a gestão de pátios em aeródromos, exigindo monitoramento pelas concessionárias aeroportuárias."
+    },
+    "794_2026-10-28T10:57": {
+      "id": "794",
+      "aprovar": false
+    },
+    "772_2026-10-28T11:06": {
+      "id": "772",
+      "aprovar": false
+    },
+    "796_2026-10-28T11:59": {
+      "id": "796",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "Inmetro / Diart",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Revisão da Portaria Inmetro nº 19/2026, que dispõe sobre os Sistemas de Abastecimento de Veículos Elétricos em Corrente Alternada (SAVE-CA) e sua regulamentação técnica metrológica.",
+      "pontos_atencao": "Essencial para a infraestrutura de recarga de veículos elétricos, dando suporte à transição energética, à mobilidade de baixa emissão de carbono e à padronização de equipamentos de medição."
+    },
+    "719_2026-10-28T10:44": {
+      "id": "719",
+      "aprovar": true,
+      "vertical": "divida",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "SEPPI / CC / PR - BNDES - MS",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de edital, contrato e anexos da Parceria Público-Privada (PPP) para implantação, modernização, operação e manutenção do Novo Campus do Instituto Nacional de Câncer (INCA), com investimentos estimados em R$ 4,2 bilhões.",
+      "pontos_atencao": "Trata-se de estruturação de grande projeto de infraestrutura social via modelagem de concessão/PPP apoiada pelo BNDES e SEPPI, com forte impacto no mercado de financiamento, garantias e de capitais de longo prazo."
+    },
+    "724_2026-10-29T00:46": {
+      "id": "724",
+      "aprovar": false
+    },
+    "46_2026-10-28T16:21": {
+      "id": "46",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Planos Participativos",
+      "orgao_sigla": "Governo do RS",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Relatório final e diretrizes do Pacto RS 25, focado na reconstrução e crescimento sustentável do estado. O plano integra metas de desenvolvimento sustentável (ODS) e estratégias de resiliência climática baseadas em relatórios do IPCC.",
+      "pontos_atencao": "O plano impacta diretamente a priorização de investimentos em infraestrutura resiliente e a alocação de recursos para mitigação de riscos climáticos, sendo essencial para o monitoramento de projetos de reconstrução."
+    },
+    "747_2026-10-28T17:30": {
+      "id": "747",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MPOR / SNP",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Modernização da Portaria nº 530/2019, que regula alterações contratuais em arrendamentos portuários. O texto abrange investimentos, prorrogações, recomposição de equilíbrio econômico-financeiro e mudanças de perfil de carga.",
+      "pontos_atencao": "Impacto direto na segurança jurídica de contratos de concessão e na matriz de riscos dos arrendatários. A revisão das regras de reequilíbrio e investimentos é crítica para a gestão de ativos e seguros de performance."
+    },
+    "533_2026-10-28T15:08": {
+      "id": "533",
+      "aprovar": false
+    },
+    "796_2026-10-28T16:42": {
+      "id": "796",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "Inmetro",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Revisão da Portaria Inmetro nº 19/2026, que estabelece a regulamentação técnica metrológica para Sistemas de Abastecimento de Veículos Elétricos em Corrente Alternada (SAVE-CA).",
+      "pontos_atencao": "A padronização técnica é fundamental para a infraestrutura de recarga em rodovias e terminais logísticos, impactando a viabilidade de projetos de mobilidade elétrica e a transição energética no setor de transportes."
+    },
+    "79_2026-10-29T08:42": {
+      "id": "79",
+      "aprovar": false
+    },
+    "165_2026-10-29T08:46": {
+      "id": "165",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ANTT",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Revisão do Marco Regulatório Setorial de Ferrovias (Minuta de Resolução 1B – RSF1), focando em direitos e garantias aos usuários e definição de serviço adequado.",
+      "pontos_atencao": "Impacta diretamente a matriz de riscos e as obrigações contratuais de concessionárias ferroviárias, exigindo análise sobre a estabilidade regulatória dos contratos vigentes."
+    },
+    "768_2026-10-29T19:30": {
+      "id": "768",
+      "aprovar": false
+    },
+    "143_2026-10-29T08:42": {
+      "id": "143",
+      "aprovar": false
+    },
+    "174_2026-10-29T08:42": {
+      "id": "174",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ANTAQ",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Revisão e simplificação do estoque regulatório da navegação interior, incluindo critérios de outorga, afretamento e acordos operacionais.",
+      "pontos_atencao": "Essencial para a modernização da logística hidroviária; a simplificação de outorgas pode reduzir custos de conformidade e atrair novos investimentos para o setor."
+    },
+    "111_2026-10-29T08:42": {
+      "id": "111",
+      "aprovar": false
+    },
+    "805_2026-10-29T19:29": {
+      "id": "805",
+      "aprovar": true,
+      "vertical": "seguros",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "SUSEP / CGPEC",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Manual de Práticas e Procedimentos Contábeis do Mercado de Proteção Patrimonial Mutualista e respectivo elenco de contas.",
+      "pontos_atencao": "A padronização contábil de entidades de proteção patrimonial é relevante para a gestão de riscos e solvência, impactando a competitividade frente ao mercado segurador tradicional."
+    },
+    "803_2026-10-29T11:29": {
+      "id": "803",
+      "aprovar": true,
+      "vertical": "divida",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MME / EPE",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Definição de diretrizes e preços de referência para o Custo de Combustível (Ccomb) no Leilão dos Sistemas Isolados de 2027.",
+      "pontos_atencao": "O custo de combustível impacta diretamente o equilíbrio econômico-financeiro dos contratos de geração de energia em sistemas isolados, afetando o risco de crédito dos projetos."
+    },
+    "88_2026-10-29T08:46": {
+      "id": "88",
+      "aprovar": false
+    },
+    "128_2026-10-29T08:46": {
+      "id": "128",
+      "aprovar": false
+    },
+    "804_2026-10-29T17:51": {
+      "id": "804",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "DNIT",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Revisão da Norma DNIT 093 – Especificação de material para tubo dreno corrugado de PEAD para drenagem subsuperficial e profunda.",
+      "pontos_atencao": "Alterações em normas técnicas de materiais impactam diretamente o orçamento de obras rodoviárias e a qualidade da infraestrutura entregue, influenciando custos de manutenção."
+    },
+    "795_2026-10-29T09:59": {
+      "id": "795",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "Exército / DFPC",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Revisão da Portaria nº 147-COLOG sobre normas administrativas para atividades com explosivos e produtos controlados.",
+      "pontos_atencao": "A regulação de explosivos é crítica para o cronograma de obras de infraestrutura pesada (túneis, mineração e terraplenagem); mudanças podem afetar custos e prazos de execução."
+    },
+    "125_2026-10-29T08:46": {
+      "id": "125",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "FGVces",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Diretrizes para o Programa Brasileiro de Relato Empresarial em Adaptação à Mudança do Clima (PBRA).",
+      "pontos_atencao": "O alinhamento a padrões de relato climático é fundamental para o acesso a financiamento verde e debêntures incentivadas, sendo um tema transversal de ESG para grandes projetos."
+    },
+    "802_2026-10-29T09:41": {
+      "id": "802",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MME",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Diretrizes para elaboração do Plano de Outorgas de Transmissão de Energia Elétrica (POTEE).",
+      "pontos_atencao": "Define o pipeline de leilões de transmissão; essencial para o planejamento de investimentos e estruturação de garantias financeiras em projetos de energia."
+    },
+    "116_2026-10-29T08:46": {
+      "id": "116",
+      "aprovar": false
+    },
+    "161_2026-10-29T08:46": {
+      "id": "161",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Audiência Pública",
+      "orgao_sigla": "ANTT",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Revisão da metodologia e coeficientes dos pisos mínimos do transporte rodoviário de cargas (PNPM-TRC).",
+      "pontos_atencao": "Impacta diretamente a logística de insumos e a estrutura de custos de transporte, afetando a competitividade de projetos de infraestrutura e o equilíbrio de contratos de frete."
+    },
+    "159_2026-10-29T08:46": {
+      "id": "159",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ANTT",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Readaptação e otimização do contrato de concessão da Rodovia BR-116/SP/PR (Autopista Régis Bittencourt).",
+      "pontos_atencao": "Processo piloto de reequilíbrio via sandbox regulatório (IN TCU 91/2022); serve de benchmark para futuras renegociações de contratos de concessão rodoviária."
+    },
+    "149_2026-10-29T08:46": {
+      "id": "149",
+      "aprovar": true,
+      "vertical": "divida",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "ANA",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Regulação tarifária do serviço de adução de água bruta do Projeto de Integração do Rio São Francisco (PISF).",
+      "pontos_atencao": "A definição de tarifas de água bruta impacta a viabilidade econômica de projetos de irrigação e saneamento, sendo um componente chave para o financiamento de infraestrutura hídrica."
+    },
+    "796_2026-10-29T10:45": {
+      "id": "796",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "Inmetro",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Revisão da Portaria Inmetro nº 19/2026 que estabelece a regulamentação técnica metrológica para Sistemas de Abastecimento de Veículos Elétricos em Corrente Alternada (SAVE-CA).",
+      "pontos_atencao": "Impacta diretamente a padronização de infraestrutura de recarga em rodovias e terminais logísticos, essencial para a viabilidade de frotas elétricas em concessões."
+    },
+    "91_2026-10-29T08:42": {
+      "id": "91",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MMA",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Anteprojeto de Lei de revisão da Política Nacional sobre Mudança do Clima (PNMC).",
+      "pontos_atencao": "A revisão da PNMC ditará as diretrizes de descarbonização para todos os setores de infraestrutura, afetando metas de emissões em contratos de concessão e acesso a financiamento verde."
+    },
+    "141_2026-10-29T08:46": {
+      "id": "141",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta e Audiência Públicas",
+      "orgao_sigla": "ANP / SBQ",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Regulamentação da individualização das metas de Certificado de Garantia de Origem (CGOB) para produtores e importadores de gás natural.",
+      "pontos_atencao": "O mecanismo de certificação de origem impacta a transição energética de ativos de infraestrutura que utilizam gás natural e a precificação de ativos no mercado de carbono."
+    },
+    "122_2026-10-29T08:46": {
+      "id": "122",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MMA / SNMC",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Programa Brasileiro de Redução do Consumo dos HFCs - Etapa I.",
+      "pontos_atencao": "A regulação de gases de efeito estufa impacta diretamente a operação de sistemas de refrigeração em terminais logísticos, armazéns frigorificados e infraestrutura aeroportuária."
+    },
+    "789_2026-10-30T05:11": {
+      "id": "789",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ANM",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Revisão da Resolução ANM nº 68/2020 sobre o Plano de Fechamento de Mina.",
+      "pontos_atencao": "O fechamento de mina envolve passivos ambientais e garantias financeiras de alto risco; a revisão das regras de execução e monitoramento é crítica para a gestão de riscos de engenharia."
+    },
+    "132_2026-10-29T08:46": {
+      "id": "132",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ANAC / SAR",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Emendas aos RBACs nºs 21 e 45 sobre certificação de produtos aeronáuticos e terminologias.",
+      "pontos_atencao": "Ajustes regulatórios na certificação de produtos impactam a cadeia de suprimentos e a manutenção de ativos aeroportuários."
+    },
+    "157_2026-10-29T08:45": {
+      "id": "157",
+      "aprovar": false
+    },
+    "13_2026-10-29T08:44": {
+      "id": "13",
+      "aprovar": false
+    },
+    "679_2026-10-29T10:35": {
+      "id": "679",
+      "aprovar": false
+    },
+    "777_2026-10-29T15:09": {
+      "id": "777",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ICMBio",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de IN sobre critérios de priorização para delegação de serviços de apoio à visitação em Unidades de Conservação e instituição do PPPC.",
+      "pontos_atencao": "Define o marco regulatório para concessões de uso público em áreas protegidas, um mercado em expansão para investimentos privados em infraestrutura turística."
+    },
+    "740_2026-10-29T11:46": {
+      "id": "740",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MPOR / SNHN",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Portaria que estabelece critérios e procedimentos para o monitoramento e classificação da situação operacional de navegabilidade das hidrovias nacionais não concedidas.",
+      "pontos_atencao": "A padronização da governança de hidrovias é fundamental para a estruturação de novos projetos de concessão e para a segurança jurídica dos operadores logísticos."
+    },
+    "718_2026-10-29T13:26": {
+      "id": "718",
+      "aprovar": false
+    },
+    "799_2026-10-29T10:46": {
+      "id": "799",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Setorial",
+      "orgao_sigla": "ANAC / SIA",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Edição da Instrução Suplementar nº 153.117-001, Revisão A, sobre supervisão permanente de pátio aeroportuário.",
+      "pontos_atencao": "Impacta diretamente os procedimentos operacionais e de segurança (compliance) das concessionárias de aeroportos."
+    },
+    "608_2026-10-29T17:32": {
+      "id": "608",
+      "aprovar": false
+    },
+    "163_2026-10-29T08:46": {
+      "id": "163",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "ANTT",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Termo de Referência de Sandbox Regulatório para o Corredor Logístico Sustentável (BR-153/277/369).",
+      "pontos_atencao": "O uso de sandbox em rodovias é um precedente importante para a inovação em contratos de concessão e modelos de financiamento de infraestrutura sustentável."
+    },
+    "66_2026-10-29T08:42": {
+      "id": "66",
+      "aprovar": false
+    },
+    "768_2026-10-30T09:45": {
+      "id": "768",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "IBAMA",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Alteração da Instrução Normativa Ibama nº 20/2020, que define requisitos técnicos e metrológicos para contadores de partículas na Fase P8 do PROCONVE. O foco é a padronização dos ensaios de emissões veiculares para veículos pesados.",
+      "pontos_atencao": "Impacta diretamente a cadeia de suprimentos de veículos pesados e a logística de transporte, sendo essencial para o monitoramento de metas de descarbonização e conformidade ambiental de frotas."
+    },
+    "797_2026-10-30T09:59": {
+      "id": "797",
+      "aprovar": true,
+      "vertical": "divida",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "Exército / DFPC",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Revisão da Portaria C Ex nº 2.566/2025, que regulamenta procedimentos administrativos de comércio exterior para Produtos Controlados pelo Exército (PCE). A proposta visa otimizar o licenciamento e a fiscalização via Portal Único de Comércio Exterior (DUIMP/LPCO).",
+      "pontos_atencao": "A simplificação de processos de importação de insumos e bens de capital controlados reduz custos de transação e riscos de gargalos logísticos em projetos de infraestrutura que dependem de equipamentos importados."
+    },
+    "707_2026-10-30T15:21": {
+      "id": "707",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "Inmetro / Dconf",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Avaliação de Resultado Regulatório (ARR) da Portaria Inmetro nº 512/2023, que estabelece requisitos de qualidade para tubos de polietileno e concreto utilizados em drenagem e saneamento.",
+      "pontos_atencao": "A qualidade dos insumos de saneamento impacta diretamente a vida útil e o custo de manutenção de ativos de infraestrutura urbana, sendo um ponto crítico para a bancabilidade e o risco operacional de concessões de saneamento."
+    },
+    "794_2026-11-03T08:16": {
+      "id": "794",
+      "aprovar": false,
+      "vertical": null,
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ANCINE",
+      "relevancia": "N/A",
+      "objeto_normativo": "Regulamentação do financiamento de jogos eletrônicos com recursos públicos geridos pela Ancine.",
+      "pontos_atencao": "O processo trata exclusivamente de fomento à indústria cultural e audiovisual, não possuindo aderência com infraestrutura, seguros de grandes riscos, transição climática ou financiamento de projetos de infraestrutura."
+    }
+  },
+  "analises_estruturacao_v2": {
+    "PNCP_04892707001425-1-000016/2026": {
+      "id": "PNCP_04892707001425-1-000016/2026",
+      "titulo_executivo": "DNIT/RJ — Concorrência Eletrônica Edital nº 67/2026 — Elaboração de EVTEA para Implantação de Hidrovias e Instalações Portuárias na Laguna de Araruama/RJ",
+      "escopo_sintetico": "Objeto: Contratação de empresa para elaboração de Estudo de Viabilidade Técnica, Econômica e Ambiental (EVTEA) para implantação de hidrovias e instalações portuárias (IP4) na Laguna de Araruama, no Estado do Rio de Janeiro (Processo SEI 50607.001431/2025-83) | Valor estimado: R$ 6.682.392,51 | Prazo de execução: 12 meses (vigência: 18 meses) | Situação: Aberta (entrega de propostas até 04/11/2026) | Onde está o escopo: Termo de Referência (Anexo I, 41 páginas) e Anexo II – Especificações Técnicas para Elaboração do EVTEA (70 páginas).",
+      "analise_riscos_segurabilidade": "• No Anexo II – Especificações Técnicas (70 págs.), o Item 9.1.8 (p. 46) e o Item 10.3.1.1 (p. 55) incluem nos parâmetros mínimos de custos das alternativas e nos gastos com investimento e obra as rubricas \"Contingências e gerenciamento de riscos\" e \"Seguros e garantias contratuais\".\n• Na avaliação econômico-financeira e socioeconômica (Anexo II, Item 9.1.12, p. 48; Item 10.3.1.3, p. 55; e Item 10.3.4, p. 58), exige-se \"Elaborar registro de riscos, identificando os principais fatores e seus impactos potenciais\" e o \"Registro dos principais riscos e seus impactos sobre os indicadores econômico-financeiros\".\n• Nos Estudos Complementares de Engenharia (Anexo II, Item 10.2.5, p. 54), determina-se que \"A CONTRATADA deverá diagnosticar, mapear e consolidar as necessidades de investigações de campo e estudos de engenharia detalhados para as próximas fases (Projeto Básico/Executivo), de modo a subsidiar a matriz de riscos hidrodinâmicos e geotécnicos do empreendimento.\"\n• No diagnóstico operacional de cargas (Anexo II, Item 7.1.2.5 \"d\" – Produtos Perigosos, p. 14), prevê-se que \"deverá ser elaborado um diagnóstico e oferecido um anteprojeto de programa de gestão de risco.\"\n• Não há no Termo de Referência nem no Anexo II previsão de produto específico de estudo de segurabilidade da futura hidrovia/IP4s (o Item 4.4 do TR, p. 5–6, disciplina apenas a garantia de execução de 5% do próprio contrato de consultoria, nos termos do art. 96 da Lei 14.133/2021)."
+    },
+    "BNDES_HIDROVIAS_TAPAJOS_TOCANTINS": {
+      "id": "BNDES_HIDROVIAS_TAPAJOS_TOCANTINS",
+      "titulo_executivo": "BNDES — RFP nº 11/2024 (Contrato OCS nº 087/2025) — Estruturação de Concessão das Hidrovias dos Rios Tapajós e Tocantins (2.421 km)",
+      "escopo_sintetico": "Objeto: Contratação de serviços técnicos necessários à estruturação de projeto de concessão à iniciativa privada da administração das hidrovias do Rio Tapajós (643 km em 2 trechos) e do Rio Tocantins (1.778 km em 5 subtrechos), totalizando 2.421 km | Valor contratado: R$ 8.460.000,00 (valor estimado na RFP: R$ 12.833.495,45) | Contrato OCS nº 087/2025 assinado em 14/03/2025 (Consórcio Macroinfra / Almeida & Fleury / R. Peotta / Machado Meyer) | Situação: Em execução | Onde está o escopo: Anexo I – Termo de Especificações Técnicas – TET (67 páginas).",
+      "analise_riscos_segurabilidade": "• O Anexo VI – Matriz de Riscos (PDF) refere-se à matriz de riscos do contrato de consultoria celebrado com o BNDES, e não à matriz de riscos da futura concessão hidroviária.\n• No Anexo I – Termo de Especificações Técnicas (67 págs.), o Relatório de Proposição do Modelo Institucional e Regulatório (Item 2.2.1.8 \"k\" e \"l\", p. 25) exige a \"Definição da Matriz de Riscos contendo as justificativas e os possíveis mitigadores para os riscos identificados\" e estabelece que \"a matriz de risco completa deverá indicar a melhor alocação de risco para o projeto, considerando a alocação de risco de contratos de concessão mais recentes (...) Deve também abranger a alocação de risco adequada para garantir a viabilidade financeira do projeto por meio de um esquema de project finance (financiamento de projetos) e incluir a análise das fases de construção e operacionais, consequências de atrasos, sobrecustos, força maior, mudança na lei, regimes de rescisão e compensação\".\n• Na Avaliação Econômico-Financeira Conclusiva (Anexo I, Item 2.2.2.1.3 \"k\", p. 31), exige-se que o painel de controle das planilhas contemple a variável \"(k) Seguros e Garantias\".\n• Na elaboração das minutas de Edital e Contrato de Parceria (Item 2.2.2.2.3, p. 34–35) e do Relatório de Modelagem (Item 2.2.2.3, p. 35–36), exige-se a proposição de cláusulas de \"títulos de licitação ou desempenho, seguro, requisitos / restrições em relação a financiamento\", \"(iv) Alocação de Riscos do CONTRATO DE PARCERIA\", \"(v) Modelos de Garantias do EDITAL e CONTRATO(S) DE PARCERIA\" e \"(xiv) Seguros\"."
+    },
+    "BNDES_PORTO_RN": {
+      "id": "BNDES_PORTO_RN",
+      "titulo_executivo": "BNDES — RFP nº 04/2025 (Contrato OCS nº 319/2026) — Estruturação e Modelagem de Parceria para Implantação do Porto Indústria Greenfield no RN",
+      "escopo_sintetico": "Objeto: Contratação de serviços técnicos necessários para a estruturação e modelagem de parceria (concessão, PPP ou SPE) para implantação e administração de infraestrutura portuária greenfield na região de Caiçara do Norte/RN | Valor contratado: R$ 5.189.000,00 (valor estimado na RFP: R$ 5.995.995,21) | Prazo contratual: 36 meses | Contrato OCS nº 319/2026 assinado em 08/09/2026 (Consórcio A&M / GRAF / Demarest / ETHLC) | Situação: Em execução | Onde está o escopo: Anexo I – Especificações Técnicas (47 páginas).",
+      "analise_riscos_segurabilidade": "• O Anexo VI – Matriz de Riscos (PDF) refere-se à matriz de riscos do contrato de consultoria celebrado com o BNDES, e não à matriz de riscos da futura parceria portuária.\n• No Anexo I – Especificações Técnicas (47 págs.), o Relatório de Proposição do Modelo Institucional e Regulatório (Item 3.2.3 \"k\", \"s\" e \"t\", p. 28–29) exige expressamente: \"k) proposta de mecanismos para revisão dos parâmetros contratuais (...) incluindo o Fluxo de Caixa Marginal, a matriz de riscos da CONCESSÃO, se aplicável\", \"s) sugestão de matriz de risco, respectivos mecanismos de mitigação e penalizações\" e \"t) justificativas para a alocação dos riscos apontados na matriz de risco, bem como produtos securitários necessários\".\n• Na elaboração das Minutas dos Documentos Necessários à Licitação (Anexo I, Item 3.2.5.2, p. 30–31), exige-se relatório justificativo abordando: \"b) exigência e valor de garantia de proposta\", \"L) descrição exaustiva da matriz de repartição de riscos do PROJETO\", \"o) exigência e valor de garantia de execução do contrato\" e \"p) seguros relativamente ao objeto e valores segurados\".\n• Na Assessoria Jurídica (Anexo I, Item 3.8 \"l\", p. 37), exige-se a \"elaboração de versões preliminar e definitiva da matriz contratual de riscos do PROJETO, considerando os riscos inerentes ao PROJETO, o racional para sua alocação e possíveis mitigadores\"."
+    },
+    "BNDES_PORTO_SANTOS": {
+      "id": "BNDES_PORTO_SANTOS",
+      "titulo_executivo": "BNDES — RFP nº 17/2023 (Contrato OCS nº 157/2024) — Estruturação de Projeto de Concessão de Serviços Portuários no Porto Organizado de Santos",
+      "escopo_sintetico": "Objeto: Contratação de serviços técnicos de apoio (Serviço B) necessários à estruturação de projeto de concessão de serviços portuários no Porto Organizado de Santos (incluindo canal de acesso aquaviário, dragagem e infraestrutura associada, aproveitando insumos da Etapa 1 da RFP 01/2020) | Valor contratado: R$ 4.083.000,00 | Contrato OCS nº 157/2024 assinado em 17/05/2024 (Consórcio EY / Rhein Schirato Meireles / Planave) | Situação: Em execução | Onde está o escopo: Anexo I – Termo de Especificações Técnicas (30 páginas).",
+      "analise_riscos_segurabilidade": "• O Anexo VI – Matriz de Riscos (PDF) refere-se à matriz de riscos do contrato de consultoria celebrado com o BNDES, e não à matriz de riscos da futura concessão portuária.\n• No Anexo I – Termo de Especificações Técnicas (30 págs.), o Relatório de Proposição do Modelo Institucional e Regulatório (Item 2.2.1.5 \"i\", p. 8) exige a \"Definição da nova Matriz de Riscos contendo as justificativas e os possíveis mitigadores para os riscos identificados de acordo com os modelos institucionais avaliados e com as melhores práticas, locais e internacionais, adotadas em projetos de concessão no setor de infraestrutura (...) recomendando e justificando princípios e mecanismos de alocação\".\n• No Relatório de Avaliação Técnico-Operacional (Item 2.2.1.4 \"d\" e \"e\", p. 6), exige-se o \"orçamento detalhado dos custos de operação e manutenção dos serviços prestados (OPEX) e das despesas administrativas, incluindo os custos ambientais, taxas, tarifas portuárias, utilidades e seguros, dentre outros\" e a avaliação de interferências da travessia seca Santos–Guarujá com \"as remediações contratuais necessárias para mitigação desse risco\".\n• No Relatório de Decisão do Modelo de Negócios (Item 2.2.1.8 \"b\" e \"f\", p. 11–12) e no Relatório de Modelagem (Item 2.2.2.4, p. 12–13), exige-se a análise de \"alocação de riscos entre o PODER CONCEDENTE, AUTORIDADE PORTUÁRIA e OUTORGADA\". Não há previsão de estudo específico de segurabilidade da concessão."
+    },
+    "BNDES_RODOVIAS_FEDERAIS_III": {
+      "id": "BNDES_RODOVIAS_FEDERAIS_III",
+      "titulo_executivo": "BNDES — RFP nº 014/2024 (Contrato OCS nº 270/2025) — Estruturação de Concessões de Rodovias Federais na Região Nordeste (2.530 km)",
+      "escopo_sintetico": "Objeto: Contratação de serviços técnicos necessários para a estruturação de projetos de concessão rodoviária de até 2.530 km de trechos existentes (BR-101/BA/RN/PE/PB/SE, BR-116/304/CE/RN, BR-230/PB, BR-232/PE, BR-235/SE, acessos ao Porto do Pecém/CE) e 184,8 km de contornos/variantes na Região Nordeste, observando a Portaria MT nº 995/2023 | Valor contratado: R$ 11.501.251,47 (valor estimado na RFP: R$ 24.528.219,73) | Contrato OCS nº 270/2025 assinado em 30/07/2025 (Consórcio Rodoviário Nordeste — Dynatest / Estratégica / Ambiente Brasil / Infraconsult / Manesco) | Situação: Em execução | Onde está o escopo: Anexo I – Termo de Especificações Técnicas (135 páginas).",
+      "analise_riscos_segurabilidade": "• O Anexo VI – Matriz de Riscos (PDF) refere-se à matriz de riscos do contrato de consultoria celebrado com o BNDES, e não à matriz de riscos das futuras concessões rodoviárias.\n• No Anexo I – Termo de Especificações Técnicas (135 págs.), a Avaliação Econômico-Financeira da Concessão Rodoviária (Item 3.13.1 e Item 3.13.5 \"m\" e \"n\", p. 33–34) determina a assimilação de \"todas as informações e variáveis associadas à operação da CONCESSÃO RODOVIÁRIA, inclusive seus riscos\" e exige nas planilhas eletrônicas as variáveis \"m) Seguros\" e \"n) Garantias\".\n• Na Assessoria Jurídica (Item 3.20.1.1 \"j\" e Item 3.20.2.1 \"n\", p. 41–42), prevê-se \"Suporte junto ao BNDES para qualquer medida necessária à implantação do(s) modelo(s) de garantias selecionado(s), cuja constituição ocorra previamente ao(s) LEILÃO(ÕES)\" e análise das \"garantias de proposta, documentos de habilitação e demais documentos necessários para assinatura do CONTRATO\".\n• No Anexo 6 (Item 7, p. 108–109) e no Anexo 7 (Item 8.4, p. 115–116), exige-se a apresentação de cenários alternativos com vantagens, desvantagens e sugestão de texto contratual \"a fim de subsidiar a tomada de decisão acerca da alocação de risco nos contratos de concessão\" quanto a desapropriações/desocupações da faixa de domínio e licenciamento/passivos ambientais. Não há previsão de estudo específico de segurabilidade."
+    },
+    "PNCP_42150664000187-1-000066/2026": {
+      "id": "PNCP_42150664000187-1-000066/2026",
+      "titulo_executivo": "Infra S.A. (MT) — Edital nº 61/2026 (RLE 16/2026) — Elaboração de EVTEA para estruturar desestatizações de rodovias federais",
+      "escopo_sintetico": "Contratação de pessoa jurídica para elaboração de Estudos de Viabilidade Técnica, Econômica e Ambiental (EVTEA) para estruturar desestatizações de rodovias federais, com extensão total aproximada de 2.179,5 quilômetros. Valor estimado: R$ 28.880.000,00. Prazo/Situação: 06/01/2027. O escopo consta no Edital e em seus Anexos (disponíveis na página oficial da Infra S.A. e no PNCP).",
+      "analise_riscos_segurabilidade": "• O edital e a documentação vinculada estabelecem as regras de garantias de proposta, garantias de execução contratual e seguros aplicáveis à contratação da empresa consultora, conforme a Lei nº 14.133/2021.\n• O objeto do contrato consiste na elaboração de EVTEA para a futura concessão de rodovias federais, cujos estudos preveem a modelagem da matriz de riscos, seguros e garantias aplicáveis ao futuro contrato de concessão."
+    },
+    "INFRASA_97404": {
+      "id": "INFRASA_97404",
+      "titulo_executivo": "Infra S.A. — RLE Edital nº 016/2026 (Edital PNCP nº 61/2026) — Elaboração de EVTEA de Rodovias Federais (Lote 1: BR-158/070/364/MT | Lote 2: BR-116/285/RS e SC)",
+      "escopo_sintetico": "Objeto: Contratação de pessoa jurídica para elaboração de Estudos de Viabilidade Técnica, Econômica e Ambiental (EVTEA) para estruturar desestatizações de rodovias federais, com extensão total aproximada de 2.179,5 km, divididos em Lote 1 (BR-158/070/364/MT) e Lote 2 (BR-116/285/RS e SC) | Valor estimado: R$ 28.875.158,35 | Situação: Aberta (entrega de propostas até 06/01/2027, às 10h) | Onde está o escopo: Anexo I – Termo de Referência (83 páginas).",
+      "analise_riscos_segurabilidade": "• O Anexo VI – Matriz de Riscos (PDF, 1 página / 24 riscos) trata exclusivamente dos riscos do contrato de consultoria (atrasos de entrega, variação de custos, não aprovação de produtos pelo TCU/ANTT), e não da futura concessão rodoviária.\n• No Anexo I – Termo de Referência (83 págs.), a exigência relativa a seguros na modelagem da futura concessão resume-se ao Produto 4 – Modelagem Econômico-Financeira (item 4.5.1.2 \"m\" e \"n\", p. 29): \"as planilhas eletrônicas deverão dispor de um painel de controle com os principais dados de entrada (inputs) e premissas projetadas ao longo do prazo da concessão, para variáveis como: (...) m) Seguros e Garantias\".\n• Não há no Termo de Referência previsão de produto específico de estudo de segurabilidade, cotação no mercado segurador ou modelagem de seguro-garantia com cláusula de retomada para a futura concessão.\n• Outras menções a riscos no TR referem-se a: Plano de Gerenciamento de Riscos (PGR) de produtos perigosos no Modelo Operacional (Produto 3, item 4.4.1.2 \"q\", p. 26) e riscos climáticos na Resiliência Climática (Produto 2B, item 4.3.2, p. 23–25)."
+    },
+    "INFRASA_97681": {
+      "id": "INFRASA_97681",
+      "titulo_executivo": "Infra S.A. — RLE Edital nº 019/2026 — Elaboração de estudos técnicos para estruturação de projetos de infraestrutura",
+      "escopo_sintetico": "Objeto: Contratação de serviços técnicos especializados para elaboração de estudos de viabilidade (EVTEA) e estruturação de projetos. Valor: Conforme Caderno Orçamentário (Anexo III do PB). Prazo/Situação: Conforme Edital nº 019/2026. Documento de escopo: Termo de Referência e Especificações Técnicas constantes no Edital.",
+      "analise_riscos_segurabilidade": "• Anexo VIII do PB: Define a Matriz de Riscos específica para a execução do contrato de consultoria entre a Infra S.A. e a contratada. • Anexo X do PB: Estabelece o Mapa de Riscos Processuais referente à condução do certame e gestão do contrato de consultoria. • Garantias e Seguros: As exigências de garantias contratuais e coberturas securitárias para a execução dos serviços de consultoria estão detalhadas nas cláusulas do Edital nº 019/2026 e na minuta do contrato anexa."
+    }
+  }
+}

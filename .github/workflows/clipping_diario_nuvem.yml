@@ -1,0 +1,120 @@
+name: Clipping Diario e Radar na Nuvem (DECON/MPOR)
+
+on:
+  schedule:
+    # Roda de Segunda a Sexta-feira às 07:30 BRT (10:30 UTC)
+    - cron: "30 10 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      forcar_reexecucao:
+        description: "Forcar nova geracao e envio mesmo se a edicao de hoje ja existir?"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+permissions:
+  contents: write
+
+jobs:
+  gerar_e_publicar:
+    runs-on: ubuntu-latest
+    env:
+      TZ: America/Sao_Paulo
+    steps:
+      - name: Checkout do repositorio
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Verificar se a edicao de hoje ja foi publicada
+        id: check_hoje
+        run: |
+          HOJE=$(date +%Y-%m-%d)
+          FORCAR="${{ github.event.inputs.forcar_reexecucao }}"
+          if [ -f "historico/clipping_${HOJE}.html" ] && [ "$FORCAR" != "true" ]; then
+            echo "ja_existe=true" >> $GITHUB_OUTPUT
+            echo "Edicao historico/clipping_${HOJE}.html ja existe. Encerrando sem duplicidade."
+          else
+            echo "ja_existe=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Configurar Python 3.12
+        if: steps.check_hoje.outputs.ja_existe != 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Instalar dependencias
+        if: steps.check_hoje.outputs.ja_existe != 'true'
+        run: pip install -r requirements.txt
+
+      - name: Executar Coleta, Curadoria (Gemini/Contingencia) e Renderizacao
+        if: steps.check_hoje.outputs.ja_existe != 'true'
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          EMAIL_DESTINATARIOS: ${{ secrets.EMAIL_DESTINATARIOS }}
+        run: |
+          if [ "${{ github.event.inputs.forcar_reexecucao }}" = "true" ]; then
+            python clipping/gerar_clipping.py --headless --force
+          else
+            python clipping/gerar_clipping.py --headless --skip-if-exists
+          fi
+
+      - name: Publicar paineis atualizados no GitHub Pages (commit & push)
+        if: steps.check_hoje.outputs.ja_existe != 'true'
+        run: |
+          HOJE_BR=$(date +%d/%m/%Y)
+          git config user.name "DECON/MPOR Bot (GitHub Actions)"
+          git config user.email "actions@github.com"
+          git add clipping.html radar.html historico/ email_dispatch.json radar_participativo/historico_processos.json || true
+          if git diff --staged --quiet; then
+            echo "Nenhuma alteracao nos arquivos para commit."
+          else
+            git commit -m "Publicacao automatica na nuvem — Clipping & Radar (${HOJE_BR})"
+            git pull --rebase origin main || true
+            git push origin main
+          fi
+
+      - name: Disparar Boletim por E-mail via Gmail SMTP
+        if: steps.check_hoje.outputs.ja_existe != 'true'
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: |
+          python3 - << 'EOF'
+          import os, json, smtplib
+          from email.mime.multipart import MIMEMultipart
+          from email.mime.text import MIMEText
+
+          if not os.path.exists('email_dispatch.json'):
+              print('Arquivo email_dispatch.json nao encontrado.')
+              exit(0)
+
+          with open('email_dispatch.json', 'r', encoding='utf-8') as f:
+              data = json.load(f)
+
+          dests = [d.strip() for d in data.get('destinatarios', []) if d.strip()]
+          if not dests:
+              print('Nenhum destinatario configurado.')
+              exit(0)
+
+          user = os.environ['GMAIL_USER']
+          pwd = os.environ['GMAIL_APP_PASSWORD']
+
+          msg = MIMEMultipart('alternative')
+          msg['Subject'] = data.get('assunto', 'Clipping Diario Executivo - DECON/MPOR')
+          msg['From'] = f'Clipping Executivo DECON/MPOR <{user}>'
+          msg['To'] = ', '.join(dests)
+          msg.attach(MIMEText(data.get('corpo_html', ''), 'html', 'utf-8'))
+
+          with smtplib.SMTP_SSL('smtp.gmail.com', 465) as s:
+              s.login(user, pwd)
+              s.sendmail(user, dests, msg.as_string())
+          print('E-mail enviado com sucesso na nuvem para:', dests)
+          EOF

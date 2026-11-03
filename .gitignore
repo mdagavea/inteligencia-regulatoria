@@ -1,0 +1,27 @@
+# Ignora tudo por padrão em testes-gemini para não versionar outras pastas de estudo locais
+/*
+
+# Permite exclusivamente os diretórios e arquivos do Hub de Inteligência Regulatória (mdagavea/inteligencia-regulatoria)
+!/.gitignore
+!/.nojekyll
+!/README.md
+!/CLAUDE.md
+!/GEMINI.md
+!/requirements.txt
+!/index.html
+!/clipping.html
+!/radar.html
+!/email_dispatch.json
+!/.github/
+!/historico/
+!/clipping/
+!/radar_participativo/
+
+# Nunca versionar arquivos de credenciais (.env), caches Python ou artefatos locais redundantes
+**/.env
+**/__pycache__/
+**/*.pyc
+clipping/ultimo_log_agendador.txt
+clipping/clipping_*.html
+radar_participativo/radar_atual.html
+radar_participativo/dossie_portaria_530/
