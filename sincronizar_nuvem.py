@@ -38,7 +38,6 @@ ARQUIVOS_SINCRONIZADOS = [
     "clipping/INSTRUCOES.md",
     "clipping/MEMORIA_PROJETO.md",
     "clipping/HISTORICO_PROJETO.md",
-    "clipping/ANALISE_TRIAL_AGENCIA_INFRA_E_ROADMAP.md",
     "clipping/termos_filtro.json",
     "clipping/log_descartados_filtro.txt",
     "radar_participativo/coletor_participativo.py",
