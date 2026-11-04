@@ -1,6 +1,12 @@
 import os
 from datetime import datetime
 
+# Aviso de projeto piloto (exibido na pagina, no e-mail e no radar): faixa no topo = so a 1a frase; texto completo no rodape.
+AVISO_PILOTO_FRASE = "Projeto piloto de inteligência regulatória, em fase de testes."
+AVISO_PILOTO_TEXTO = (
+    "Projeto piloto de inteligência regulatória, em fase de testes. Compilação automatizada de notícias e documentos de acesso público. Os resumos podem ser gerados com apoio de inteligência artificial e estão sujeitos a erros. Este conteúdo não representa posição ou opinião oficial do Ministério de Portos e Aeroportos (MPOR) nem de suas unidades e não substitui a consulta às fontes originais, indicadas em cada item."
+)
+
 # Ícones SVG dos medalhões circulares (inspirados no padrão visual DECON/MPOR)
 MEDALHOES_SVG = {
     "infra": """<svg viewBox="0 0 100 100" width="44" height="44">
@@ -720,6 +726,27 @@ TEMPLATE_HTML = """<!DOCTYPE html>
       margin-right: -24px;
       letter-spacing: 0.04em;
     }}
+    /* Aviso de projeto piloto: faixa discreta no topo + texto completo no rodape */
+    .aviso-piloto-faixa {{
+      background: #FFF4D6;
+      color: #6B5314;
+      border-bottom: 1px solid #E6D3A0;
+      text-align: center;
+      font-size: 0.72rem;
+      padding: 4px 12px;
+      letter-spacing: 0.02em;
+    }}
+    .aviso-piloto-rodape {{
+      background: #16294A;
+      color: #D9CDB2;
+      text-align: left;
+      font-size: 0.68rem;
+      line-height: 1.45;
+      padding: 8px 20px 12px 20px;
+      margin-left: -24px;
+      margin-right: -24px;
+      border-top: 1px solid #2D4A75;
+    }}
   </style>
   <script>
     function toggleAllDrawers() {{
@@ -762,6 +789,7 @@ TEMPLATE_HTML = """<!DOCTYPE html>
 </head>
 <body>
   <textarea id="whatsapp-summary-text" style="display:none;" readonly>{resumo_whatsapp_texto}</textarea>
+  <div class="aviso-piloto-faixa" role="note">{AVISO_PILOTO_FRASE}</div>
   <div class="outer-frame">
     <header>
       <div class="header-left">
@@ -866,6 +894,7 @@ TEMPLATE_HTML = """<!DOCTYPE html>
     <div class="footer-caption">
       DECON / MPOR • Curadoria Autônoma de Inteligência Regulatória, Financeira e Tecnológica • Portos, Aeroportos, Hidrovias, Seguros, Clima & Mercado de Capitais
     </div>
+    <div class="aviso-piloto-rodape">{AVISO_PILOTO_TEXTO}</div>
   </div>
 </body>
 </html>
@@ -1255,6 +1284,7 @@ def gerar_html_email_resumo(dados_curados, data_formatada, processos_recentes=No
     return f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <body style="margin:0;padding:20px;background-color:#F4EFE6;font-family:'Segoe UI',Arial,sans-serif;color:#2C2B28;">
+  <div style="max-width:740px;margin:0 auto 10px auto;background:#FFF4D6;border:1px solid #E6D3A0;border-radius:6px;padding:4px 10px;text-align:center;font-size:11px;color:#6B5314;">{AVISO_PILOTO_FRASE}</div>
   <div style="max-width:740px;margin:0 auto;background:#F4EFE6;">
     <div style="background:#FFFCF6;border:1px solid #CDB892;border-bottom:3px solid #1F3A5F;border-radius:10px;padding:18px 22px;margin-bottom:16px;">
       <div style="font-size:11px;font-weight:bold;letter-spacing:1.5px;color:#8A7350;text-transform:uppercase;">DECON · Diretoria de Assuntos Econômicos · MPOR</div>
@@ -1269,6 +1299,7 @@ def gerar_html_email_resumo(dados_curados, data_formatada, processos_recentes=No
     <div style="text-align:center;font-size:11px;color:#6B6457;margin-top:18px;padding-top:10px;border-top:1px dotted #CDB892;">
       DECON / MPOR • Curadoria Autônoma de Inteligência Regulatória, Financeira e Tecnológica
     </div>
+    <div style="font-size:10.5px;line-height:1.45;color:#6B6457;margin-top:10px;text-align:left;">{AVISO_PILOTO_TEXTO}</div>
   </div>
 </body>
 </html>"""
@@ -1335,6 +1366,8 @@ def gerar_html_dashboard(dados_curados, pasta_saida, processos_recentes=None, ca
     resumo_wpp = gerar_resumo_whatsapp(dados_curados, data_formatada, processos_recentes=processos_recentes)
 
     html_final = TEMPLATE_HTML.format(
+        AVISO_PILOTO_FRASE=AVISO_PILOTO_FRASE,
+        AVISO_PILOTO_TEXTO=AVISO_PILOTO_TEXTO,
         data_formatada=data_formatada,
         resumo_whatsapp_texto=resumo_wpp.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"),
         badge_participativo_header=header_pill,

@@ -2,6 +2,12 @@ import os
 from datetime import datetime
 from pathlib import Path
 
+# Aviso de projeto piloto (exibido na pagina, no e-mail e no radar): faixa no topo = so a 1a frase; texto completo no rodape.
+AVISO_PILOTO_FRASE = "Projeto piloto de inteligência regulatória, em fase de testes."
+AVISO_PILOTO_TEXTO = (
+    "Projeto piloto de inteligência regulatória, em fase de testes. Compilação automatizada de notícias e documentos de acesso público. Os resumos podem ser gerados com apoio de inteligência artificial e estão sujeitos a erros. Este conteúdo não representa posição ou opinião oficial do Ministério de Portos e Aeroportos (MPOR) nem de suas unidades e não substitui a consulta às fontes originais, indicadas em cada item."
+)
+
 TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -644,6 +650,23 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
       color: var(--text-muted);
     }}
 
+    .aviso-piloto-faixa {{
+      background: #FFF4D6;
+      color: #6B5314;
+      border-bottom: 1px solid #E6D3A0;
+      text-align: center;
+      font-size: 0.72rem;
+      padding: 4px 12px;
+    }}
+    .aviso-piloto-rodape {{
+      max-width: 900px;
+      margin: 10px auto 0 auto;
+      font-size: 0.7rem;
+      line-height: 1.45;
+      text-align: left;
+      padding: 0 16px;
+    }}
+
     footer {{
       text-align: center;
       font-size: 0.78rem;
@@ -654,6 +677,7 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
   </style>
 </head>
 <body>
+  <div class="aviso-piloto-faixa" role="note">{AVISO_PILOTO_FRASE}</div>
   <div class="container">
     <header>
       <div class="header-title-area">
@@ -937,6 +961,7 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
 
     <footer>
       Radar de Inteligência Regulatória • Integração Brasil Participativo (GraphQL), ANTT (ParticipANTT), ANTAQ, SUSEP (SAFE/SCP), CVM, Infra S.A., PNCP, BNDES & Curadoria Gemini
+      <div class="aviso-piloto-rodape">{AVISO_PILOTO_TEXTO}</div>
     </footer>
   </div>
 
@@ -1594,6 +1619,8 @@ def gerar_painel_radar_html(
     sfn_kpi_urgentes = sum(1 for x in sfn_aprovados_lista if x.get("status_ciclo") == "PRAZO_URGENTE")
 
     html_final = TEMPLATE_RADAR_HTML.format(
+        AVISO_PILOTO_FRASE=AVISO_PILOTO_FRASE,
+        AVISO_PILOTO_TEXTO=AVISO_PILOTO_TEXTO,
         data_formatada=data_formatada,
         kpi_total=kpi_total,
         kpi_lancados_48h=kpi_lancados_48h,

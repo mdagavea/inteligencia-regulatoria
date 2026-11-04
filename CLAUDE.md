@@ -3,7 +3,7 @@
 
 > **Repositório GitHub (Nuvem Oficial):** `https://github.com/mdagavea/inteligencia-regulatoria`  
 > **GitHub Pages (Painéis Públicos):** `https://mdagavea.github.io/inteligencia-regulatoria/`  
-> **Última Atualização Arquitetural:** 03/11/2026 (Migração para execução 100% em nuvem via GitHub Actions + Interoperabilidade entre Agentes de IA)
+> **Última Atualização Arquitetural:** 04/11/2026 (execução 100% em nuvem via GitHub Actions; `GEMINI_API_KEY` apagado, clipping roda sem IA; `email_dispatch.json` fora do repositório; boletim de assinante da Agência iNFRA deixou de ser fonte; aviso de projeto piloto nas páginas e no e-mail)
 
 ---
 
@@ -13,7 +13,7 @@ Este repositório unifica dois sistemas autônomos de inteligência executiva da
 
 1. **`clipping/` — Clipping Diário Regulatório, Financeiro & Tecnológico:**
    - Coleta notícias e newsletters nas 5 verticais (`infra`, `seguros`, `carbono`, `divida`, `tech`).
-   - Faz curadoria via API Gemini (`curador.py`) — com **fallback determinístico automático sem IA** (`curar_noticias_contingencia_sem_ia`) caso os créditos da API Gemini se esgotem.
+   - Faz curadoria em `curador.py`. Desde 04/11/2026 o secret `GEMINI_API_KEY` foi **apagado**, então o clipping roda **sem IA**, no **modo determinístico** (`curar_noticias_contingencia_sem_ia`). O código da API Gemini continua no repositório, mas só é acionado se a chave for recriada.
    - Gera o painel executivo (`clipping.html` e `historico/clipping_AAAA-MM-DD.html`) e dispara o boletim por e-mail via SMTP.
    - **Documentação detalhada:** leia [`clipping/MEMORIA_PROJETO.md`](clipping/MEMORIA_PROJETO.md).
 
@@ -29,10 +29,14 @@ Este repositório unifica dois sistemas autônomos de inteligência executiva da
 * **Workflow Principal:** [`.github/workflows/clipping_diario_nuvem.yml`](.github/workflows/clipping_diario_nuvem.yml)
 * **Agendamento (`cron`):** Roda automaticamente de **Segunda a Sexta-feira às 07:30 BRT** (`30 10 * * 1-5` UTC) diretamente nos servidores do GitHub (`ubuntu-latest`), **sem depender de nenhum computador local ligado**.
 * **Secrets configurados no GitHub (`Settings -> Secrets and variables -> Actions`):**
-  - `GEMINI_API_KEY`: Chave da API Google Gemini.
+  - ~~`GEMINI_API_KEY`~~: **apagado** em 04/11/2026. O clipping roda sem IA. Não recriar sem decisão expressa.
   - `GMAIL_USER`: Conta Gmail para leitura Atom de newsletters e envio SMTP.
   - `GMAIL_APP_PASSWORD`: Senha de aplicativo do Gmail.
   - `EMAIL_DESTINATARIOS`: Lista de destinatários separada por vírgula.
+* **Execução manual (`workflow_dispatch`):** além de `forcar_reexecucao`, o workflow tem o campo opcional **`destinatario_teste`**. Se preenchido, o boletim vai só para esse e-mail, e não para `EMAIL_DESTINATARIOS`.
+* **`email_dispatch.json` não é mais publicado:** o arquivo contém os e-mails dos destinatários e o repositório é público. Ele é gerado na pasta de trabalho do job, lido pelo passo de envio e **nunca vai ao commit** (workflow, `.gitignore` e `gerar_clipping.py` ajustados). Não incluí-lo em `git add` nem em `ARQUIVOS_SINCRONIZADOS`.
+* **Fontes do clipping:** o boletim de assinante da Agência iNFRA (e-mails de `infrajornalismo@` e `agenciainfra@agenciainfra.com`, links `mailchi.mp`) **não é fonte** (conteúdo pago; estudo comparativo só local). O site aberto (`agenciainfra.com/blog`, RSS) continua como fonte.
+* **Aviso de projeto piloto:** `AVISO_PILOTO_FRASE` (faixa no topo, só a 1ª frase) e `AVISO_PILOTO_TEXTO` (texto completo no rodapé) estão em `clipping/renderizador.py` (página e e-mail) e `radar_participativo/renderizador_participativo.py` (radar). Qualquer novo layout deve manter o aviso.
 * **Trava Anti-Duplicidade (`--skip-if-exists`):**
   - Se a edição do dia (`historico/clipping_AAAA-MM-DD.html`) já tiver sido gerada e publicada, execuções automáticas subsequentes encerram imediatamente sem gastar tokens e sem reenviar e-mail.
 

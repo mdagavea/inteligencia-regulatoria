@@ -1,9 +1,9 @@
 # Memória do Projeto: Clipping Regulatório & Financeiro (Estado Atual)
 
-> **Última Atualização:** 03/11/2026  
+> **Última Atualização:** 04/11/2026  
 > **Repositório GitHub (Nuvem Oficial):** `https://github.com/mdagavea/inteligencia-regulatoria`  
 > **Painel Web:** `https://mdagavea.github.io/inteligencia-regulatoria/clipping.html`  
-> **Análise do Trial Agência iNFRA & Roadmap Futuro:** consulte [`ANALISE_TRIAL_AGENCIA_INFRA_E_ROADMAP.md`](ANALISE_TRIAL_AGENCIA_INFRA_E_ROADMAP.md)  
+> **Análise do Trial Agência iNFRA:** o arquivo `ANALISE_TRIAL_AGENCIA_INFRA_E_ROADMAP.md` foi **removido do repositório** em 04/11/2026 (retirado de `ARQUIVOS_SINCRONIZADOS`); o estudo comparativo é só local.  
 > **Histórico de Evoluções Passadas:** consulte [`HISTORICO_PROJETO.md`](HISTORICO_PROJETO.md) apenas quando necessário.
 
 ---
@@ -13,6 +13,10 @@
 ## 1. Estado Atual da Arquitetura
 
 * **Execução Diária 100% em Nuvem:** Roda de Segunda a Sexta às **07:30 BRT** via GitHub Actions ([`.github/workflows/clipping_diario_nuvem.yml`](../.github/workflows/clipping_diario_nuvem.yml)), publicando `clipping.html`, `historico/clipping_AAAA-MM-DD.html`, `radar.html` e enviando o e-mail para `EMAIL_DESTINATARIOS`.
+  * **`GEMINI_API_KEY` apagado (04/11/2026):** o secret foi removido do GitHub e o clipping roda **sem IA** (modo determinístico `curar_noticias_contingencia_sem_ia`). Atenção: neste modo o resumo vem do texto bruto da fonte, cortado em 260 caracteres.
+  * **`email_dispatch.json` não é mais publicado:** contém os e-mails dos destinatários e o repositório é público. Fica só na pasta de trabalho do job, é lido pelo passo de envio e não entra no commit (workflow, `.gitignore` e `gerar_clipping.py` ajustados).
+  * **Campo opcional `destinatario_teste`** no `workflow_dispatch`: se preenchido, o boletim vai só para esse e-mail, e não para a lista oficial.
+  * **Aviso de projeto piloto (04/11/2026):** faixa no topo (só a 1ª frase) e texto completo no rodapé, na página e no e-mail (`AVISO_PILOTO_FRASE` e `AVISO_PILOTO_TEXTO` em `renderizador.py`). A marca DECON/MPOR foi mantida.
 * **Sincronização Local (`sincronizar_nuvem.py`):**
   - Baixar da nuvem: `python3.12 ..\sincronizar_nuvem.py pull`
   - Subir alterações de código para a nuvem: `python3.12 ..\sincronizar_nuvem.py push "Mensagem"`
@@ -29,7 +33,7 @@
 
 ---
 
-## 2. Próximas Tarefas Planejadas (Detalhadas em [`ANALISE_TRIAL_AGENCIA_INFRA_E_ROADMAP.md`](ANALISE_TRIAL_AGENCIA_INFRA_E_ROADMAP.md))
+## 2. Próximas Tarefas Planejadas
 
 1. **Acompanhamento da "Agenda EVTEA 2.0" (Acórdão ANTAQ nº 640/2026 — Processo `50300.014412/2026-68`):** Monitorar a contribuição institucional da ANTAQ à revisão da Portaria MInfra nº 530/2019 (até 13/11/2026), o Grupo Técnico do Catálogo de Dados de Referência com o MPor/TCU e o Plano de Trabalho em 90 dias.
 2. **Coletor Próprio do DOU (`coletor_dou.py`):** Extração via índice JSON nativo de `in.gov.br/leiturajornal` (`do1` e `do3`) para atos de MPor, MT, ANTAQ, ANAC, ANTT, PPI/PND e Portarias de Debêntures Incentivadas/REIDI.
