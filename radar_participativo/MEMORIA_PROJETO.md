@@ -28,6 +28,7 @@
   2. Só itens novos (por URL/hash em `historico_processos.json`) vão à IA;
   3. Chamada única em lote enviando apenas título e resumo curto;
   4. Se a IA falhar, o painel sai normalmente sem gravar falha no cache.
+* **Regras Oficiais das Abas:** a referência da Aba 2 (Estruturação) é [`REGRAS_ABA_ESTRUTURACAO.md`](REGRAS_ABA_ESTRUTURACAO.md), incluindo a regra de proveniência (nenhum dado digitado à mão nos cards) e a regra de acórdãos do TCU. A da Aba 3 (Leilões) é [`REGRAS_ABA_LEILOES.md`](REGRAS_ABA_LEILOES.md).
 * **Sincronização com a Nuvem:** `python3.12 ..\sincronizar_nuvem.py push "Mensagem"`
 
 ---

@@ -7,7 +7,7 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Radar de Inteligência Regulatória, Estruturação & Leilões — DECON/MPor ({data_formatada})</title>
+  <title>Radar de Inteligência Regulatória ({data_formatada})</title>
   <style>
     :root {{
       --bg: #f1f5f9;
@@ -657,7 +657,7 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
   <div class="container">
     <header>
       <div class="header-title-area">
-        <h1>🏛️ Radar de Inteligência Regulatória, Estruturação & Leilões — DECON/MPor</h1>
+        <h1>🏛️ Radar de Inteligência Regulatória</h1>
         <p>Monitoramento integrado do Ciclo de Outorgas: Participação Social (Brasil Participativo), Estruturação/EVTEAs (Infra S.A., BNDES, PNCP) e Leilões (ANTAQ, ANAC, ANTT, B3)</p>
       </div>
       <div class="header-meta">
@@ -771,7 +771,7 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
     <section class="tab-panel" id="panel-estruturacao">
       <div class="context-banner">
         <div class="context-banner-text">
-          <strong>📋 Escopo Documental Verificado na Fonte:</strong> Monitoramento factual de contratações de <strong>EVTEA, estudos de viabilidade e modelagem de concessão/PPP/arrendamento</strong> com acesso direto aos PDFs oficiais (Termo de Referência, Especificações Técnicas, Matriz de Riscos e Contratos) — organizado em <strong>Prioridade A (Núcleo MPor: Portos, Aeroportos e Hidrovias)</strong> e <strong>Prioridade B (Comparação Federal: Rodovias e Ferrovias estruturadas por Infra S.A. e BNDES)</strong>.
+          <strong>📋 Escopo Documental Verificado na Fonte:</strong> Monitoramento factual de contratações de <strong>EVTEA, estudos de viabilidade e modelagem de concessão/PPP/arrendamento</strong> com acesso direto aos PDFs oficiais (Termo de Referência, Especificações Técnicas, Matriz de Riscos e Contratos) — organizado em <strong>Prioridade A (Portos, Aeroportos e Hidrovias)</strong> e <strong>Prioridade B (Comparação Federal: Rodovias e Ferrovias estruturadas por Infra S.A. e BNDES)</strong>.
         </div>
       </div>
 
@@ -891,7 +891,7 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
     <section class="tab-panel" id="panel-sfn">
       <div class="context-banner">
         <div class="context-banner-text">
-          <strong>🛡️ Regulação do Sistema Financeiro, Seguros & Mercado de Capitais (Fora do Brasil Participativo):</strong> Monitoramento 100% factual (sem IA obrigatória) das consultas e audiências públicas em portais próprios de <strong>SUSEP/CNSP, CVM, BCB, PREVIC, SRE/MF e ANBIMA (autorregulação)</strong>. Exibe na vitrine principal apenas os processos aderentes ao filtro temático da DECON/MPor e mantém transparência total na gaveta inferior sobre os processos ativos de outros temas.
+          <strong>🛡️ Regulação do Sistema Financeiro, Seguros & Mercado de Capitais (Fora do Brasil Participativo):</strong> Monitoramento 100% factual (sem IA obrigatória) das consultas e audiências públicas em portais próprios de <strong>SUSEP/CNSP, CVM, BCB, PREVIC, SRE/MF e ANBIMA (autorregulação)</strong>. Exibe na vitrine principal apenas os processos aderentes ao filtro temático do Radar e mantém transparência total na gaveta inferior sobre os processos ativos de outros temas.
         </div>
       </div>
 
@@ -936,7 +936,7 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
     </section>
 
     <footer>
-      Radar DECON/MPor • Integração Brasil Participativo (GraphQL), ANTT (ParticipANTT), ANTAQ, SUSEP (SAFE/SCP), CVM, Infra S.A., PNCP, BNDES & Curadoria Gemini
+      Radar de Inteligência Regulatória • Integração Brasil Participativo (GraphQL), ANTT (ParticipANTT), ANTAQ, SUSEP (SAFE/SCP), CVM, Infra S.A., PNCP, BNDES & Curadoria Gemini
     </footer>
   </div>
 
@@ -1170,7 +1170,7 @@ NOMES_VERTICAIS = {
 }
 
 NOMES_CATEGORIAS_EST = {
-    "PRIORIDADE_A_MPOR": ("⚓ Prioridade A — Portos, Aeroportos & Hidrovias (Núcleo MPor)", "badge-infra"),
+    "PRIORIDADE_A_MPOR": ("⚓ Prioridade A — Portos, Aeroportos & Hidrovias", "badge-infra"),
     "PRIORIDADE_B_COMPARACAO": ("⚖️ Prioridade B — EVTEA & Modelagem Federal (Comparação)", "badge-seguros"),
     "PRIORIDADE_C_ART102": ("🛡️ Prioridade C — Obra Setor MPor • Art. 102 Lei 14.133", "badge-carbono"),
 }
@@ -1310,17 +1310,6 @@ def _renderizar_cards_estruturacao(itens_estruturacao: list) -> str:
           <span><strong>Data / Marco:</strong> {it.get('data_publicacao_br', 'Recente')}</span>
         </div>
 
-        <div class="dossier-box">
-          <div class="dossier-section">
-            <div class="dossier-label">📌 Ficha Documental — Objeto, Valor, Situação & Onde está o Escopo</div>
-            <p class="dossier-text">{it.get('escopo_sintetico', '')}</p>
-          </div>
-          <div class="incidencia-box-seguros">
-            <div class="dossier-label" style="color:#6d28d9;">📋 O que o Documento Oficial diz sobre Seguros, Garantias & Matriz de Riscos</div>
-            <p class="dossier-text" style="line-height:1.55;">{texto_riscos_html}</p>
-          </div>
-        </div>
-
         <div class="docs-area">
           {botoes_html}
         </div>
@@ -1369,17 +1358,6 @@ def _renderizar_cards_leiloes(itens_leiloes: list) -> str:
           <span><strong>CAPEX / Investimento:</strong> <span class="val-highlight">{l.get('capex_estimado', 'Sob consulta')}</span></span>
           <span><strong>Prazo Concessão:</strong> {l.get('prazo_concessao', '—')}</span>
           <span><strong>Cronograma:</strong> {l.get('data_evento_br', '—')} ({l.get('local_certame', 'B3')})</span>
-        </div>
-
-        <div class="dossier-box">
-          <div class="dossier-section">
-            <div class="dossier-label">📌 Resumo Executivo do Projeto & Outorga</div>
-            <p class="dossier-text">{l.get('resumo_executivo', '')}</p>
-          </div>
-          <div class="incidencia-box-seguros">
-            <div class="dossier-label" style="color:#6d28d9;">🛡️ Matriz de Riscos, Segurabilidade & Garantias Contratuais</div>
-            <p class="dossier-text">{l.get('destaque_regulatorio_seguros', '')}</p>
-          </div>
         </div>
 
         <div class="docs-area">

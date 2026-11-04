@@ -1,0 +1,60 @@
+{
+  "_comentario": "Configuração editável de termos regex para atribuição determinística dos 4 selos por vertical na Aba 2 (Estruturação, EVTEAs & Contratações). Não utiliza IA.",
+  "selos": {
+    "Infraestrutura": {
+      "rotulo": "Infraestrutura",
+      "classe_badge": "badge-infra",
+      "exige_natureza_outorga": true,
+      "padroes_positivos": [
+        "\\b(porto\\w*|portu[aá]ri\\w*|terminal\\s+portu[aá]ri\\w*|arrendamento\\s+portu[aá]ri\\w*)\\b",
+        "\\b(hidrovi\\w*|aquavi[aá]ri\\w*|canal\\s+de\\s+acesso|dragagem|eclusa\\w*)\\b",
+        "\\b(aeroport\\w*|aer[oó]dromo\\w*|s[ií]tio\\s+aeroportu[aá]rio)\\b",
+        "\\b(rodovi\\w*|ferrovi\\w*|transporte\\s+log[ií]stic\\w*|corredor\\s+log[ií]stic\\w*)\\b"
+      ],
+      "padroes_exclusao_contexto": []
+    },
+    "Seguros & Garantias": {
+      "rotulo": "Seguros & Garantias",
+      "classe_badge": "badge-seguros",
+      "exige_natureza_outorga": false,
+      "padroes_positivos": [
+        "\\b(produtos?\\s+securit[aá]rios?)\\b",
+        "\\b(seguros?\\s+e\\s+garantias)\\b",
+        "\\b(pol[ií]tica\\s+de\\s+seguros?|matriz\\s+comparativa\\s+de\\s+seguros?|seguros?\\s+aplic[aá]veis)\\b",
+        "\\b(estudo\\s+de\\s+segurabilidade|segurabilidade\\s+do\\s+projeto|avalia[cç][aã]o\\s+de\\s+segurabilidade)\\b",
+        "\\b(valores?\\s+segurados?|import[aâ]ncias?\\s+seguradas?|limites?\\s+m[aá]ximos?\\s+de\\s+indeniza[cç][aã]o|ap[oó]lices?\\s+de\\s+seguro)\\b",
+        "\\b(seguros?\\s+relativamente\\s+ao\\s+objeto|seguros?\\s+da\\s+concess[aã]o|seguros?\\s+da\\s+parceria|plano\\s+de\\s+seguros?)\\b",
+        "\\b(seguro[\\s\\-]garantia\\s+de\\s+execu[cç][aã]o\\s+do\\s+contrato\\s+de\\s+concess[aã]o|cl[aá]usula\\s+de\\s+retomada|step[\\s\\-]in\\s+rights?|art\\.?\\s*102\\s+da\\s+lei\\s+n?[º°]?\\s*14\\.133)\\b",
+        "\\b(seguros?\\s+(?:de\\s+)?riscos?\\s+de\\s+engenharia|seguros?\\s+(?:de\\s+)?riscos?\\s+operacionais|seguro\\s+operacional|riscos?\\s+nomeados|responsabilidade\\s+civil\\s+geral)\\b",
+        "\\b(garantia\\s+p[uú]blica|instrumentos?\\s+garantidores?|fundo\\s+garantidor|garantia\\s+de\\s+contrapresta[cç][aã]o)\\b"
+      ],
+      "padroes_exclusao_contexto": [
+        "\\b(contratad[ao]|contrato\\s+de\\s+consultoria|contrato\\s+de\\s+presta[cç][aã]o\\s+de\\s+servi[cç]os|garantia\\s+de\\s+execu[cç][aã]o\\s+contratual\\s+da\\s+contratada|5%\\s+do\\s+valor\\s+do\\s+contrato|art\\.?\\s*96\\s+da\\s+lei\\s+14\\.133)\\b"
+      ]
+    },
+    "Clima & Carbono": {
+      "rotulo": "Clima & Carbono",
+      "classe_badge": "badge-carbono",
+      "exige_natureza_outorga": false,
+      "padroes_positivos": [
+        "\\b(resili[eê]ncia\\s+clim[aá]tica|plano\\s+de\\s+a[cç][aã]o\\s+de\\s+resili[eê]ncia\\s+clim[aá]tica|adapta[cç][aã]o\\s+clim[aá]tica|adaptavias)\\b",
+        "\\b(vulnerabilidade\\s+clim[aá]tica|riscos?\\s+clim[aá]ticos?|mudan[cç]as?\\s+clim[aá]ticas?)\\b",
+        "\\b(eventos?\\s+clim[aá]ticos?\\s+extremos?|eventos?\\s+hidrol[oó]gicos?\\s+extremos?|secas?\\s+extraordin[aá]rias?|estresse\\s+h[ií]drico)\\b",
+        "\\b(descarboniza[cç][aã]o|invent[aá]rio\\s+de\\s+emiss[oõ]es|gases\\s+de\\s+efeito\\s+estufa|cr[eé]ditos?\\s+de\\s+carbono|transi[cç][aã]o\\s+energ[eé]tica)\\b"
+      ],
+      "padroes_exclusao_contexto": []
+    },
+    "Financiamento": {
+      "rotulo": "Financiamento",
+      "classe_badge": "badge-divida",
+      "exige_natureza_outorga": false,
+      "padroes_positivos": [
+        "\\b(project\\s+finance|financiamento\\s+de\\s+projetos?|estrutura\\s+de\\s+financiamento|estrutura[cç][aã]o\\s+financeira)\\b",
+        "\\b(deb[eê]ntures?\\s+incentivadas?|deb[eê]ntures?\\s+de\\s+infraestrutura|lei\\s+n?[º°]?\\s*12\\.431|lei\\s+n?[º°]?\\s*14\\.801)\\b",
+        "\\b(market\\s+sounding|sondagem\\s+de\\s+mercado|sondagem\\s+com\\s+investidores|road\\s*show|consulta\\s+a\\s+financiadores|bancos?\\s+financiadores)\\b",
+        "\\b(financiabilidade|bancabilidade|bankability|participa[cç][aã]o\\s+em\\s+fundos?\\s+de\\s+investimento)\\b"
+      ],
+      "padroes_exclusao_contexto": []
+    }
+  }
+}

@@ -104,7 +104,13 @@
     "66": "2026-10-30",
     "797": "2026-11-02",
     "910008": "2026-11-03",
-    "806": "2026-11-03"
+    "806": "2026-11-03",
+    "808": "2026-11-04",
+    "809": "2026-11-04",
+    "812": "2026-11-04",
+    "807": "2026-11-04",
+    "815": "2026-11-04",
+    "814": "2026-11-04"
   },
   "analises_ia": {
     "782_2026-10-21": {
@@ -1572,6 +1578,106 @@
       "relevancia": "ALTA",
       "objeto_normativo": "Estruturação de projeto de Parceria Público-Privada (PPP) para o Novo Campus Integrado do INCA, envolvendo estudos de viabilidade, minuta de edital e contrato de concessão administrativa.",
       "pontos_atencao": "Trata-se de um projeto de infraestrutura social estruturado pelo BNDES; é fundamental analisar a matriz de riscos, as garantias contratuais e as exigências de performance para obras e serviços de engenharia."
+    },
+    "751_2026-11-03T11:53": {
+      "id": "751",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "MDIC / DEINF",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Proposta de metodologia para avaliação e certificação de infraestrutura sustentável. O objetivo é estabelecer critérios técnicos e melhores práticas para orientar o desenvolvimento e a qualificação de projetos de infraestrutura sob a ótica da sustentabilidade.",
+      "pontos_atencao": "A definição desses critérios impactará diretamente a elegibilidade de projetos para financiamentos verdes e debêntures incentivadas, sendo crucial monitorar a aderência aos padrões internacionais de ESG."
+    },
+    "784_2026-11-03T14:14": {
+      "id": "784",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MT / SNTR",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Versão preliminar do Plano Setorial de Transporte Rodoviário (PSTR), que estabelece diretrizes para o planejamento, logística, segurança viária e integração modal do setor rodoviário nacional.",
+      "pontos_atencao": "O PSTR define a priorização de investimentos e a estratégia de longo prazo para concessões rodoviárias, impactando diretamente o pipeline de projetos e a matriz de riscos de futuros leilões."
+    },
+    "809_2026-11-03T11:51": {
+      "id": "809",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta e Audiência Públicas",
+      "orgao_sigla": "ANP / STM",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de resolução que regulamenta a certificação do Combustível Sustentável de Aviação (SAF) e os procedimentos de verificação de lastro para emissão do Certificado de Sustentabilidade (CS-SAF) no âmbito do ProBioQAV.",
+      "pontos_atencao": "A regulação do mercado de SAF é um pilar fundamental para a descarbonização do setor aéreo e impacta diretamente a viabilidade econômica de projetos de infraestrutura aeroportuária e logística de combustíveis."
+    },
+    "767_2026-11-04T10:54": {
+      "id": "767",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MPOR / SNP",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Consulta pública sobre o Plano Setorial Portuário (PSPort) 2050, instrumento tático do Planejamento Integrado de Transportes (PIT). O plano define as diretrizes estratégicas, metas e prioridades para o desenvolvimento do setor portuário nacional nas próximas décadas.",
+      "pontos_atencao": "O PSPort 2050 impactará diretamente o planejamento de novos leilões, investimentos em infraestrutura portuária e a matriz de riscos de futuras concessões, sendo essencial para o alinhamento de projetos de longo prazo."
+    },
+    "796_2026-11-04T11:28": {
+      "id": "796",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "Inmetro",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Regulamentação técnica metrológica para Sistemas de Abastecimento de Veículos Elétricos em Corrente Alternada (SAVE-CA). O ato estabelece requisitos de conformidade e medição para a infraestrutura de recarga.",
+      "pontos_atencao": "A padronização técnica é um habilitador crítico para a transição energética na mobilidade e para a viabilidade de projetos de infraestrutura de recarga em rodovias e terminais de transporte."
+    },
+    "815_2026-11-04T12:24": {
+      "id": "815",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "Ministério da Defesa",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Processo de concessão do Museu Histórico do Exército e Forte de Copacabana (MHEx/FC) à iniciativa privada.",
+      "pontos_atencao": "Trata-se de um projeto de concessão de ativo público que envolve estruturação de contrato, matriz de riscos e obrigações de manutenção, servindo como benchmark para modelos de concessão de equipamentos culturais e turísticos."
+    },
+    "814_2026-11-04T12:23": {
+      "id": "814",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Audiência Pública",
+      "orgao_sigla": "Ministério da Defesa",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Audiência pública referente à concessão do Museu Histórico do Exército e Forte de Copacabana (MHEx/FC).",
+      "pontos_atencao": "Acompanhamento necessário para entender as condições de outorga, exigências de investimentos e garantias contratuais propostas para a exploração do ativo."
+    },
+    "808_2026-11-04T11:08": {
+      "id": "808",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Setorial",
+      "orgao_sigla": "ANAC / SAR",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Edição da Instrução Suplementar nº 21.10a-001, Revisão A, que estabelece os meios aceitáveis de cumprimento dos requisitos do Sistema de Gestão da Segurança Operacional (SGSO) previstos no RBAC nº 21 para organizações de produção e projeto.",
+      "pontos_atencao": "Impacta diretamente a conformidade regulatória de fabricantes e projetistas do setor aéreo, sendo essencial para a manutenção de certificações e a gestão de riscos operacionais em infraestrutura aeroportuária."
+    },
+    "716_2026-11-04T10:48": {
+      "id": "716",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "CADE",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Proposta de emenda ao Regimento Interno do CADE, incluindo a criação de um comitê de planejamento, agenda pública de prioridades e novas regras de participação social.",
+      "pontos_atencao": "A alteração na governança do CADE impacta diretamente a análise de atos de concentração e condutas em mercados de infraestrutura, concessões e logística, exigindo monitoramento da nova agenda de prioridades."
+    },
+    "814_2026-11-04T13:11": {
+      "id": "814",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Audiência Pública",
+      "orgao_sigla": "DECEx / Exército",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Audiência pública para subsidiar a estruturação da concessão do Museu Histórico do Exército e Forte de Copacabana (MHEx/FC), projeto incluído no Programa de Parceria de Investimentos (PPI).",
+      "pontos_atencao": "Trata-se de um projeto de concessão de ativo público com potencial de exploração comercial e turística, exigindo análise da matriz de riscos, investimentos previstos e obrigações de manutenção do patrimônio histórico."
     }
   },
   "analises_estruturacao_v2": {
