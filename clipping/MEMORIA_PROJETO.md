@@ -8,6 +8,8 @@
 
 ---
 
+> **Regra de fontes (04/11/2026):** boletim de assinante da Agência iNFRA não é fonte do clipping; o estudo comparativo é só local. Isso vale para a página pública e para o e-mail, inclui os remetentes `infrajornalismo@agenciainfra.com` e `agenciainfra@agenciainfra.com` e os links `mailchi.mp`. O site aberto (`agenciainfra.com/blog`, RSS/API pública) segue como fonte normal (título, fonte e link). Salvaguarda em `coletor.py`: links `mailchi.mp`, `list-manage.com` e `campaign-archive.com` são descartados na coleta.
+
 ## 1. Estado Atual da Arquitetura
 
 * **Execução Diária 100% em Nuvem:** Roda de Segunda a Sexta às **07:30 BRT** via GitHub Actions ([`.github/workflows/clipping_diario_nuvem.yml`](../.github/workflows/clipping_diario_nuvem.yml)), publicando `clipping.html`, `historico/clipping_AAAA-MM-DD.html`, `radar.html` e enviando o e-mail para `EMAIL_DESTINATARIOS`.
@@ -18,7 +20,7 @@
   - `coletor.py`: Coleta nas 5 verticais (`infra`, `seguros`, `carbono`, `divida`, `tech`) em 4 motores:
     1. Via Expressa VIP (Google News RSS);
     2. Feeds RSS Diretos (`agenciainfra.com/blog/feed/`, `Capital Reset`, `JOTA`, `a16z`);
-    3. **Leitura IMAP Estruturada (`fetch_gmail_imap_newsletters` na porta 993 + parser `_parse_boletim_agencia_infra` com fallback HTTPS 443)**: desmembra automaticamente as reportagens exclusivas (`#1`, `#2`, `#3`) e os atos prioritários do DOU (`#Diario`), Pautas (`#Agenda`) e `#Fique` dos boletins de assinantes da Agência iNFRA com links oficiais desembrulhados (`in.gov.br`, `gov.br`, `mailchi.mp`), além de ler newsletters já abertas ou não lidas;
+    3. **Leitura IMAP de newsletters (`fetch_gmail_imap_newsletters`, porta 993, fallback Atom 443)**: lê newsletters de remetentes permitidos (Capital Reset, JOTA, CNseg etc.). **O boletim de assinante da Agência iNFRA foi DESATIVADO em 04/11/2026** (ver regra de fontes acima); o parser `_parse_boletim_agencia_infra` permanece no código, comentado nos pontos de chamada, só para estudo comparativo local;
     4. Varredura Aberta no Google News.
   - `termos_filtro.json` e `log_descartados_filtro.txt`: Filtro pré-IA editável sem alterar código + registro auditável de itens descartados.
   - `curador.py`: Filtra ruído via `termos_filtro.json` antes da IA, envia em lote único apenas `título + resumo[:280]` (sem URLs), vincula links originais por ID numérico (aceitando `ALLOWED_FEED_HOSTS`, `mailchi.mp` e domínios oficiais `.gov.br`/`.leg.br`/`.jus.br`), mantém cache (`historico_noticias_cache.json`) e possui fallback sem IA (`curar_noticias_contingencia_sem_ia`).

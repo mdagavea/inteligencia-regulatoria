@@ -38,7 +38,8 @@ GMAIL_ALLOWED_SENDERS = [
     "estadao.com.br",
     "folha.uol.com.br",
     "oglobo.globo.com",
-    "agenciainfra.com",
+    # DESATIVADO (04/11/2026): boletim de assinante da Agencia iNFRA (infrajornalismo@/agenciainfra@agenciainfra.com) nao e fonte do clipping (conteudo pago).
+    # "agenciainfra.com",
 ]
 
 
@@ -460,7 +461,9 @@ def fetch_gmail_imap_newsletters(when="24h", max_items=35):
     user = os.getenv("GMAIL_USER", "").strip()
     password = os.getenv("GMAIL_APP_PASSWORD", "").replace(" ", "").strip()
     if not user or not password:
-        return _fetch_agencia_infra_mailchimp_fallback(when=when)
+        # DESATIVADO: boletim de assinante da Agencia iNFRA (conteudo pago) nao e fonte do clipping.
+        # return _fetch_agencia_infra_mailchimp_fallback(when=when)
+        return []
 
     dias_busca = 4 if when == "72h" else 2
     itens_coletados = []
@@ -535,22 +538,25 @@ def fetch_gmail_imap_newsletters(when="24h", max_items=35):
             full_html = "\n".join(html_parts)
 
             # Tratamento especializado para os boletins de assinantes da Agência iNFRA
+            # DESATIVADO (04/11/2026): boletim de assinante da Agencia iNFRA (conteudo pago) nao e fonte do clipping; codigo mantido so para estudo comparativo local.
+            # if "agenciainfra.com" in frm_low:
+            #     m_mc = re.search(r"https://mailchi\.mp/[a-zA-Z0-9_/\-]+", full_txt + " " + full_html)
+            #     if m_mc:
+            #         clean_mc_url = m_mc.group(0).strip()
+            #         html_para_parse = full_html
+            #         try:
+            #             r_mc = requests.get(clean_mc_url, headers={"User-Agent": "Mozilla/5.0"}, timeout=8, verify=False)
+            #             if r_mc.status_code == 200 and len(r_mc.text) > 5000:
+            #                 html_para_parse = r_mc.text
+            #         except Exception:
+            #             pass
+            #         itens_infra = _parse_boletim_agencia_infra(html_para_parse, clean_mc_url, dt_str, max_atos_dou=8)
+            #         if itens_infra:
+            #             itens_coletados.extend(itens_infra)
+            #             extraiu_agencia_infra_imap = True
+            #             continue
             if "agenciainfra.com" in frm_low:
-                m_mc = re.search(r"https://mailchi\.mp/[a-zA-Z0-9_/\-]+", full_txt + " " + full_html)
-                if m_mc:
-                    clean_mc_url = m_mc.group(0).strip()
-                    html_para_parse = full_html
-                    try:
-                        r_mc = requests.get(clean_mc_url, headers={"User-Agent": "Mozilla/5.0"}, timeout=8, verify=False)
-                        if r_mc.status_code == 200 and len(r_mc.text) > 5000:
-                            html_para_parse = r_mc.text
-                    except Exception:
-                        pass
-                    itens_infra = _parse_boletim_agencia_infra(html_para_parse, clean_mc_url, dt_str, max_atos_dou=8)
-                    if itens_infra:
-                        itens_coletados.extend(itens_infra)
-                        extraiu_agencia_infra_imap = True
-                        continue
+                continue  # salvaguarda: nunca processar e-mails da Agencia iNFRA
 
             # Demais newsletters (Reset News, JOTA, CNseg, McKinsey, a16z, Substack, etc.)
             resumo_limpo = clean_html(full_html or full_txt)
@@ -584,14 +590,17 @@ def fetch_gmail_imap_newsletters(when="24h", max_items=35):
         M.logout()
     except Exception as e:
         print(f"   [Info] IMAP 993 indisponível nesta rede ({type(e).__name__}) — acionando fallback HTTPS 443.")
-        itens_fallback_infra = _fetch_agencia_infra_mailchimp_fallback(when=when)
+        # DESATIVADO: boletim de assinante da Agencia iNFRA (conteudo pago) nao e fonte do clipping.
+        # itens_fallback_infra = _fetch_agencia_infra_mailchimp_fallback(when=when)
+        itens_fallback_infra = []
         itens_fallback_atom = fetch_gmail_newsletters(max_items=15)
         return itens_fallback_infra + itens_fallback_atom
     finally:
         socket.setdefaulttimeout(old_timeout)
 
-    if not extraiu_agencia_infra_imap:
-        itens_coletados.extend(_fetch_agencia_infra_mailchimp_fallback(when=when))
+    # DESATIVADO: boletim de assinante da Agencia iNFRA (conteudo pago) nao e fonte do clipping.
+    # if not extraiu_agencia_infra_imap:
+    #     itens_coletados.extend(_fetch_agencia_infra_mailchimp_fallback(when=when))
 
     return itens_coletados
 
@@ -693,6 +702,8 @@ def fetch_all_raw_news(when="24h"):
     def adicionar_itens(lista, vertical_tag):
         for it in lista:
             lk = it.get("link", "")
+            if "mailchi.mp" in lk or "list-manage.com" in lk or "campaign-archive.com" in lk:
+                continue  # salvaguarda: links de boletim de assinante nunca entram no clipping
             if lk and lk not in seen_links:
                 seen_links.add(lk)
                 it["vertical_original"] = it.get("vertical_original") or vertical_tag
