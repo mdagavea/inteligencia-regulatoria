@@ -169,13 +169,10 @@ def executar_fluxo(abrir_navegador=True, destinatarios_override=None, skip_if_ex
                 print(f"   -> Catálogo de Edições: https://mdagavea.github.io/inteligencia-regulatoria/historico/index.html")
 
             if payload_email:
-                ok_mail = publicador_web.enviar_arquivo_github(
-                    "email_dispatch.json",
-                    json.dumps(payload_email, ensure_ascii=False, indent=2),
-                    f"Dispara boletim por e-mail ({data_fmt})",
-                )
-                if ok_mail:
-                    print(f"   -> Disparo de e-mail acionado para: {', '.join(lista_dest)}")
+                # O e-mail NAO e mais disparado publicando email_dispatch.json no repositorio publico
+                # (o arquivo expunha os destinatarios). O envio oficial ocorre so na nuvem (GitHub Actions).
+                # Para reenviar: Actions > "Clipping Diario e Radar na Nuvem" > Run workflow (forcar = true).
+                print("   -> E-mail nao enviado em execucao local: o envio ocorre apenas no workflow da nuvem.")
     except Exception as e:
         print(f"   [Aviso] Falha ao publicar no GitHub Pages / E-mail: {e}")
 
