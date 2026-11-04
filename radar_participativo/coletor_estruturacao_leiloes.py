@@ -847,10 +847,7 @@ def coletar_radar_leiloes() -> list:
                 "Arrendamento de terminal dedicado à movimentação e armazenagem de cargas conteinerizadas e gerais "
                 "no Porto Organizado de Fortaleza (CE), com previsão de R$ 429 milhões em investimentos."
             ),
-            "destaque_regulatorio_seguros": (
-                "Exige garantia de proposta para participação na B3, seguro-garantia de execução contratual (performance bond) "
-                "escalonado conforme o cronograma de obras e apólices de Riscos de Engenharia e Riscos Nomeados/Operacionais."
-            ),
+            "destaque_regulatorio_seguros": "",
             "url": "https://www.gov.br/antaq/pt-br/assuntos/leiloes",
             "documentos": [
                 {"rotulo": "⚓ Painel de Leilões ANTAQ", "url": "https://www.gov.br/antaq/pt-br/assuntos/leiloes", "categoria": "EDITAL"},
@@ -874,9 +871,7 @@ def coletar_radar_leiloes() -> list:
                 "Arrendamento portuário estratégico no Arco Norte dedicado à movimentação e armazenagem de granéis sólidos minerais, "
                 "especialmente fertilizantes (IQI16), localizado no Porto Organizado do Itaqui (MA)."
             ),
-            "destaque_regulatorio_seguros": (
-                "Forte demanda por garantias de execução para obras de armazenagem estática e sistemas de recepção ferroviária/rodoviária no Itaqui."
-            ),
+            "destaque_regulatorio_seguros": "",
             "url": "https://www.gov.br/antaq/pt-br/assuntos/leiloes",
             "documentos": [
                 {"rotulo": "⚓ Painel de Leilões ANTAQ", "url": "https://www.gov.br/antaq/pt-br/assuntos/leiloes", "categoria": "EDITAL"},
@@ -899,10 +894,7 @@ def coletar_radar_leiloes() -> list:
                 "Segundo leilão de canal de acesso aquaviário da história do país (após Paranaguá). Com o aval do TCU e retomada de ritmo "
                 "após o período eleitoral, prevê dragagens periódicas de aprofundamento/manutenção e sinalização náutica."
             ),
-            "destaque_regulatorio_seguros": (
-                "Caso paradigmático para alocação de riscos geológicos/hidrodinâmicos (assoreamento extremo e eventos climáticos em SC) "
-                "e estruturação de garantias e seguros de dragagem e responsabilidade civil aquaviária."
-            ),
+            "destaque_regulatorio_seguros": "",
             "url": "https://agenciainfra.com/blog/tecon-10-e-canal-de-itajai-devem-ganhar-ritmo-no-governo-apos-eleicoes/",
             "documentos": [
                 {"rotulo": "📰 Bastidores Agência iNFRA (28/10)", "url": "https://agenciainfra.com/blog/tecon-10-e-canal-de-itajai-devem-ganhar-ritmo-no-governo-apos-eleicoes/", "categoria": "DOCUMENTO"},
@@ -926,10 +918,7 @@ def coletar_radar_leiloes() -> list:
                 "Maior projeto de arrendamento portuário da carteira do MPor (integrante do pacote de 34 leilões que somam R$ 23 bi). "
                 "Amplia em 50% a capacidade de movimentação de contêineres e carga geral no Saboó (Porto de Santos)."
             ),
-            "destaque_regulatorio_seguros": (
-                "Pelo porte multibilionário do CAPEX (R$ 5,6 bi), é referência central para a Portaria de Segurabilidade do MPor: "
-                "capacidade de resseguro facultativo, seguro-garantia de grande vulto e matriz de riscos socioambientais."
-            ),
+            "destaque_regulatorio_seguros": "",
             "url": "https://agenciainfra.com/blog/mpor-preve-34-novos-leiloes-portuarios-com-ate-r-23-bi-em-investimentos/",
             "documentos": [
                 {"rotulo": "📰 Carteira de 34 Leilões MPor (R$ 23 bi)", "url": "https://agenciainfra.com/blog/mpor-preve-34-novos-leiloes-portuarios-com-ate-r-23-bi-em-investimentos/", "categoria": "DOCUMENTO"},
@@ -953,9 +942,7 @@ def coletar_radar_leiloes() -> list:
                 "Primeira concessão hidroviária do Brasil. Abrange 600 km no Rio Paraguai para garantir calado operacional "
                 "ao escoamento de minério de ferro e grãos com tarifa módica e sustentabilidade ambiental no Pantanal."
             ),
-            "destaque_regulatorio_seguros": (
-                "Modelagem pioneira de matriz de riscos hidrológicos (secas severas no Pantanal), licenciamento ambiental e garantias de performance de dragagem."
-            ),
+            "destaque_regulatorio_seguros": "",
             "url": "https://www.gov.br/antaq/pt-br/assuntos/leiloes",
             "documentos": [
                 {"rotulo": "⚓ Painel ANTAQ", "url": "https://www.gov.br/antaq/pt-br/assuntos/leiloes", "categoria": "EDITAL"},
@@ -980,9 +967,7 @@ def coletar_radar_leiloes() -> list:
                 "Mecanismo competitivo desenhado pelo MPor e ANAC pelo qual atuais concessionárias aeroportuárias disputam "
                 "a assunção de blocos de aeroportos regionais deficitários mediante reequilíbrio contratual."
             ),
-            "destaque_regulatorio_seguros": (
-                "Inovação em matriz de riscos de engenharia em localidades remotas da Amazônia Legal e adequação das apólices de seguro-garantia dos contratos principais."
-            ),
+            "destaque_regulatorio_seguros": "",
             "url": "https://www.gov.br/portos-e-aeroportos/pt-br",
             "documentos": [
                 {"rotulo": "✈️ Portal MPor", "url": "https://www.gov.br/portos-e-aeroportos/pt-br", "categoria": "DOCUMENTO"},
@@ -1005,9 +990,7 @@ def coletar_radar_leiloes() -> list:
                 "Processo competitivo decorrente de solução consensual (SecexConsenso/TCU, MPor e ANAC) para reestruturação "
                 "do contrato do Aeroporto do Galeão, revisão do pagamento de outorga e saída da Infraero da SPE."
             ),
-            "destaque_regulatorio_seguros": (
-                "Benchmark para repactuação de matriz de risco de demanda aeroportuária, transição de controle acionário e substituição de garantias contratuais."
-            ),
+            "destaque_regulatorio_seguros": "",
             "url": "https://www.gov.br/portos-e-aeroportos/pt-br",
             "documentos": [
                 {"rotulo": "✈️ Portal MPor", "url": "https://www.gov.br/portos-e-aeroportos/pt-br", "categoria": "DOCUMENTO"},
@@ -1032,9 +1015,7 @@ def coletar_radar_leiloes() -> list:
                 "Concessão de 2.570 km no corredor de escoamento de grãos entre Mato Grosso e Rondônia (acesso às hidrovias do Madeira/Arco Norte), "
                 "estruturada em parceria com o BNDES."
             ),
-            "destaque_regulatorio_seguros": (
-                "Adota a nova geração de contratos da ANTT com conta vinculada, mecanismo de compartilhamento de risco cambial/insumos e seguro-garantia escalonado."
-            ),
+            "destaque_regulatorio_seguros": "",
             "url": "https://www.gov.br/antt/pt-br/assuntos/rodovias/novos-projetos-em-rodovias/copy_of_rodovias2013contratacao-bndes-6-700m-2013lotes-centro-oeste-e-norte",
             "documentos": [
                 {"rotulo": "🛣️ Ficha do Projeto na ANTT", "url": "https://www.gov.br/antt/pt-br/assuntos/rodovias/novos-projetos-em-rodovias/copy_of_rodovias2013contratacao-bndes-6-700m-2013lotes-centro-oeste-e-norte", "categoria": "EDITAL"},
@@ -1057,9 +1038,7 @@ def coletar_radar_leiloes() -> list:
                 "Corredor logístico estratégico de ligação direta ao Porto do Rio Grande (RS). Incorpora novas diretrizes de "
                 "resiliência climática após os eventos hidrológicos extremos no Rio Grande do Sul."
             ),
-            "destaque_regulatorio_seguros": (
-                "Diretamente conectado ao tema de riscos climáticos e segurabilidade: modelagem de gatilhos para eventos extremos e cobertura de obras de arte especiais."
-            ),
+            "destaque_regulatorio_seguros": "",
             "url": "https://www.gov.br/antt/pt-br/assuntos/rodovias/novos-projetos-em-rodovias/BR-116_392_RS%20-%20Rota%20Portuaria%20do%20Sul",
             "documentos": [
                 {"rotulo": "🛣️ Ficha do Projeto na ANTT", "url": "https://www.gov.br/antt/pt-br/assuntos/rodovias/novos-projetos-em-rodovias/BR-116_392_RS%20-%20Rota%20Portuaria%20do%20Sul", "categoria": "EDITAL"},
@@ -1082,9 +1061,7 @@ def coletar_radar_leiloes() -> list:
                 "Relicitação/nova concessão do principal eixo rodoviário da Bahia (antiga ViaBahia), conectando Feira de Santana "
                 "a Salvador e aos portos baianos, com amplo pacote de duplicações e fluxo livre (free flow)."
             ),
-            "destaque_regulatorio_seguros": (
-                "Exige robusto pacote de garantias de execução para as obras iniciais (trabalhos iniciais e recuperação intensiva) e gestão de risco de receita no Free Flow."
-            ),
+            "destaque_regulatorio_seguros": "",
             "url": "https://www.gov.br/antt/pt-br/assuntos/rodovias/novos-projetos-em-rodovias/BR-116-324-BA",
             "documentos": [
                 {"rotulo": "🛣️ Ficha do Projeto na ANTT", "url": "https://www.gov.br/antt/pt-br/assuntos/rodovias/novos-projetos-em-rodovias/BR-116-324-BA", "categoria": "EDITAL"},
@@ -1109,9 +1086,7 @@ def coletar_radar_leiloes() -> list:
                 "Editais aprovados pela ANEEL em 27/10/2026 para o inédito leilão de sistemas de armazenamento de energia em baterias (BESS), "
                 "visando dar flexibilidade operativa e segurança ao Sistema Interligado Nacional (SIN) em dezembro."
             ),
-            "destaque_regulatorio_seguros": (
-                "Marco regulatório para seguros de tecnologia/riscos de engenharia de sistemas BESS (incêndio térmico, performance de degradação e garantia de fiel cumprimento)."
-            ),
+            "destaque_regulatorio_seguros": "",
             "url": "https://agenciainfra.com/blog/aneel-aprova-editais-dos-leiloes-de-baterias-marcados-para-dezembro/",
             "documentos": [
                 {"rotulo": "📰 Aprovação dos Editais ANEEL (27/10)", "url": "https://agenciainfra.com/blog/aneel-aprova-editais-dos-leiloes-de-baterias-marcados-para-dezembro/", "categoria": "EDITAL"},
@@ -1134,9 +1109,7 @@ def coletar_radar_leiloes() -> list:
                 "Quinto certame do Eco Invest Brasil voltado a destravar financiamento privado competitivo e proteção cambial "
                 "para projetos de infraestrutura sustentável, armazenamento de energia (baterias) e descarbonização."
             ),
-            "destaque_regulatorio_seguros": (
-                "Instrumento de blended finance e mitigação de risco cambial em projetos de concessão de longa maturação (portos verdes, hidrovias, ferrovias e energia)."
-            ),
+            "destaque_regulatorio_seguros": "",
             "url": "https://www.gov.br/fazenda/pt-br/assuntos/novo-brasil-ecologico/eco-invest",
             "documentos": [
                 {"rotulo": "🍃 Portal Eco Invest (Ministério da Fazenda)", "url": "https://www.gov.br/fazenda/pt-br/assuntos/novo-brasil-ecologico/eco-invest", "categoria": "EDITAL"},
