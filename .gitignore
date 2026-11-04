@@ -11,7 +11,6 @@
 !/index.html
 !/clipping.html
 !/radar.html
-!/email_dispatch.json
 !/.github/
 !/historico/
 !/clipping/
@@ -19,6 +18,7 @@
 
 # Nunca versionar arquivos de credenciais (.env), caches Python ou artefatos locais redundantes
 **/.env
+email_dispatch.json
 **/__pycache__/
 **/*.pyc
 clipping/ultimo_log_agendador.txt
