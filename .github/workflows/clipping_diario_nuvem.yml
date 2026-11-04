@@ -14,6 +14,11 @@ on:
         options:
           - "false"
           - "true"
+      destinatario_teste:
+        description: "Opcional: e-mail unico para TESTE (se preenchido, o boletim vai so para ele, e nao para a lista oficial)"
+        required: false
+        default: ""
+        type: string
 
 permissions:
   contents: write
@@ -58,7 +63,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          EMAIL_DESTINATARIOS: ${{ secrets.EMAIL_DESTINATARIOS }}
+          EMAIL_DESTINATARIOS: ${{ github.event.inputs.destinatario_teste != '' && github.event.inputs.destinatario_teste || secrets.EMAIL_DESTINATARIOS }}
         run: |
           if [ "${{ github.event.inputs.forcar_reexecucao }}" = "true" ]; then
             python clipping/gerar_clipping.py --headless --force
@@ -72,7 +77,9 @@ jobs:
           HOJE_BR=$(date +%d/%m/%Y)
           git config user.name "DECON/MPOR Bot (GitHub Actions)"
           git config user.email "actions@github.com"
-          git add clipping.html radar.html historico/ email_dispatch.json radar_participativo/historico_processos.json || true
+          # email_dispatch.json NAO entra no commit: contem os e-mails dos destinatarios (repositorio publico).
+          # Ele e lido no proprio job, no passo de envio abaixo, direto da pasta de trabalho.
+          git add clipping.html radar.html historico/ radar_participativo/historico_processos.json || true
           if git diff --staged --quiet; then
             echo "Nenhuma alteracao nos arquivos para commit."
           else
