@@ -1539,12 +1539,7 @@ def gerar_painel_radar_html(
             dados_sfn = dados_sfn or {"aprovados": [], "fora_do_filtro": [], "fontes_monitoradas": []}
 
     hoje = datetime.now()
-    meses = {
-        1: "Janeiro", 2: "Fevereiro", 3: "Março", 4: "Abril",
-        5: "Maio", 6: "Junho", 7: "Julho", 8: "Agosto",
-        9: "Setembro", 10: "Outubro", 11: "Novembro", 12: "Dezembro"
-    }
-    data_formatada = f"{hoje.day:02d} de {meses[hoje.month]} de {hoje.year} às {hoje.strftime('%H:%M')}"
+    data_formatada = f"{hoje.day:02d}/{hoje.month:02d} {hoje.strftime('%H:%M')}"
 
     # KPIs Aba 1 (Participativo)
     kpi_total = len(dossies)

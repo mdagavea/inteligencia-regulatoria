@@ -14,11 +14,11 @@ on:
         options:
           - "false"
           - "true"
-      destinatario_teste:
-        description: "Opcional: e-mail unico para TESTE (se preenchido, o boletim vai so para ele, e nao para a lista oficial)"
+      modo_teste:
+        description: "Modo teste? (se verdadeiro, envia apenas para o secret EMAIL_TESTE)"
         required: false
-        default: ""
-        type: string
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -29,21 +29,6 @@ jobs:
     env:
       TZ: America/Sao_Paulo
     steps:
-      - name: Mascarar destinatarios e dados sensiveis (privacidade em repositorio publico)
-        run: |
-          TESTE="${{ github.event.inputs.destinatario_teste }}"
-          if [ -n "$TESTE" ]; then
-            echo "::add-mask::$TESTE"
-          fi
-          SECRETS_EMAILS="${{ secrets.EMAIL_DESTINATARIOS }}"
-          IFS=',' read -ra ADDR <<< "$SECRETS_EMAILS"
-          for i in "${ADDR[@]}"; do
-            TRIMMED=$(echo "$i" | xargs)
-            if [ -n "$TRIMMED" ]; then
-              echo "::add-mask::$TRIMMED"
-            fi
-          done
-
       - name: Checkout do repositorio
         uses: actions/checkout@v4
         with:
@@ -78,7 +63,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          EMAIL_DESTINATARIOS: ${{ github.event.inputs.destinatario_teste != '' && github.event.inputs.destinatario_teste || secrets.EMAIL_DESTINATARIOS }}
+          EMAIL_DESTINATARIOS: ${{ (github.event.inputs.modo_teste == 'true' || github.event.inputs.modo_teste == true) && secrets.EMAIL_TESTE || secrets.EMAIL_DESTINATARIOS }}
         run: |
           python clipping/gerar_clipping.py --headless --force
 
