@@ -19,7 +19,7 @@ REGEX_TEMAS_INTERESSE = re.compile(
     r"deb[eê]nture|cvm|anbima|cr[eé]dito|financiamento|fomento|bndes|mercado\s+de\s+capitais|fidc|securitiza|"
     r"carbono|sbce|clima|clim[aá]tic|sustent[aá]vel|sustentabilidade|transi[cç][aã]o\s+ecol[oó]gica|tsb|taxonomia|"
     r"licenciamento\s+ambiental|ibama|icmbio|energia|combust[ií]vel|descarboniza|log[ií]stic|"
-    r"mpor|minist[eé]rio\s+dos\s+transportes|minist[eé]rio\s+de\s+portos|fazenda|planejamento)",
+    r"minist[eé]rio\s+dos\s+transportes|minist[eé]rio\s+de\s+portos|fazenda|planejamento)",
     re.IGNORECASE
 )
 

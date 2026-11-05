@@ -14,7 +14,7 @@ Você é um Especialista Sênior em Regulação, Infraestrutura, Concessões, Se
 Sua tarefa é avaliar uma lista de processos participativos (Consultas Públicas, Audiências Públicas, Tomadas de Subsídios, Planos Setoriais e Minutas em Pré-Publicação) capturados na plataforma Brasil Participativo e selecionar APENAS aqueles que possuem relação direta ou transversal relevante com nossas 4 verticais de atuação:
 
 1. "infra" — Infraestrutura, Transportes & Outorgas:
-   - Rodovias, ferrovias, portos, aeroportos, hidrovias, mobilidade, logística, trânsito/transporte de cargas, ANTT, ANAC, ANTAQ, DNIT, Ministério dos Transportes, Ministério de Portos e Aeroportos (MPOR), concessões, PPPs, estruturação/priorização de delegações e projetos, leilões, reequilíbrio, matriz de riscos, sandbox regulatório.
+   - Rodovias, ferrovias, portos, aeroportos, hidrovias, mobilidade, logística, trânsito/transporte de cargas, ANTT, ANAC, ANTAQ, DNIT, Ministério dos Transportes, agências e ministérios setoriais, concessões, PPPs, estruturação/priorização de delegações e projetos, leilões, reequilíbrio, matriz de riscos, sandbox regulatório.
 2. "seguros" — Seguros, Garantias & Gestão de Riscos:
    - Políticas e diretrizes de seguros em infraestrutura/portos/aeroportos/transportes, seguro-garantia (performance bond), SUSEP, resseguro, sinistros, riscos de engenharia e matriz de seguros.
 3. "carbono" — Transição Climática, Sustentabilidade & Meio Ambiente ligado a Infraestrutura/Economia:
@@ -27,9 +27,9 @@ REGRAS ESTRITAS DE FILTRAGEM E DOSSIÊ:
 - Para cada processo APROVADO (`"aprovar": true`), elabore um Dossiê Executivo de alta precisão contendo:
   * "id": ID exato do processo (string).
   * "aprovar": true.
-  * "vertical": uma das chaves ["infra", "seguros", "carbono", "divida"] (escolha a mais aderente ao tema central do processo; ex: a Portaria de Diretrizes de Política de Seguros do MPOR deve ir em "seguros").
+  * "vertical": uma das chaves ["infra", "seguros", "carbono", "divida"] (escolha a mais aderente ao tema central do processo; ex: a Portaria de Diretrizes de Política de Seguros deve ir em "seguros").
   * "modalidade_exibicao": ex: "Consulta Pública", "Audiência Pública", "Tomada de Subsídios", "Consulta Setorial", "Minuta em Pré-Publicação".
-  * "orgao_sigla": sigla e nome curto do órgão/secretaria responsável (ex: "MPOR / SNP", "MT / SNTF", "ANAC / SIA", "ANTT", "MDIC / CAMEX", "MMA", "ICMBio").
+  * "orgao_sigla": sigla e nome curto do órgão/secretaria responsável (ex: "SNP", "MT / SNTF", "ANAC / SIA", "ANTT", "MDIC / CAMEX", "MMA", "ICMBio").
   * "relevancia": "ALTA" (impacto direto em transportes, portos, aeroportos, concessões, seguros ou financiamento de infra) ou "MEDIA" (impacto transversal/regulatório).
   * "objeto_normativo": resumo técnico objetivo (2 a 3 frases) explicando exatamente qual ato normativo, plano, edital ou diretriz está sendo proposto ou alterado.
   * "pontos_atencao": análise executiva (1 a 2 frases) destacando por que esse processo merece acompanhamento ou eventual contribuição técnica da nossa equipe (ex: impacto em contratos de concessão, exigências de apólices/garantias, planejamento logístico PNL/PIT, certificação de projetos).
@@ -42,7 +42,7 @@ Retorne ESTRITAMENTE um objeto JSON no formato:
       "aprovar": true,
       "vertical": "infra",
       "modalidade_exibicao": "Consulta Pública",
-      "orgao_sigla": "MPOR / SNP",
+      "orgao_sigla": "SNP",
       "relevancia": "ALTA",
       "objeto_normativo": "...",
       "pontos_atencao": "..."
@@ -242,7 +242,7 @@ Você é um analista documental técnico responsável por registrar, de forma 10
 REGRAS ESTRITAS DE TOM E ESTILO (OBRIGATÓRIAS):
 1. Descreva APENAS o que consta nos dados e documentos oficiais do certame (Objeto, Valor/Prazo/Data, Situação, Documentos de Escopo e o que consta sobre seguros, garantias e matriz de riscos).
 2. NÃO emita opinião, recomendação, juízo de valor ou prescrição sobre o que o estudo "deveria" fazer.
-3. É TERMINANTEMENTE PROIBIDO usar expressões como: "deve contemplar", "recomenda-se", "é fundamental", "tende a", "dialoga com", "sob a ótica da DECON", "oportunidade para", "Lacuna identificada", "Aderência DECON/MPor".
+3. É TERMINANTEMENTE PROIBIDO usar expressões como: "deve contemplar", "recomenda-se", "é fundamental", "tende a", "dialoga com", "juízo de valor", "oportunidade para", "Lacuna identificada".
 4. Diferencie sempre a matriz de riscos do contrato de consultoria (entre o estruturador e a consultora) da matriz de riscos da futura concessão/arrendamento.
 
 Para cada item abaixo, retorne:
@@ -357,7 +357,7 @@ def curar_estruturacao_e_licitacoes(itens_brutos: list, pasta_projeto: Path, api
 PROMPT_RESUMO_FACTUAL_SFN = """
 Você é um analista documental técnico. Para cada consulta pública abaixo (que já passou no filtro temático), redija um resumo estritamente factual de 1 frase curta em português sintetizando o ato normativo alterado e o tema central.
 REGRAS:
-- Proibido opinião, juízo de valor, "ótica DECON" ou "recomenda-se".
+- Proibido opinião, juízo de valor ou "recomenda-se".
 - Use apenas os dados do título e da ementa fornecidos.
 Retorne ESTRITAMENTE um JSON no formato:
 {"resumos": [{"id": "SUSEP_CP_15_2026", "resumo_ia": "..."}]}

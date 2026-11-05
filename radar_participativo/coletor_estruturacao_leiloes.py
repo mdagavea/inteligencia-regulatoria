@@ -186,9 +186,9 @@ def coletar_licitacoes_infra_sa(max_itens: int = 12) -> list:
             tem_matriz_risco = any(d["categoria"] == "MATRIZ_RISCO" for d in documentos)
             chave_rle = _extrair_codigo_rle(titulo_raw)
 
-            eh_setor_mpor = any(w in blob_verif for w in ["porto", "portu", "hidrovi", "aeroport"])
-            prioridade_escopo = "PRIORIDADE_A" if eh_setor_mpor else "PRIORIDADE_B"
-            categoria_item = "PRIORIDADE_A_MPOR" if eh_setor_mpor else "PRIORIDADE_B_COMPARACAO"
+            eh_setor_foco = any(w in blob_verif for w in ["porto", "portu", "hidrovi", "aeroport"])
+            prioridade_escopo = "PRIORIDADE_A" if eh_setor_foco else "PRIORIDADE_B"
+            categoria_item = "PRIORIDADE_A" if eh_setor_foco else "PRIORIDADE_B_COMPARACAO"
 
             item_dict = {
                 "id": f"INFRASA_{post_id}",
@@ -319,7 +319,7 @@ def _buscar_arquivos_pncp(item_url: str) -> list:
 def coletar_estruturacao_e_seguros_pncp() -> list:
     """
     Consulta a API oficial do PNCP aplicando os critérios estritos da Aba 2:
-    - Prioridade A (núcleo MPor): EVTEA, estudos de viabilidade ou modelagem econômico-financeira/regulatória
+    - Prioridade A (Portos, Aeroportos e Hidrovias): EVTEA, estudos de viabilidade ou modelagem econômico-financeira/regulatória
       para concessão, PPP ou arrendamento de portos, aeroportos ou hidrovias.
     - Prioridade B (comparação): EVTEA ou modelagem federal de outros setores (rodovias, ferrovias)
       conduzidos por Infra S.A., BNDES, DNIT ou ANTT.
@@ -378,14 +378,14 @@ def coletar_estruturacao_e_seguros_pncp() -> list:
             if not eh_evtea_ou_modelagem:
                 continue
 
-            eh_setor_mpor = any(w in texto_analise for w in [
+            eh_setor_foco = any(w in texto_analise for w in [
                 "porto", "portuári", "portuaria", "hidrovi", "aeroport", "aquaviári", "aquaviaria", "antaq", "anac",
             ])
             eh_estruturador_federal = esfera == "Federal" and any(w in orgao.lower() or w in texto_analise for w in [
-                "valec", "infra s", "dnit", "bndes", "antt", "ministério dos transportes", "ministério de portos",
+                "valec", "infra s", "dnit", "bndes", "antt", "ministério dos transportes",
             ])
 
-            if not (eh_setor_mpor or eh_estruturador_federal):
+            if not (eh_setor_foco or eh_estruturador_federal):
                 continue
 
             vistos_pncp.add(num_ctrl)
@@ -393,8 +393,8 @@ def coletar_estruturacao_e_seguros_pncp() -> list:
             eh_infra_sa = "valec" in orgao.lower() or "infra s" in orgao.lower() or "infrasa.gov.br" in str(it.get("link_processo_eletronico") or "").lower()
             eh_dnit = "dnit" in orgao.lower()
 
-            prioridade_escopo = "PRIORIDADE_A_DESTAQUE" if eh_setor_mpor else "PRIORIDADE_B"
-            categoria_item = "PRIORIDADE_A_MPOR" if eh_setor_mpor else "PRIORIDADE_B_COMPARACAO"
+            prioridade_escopo = "PRIORIDADE_A_DESTAQUE" if eh_setor_foco else "PRIORIDADE_B"
+            categoria_item = "PRIORIDADE_A" if eh_setor_foco else "PRIORIDADE_B_COMPARACAO"
 
             item_url = it.get("item_url") or ""
             url_pncp = f"https://pncp.gov.br/app/editais/{item_url.replace('/compras/', '')}" if item_url.startswith("/compras/") else "https://pncp.gov.br/app/editais"
@@ -486,111 +486,43 @@ def coletar_carteira_bndes_estruturadores() -> list:
     Coleta projetos ativos na carteira de Desestatização e Estruturação do BNDES
     com documentação oficial publicada (RFP, Anexo I - Especificações Técnicas, Anexo II,
     Anexo IV, Anexo VI - Matriz de Riscos e Contrato Assinado), priorizando:
-    - Prioridade A (núcleo MPor): Hidrovias (Tapajós/Tocantins) e Portos (Porto Greenfield RN e Porto Organizado de Santos).
+    - Prioridade A: Hidrovias (Tapajós/Tocantins) e Portos (Porto Greenfield RN e Porto Organizado de Santos).
     - Prioridade B (comparação): Rodovias Federais (RFP 014/2024 - Nordeste).
     """
+    from coletor_bndes_dinamico import coletar_hidrovias_tapajos_tocantins, coletar_porto_greenfield_rn
+
     base_wcm = "https://www.bndes.gov.br/wps/wcm/connect/site"
     base_pag = "https://www.bndes.gov.br/wps/portal/site/home/transparencia/desestatizacao/processos-em-andamento?1dmy&urile=wcm%3apath%3a%2Fbndes_institucional%2Fhome%2Ftransparencia%2Fdesestatizacao%2Fprojetos-em-andamento%2F"
 
-    projetos_bndes = [
-        {
-            "id": "BNDES_HIDROVIAS_TAPAJOS_TOCANTINS",
-            "prioridade_escopo": "PRIORIDADE_A_DESTAQUE",
-            "categoria_item": "PRIORIDADE_A_MPOR",
-            "estruturador_sigla": "BNDES • Hidrovias (MPor / ANTAQ)",
-            "modalidade": "RFP nº 11/2024 • Contrato OCS nº 087/2025",
-            "titulo": "BNDES — RFP nº 11/2024 (Contrato OCS nº 087/2025) — Estruturação de Concessão das Hidrovias dos Rios Tapajós e Tocantins (2.421 km)",
-            "titulo_executivo": "BNDES — RFP nº 11/2024 (Contrato OCS nº 087/2025) — Estruturação de Concessão das Hidrovias dos Rios Tapajós e Tocantins (2.421 km)",
-            "url": base_pag + "rio-tocantins-e-rio-tapajos-hidrovias",
-            "valor_estimado": 8_460_000.00,
-            "valor_formatado": "R$ 8,46 mi (Contratado)",
-            "data_publicacao_br": "14/03/2025 (Contrato)",
-            "data_publicacao_iso": "2025-03-14",
-            "data_fim_br": "Em Execução (Consórcio Macroinfra)",
-            "escopo_sintetico": (
-                "Objeto: Contratação de serviços técnicos necessários à estruturação de projeto de concessão à iniciativa privada "
-                "da administração das hidrovias do Rio Tapajós (643 km em 2 trechos) e do Rio Tocantins (1.778 km em 5 subtrechos), "
-                "totalizando 2.421 km | Valor contratado: R$ 8.460.000,00 (valor estimado na RFP: R$ 12.833.495,45) | "
-                "Contrato OCS nº 087/2025 assinado em 14/03/2025 (Consórcio Macroinfra / Almeida & Fleury / R. Peotta / Machado Meyer) | "
-                "Situação: Em execução | Onde está o escopo: Anexo I – Termo de Especificações Técnicas – TET (67 páginas)."
-            ),
-            "analise_riscos_segurabilidade": (
-                "• O Anexo VI – Matriz de Riscos (PDF) refere-se à matriz de riscos do contrato de consultoria celebrado com o BNDES, "
-                "e não à matriz de riscos da futura concessão hidroviária.\n"
-                "• No Anexo I – Termo de Especificações Técnicas (67 págs.), o Relatório de Proposição do Modelo Institucional e Regulatório "
-                "(Item 2.2.1.8 \"k\" e \"l\", p. 25) exige a \"Definição da Matriz de Riscos contendo as justificativas e os possíveis mitigadores "
-                "para os riscos identificados\" e estabelece que \"a matriz de risco completa deverá indicar a melhor alocação de risco para o projeto, "
-                "considerando a alocação de risco de contratos de concessão mais recentes (...) Deve também abranger a alocação de risco adequada para "
-                "garantir a viabilidade financeira do projeto por meio de um esquema de project finance (financiamento de projetos) e incluir a análise das "
-                "fases de construção e operacionais, consequências de atrasos, sobrecustos, força maior, mudança na lei, regimes de rescisão e compensação\".\n"
-                "• Na Avaliação Econômico-Financeira Conclusiva (Anexo I, Item 2.2.2.1.3 \"k\", p. 31), exige-se que o painel de controle das planilhas "
-                "contemple a variável \"(k) Seguros e Garantias\".\n"
-                "• Na elaboração das minutas de Edital e Contrato de Parceria (Item 2.2.2.2.3, p. 34–35) e do Relatório de Modelagem (Item 2.2.2.3, p. 35–36), "
-                "exige-se a proposição de cláusulas de \"títulos de licitação ou desempenho, seguro, requisitos / restrições em relação a financiamento\", "
-                "\"(iv) Alocação de Riscos do CONTRATO DE PARCERIA\", \"(v) Modelos de Garantias do EDITAL e CONTRATO(S) DE PARCERIA\" e \"(xiv) Seguros\"."
-            ),
-            "documentos": [
-                {"rotulo": "🏦 Página do Projeto no BNDES", "url": base_pag + "rio-tocantins-e-rio-tapajos-hidrovias", "categoria": "SEI"},
-                {"rotulo": "📄 RFP nº 11/2024 (PDF)", "url": f"{base_wcm}/978769f6-a9b6-4fb1-a146-709aaeb5956c/Edital_RFP_n_11-2024_-_BNDES_-_Hidrovias%5B1%5D.pdf?MOD=AJPERES&CVID=pna5z7n", "categoria": "EDITAL"},
-                {"rotulo": "📑 Anexo I – Especificações Técnicas (TET)", "url": f"{base_wcm}/f32d3028-e8f4-48ca-bda2-4a7e2b5293be/Anexo_I_-_Termo_de_Especifica%C3%A7%C3%B5es_T%C3%A9cnicas%5B1%5D.pdf?MOD=AJPERES&CVID=pna5Iiq", "categoria": "TERMO_REFERENCIA"},
-                {"rotulo": "💰 Anexo II – Tabela de Produtos e Prazos (XLSX)", "url": f"{base_wcm}/5ef44c33-34ba-4b64-af04-5e6df3c894eb/Anexo_II_-_Tabela_de_Produtos_Precos_e_Prazos_de_Entrega.xlsx?MOD=AJPERES&CVID=pna61vU", "categoria": "ORCAMENTO_LOTE"},
-                {"rotulo": "📐 Anexo IV – Critérios de Pontuação Técnica", "url": f"{base_wcm}/3c801151-8fb7-4361-a186-0ed5311bc831/Anexo_IV_-_Crit%C3%A9rios_de_Pontua%C3%A7%C3%A3o_e_Modelo_de_Proposta_T%C3%A9cnica%5B1%5D.pdf?MOD=AJPERES&CVID=pna5V.9", "categoria": "ETP"},
-                {"rotulo": "🛡️ Anexo VI – Matriz de Riscos (Consultoria)", "url": f"{base_wcm}/2c534789-eb9d-4c8d-9aa2-31377050c015/Anexo_VI_-_Matriz_de_Riscos%5B1%5D.pdf?MOD=AJPERES&CVID=pna5abn", "categoria": "MATRIZ_RISCO"},
-                {"rotulo": "📝 Contrato OCS nº 087/2025 (PDF)", "url": f"{base_wcm}/d2ef9a9c-96f9-4703-9de9-5caeb0036818/Contrato_087-2025_-_Assinado%5B1%5D.pdf?MOD=AJPERES&CVID=pna5unP", "categoria": "MINUTA_CONTRATO"},
-                {"rotulo": "📜 Extrato de Informações da Seleção (PDF)", "url": f"{base_wcm}/9ca83a84-45b6-4190-b102-a57683502439/Extrato_de_Informa%C3%A7%C3%B5es_-_2025.03.19_Contrato_Hidrovias%5B1%5D.pdf?MOD=AJPERES&CVID=pna5pQy", "categoria": "DOU"},
-            ],
-        },
-        {
-            "id": "BNDES_PORTO_RN",
-            "prioridade_escopo": "PRIORIDADE_A",
-            "categoria_item": "PRIORIDADE_A_MPOR",
-            "estruturador_sigla": "BNDES • Portos (Governo RN / MPor)",
-            "modalidade": "RFP nº 04/2025 • Contrato OCS nº 319/2026",
-            "titulo": "BNDES — RFP nº 04/2025 (Contrato OCS nº 319/2026) — Estruturação e Modelagem do Porto Indústria Greenfield no Rio Grande do Norte",
-            "titulo_executivo": "BNDES — RFP nº 04/2025 (Contrato OCS nº 319/2026) — Estruturação e Modelagem de Parceria para Implantação do Porto Indústria Greenfield no RN",
-            "url": base_pag + "rfp-04-2025-estrutura-aquaviaria-no-rn",
-            "valor_estimado": 5_189_000.00,
-            "valor_formatado": "R$ 5,19 mi (Contratado)",
-            "data_publicacao_br": "08/09/2026 (Contrato)",
-            "data_publicacao_iso": "2026-09-08",
-            "data_fim_br": "Em Execução (36 meses)",
-            "escopo_sintetico": (
-                "Objeto: Contratação de serviços técnicos necessários para a estruturação e modelagem de parceria (concessão, PPP ou SPE) "
-                "para implantação e administração de infraestrutura portuária greenfield na região de Caiçara do Norte/RN | "
-                "Valor contratado: R$ 5.189.000,00 (valor estimado na RFP: R$ 5.995.995,21) | Prazo contratual: 36 meses | "
-                "Contrato OCS nº 319/2026 assinado em 08/09/2026 (Consórcio A&M / GRAF / Demarest / ETHLC) | "
-                "Situação: Em execução | Onde está o escopo: Anexo I – Especificações Técnicas (47 páginas)."
-            ),
-            "analise_riscos_segurabilidade": (
-                "• O Anexo VI – Matriz de Riscos (PDF) refere-se à matriz de riscos do contrato de consultoria celebrado com o BNDES, "
-                "e não à matriz de riscos da futura parceria portuária.\n"
-                "• No Anexo I – Especificações Técnicas (47 págs.), o Relatório de Proposição do Modelo Institucional e Regulatório "
-                "(Item 3.2.3 \"k\", \"s\" e \"t\", p. 28–29) exige expressamente: \"k) proposta de mecanismos para revisão dos parâmetros contratuais (...) "
-                "incluindo o Fluxo de Caixa Marginal, a matriz de riscos da CONCESSÃO, se aplicável\", \"s) sugestão de matriz de risco, respectivos "
-                "mecanismos de mitigação e penalizações\" e \"t) justificativas para a alocação dos riscos apontados na matriz de risco, bem como "
-                "produtos securitários necessários\".\n"
-                "• Na elaboração das Minutas dos Documentos Necessários à Licitação (Anexo I, Item 3.2.5.2, p. 30–31), exige-se relatório justificativo "
-                "abordando: \"b) exigência e valor de garantia de proposta\", \"L) descrição exaustiva da matriz de repartição de riscos do PROJETO\", "
-                "\"o) exigência e valor de garantia de execução do contrato\" e \"p) seguros relativamente ao objeto e valores segurados\".\n"
-                "• Na Assessoria Jurídica (Anexo I, Item 3.8 \"l\", p. 37), exige-se a \"elaboração de versões preliminar e definitiva da matriz contratual "
-                "de riscos do PROJETO, considerando os riscos inerentes ao PROJETO, o racional para sua alocação e possíveis mitigadores\"."
-            ),
-            "documentos": [
-                {"rotulo": "🏦 Página do Projeto no BNDES", "url": base_pag + "rfp-04-2025-estrutura-aquaviaria-no-rn", "categoria": "SEI"},
-                {"rotulo": "📄 RFP nº 04/2025 (PDF)", "url": f"{base_wcm}/9b3922f2-de9e-46ab-af59-97a3a6dc6fb7/RFP_Porto_RN%5B1%5D.pdf?MOD=AJPERES&CVID=q51PHyI", "categoria": "EDITAL"},
-                {"rotulo": "📑 Anexo I – Especificações Técnicas (47 págs.)", "url": f"{base_wcm}/e8b3d722-03f6-4dda-8693-fb066f2d0d8a/Anexo_I_-_Especifica%C3%A7oes_Tecnicas_RN%5B1%5D.pdf?MOD=AJPERES&CVID=q51PTdQ", "categoria": "TERMO_REFERENCIA"},
-                {"rotulo": "💰 Anexo II – Tabela de Produtos e Prazos (XLSX)", "url": f"{base_wcm}/d336cb55-82bb-4b4e-ae4b-45c7d01fa9bb/Anexo_II_-_Tabela_Produtos_Pre%C3%A7os_Prazos_RN.xlsx?MOD=AJPERES&CVID=q51Q2h1", "categoria": "ORCAMENTO_LOTE"},
-                {"rotulo": "📐 Anexo IV – Critérios de Pontuação Técnica", "url": f"{base_wcm}/4b208ab6-76a8-42de-b894-e0131bc67e9d/Anexo_IV_-_Crit%C3%A9rios_de_Pontua%C3%A7%C3%A3o_e_Modelo_de_Proposta_T%C3%A9cnica%5B1%5D.pdf?MOD=AJPERES&CVID=q51Qi88", "categoria": "ETP"},
-                {"rotulo": "🛡️ Anexo VI – Matriz de Riscos (Consultoria)", "url": f"{base_wcm}/1cf42214-ef6b-438a-832d-1940687d8639/Anexo_VI_-_Matriz_de_Riscos%5B2%5D.pdf?MOD=AJPERES&CVID=q51Qyxw", "categoria": "MATRIZ_RISCO"},
-                {"rotulo": "📝 Contrato OCS nº 319/2026 (PDF)", "url": f"{base_wcm}/6a0daf48-9306-4cd6-a677-599cc2c49f00/Contrato_319_2026%5B1%5D.pdf?MOD=AJPERES&CVID=q51QXLn", "categoria": "MINUTA_CONTRATO"},
-                {"rotulo": "📜 Extrato de Informações da Seleção (PDF)", "url": f"{base_wcm}/58c47d30-60bc-453a-9403-84eacdc199aa/Extrato_de_Informa%C3%A7%C3%B5es_-_03.09.2024%5B1%5D.pdf?MOD=AJPERES&CVID=q51R5zz", "categoria": "DOU"},
-            ],
-        },
+    projetos_bndes = []
+
+    # 1. Hidrovias Tapajós e Tocantins (Coleta dinâmica e factual com validação de links)
+    try:
+        dados_hidrovias = coletar_hidrovias_tapajos_tocantins()
+        if dados_hidrovias.get("links_invalidos"):
+            print(f"[Aviso BNDES] Links inválidos em Hidrovias: {dados_hidrovias['links_invalidos']}")
+        else:
+            projetos_bndes.append(dados_hidrovias["card"])
+    except Exception as e:
+        print(f"[Erro BNDES] Falha ao coletar Hidrovias: {e}")
+
+    # 2. Porto Greenfield RN (Coleta dinâmica e factual com validação de links)
+    try:
+        dados_rn = coletar_porto_greenfield_rn()
+        if dados_rn.get("links_invalidos"):
+            print(f"[Aviso BNDES] Links inválidos em Porto RN: {dados_rn['links_invalidos']}")
+        else:
+            projetos_bndes.append(dados_rn["card"])
+    except Exception as e:
+        print(f"[Erro BNDES] Falha ao coletar Porto RN: {e}")
+
+    # Demais projetos estruturados do BNDES
+    outros_projetos = [
         {
             "id": "BNDES_PORTO_SANTOS",
             "prioridade_escopo": "PRIORIDADE_A",
-            "categoria_item": "PRIORIDADE_A_MPOR",
-            "estruturador_sigla": "BNDES • Portos (MPor / ANTAQ / APS)",
+            "categoria_item": "PRIORIDADE_A",
+            "estruturador_sigla": "BNDES • Portos (Santos / APS)",
             "modalidade": "RFP nº 17/2023 • Contrato OCS nº 157/2024",
             "titulo": "BNDES — RFP nº 17/2023 (Contrato OCS nº 157/2024) — Estruturação de Concessão de Serviços Portuários no Porto Organizado de Santos",
             "titulo_executivo": "BNDES — RFP nº 17/2023 (Contrato OCS nº 157/2024) — Estruturação de Projeto de Concessão de Serviços Portuários no Porto Organizado de Santos",
@@ -681,6 +613,8 @@ def coletar_carteira_bndes_estruturadores() -> list:
         },
     ]
 
+    projetos_bndes.extend(outros_projetos)
+
     itens = []
     for p in projetos_bndes:
         itens.append({
@@ -714,7 +648,7 @@ def coletar_carteira_bndes_estruturadores() -> list:
 def coletar_tudo_aba_estruturacao() -> list:
     """
     Consolida todas as fontes da Aba 2 (Infra S.A. WP-JSON + PNCP + BNDES),
-    aplicando o ordenamento por Prioridade A (Portos, Aeroportos e Hidrovias - núcleo MPor)
+    aplicando o ordenamento por Prioridade A (Portos, Aeroportos e Hidrovias)
     seguido de Prioridade B (Comparação Federal - Rodovias/Ferrovias).
     """
     itens_infra = coletar_licitacoes_infra_sa(max_itens=8)
@@ -772,7 +706,7 @@ def coletar_tudo_aba_estruturacao() -> list:
 
 
 # ==============================================================================
-# ABA 3: COLETOR DE LEILÕES & OUTORGAS (MPOR, ANTAQ, ANAC, ANTT, B3 & NACIONAIS)
+# ABA 3: COLETOR DE LEILÕES & OUTORGAS (ANTAQ, ANAC, ANTT, B3 & NACIONAIS)
 # ==============================================================================
 
 def _coletar_status_antaq_oficial() -> dict:
@@ -807,7 +741,7 @@ def _coletar_status_antaq_oficial() -> dict:
 
 def _coletar_noticias_recentes_leiloes() -> list:
     """Busca notícias das últimas 72h sobre leilões de infraestrutura para enriquecer o status dinâmico."""
-    query = urllib.parse.quote('(leilão OR edital) AND (ANTAQ OR MPor OR ANTT OR ANAC OR ANEEL OR B3 OR "canal de Itajaí" OR "Tecon" OR "MUC04" OR "Eco Invest") when:72h')
+    query = urllib.parse.quote('(leilão OR edital) AND (ANTAQ OR "Portos e Aeroportos" OR ANTT OR ANAC OR ANEEL OR B3 OR "canal de Itajaí" OR "Tecon" OR "MUC04" OR "Eco Invest") when:72h')
     url = f"https://news.google.com/rss/search?q={query}&hl=pt-BR&gl=BR&ceid=BR:pt-419"
     manchetes = []
     try:
@@ -822,19 +756,19 @@ def _coletar_noticias_recentes_leiloes() -> list:
 def coletar_radar_leiloes() -> list:
     """
     Retorna a carteira estruturada e atualizada dos Leilões de Infraestrutura, Transporte,
-    Logística (MPor, ANTAQ, ANAC, MT, ANTT) e Grandes Leilões Nacionais (ANEEL, Eco Invest, B3),
+    Logística (ANTAQ, ANAC, MT, ANTT) e Grandes Leilões Nacionais (ANEEL, Eco Invest, B3),
     sincronizada com a página oficial da ANTAQ, ANTT e noticiário regulatório.
     """
     status_antaq = _coletar_status_antaq_oficial()
     manchetes_recentes = _coletar_noticias_recentes_leiloes()
 
     leiloes = [
-        # 1. PORTOS, CANAIS & HIDROVIAS (MPOR / ANTAQ)
+        # 1. PORTOS, CANAIS & HIDROVIAS (ANTAQ)
         {
             "id": "LEILAO_ANTAQ_MUC04",
             "setor": "portos_hidrovias",
-            "setor_nome": "⚓ Portos & Hidrovias (MPor / ANTAQ)",
-            "orgao_sigla": "MPor / ANTAQ",
+            "setor_nome": "⚓ Portos & Hidrovias (ANTAQ)",
+            "orgao_sigla": "ANTAQ",
             "codigo_ativo": "MUC04",
             "titulo": "Leilão nº 05/2026-ANTAQ — Terminal Portuário MUC04 (Porto de Fortaleza/CE)",
             "fase_leilao": status_antaq.get("MUC04", {}).get("status_antaq", "EDITAL_PUBLICADO"),
@@ -851,14 +785,14 @@ def coletar_radar_leiloes() -> list:
             "url": "https://www.gov.br/antaq/pt-br/assuntos/leiloes",
             "documentos": [
                 {"rotulo": "⚓ Painel de Leilões ANTAQ", "url": "https://www.gov.br/antaq/pt-br/assuntos/leiloes", "categoria": "EDITAL"},
-                {"rotulo": "🏛️ Carteira MPor", "url": "https://www.gov.br/portos-e-aeroportos/pt-br", "categoria": "DOCUMENTO"},
+                {"rotulo": "🏛️ Portal Governamental", "url": "https://www.gov.br/portos-e-aeroportos/pt-br", "categoria": "DOCUMENTO"},
             ],
         },
         {
             "id": "LEILAO_ANTAQ_IQI16",
             "setor": "portos_hidrovias",
-            "setor_nome": "⚓ Portos & Hidrovias (MPor / ANTAQ)",
-            "orgao_sigla": "MPor / ANTAQ",
+            "setor_nome": "⚓ Portos & Hidrovias (ANTAQ)",
+            "orgao_sigla": "ANTAQ",
             "codigo_ativo": "IQI16",
             "titulo": "Leilão nº 04/2026-ANTAQ — Terminal IQI16 de Granéis Minerais e Fertilizantes (Porto do Itaqui/MA)",
             "fase_leilao": status_antaq.get("IQI16", {}).get("status_antaq", "EDITAL_PUBLICADO"),
@@ -880,8 +814,8 @@ def coletar_radar_leiloes() -> list:
         {
             "id": "LEILAO_CANAL_ITAJAI",
             "setor": "portos_hidrovias",
-            "setor_nome": "⚓ Portos & Hidrovias (MPor / ANTAQ)",
-            "orgao_sigla": "MPor / ANTAQ / TCU",
+            "setor_nome": "⚓ Portos & Hidrovias (ANTAQ)",
+            "orgao_sigla": "ANTAQ / TCU",
             "codigo_ativo": "CANAL-ITAJAI",
             "titulo": "Concessão do Canal de Acesso Aquaviário ao Complexo Portuário de Itajaí e Navegantes (SC)",
             "fase_leilao": "AVALIACAO_TCU_AJUSTES",
@@ -904,8 +838,8 @@ def coletar_radar_leiloes() -> list:
         {
             "id": "LEILAO_TECON_SANTOS_10",
             "setor": "portos_hidrovias",
-            "setor_nome": "⚓ Portos & Hidrovias (MPor / ANTAQ)",
-            "orgao_sigla": "MPor / ANTAQ / TCU",
+            "setor_nome": "⚓ Portos & Hidrovias (ANTAQ)",
+            "orgao_sigla": "ANTAQ / TCU",
             "codigo_ativo": "STS10",
             "titulo": "Arrendamento do Megaterminal Tecon Santos 10 (STS10 — Porto de Santos/SP)",
             "fase_leilao": "AVALIACAO_TCU_AJUSTES",
@@ -915,21 +849,20 @@ def coletar_radar_leiloes() -> list:
             "data_evento_iso": "",
             "local_certame": "B3 — São Paulo",
             "resumo_executivo": (
-                "Maior projeto de arrendamento portuário da carteira do MPor (integrante do pacote de 34 leilões que somam R$ 23 bi). "
+                "Maior projeto de arrendamento portuário da carteira federal (integrante do pacote de 34 leilões que somam R$ 23 bi). "
                 "Amplia em 50% a capacidade de movimentação de contêineres e carga geral no Saboó (Porto de Santos)."
             ),
             "destaque_regulatorio_seguros": "",
-            "url": "https://agenciainfra.com/blog/mpor-preve-34-novos-leiloes-portuarios-com-ate-r-23-bi-em-investimentos/",
+            "url": "https://www.gov.br/antaq/pt-br/assuntos/leiloes",
             "documentos": [
-                {"rotulo": "📰 Carteira de 34 Leilões MPor (R$ 23 bi)", "url": "https://agenciainfra.com/blog/mpor-preve-34-novos-leiloes-portuarios-com-ate-r-23-bi-em-investimentos/", "categoria": "DOCUMENTO"},
                 {"rotulo": "⚓ Leilões ANTAQ", "url": "https://www.gov.br/antaq/pt-br/assuntos/leiloes", "categoria": "EDITAL"},
             ],
         },
         {
             "id": "LEILAO_HIDROVIA_PARAGUAI",
             "setor": "portos_hidrovias",
-            "setor_nome": "⚓ Portos & Hidrovias (MPor / ANTAQ)",
-            "orgao_sigla": "MPor / ANTAQ",
+            "setor_nome": "⚓ Portos & Hidrovias (ANTAQ)",
+            "orgao_sigla": "ANTAQ",
             "codigo_ativo": "HIDROVIA-PARAGUAI",
             "titulo": "Concessão da Hidrovia do Rio Paraguai (Tramo Sul — Corumbá/MS a Foz do Rio Apa)",
             "fase_leilao": "AVALIACAO_TCU_AJUSTES",
@@ -949,12 +882,12 @@ def coletar_radar_leiloes() -> list:
             ],
         },
 
-        # 2. AEROPORTOS (MPOR / ANAC)
+        # 2. AEROPORTOS (ANAC)
         {
             "id": "LEILAO_ANAC_AMPLIAR",
             "setor": "aeroportos",
-            "setor_nome": "✈️ Aeroportos (MPor / ANAC)",
-            "orgao_sigla": "MPor / ANAC",
+            "setor_nome": "✈️ Aeroportos (ANAC)",
+            "orgao_sigla": "ANAC",
             "codigo_ativo": "AMPLIAR-BLOCOS",
             "titulo": "Programa AmpliAR — Concessão Simplificada de Aeroportos Regionais (Amazônia Legal e Nordeste)",
             "fase_leilao": "AVALIACAO_TCU_AJUSTES",
@@ -964,20 +897,20 @@ def coletar_radar_leiloes() -> list:
             "data_evento_iso": "",
             "local_certame": "B3 — São Paulo",
             "resumo_executivo": (
-                "Mecanismo competitivo desenhado pelo MPor e ANAC pelo qual atuais concessionárias aeroportuárias disputam "
+                "Mecanismo competitivo desenhado pelo Governo Federal e ANAC pelo qual atuais concessionárias aeroportuárias disputam "
                 "a assunção de blocos de aeroportos regionais deficitários mediante reequilíbrio contratual."
             ),
             "destaque_regulatorio_seguros": "",
             "url": "https://www.gov.br/portos-e-aeroportos/pt-br",
             "documentos": [
-                {"rotulo": "✈️ Portal MPor", "url": "https://www.gov.br/portos-e-aeroportos/pt-br", "categoria": "DOCUMENTO"},
+                {"rotulo": "✈️ Portal Governamental", "url": "https://www.gov.br/portos-e-aeroportos/pt-br", "categoria": "DOCUMENTO"},
             ],
         },
         {
             "id": "LEILAO_ANAC_GALEAO",
             "setor": "aeroportos",
-            "setor_nome": "✈️ Aeroportos (MPor / ANAC)",
-            "orgao_sigla": "MPor / ANAC / TCU",
+            "setor_nome": "✈️ Aeroportos (ANAC)",
+            "orgao_sigla": "ANAC / TCU",
             "codigo_ativo": "GIG-GALEAO",
             "titulo": "Venda Assistida / Repactuação da Concessão do Aeroporto Internacional do Galeão (RJ)",
             "fase_leilao": "AVALIACAO_TCU_AJUSTES",
@@ -987,13 +920,13 @@ def coletar_radar_leiloes() -> list:
             "data_evento_iso": "",
             "local_certame": "B3 — São Paulo",
             "resumo_executivo": (
-                "Processo competitivo decorrente de solução consensual (SecexConsenso/TCU, MPor e ANAC) para reestruturação "
+                "Processo competitivo decorrente de solução consensual (SecexConsenso/TCU, Governo Federal e ANAC) para reestruturação "
                 "do contrato do Aeroporto do Galeão, revisão do pagamento de outorga e saída da Infraero da SPE."
             ),
             "destaque_regulatorio_seguros": "",
             "url": "https://www.gov.br/portos-e-aeroportos/pt-br",
             "documentos": [
-                {"rotulo": "✈️ Portal MPor", "url": "https://www.gov.br/portos-e-aeroportos/pt-br", "categoria": "DOCUMENTO"},
+                {"rotulo": "✈️ Portal Governamental", "url": "https://www.gov.br/portos-e-aeroportos/pt-br", "categoria": "DOCUMENTO"},
             ],
         },
 

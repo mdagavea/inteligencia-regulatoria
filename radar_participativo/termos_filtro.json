@@ -1,5 +1,5 @@
 {
-  "_comentario": "Arquivo de configuracao do filtro tematico do Radar DECON/MPor (Aba 1 e Aba 4 - SFN). Edite livremente as listas abaixo sem precisar alterar o codigo Python.",
+  "_comentario": "Arquivo de configuracao do filtro tematico do Radar de Inteligencia Regulatoria (Aba 1 e Aba 4 - SFN). Edite livremente as listas abaixo sem precisar alterar o codigo Python.",
   "exclusoes_sfn": [
     {
       "termo": "open insurance",

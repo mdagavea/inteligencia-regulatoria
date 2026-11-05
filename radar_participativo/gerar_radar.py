@@ -18,7 +18,7 @@ import publicador_web
 def executar_radar(abrir_navegador=True):
     sys.stdout.reconfigure(encoding="utf-8")
     print("=" * 72)
-    print("INICIANDO RADAR DECON/MPOR — 4 ABAS (PARTICIPAÇÃO, EVTEAS, LEILÕES & SFN)")
+    print("INICIANDO RADAR DE INTELIGÊNCIA REGULATÓRIA — 4 ABAS (PARTICIPAÇÃO, EVTEAS, LEILÕES & SFN)")
     print("=" * 72)
 
     api_key = os.getenv("GEMINI_API_KEY")
@@ -56,7 +56,7 @@ def executar_radar(abrir_navegador=True):
     print(f"   -> Painel contínuo atualizado: {caminho_atual}")
 
     print("\n[6/6] Publicando versão Web no GitHub Pages (Link Contínuo)...")
-    url_web = publicador_web.publicar_arquivo_html(caminho_atual, "radar.html", "Radar DECON/MPor 4 Abas (Contínuo)")
+    url_web = publicador_web.publicar_arquivo_html(caminho_atual, "radar.html", "Radar de Inteligência Regulatória — 4 Abas")
     if url_web:
         print(f"   -> Link Web atualizado: {url_web}")
 

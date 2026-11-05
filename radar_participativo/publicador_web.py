@@ -60,7 +60,7 @@ INDEX_HTML = """<!DOCTYPE html>
     <p>Selecione o painel executivo que deseja acessar:</p>
     <div class="cards">
       <a class="card" href="./clipping.html">
-        <h2>📰 Clipping Diário Executivo (DECON / MPOR) →</h2>
+        <h2>📰 Clipping Diário Executivo →</h2>
         <span>Curadoria diária de notícias (Infraestrutura & Outorgas, Seguros de Grandes Riscos, Carbono, Mercado de Capitais e Tecnologia/IA Aplicada).</span>
       </a>
       <a class="card" href="./historico/index.html">

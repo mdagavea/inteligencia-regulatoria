@@ -5,7 +5,7 @@ from pathlib import Path
 # Aviso de projeto piloto (exibido na pagina, no e-mail e no radar): faixa no topo = so a 1a frase; texto completo no rodape.
 AVISO_PILOTO_FRASE = "Projeto piloto de inteligência regulatória, em fase de testes."
 AVISO_PILOTO_TEXTO = (
-    "Projeto piloto de inteligência regulatória, em fase de testes. Compilação automatizada de notícias e documentos de acesso público. Os resumos podem ser gerados com apoio de inteligência artificial e estão sujeitos a erros. Este conteúdo não representa posição ou opinião oficial do Ministério de Portos e Aeroportos (MPOR) nem de suas unidades e não substitui a consulta às fontes originais, indicadas em cada item."
+    "Projeto piloto de inteligência regulatória, em fase de testes. Compilação automatizada de notícias e documentos de acesso público. Os resumos podem ser gerados com apoio de inteligência artificial e estão sujeitos a erros. Este conteúdo não representa posição ou opinião oficial de órgãos setoriais federais nem de suas unidades e não substitui a consulta às fontes originais, indicadas em cada item."
 )
 
 TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
@@ -848,7 +848,7 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
     </section>
 
     <!-- =================================================================== -->
-    <!-- ABA 3: RADAR DE LEILÕES & OUTORGAS (MPOR, ANTAQ, ANAC, ANTT & B3)   -->
+    <!-- ABA 3: RADAR DE LEILÕES & OUTORGAS (ANTAQ, ANAC, ANTT, B3 & NACIONAIS) -->
     <!-- =================================================================== -->
     <section class="tab-panel" id="panel-leiloes">
       <div class="kpi-grid">
@@ -875,7 +875,7 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
         </div>
         <div class="kpi-card" onclick="filtrarSetorLeilao('MPOR_FOCO')">
           <div class="kpi-info">
-            <span>Carteira MPor (Portos/Hidro/Aero)</span>
+            <span>Portos, Hidrovias & Aeroportos</span>
             <strong style="color: #0284c7;">{leil_kpi_mpor}</strong>
           </div>
           <div class="kpi-icon" style="background: #e0f2fe; color: #0284c7;">⚓</div>
@@ -886,7 +886,7 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
         <div class="filter-group" id="leilao-setor-filters">
           <span class="filter-label">Setor:</span>
           <button class="filter-btn active" data-setor="TODOS" onclick="filtrarSetorLeilao('TODOS')">Todos ({leil_total})</button>
-          <button class="filter-btn" data-setor="MPOR_FOCO" onclick="filtrarSetorLeilao('MPOR_FOCO')">🏛️ Universo MPor ({leil_kpi_mpor})</button>
+          <button class="filter-btn" data-setor="MPOR_FOCO" onclick="filtrarSetorLeilao('MPOR_FOCO')">🏛️ Portos/Hidro/Aero ({leil_kpi_mpor})</button>
           <button class="filter-btn" data-setor="portos_hidrovias" onclick="filtrarSetorLeilao('portos_hidrovias')">⚓ Portos & Hidrovias</button>
           <button class="filter-btn" data-setor="aeroportos" onclick="filtrarSetorLeilao('aeroportos')">✈️ Aeroportos</button>
           <button class="filter-btn" data-setor="rodovias_ferrovias" onclick="filtrarSetorLeilao('rodovias_ferrovias')">🛣️ Rodovias & Ferrovias</button>
@@ -1195,9 +1195,10 @@ NOMES_VERTICAIS = {
 }
 
 NOMES_CATEGORIAS_EST = {
+    "PRIORIDADE_A": ("⚓ Prioridade A — Portos, Aeroportos & Hidrovias", "badge-infra"),
     "PRIORIDADE_A_MPOR": ("⚓ Prioridade A — Portos, Aeroportos & Hidrovias", "badge-infra"),
     "PRIORIDADE_B_COMPARACAO": ("⚖️ Prioridade B — EVTEA & Modelagem Federal (Comparação)", "badge-seguros"),
-    "PRIORIDADE_C_ART102": ("🛡️ Prioridade C — Obra Setor MPor • Art. 102 Lei 14.133", "badge-carbono"),
+    "PRIORIDADE_C_ART102": ("🛡️ Prioridade C — Obra Portos/Hidro/Aero • Art. 102 Lei 14.133", "badge-carbono"),
 }
 
 NOMES_FASES_LEILAO = {

@@ -1,9 +1,9 @@
 """
-Coletor determinístico e filtro temático (sem IA) para a Aba 4 do Radar DECON/MPor:
+Coletor determinístico e filtro temático (sem IA) para a Aba 4 do Radar de Inteligência Regulatória:
 "SFN, Seguros & Capitais" (SUSEP, CVM e atalhos monitorados para BCB, PREVIC, SRE/MF e ANBIMA).
 
-Regras estritas (conforme 2026-10-29_Passagem_Aba_SFN_e_Agencias_para_Gemini.md):
-1. 100% factual e verificável na fonte (sem opiniões, sem "ótica DECON", sem "recomenda-se").
+Regras estritas:
+1. 100% factual e verificável na fonte (sem opiniões ou juízos subjetivos).
 2. Coleta e filtro temático por palavras-chave não dependem de IA.
 3. Não excluir em silêncio: retorna tanto os processos aprovados no filtro (com indicação explícita
    da palavra-chave que casou) quanto a lista/contador de processos ativos fora do filtro temático.

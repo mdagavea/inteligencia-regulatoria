@@ -3,9 +3,10 @@ import re
 import json
 import hashlib
 import urllib.parse
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 from difflib import SequenceMatcher
+from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
@@ -79,6 +80,12 @@ CRITÉRIOS DE CURADORIA E PRIORIDADE DE FONTES:
   * Classifique no campo "camada":
     - "destaque": para as 3 a 4 notícias de MAIOR impacto daquela vertical, que ficarão visíveis de imediato na vitrine principal do card.
     - "complementar": para mais 4 a 5 notícias relevantes daquela vertical, que ficarão acessíveis na gaveta expansível "Radar Complementar" do respectivo card para que nenhuma pauta útil se perca.
+- DIRETRIZES DE MEMÓRIA EDITORIAL E COMBATE A DUPLICIDADES COM ATRASO (DELAY DIÁRIO):
+  Junto com as notícias de hoje, você receberá a "MEMÓRIA DE FATOS JÁ PUBLICADOS NOS ÚLTIMOS DIAS". Muitos veículos divulgam a mesma notícia com atraso de 24h a 72h (efeito "eco de imprensa") ou cobrem o mesmo fato no mesmo dia com palavras diferentes. Aplique com rigor:
+  1. REPERCUSSÃO COM ATRASO (ECO DE NOTÍCIA ANTERIOR): Se uma matéria de hoje apenas requenta ou repercute o mesmo fato factual já abordado na MEMÓRIA DOS ÚLTIMOS DIAS (ex.: jornal geral noticiando hoje com atraso o que um veículo especializado já cobriu ontem), NUNCA a classifique como "destaque" na vitrine principal. A vitrine principal é reservada para FATOS FRESCOS E INÉDITOS DO DIA. Se trouxer análise rica inédita, pode ir para "complementar" (gaveta). Se for apenas a mesma notícia requentada de assessoria, DESCARTE-A para dar espaço a fatos novos.
+  2. DESDOBRAMENTO REAL (FATO NOVO NO PROCESSO) vs. REPETIÇÃO: Diferencie uma mera repetição de um avanço real no processo regulatório/jurídico. Repetição: Ontem "Governo qualifica 13 aeroportos", Hoje "Decreto formaliza 13 aeroportos no PND" -> MESMO FATO (não priorizar). Desdobramento real: Ontem "Governo publica edital", Hoje "TCU suspende edital" ou "Empresas entregam propostas" -> FATO NOVO / DESDOBRAMENTO (pode entrar, inclusive como destaque). Quando selecionar um desdobramento, REDIJA O RESUMO EXECUTIVO enfatizando o novo passo alcançado (ex.: "Após a qualificação inicial do projeto na semana anterior, o órgão regulador aprovou hoje...").
+  3. DEDUPLICAÇÃO NO MESMO DIA: Se vários veículos cobrirem o mesmo fato da manhã (ex.: leilão de transmissão coberto por Valor, Estadão e Folha), selecione APENAS A MELHOR cobertura (privilegiando veículos de maior profundidade técnica ou furos: Agência iNFRA, Valor, JOTA). Nunca selecione mais de uma notícia sobre o mesmo fato na mesma vertical no mesmo dia.
+  4. PRESERVAÇÃO DE PAUTAS HOMÔNIMAS: Não descarte matérias apenas por semelhança nominal se os objetos forem distintos (ex.: Lote 1 da BR-381 vs Lote 2 da BR-381; Acórdão 640 da ANTAQ vs Acórdão 645 da ANTAQ). Identifique o número do processo, o trecho geográfico, o ativo específico ou o ato formal para não suprimir matérias distintas.
 - META DE VOLUME (DEGRAU 1): Selecione de forma consistente entre 7 e 9 notícias por bloco temático (sendo 3 a 4 "destaque" na vitrine + 4 a 5 "complementar" na gaveta, totalizando entre 38 e 45 notícias curadas na soma das 5 verticais sempre que houver pautas pertinentes no lote). Não economize nas matérias "complementar": preencha a gaveta de cada card com pelo menos 4 boas pautas do lote.
 
 Retorne ESTRITAMENTE um objeto JSON no seguinte formato:
@@ -278,11 +285,66 @@ def _validar_e_ajustar_vertical_contingencia(item):
     return None  # Descarta matéria que não pertence a nenhum dos 5 pilares temáticos
 
 
+def _obter_memoria_recente_fatos(dias_retroativos=4):
+    """
+    Recupera a lista de fatos curados nos últimos dias úteis a partir do cache JSON
+    e dos arquivos HTML do histórico, fornecendo à IA a memória temporal deslizante
+    para suprimir repetições de releases com atraso (delay diário) e priorizar desdobramentos.
+    """
+    hoje_iso = date.today().isoformat()
+    limite_iso = (date.today() - timedelta(days=dias_retroativos)).isoformat()
+    fatos = []
+    vistos = set()
+
+    # 1. Carrega do cache de notícias
+    if ARQUIVO_CACHE_NOTICIAS.exists():
+        try:
+            cache = json.loads(ARQUIVO_CACHE_NOTICIAS.read_text(encoding="utf-8"))
+            for k, v in cache.get("itens", {}).items():
+                dt = v.get("data", "")
+                if dt and dt != hoje_iso and dt >= limite_iso:
+                    it = v.get("item", {})
+                    tit = (it.get("titulo") or it.get("title") or "").strip()
+                    src = (it.get("fonte") or it.get("source") or "Fonte").strip()
+                    vert = v.get("vertical", "geral")
+                    if tit and tit.lower() not in vistos:
+                        vistos.add(tit.lower())
+                        fatos.append({"data": dt, "vertical": vert, "fonte": src, "titulo": tit})
+        except Exception:
+            pass
+
+    # 2. Complementa com os arquivos HTML do histórico
+    pasta_hist = PASTA_CLIPPING / "historico"
+    if pasta_hist.exists():
+        for arq in sorted(pasta_hist.glob("clipping_*.html"), reverse=True):
+            m = re.search(r"\d{4}-\d{2}-\d{2}", arq.name)
+            if not m:
+                continue
+            dt = m.group(0)
+            if dt == hoje_iso or dt < limite_iso:
+                continue
+            try:
+                soup = BeautifulSoup(arq.read_text(encoding="utf-8"), "html.parser")
+                for item in soup.select(".news-item, .radar-compact-item"):
+                    lnk = item.select_one(".news-link")
+                    src = item.select_one(".source-tag")
+                    tit = lnk.get_text(strip=True) if lnk else ""
+                    fonte = src.get_text(strip=True) if src else "Fonte Web"
+                    if tit and tit.lower() not in vistos:
+                        vistos.add(tit.lower())
+                        fatos.append({"data": dt, "vertical": "historico", "fonte": fonte, "titulo": tit})
+            except Exception:
+                pass
+
+    fatos.sort(key=lambda x: x["data"], reverse=True)
+    return [f"- [{f['data']}] [{f['fonte']}] {f['titulo']}" for f in fatos]
+
+
 def curar_noticias_contingencia_sem_ia(noticias_brutas):
     """
     Modo de contingência determinístico (sem IA): acionado automaticamente caso a API Gemini
-    esteja indisponível ou sem créditos/cota, garantindo que o Clipping e o e-mail nunca falhem
-    e mantendo 100% de aderência aos 5 pilares temáticos.
+    esteja indisponível ou sem créditos/cota, garantindo que o Clipping e o e-mail nunca falhem,
+    mantendo 100% de aderência aos 5 pilares temáticos e evitando repetições de fatos dos últimos dias.
     """
     subsecoes_padrao = {
         "infra": "Regulação, Leilões & Contratos (Contingência sem IA)",
@@ -294,11 +356,17 @@ def curar_noticias_contingencia_sem_ia(noticias_brutas):
     agrupado = {v: [] for v in subsecoes_padrao}
     titulos_vistos = []
 
+    fatos_recentes = _obter_memoria_recente_fatos(dias_retroativos=4)
+    titulos_recentes = [
+        re.sub(r"^-\s*\[\d{4}-\d{2}-\d{2}\]\s*\[[^\]]+\]\s*", "", f).strip().lower()
+        for f in fatos_recentes
+    ]
+
     for idx, n in enumerate(noticias_brutas, 1):
         titulo = (n.get("title") or "").strip()
         if not titulo:
             continue
-        # Deduplicação simples por similaridade de título
+        # Deduplicação simples por similaridade de título no mesmo dia
         if any(SequenceMatcher(None, titulo.lower(), tv).ratio() > 0.78 for tv in titulos_vistos):
             continue
 
@@ -310,8 +378,34 @@ def curar_noticias_contingencia_sem_ia(noticias_brutas):
         if len(agrupado[vert]) >= 8:
             continue
 
+        # Identifica se é repetição com atraso de notícia já publicada nos últimos dias
+        eh_eco_recente = False
+        palavras_hoje = set(
+            w for w in re.findall(r"\w{4,}", titulo.lower())
+            if w not in {"para", "como", "sobre", "entre", "após", "pelo", "pela", "governo", "brasil"}
+        )
+        for tr in titulos_recentes:
+            if SequenceMatcher(None, titulo.lower(), tr).ratio() > 0.65:
+                eh_eco_recente = True
+                break
+            palavras_ant = set(
+                w for w in re.findall(r"\w{4,}", tr)
+                if w not in {"para", "como", "sobre", "entre", "após", "pelo", "pela", "governo", "brasil"}
+            )
+            if len(palavras_hoje & palavras_ant) >= 4:
+                eh_eco_recente = True
+                break
+
+        # Se é eco recente, não pode assumir as 4 vagas de destaque (vitrine)
+        if eh_eco_recente:
+            if len(agrupado[vert]) < 4:
+                # Não queima vaga de destaque com eco recente; reserva para a gaveta se houver vaga
+                continue
+            camada = "complementar"
+        else:
+            camada = "destaque" if len(agrupado[vert]) < 4 else "complementar"
+
         titulos_vistos.append(titulo.lower())
-        camada = "destaque" if len(agrupado[vert]) < 4 else "complementar"
         resumo = (n.get("summary") or "").strip()
         if not resumo or resumo.lower() == titulo.lower():
             resumo = "Matéria selecionada automaticamente pelo motor de contingência (consulte o link original)."
@@ -417,7 +511,16 @@ def curar_noticias_com_gemini(noticias_brutas, api_key=None):
             f"Título: {n['title']} | Resumo bruto: {resumo_curto}"
         )
 
-    prompt_final = f"{PROMPT_CURADORIA}\n\nNOTÍCIAS E NEWSLETTERS BRUTAS DO DIA:\n" + "\n".join(payload_linhas)
+    # Injeta a Memória Semântica Deslizante (últimos 3 a 5 dias) para evitar repetição de ecos
+    memoria_recente = _obter_memoria_recente_fatos(dias_retroativos=4)
+    bloco_memoria = ""
+    if memoria_recente:
+        bloco_memoria = (
+            "\n\nMEMÓRIA DE FATOS JÁ CURADOS NOS ÚLTIMOS DIAS (NÃO REPETIR NA VITRINE DE DESTAQUES; APENAS DESDOBRAMENTOS REAIS):\n"
+            + "\n".join(memoria_recente[:90])
+        )
+
+    prompt_final = f"{PROMPT_CURADORIA}{bloco_memoria}\n\nNOTÍCIAS E NEWSLETTERS BRUTAS DO DIA:\n" + "\n".join(payload_linhas)
 
     # Lista de modelos por prioridade para garantir resiliência caso algum esteja sob alta demanda (503)
     modelos_candidatos = [
