@@ -115,7 +115,8 @@
     "770": "2026-11-05",
     "816": "2026-11-05",
     "702": "2026-11-05",
-    "811": "2026-11-05"
+    "811": "2026-11-05",
+    "820": "2026-11-05"
   },
   "analises_ia": {
     "782_2026-10-21": {
@@ -1753,6 +1754,16 @@
       "relevancia": "MEDIA",
       "objeto_normativo": "Avaliação quadrienal da Política Nacional de Desenvolvimento Regional (PNDR) 2022-2025. O processo analisa a eficácia dos instrumentos de fomento e alocação de recursos públicos para redução de desigualdades regionais.",
       "pontos_atencao": "Essencial para monitorar a priorização de investimentos públicos e o direcionamento de fundos de desenvolvimento regional que impactam a viabilidade de projetos de infraestrutura em regiões menos assistidas."
+    },
+    "815_2026-11-05T14:36": {
+      "id": "815",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "DECEx / PPI",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Consulta pública para estruturação da concessão do Museu Histórico do Exército e Forte de Copacabana, projeto incluído no Programa de Parceria de Investimentos (PPI). O processo visa definir o modelo de gestão, investimentos em infraestrutura e diretrizes de exploração comercial do ativo.",
+      "pontos_atencao": "Essencial monitorar a modelagem da concessão, especialmente no que tange à matriz de riscos, obrigações de investimento em restauro/manutenção e exigências de seguros de engenharia e responsabilidade civil para o concessionário."
     }
   },
   "analises_estruturacao_v2": {
