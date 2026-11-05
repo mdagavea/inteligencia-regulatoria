@@ -29,6 +29,21 @@ jobs:
     env:
       TZ: America/Sao_Paulo
     steps:
+      - name: Mascarar destinatarios e dados sensiveis (privacidade em repositorio publico)
+        run: |
+          TESTE="${{ github.event.inputs.destinatario_teste }}"
+          if [ -n "$TESTE" ]; then
+            echo "::add-mask::$TESTE"
+          fi
+          SECRETS_EMAILS="${{ secrets.EMAIL_DESTINATARIOS }}"
+          IFS=',' read -ra ADDR <<< "$SECRETS_EMAILS"
+          for i in "${ADDR[@]}"; do
+            TRIMMED=$(echo "$i" | xargs)
+            if [ -n "$TRIMMED" ]; then
+              echo "::add-mask::$TRIMMED"
+            fi
+          done
+
       - name: Checkout do repositorio
         uses: actions/checkout@v4
         with:
