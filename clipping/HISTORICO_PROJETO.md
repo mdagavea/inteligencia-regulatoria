@@ -39,3 +39,13 @@
 * [x] **Economia de Tokens na API (`termos_filtro.json`, `log_descartados_filtro.txt` e `historico_noticias_cache.json`)** e separação de `MEMORIA_PROJETO.md` vs. `HISTORICO_PROJETO.md`.
 * [x] **Leitura IMAP Estruturada de Newsletters (`fetch_gmail_imap_newsletters`) e Parser de Boletins de Assinantes da Agência iNFRA (`_parse_boletim_agencia_infra`)**: desmembramento automático de reportagens exclusivas (`#1`, `#2`, `#3`) e atos estratégicos do DOU (`#Diario`), Pautas (`#Agenda`) e `#Fique` com links oficiais desembrulhados (`in.gov.br`, `gov.br`, `mailchi.mp`) e fallback HTTPS na porta 443.
 * [x] **Diagnóstico do Trial Agência iNFRA, Dossiê "Agenda EVTEA 2.0" (Acórdão ANTAQ 640/2026) e Roadmap Futuro (`ANALISE_TRIAL_AGENCIA_INFRA_E_ROADMAP.md`)**.
+
+## Concluído em 04/11/2026:
+* [x] **Privacidade e Desativação de Boletins Pagos**: Desativação de scraping de boletins de assinantes da Agência iNFRA e remoção de `email_dispatch.json` do repositório público para proteção de endereços institucionais.
+* [x] **Aviso de Projeto Piloto**: Inclusão de advertência de versão piloto no topo e no rodapé do clipping e do e-mail (`renderizador.py`).
+
+## Concluído em 05/11/2026:
+* [x] **Arquitetura Resiliente de Disparo em Nuvem + Despertador Local**:
+  1. Cron do GitHub adiantado para minuto quebrado às 07:17 BRT (`17 10 * * 1-5`) para evitar filas de horário de pico;
+  2. Agendador local do Windows (`executar_automatico.bat`) convertido exclusivamente em despertador redundante via `gh workflow run`, eliminando colisões de arquivo;
+  3. Trava anti-duplicidade desacoplada com marcador `historico/.email_enviado_AAAA-MM-DD`, assegurando o disparo garantido do e-mail institucional sem riscos de duplicidade.

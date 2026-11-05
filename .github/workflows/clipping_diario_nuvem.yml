@@ -2,8 +2,8 @@ name: Clipping Diario e Radar na Nuvem (DECON/MPOR)
 
 on:
   schedule:
-    # Roda de Segunda a Sexta-feira às 07:30 BRT (10:30 UTC)
-    - cron: "30 10 * * 1-5"
+    # Roda de Segunda a Sexta-feira às 07:17 BRT (10:17 UTC) — minuto quebrado para evitar filas de horário cheio no GitHub
+    - cron: "17 10 * * 1-5"
   workflow_dispatch:
     inputs:
       forcar_reexecucao:
@@ -34,14 +34,14 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Verificar se a edicao de hoje ja foi publicada
+      - name: Verificar se a edicao de hoje ja foi publicada e enviada
         id: check_hoje
         run: |
           HOJE=$(date +%Y-%m-%d)
           FORCAR="${{ github.event.inputs.forcar_reexecucao }}"
-          if [ -f "historico/clipping_${HOJE}.html" ] && [ "$FORCAR" != "true" ]; then
+          if [ -f "historico/.email_enviado_${HOJE}" ] && [ "$FORCAR" != "true" ]; then
             echo "ja_existe=true" >> $GITHUB_OUTPUT
-            echo "Edicao historico/clipping_${HOJE}.html ja existe. Encerrando sem duplicidade."
+            echo "Edicao de hoje (${HOJE}) ja foi gerada e e-mail ja enviado. Encerrando sem duplicidade."
           else
             echo "ja_existe=false" >> $GITHUB_OUTPUT
           fi
@@ -65,11 +65,7 @@ jobs:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           EMAIL_DESTINATARIOS: ${{ github.event.inputs.destinatario_teste != '' && github.event.inputs.destinatario_teste || secrets.EMAIL_DESTINATARIOS }}
         run: |
-          if [ "${{ github.event.inputs.forcar_reexecucao }}" = "true" ]; then
-            python clipping/gerar_clipping.py --headless --force
-          else
-            python clipping/gerar_clipping.py --headless --skip-if-exists
-          fi
+          python clipping/gerar_clipping.py --headless --force
 
       - name: Publicar paineis atualizados no GitHub Pages (commit & push)
         if: steps.check_hoje.outputs.ja_existe != 'true'
@@ -124,4 +120,30 @@ jobs:
               s.login(user, pwd)
               s.sendmail(user, dests, msg.as_string())
           print('E-mail enviado com sucesso na nuvem para:', dests)
+
+          # Grava marcador local de e-mail enviado (sem dados de destinatarios para preservar privacidade)
+          hoje_iso = data.get('timestamp', '')[:10]
+          if not hoje_iso:
+              from datetime import datetime
+              hoje_iso = datetime.now().strftime('%Y-%m-%d')
+          os.makedirs('historico', exist_ok=True)
+          with open(os.path.join('historico', f'.email_enviado_{hoje_iso}'), 'w', encoding='utf-8') as f:
+              f.write('ok\n')
           EOF
+
+      - name: Registrar marcador de e-mail enviado no repositorio
+        if: steps.check_hoje.outputs.ja_existe != 'true'
+        run: |
+          HOJE=$(date +%Y-%m-%d)
+          if [ -f "historico/.email_enviado_${HOJE}" ]; then
+            git config user.name "DECON/MPOR Bot (GitHub Actions)"
+            git config user.email "actions@github.com"
+            git add "historico/.email_enviado_${HOJE}"
+            if git diff --staged --quiet; then
+              echo "Marcador ja comitado."
+            else
+              git commit -m "Registra envio de e-mail do Clipping (${HOJE})"
+              git pull --rebase origin main || true
+              git push origin main
+            fi
+          fi

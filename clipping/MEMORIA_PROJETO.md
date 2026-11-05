@@ -1,6 +1,6 @@
 # Memória do Projeto: Clipping Regulatório & Financeiro (Estado Atual)
 
-> **Última Atualização:** 04/11/2026  
+> **Última Atualização:** 05/11/2026  
 > **Repositório GitHub (Nuvem Oficial):** `https://github.com/mdagavea/inteligencia-regulatoria`  
 > **Painel Web:** `https://mdagavea.github.io/inteligencia-regulatoria/clipping.html`  
 > **Análise do Trial Agência iNFRA:** o arquivo `ANALISE_TRIAL_AGENCIA_INFRA_E_ROADMAP.md` foi **removido do repositório** em 04/11/2026 (retirado de `ARQUIVOS_SINCRONIZADOS`); o estudo comparativo é só local.  
@@ -12,9 +12,12 @@
 
 ## 1. Estado Atual da Arquitetura
 
-* **Execução Diária 100% em Nuvem:** Roda de Segunda a Sexta às **07:30 BRT** via GitHub Actions ([`.github/workflows/clipping_diario_nuvem.yml`](../.github/workflows/clipping_diario_nuvem.yml)), publicando `clipping.html`, `historico/clipping_AAAA-MM-DD.html`, `radar.html` e enviando o e-mail para `EMAIL_DESTINATARIOS`.
-  * **`GEMINI_API_KEY` apagado (04/11/2026):** o secret foi removido do GitHub e o clipping roda **sem IA** (modo determinístico `curar_noticias_contingencia_sem_ia`). Atenção: neste modo o resumo vem do texto bruto da fonte, cortado em 260 caracteres.
-  * **`email_dispatch.json` não é mais publicado:** contém os e-mails dos destinatários e o repositório é público. Fica só na pasta de trabalho do job, é lido pelo passo de envio e não entra no commit (workflow, `.gitignore` e `gerar_clipping.py` ajustados).
+* **Execução Diária e Envio de E-mail 100% na Nuvem (Ajustado em 05/11/2026):**
+  * **Cron da Nuvem às 07:17 BRT (`17 10 * * 1-5`):** adiantado para minuto quebrado no workflow ([`.github/workflows/clipping_diario_nuvem.yml`](../.github/workflows/clipping_diario_nuvem.yml)) para evitar filas de horário cheio no GitHub Actions.
+  * **Agendador Local como Despertador Redundante (07:50 BRT):** `executar_automatico.bat` dispara `gh workflow run clipping_diario_nuvem.yml` via HTTPS 443 sem gerar nem subir arquivos locais, garantindo pontualidade caso o cron do GitHub atrase.
+  * **Trava Anti-Duplicidade Robusta com Marcador (`historico/.email_enviado_AAAA-MM-DD`):** O workflow só pula a execução se encontrar o marcador criado após o envio com sucesso pelo SMTP do Gmail. Se o e-mail ainda não saiu, a geração e o envio ocorrem normalmente.
+  * **Privacidade Absoluta:** `email_dispatch.json` nunca entra no git. O marcador `.email_enviado_...` contém apenas texto neutro (sem e-mails).
+  * **`GEMINI_API_KEY` ausente (04/11/2026):** o secret foi removido do GitHub e o clipping roda **sem IA** (modo determinístico `curar_noticias_contingencia_sem_ia`). Atenção: neste modo o resumo vem do texto bruto da fonte, cortado em 260 caracteres.
   * **Campo opcional `destinatario_teste`** no `workflow_dispatch`: se preenchido, o boletim vai só para esse e-mail, e não para a lista oficial.
   * **Aviso de projeto piloto (04/11/2026):** faixa no topo (só a 1ª frase) e texto completo no rodapé, na página e no e-mail (`AVISO_PILOTO_FRASE` e `AVISO_PILOTO_TEXTO` em `renderizador.py`). A marca DECON/MPOR foi mantida.
 * **Sincronização Local (`sincronizar_nuvem.py`):**

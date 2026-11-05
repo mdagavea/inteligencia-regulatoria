@@ -159,8 +159,8 @@ def pull_da_nuvem():
         # Baixa arquivos de código, memória, histórico de clippings e radar
         deve_baixar = (
             path in ARQUIVOS_SINCRONIZADOS
-            or path.startswith("historico/clipping_")
-            or path in ("clipping.html", "radar.html", "historico/index.html")
+            or path.startswith("historico/")
+            or path in ("clipping.html", "radar.html")
         )
         if not deve_baixar:
             continue
