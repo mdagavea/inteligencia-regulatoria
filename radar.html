@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Radar de Inteligência Regulatória (05 de Novembro de 2026 às 10:45)</title>
+  <title>Radar de Inteligência Regulatória (05 de Novembro de 2026 às 12:56)</title>
   <style>
     :root {
       --bg: #f1f5f9;
@@ -203,7 +203,7 @@
       display: block;
     }
 
-    /* Banner Contextual */
+    /* Banner Contextual Portaria de Riscos e Segurabilidade */
     .context-banner {
       background: linear-gradient(90deg, #eff6ff 0%, #f5f3ff 100%);
       border: 1px solid #bfdbfe;
@@ -382,7 +382,7 @@
     .dossier-card.vertical-carbono { border-left: 5px solid var(--color-carbono); }
     .dossier-card.vertical-divida { border-left: 5px solid var(--color-divida); }
 
-    .est-card.cat-PRIORIDADE_A { border-left: 5px solid #0284c7; }
+    .est-card.cat-PRIORIDADE_A_MPOR { border-left: 5px solid #0284c7; }
     .est-card.cat-PRIORIDADE_B_COMPARACAO { border-left: 5px solid #7c3aed; }
     .est-card.cat-PRIORIDADE_C_ART102 { border-left: 5px solid #059669; }
     .badge-destaque { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
@@ -442,7 +442,6 @@
     }
 
     .status-LANCADO_48H { background: var(--new-bg); color: var(--new-color); border: 1px solid #93c5fd; }
-    .status-CONTRATO_ASSINADO { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; }
     .status-PRAZO_URGENTE { background: var(--urgent-bg); color: var(--urgent-color); border: 1px solid #fca5a5; }
     .status-ABERTO { background: var(--open-bg); color: var(--open-color); border: 1px solid #6ee7b7; }
     .status-PRE_PUBLICACAO { background: var(--pre-bg); color: var(--pre-color); border: 1px solid #fcd34d; }
@@ -676,7 +675,7 @@
         <p>Monitoramento integrado do Ciclo de Outorgas: Participação Social (Brasil Participativo), Estruturação/EVTEAs (Infra S.A., BNDES, PNCP) e Leilões (ANTAQ, ANAC, ANTT, B3)</p>
       </div>
       <div class="header-meta">
-        <span class="date-badge">Atualizado em 05 de Novembro de 2026 às 10:45</span>
+        <span class="date-badge">Atualizado em 05 de Novembro de 2026 às 12:56</span>
         <a class="portal-link-btn" style="background:#f8fafc; color:#0f172a;" href="https://mdagavea.github.io/inteligencia-regulatoria/clipping.html">📰 Clipping Diário</a>
         <a class="portal-link-btn" href="https://brasilparticipativo.presidencia.gov.br/processes" target="_blank">Brasil Participativo ↗</a>
       </div>
@@ -689,7 +688,7 @@
           <span class="tab-btn-title">🏛️ 1. Consultas & Participação Social</span>
           <span class="tab-btn-sub">Brasil Participativo • Consultas, Audiências e Pré-Publicação</span>
         </div>
-        <span class="tab-count-pill">53 ativos</span>
+        <span class="tab-count-pill">54 ativos</span>
       </button>
 
       <button class="tab-btn" id="btn-tab-estruturacao" onclick="selecionarAba('estruturacao')">
@@ -725,14 +724,14 @@
         <div class="kpi-card" onclick="filtrarStatus('TODOS')">
           <div class="kpi-info">
             <span>Total no Radar</span>
-            <strong>53</strong>
+            <strong>54</strong>
           </div>
           <div class="kpi-icon" style="background: #f1f5f9; color: #0f172a;">📋</div>
         </div>
         <div class="kpi-card" onclick="filtrarStatus('LANCADO_48H')">
           <div class="kpi-info">
             <span>Lançados (Últimas 48h)</span>
-            <strong style="color: var(--new-color);">6</strong>
+            <strong style="color: var(--new-color);">5</strong>
           </div>
           <div class="kpi-icon" style="background: var(--new-bg); color: var(--new-color);">🆕</div>
         </div>
@@ -746,7 +745,7 @@
         <div class="kpi-card" onclick="filtrarStatus('PRE_PUBLICACAO')">
           <div class="kpi-info">
             <span>Radar Pré-Publicação</span>
-            <strong style="color: var(--pre-color);">6</strong>
+            <strong style="color: var(--pre-color);">7</strong>
           </div>
           <div class="kpi-icon" style="background: var(--pre-bg); color: var(--pre-color);">📡</div>
         </div>
@@ -755,11 +754,11 @@
       <div class="filter-bar">
         <div class="filter-group" id="status-filters">
           <span class="filter-label">Status:</span>
-          <button class="filter-btn active" data-status="TODOS" onclick="filtrarStatus('TODOS')">Todos (<span id="cnt-todos">53</span>)</button>
-          <button class="filter-btn" data-status="LANCADO_48H" onclick="filtrarStatus('LANCADO_48H')">🆕 Lançados 48h (<span id="cnt-48h">6</span>)</button>
+          <button class="filter-btn active" data-status="TODOS" onclick="filtrarStatus('TODOS')">Todos (<span id="cnt-todos">54</span>)</button>
+          <button class="filter-btn" data-status="LANCADO_48H" onclick="filtrarStatus('LANCADO_48H')">🆕 Lançados 48h (<span id="cnt-48h">5</span>)</button>
           <button class="filter-btn" data-status="PRAZO_URGENTE" onclick="filtrarStatus('PRAZO_URGENTE')">🚨 Prazo ≤ 7d (<span id="cnt-urg">5</span>)</button>
-          <button class="filter-btn" data-status="ABERTO" onclick="filtrarStatus('ABERTO')">🟢 Prazo Regular (<span id="cnt-abe">34</span>)</button>
-          <button class="filter-btn" data-status="PRE_PUBLICACAO" onclick="filtrarStatus('PRE_PUBLICACAO')">📡 Pré-Publicação (<span id="cnt-pre">6</span>)</button>
+          <button class="filter-btn" data-status="ABERTO" onclick="filtrarStatus('ABERTO')">🟢 Prazo Regular (<span id="cnt-abe">35</span>)</button>
+          <button class="filter-btn" data-status="PRE_PUBLICACAO" onclick="filtrarStatus('PRE_PUBLICACAO')">📡 Pré-Publicação (<span id="cnt-pre">7</span>)</button>
           <button class="filter-btn" data-status="ENCERRADO_RECENTE" onclick="filtrarStatus('ENCERRADO_RECENTE')">⏹️ Prazo Vencido 72h (<span id="cnt-enc">2</span>)</button>
         </div>
 
@@ -777,7 +776,7 @@
 
       <div class="dossier-list" id="dossier-container">
         
-      <article class="dossier-card vertical-carbono" data-status="LANCADO_48H" data-vertical="carbono" data-deadline-iso="2026-11-13" data-fim-br="13/11/2026">
+      <article class="dossier-card vertical-carbono" data-status="LANCADO_48H" data-vertical="carbono" data-deadline-iso="2026-11-13" data-pub-iso="2026-11-04T16:01:27-03:00" data-fim-br="13/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-carbono">Clima & Sustentabilidade</span>
@@ -812,47 +811,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="LANCADO_48H" data-vertical="infra" data-deadline-iso="2026-12-03" data-fim-br="03/12/2026">
-        <div class="card-top-meta">
-          <div class="badges-left">
-            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
-            <span class="badge badge-orgao">🏛️ ANAC / SAR</span>
-            <span class="badge badge-modalidade">Consulta Setorial</span>
-          </div>
-          <span class="deadline-pill status-LANCADO_48H">🆕 Lançado Agora • 28d restantes (até 03/12/2026)</span>
-        </div>
-
-        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/cs-13-sar-2026" target="_blank" rel="noopener noreferrer">Consulta Setorial nº 13/SAR/2026 - Proposta de edição da Instrução Suplementar nº 21.10a-001, Revisão A, intitulada "Meio aceitável de cumprimento dos requisitos do SGSO previstos no RBAC nº 21 para organizações de produção e de projeto"</a>
-
-        <div class="dates-row">
-          <span><strong>ID:</strong> #808</span>
-          <span><strong>Publicação:</strong> 03/11/2026</span>
-          <span><strong>Janela de Contribuição:</strong> 03/11/2026 até 03/12/2026</span>
-        </div>
-
-        <div class="dossier-box">
-          <div class="dossier-section">
-            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
-            <p class="dossier-text">Edição da Instrução Suplementar nº 21.10a-001, Revisão A, que estabelece os meios aceitáveis de cumprimento dos requisitos do Sistema de Gestão da Segurança Operacional (SGSO) previstos no RBAC nº 21 para organizações de produção e projeto.</p>
-          </div>
-          <div class="incidencia-box">
-            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
-            <p class="dossier-text">Impacta diretamente a conformidade regulatória de fabricantes e projetistas do setor aéreo, sendo essencial para a manutenção de certificações e a gestão de riscos operacionais em infraestrutura aeroportuária.</p>
-          </div>
-        </div>
-
-        <div class="docs-area">
-          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/cs-13-sar-2026" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
-          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/web/dou/-/aviso-de-consulta-setorial-n-13/sar/2026-741362552" target="_blank" rel="noopener noreferrer">📜 Ato Oficial no DOU</a>
-          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_processo_exibir.php?wwaVxfLBZplmUo_e4kgh5Gmp7SKjbPe64RCrMqfDZ_NhLNY7YbezU_yOW8hxuKxDha6tHNxgiW3Gt2u3iN_xJpfGD1qz2sgvAfcEpNEpX1EAN3RmMWJ4dnAeodC0aWp9" target="_blank" rel="noopener noreferrer">🗂️ SEI: 00066.010601/2026-11</a>
-          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLScePmNTs9FxXDt8ElUy-GHxGiFATHeyEaWlUfABPogG-mpHr7iBxZ3qqFA3e_RcM2zmnVtD97u8vm5SdmiggRGDf" target="_blank" rel="noopener noreferrer">🗂️ SEI: Minuta de IS nº 21.10a-001 Revisão A</a>
-          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLScdvxBe43Z_1FqoL_RrRtJygnBakDSH7IlL-ACA11bikTLtidtnvAfBnoc7bti0IUtzuk9q2P57LvhbimfKimuMk" target="_blank" rel="noopener noreferrer">🗂️ SEI: Minuta de Portaria</a>
-          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLSce9D_FnV4vHM8_bRudgqaAxK_a78lwVEjAOSChl3RWk_x_4SND3YAFGSkgQmrRXcfq06b0APvB9nPLUL1CXMOVW" target="_blank" rel="noopener noreferrer">🗂️ SEI: Justificativa</a>
-          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLScdJ-XDqeAj3xQ-wEe4yvAIWPSv-J-DAO4BqX3fUPgtAAL_fcSagvRArKjSaoEBFTFUMbRs32hct4bvv8XprhcHQ" target="_blank" rel="noopener noreferrer">🗂️ SEI: Nota Técnica nº 32/2026/GTNI/SAR</a>
-        </div>
-      </article>
-
-      <article class="dossier-card vertical-infra" data-status="LANCADO_48H" data-vertical="infra" data-deadline-iso="2026-12-18" data-fim-br="18/12/2026">
+      <article class="dossier-card vertical-infra" data-status="LANCADO_48H" data-vertical="infra" data-deadline-iso="2026-12-18" data-pub-iso="2026-11-04T15:40:11-03:00" data-fim-br="18/12/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -888,7 +847,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-divida" data-status="LANCADO_48H" data-vertical="divida" data-deadline-iso="2026-11-16" data-fim-br="16/11/2026">
+      <article class="dossier-card vertical-divida" data-status="LANCADO_48H" data-vertical="divida" data-deadline-iso="2026-11-16" data-pub-iso="2026-11-04T09:35:27-03:00" data-fim-br="16/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-divida">Finanças & Crédito</span>
@@ -928,7 +887,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="LANCADO_48H" data-vertical="infra" data-deadline-iso="2026-11-25" data-fim-br="25/11/2026">
+      <article class="dossier-card vertical-infra" data-status="LANCADO_48H" data-vertical="infra" data-deadline-iso="2026-11-25" data-pub-iso="2026-11-04T14:19:10-03:00" data-fim-br="25/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -967,7 +926,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="LANCADO_48H" data-vertical="infra" data-deadline-iso="2026-12-09" data-fim-br="09/12/2026">
+      <article class="dossier-card vertical-infra" data-status="LANCADO_48H" data-vertical="infra" data-deadline-iso="2026-12-09" data-pub-iso="2026-11-04T14:19:15-03:00" data-fim-br="09/12/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -1005,7 +964,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="PRAZO_URGENTE" data-vertical="infra" data-deadline-iso="2026-11-05" data-fim-br="05/11/2026">
+      <article class="dossier-card vertical-infra" data-status="PRAZO_URGENTE" data-vertical="infra" data-deadline-iso="2026-11-05" data-pub-iso="2026-09-21T07:07:16-03:00" data-fim-br="05/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -1044,7 +1003,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="PRAZO_URGENTE" data-vertical="infra" data-deadline-iso="2026-11-06" data-fim-br="06/11/2026">
+      <article class="dossier-card vertical-infra" data-status="PRAZO_URGENTE" data-vertical="infra" data-deadline-iso="2026-11-06" data-pub-iso="2026-10-08T10:57:42-03:00" data-fim-br="06/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -1080,7 +1039,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="PRAZO_URGENTE" data-vertical="infra" data-deadline-iso="2026-11-11" data-fim-br="11/11/2026">
+      <article class="dossier-card vertical-infra" data-status="PRAZO_URGENTE" data-vertical="infra" data-deadline-iso="2026-11-11" data-pub-iso="2026-10-29T08:46:53-03:00" data-fim-br="11/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -1116,7 +1075,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-carbono" data-status="PRAZO_URGENTE" data-vertical="carbono" data-deadline-iso="2026-11-06" data-fim-br="06/11/2026">
+      <article class="dossier-card vertical-carbono" data-status="PRAZO_URGENTE" data-vertical="carbono" data-deadline-iso="2026-11-06" data-pub-iso="2026-10-06T08:52:58-03:00" data-fim-br="06/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-carbono">Clima & Sustentabilidade</span>
@@ -1150,7 +1109,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-carbono" data-status="PRAZO_URGENTE" data-vertical="carbono" data-deadline-iso="2026-11-12" data-fim-br="12/11/2026">
+      <article class="dossier-card vertical-carbono" data-status="PRAZO_URGENTE" data-vertical="carbono" data-deadline-iso="2026-11-12" data-pub-iso="2026-10-29T19:30:18-03:00" data-fim-br="12/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-carbono">Clima & Sustentabilidade</span>
@@ -1186,7 +1145,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-13" data-fim-br="13/11/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-13" data-pub-iso="2026-10-23T16:47:57-03:00" data-fim-br="13/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -1221,7 +1180,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-carbono" data-status="ABERTO" data-vertical="carbono" data-deadline-iso="2026-11-13" data-fim-br="13/11/2026">
+      <article class="dossier-card vertical-carbono" data-status="ABERTO" data-vertical="carbono" data-deadline-iso="2026-11-13" data-pub-iso="2026-10-14T15:44:35-03:00" data-fim-br="13/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-carbono">Clima & Sustentabilidade</span>
@@ -1256,7 +1215,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-13" data-fim-br="13/11/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-13" data-pub-iso="2026-10-06T09:53:34-03:00" data-fim-br="13/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -1295,7 +1254,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-14" data-fim-br="14/11/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-14" data-pub-iso="2026-10-29T08:42:38-03:00" data-fim-br="14/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -1331,7 +1290,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-15" data-fim-br="15/11/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-15" data-pub-iso="2026-10-21T20:57:27-03:00" data-fim-br="15/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -1367,7 +1326,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-15" data-fim-br="15/11/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-15" data-pub-iso="2026-10-21T19:37:18-03:00" data-fim-br="15/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -1403,7 +1362,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-15" data-fim-br="15/11/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-15" data-pub-iso="2026-10-21T10:44:07-03:00" data-fim-br="15/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -1440,7 +1399,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-divida" data-status="ABERTO" data-vertical="divida" data-deadline-iso="2026-11-17" data-fim-br="17/11/2026">
+      <article class="dossier-card vertical-divida" data-status="ABERTO" data-vertical="divida" data-deadline-iso="2026-11-17" data-pub-iso="2026-10-29T11:29:37-03:00" data-fim-br="17/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-divida">Finanças & Crédito</span>
@@ -1476,7 +1435,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-19" data-fim-br="19/11/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-19" data-pub-iso="2026-10-23T16:14:59-03:00" data-fim-br="19/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -1512,7 +1471,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-carbono" data-status="ABERTO" data-vertical="carbono" data-deadline-iso="2026-11-20" data-fim-br="20/11/2026">
+      <article class="dossier-card vertical-carbono" data-status="ABERTO" data-vertical="carbono" data-deadline-iso="2026-11-20" data-pub-iso="2026-10-16T16:24:01-03:00" data-fim-br="20/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-carbono">Clima & Sustentabilidade</span>
@@ -1552,7 +1511,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-25" data-fim-br="25/11/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-25" data-pub-iso="2026-10-26T13:31:02-03:00" data-fim-br="25/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -1587,7 +1546,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-25" data-fim-br="25/11/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-25" data-pub-iso="2026-10-26T13:26:28-03:00" data-fim-br="25/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -1622,7 +1581,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-carbono" data-status="ABERTO" data-vertical="carbono" data-deadline-iso="2026-11-28" data-fim-br="28/11/2026">
+      <article class="dossier-card vertical-carbono" data-status="ABERTO" data-vertical="carbono" data-deadline-iso="2026-11-28" data-pub-iso="2026-10-29T08:46:39-03:00" data-fim-br="28/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-carbono">Clima & Sustentabilidade</span>
@@ -1658,7 +1617,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-30" data-fim-br="30/11/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-30" data-pub-iso="2026-10-29T09:40:09-03:00" data-fim-br="30/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -1694,7 +1653,47 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-12-07" data-fim-br="07/12/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-12-03" data-pub-iso="2026-11-03T11:37:54-03:00" data-fim-br="03/12/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ ANAC / SAR</span>
+            <span class="badge badge-modalidade">Consulta Setorial</span>
+          </div>
+          <span class="deadline-pill status-ABERTO">🟢 Aberto • 28 dias restantes (até 03/12/2026)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/cs-13-sar-2026" target="_blank" rel="noopener noreferrer">Consulta Setorial nº 13/SAR/2026 - Proposta de edição da Instrução Suplementar nº 21.10a-001, Revisão A, intitulada "Meio aceitável de cumprimento dos requisitos do SGSO previstos no RBAC nº 21 para organizações de produção e de projeto"</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #808</span>
+          <span><strong>Publicação:</strong> 03/11/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 03/11/2026 até 03/12/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Edição da Instrução Suplementar nº 21.10a-001, Revisão A, que estabelece os meios aceitáveis de cumprimento dos requisitos do Sistema de Gestão da Segurança Operacional (SGSO) previstos no RBAC nº 21 para organizações de produção e projeto.</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">Impacta diretamente a conformidade regulatória de fabricantes e projetistas do setor aéreo, sendo essencial para a manutenção de certificações e a gestão de riscos operacionais em infraestrutura aeroportuária.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/cs-13-sar-2026" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/web/dou/-/aviso-de-consulta-setorial-n-13/sar/2026-741362552" target="_blank" rel="noopener noreferrer">📜 Ato Oficial no DOU</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_processo_exibir.php?wwaVxfLBZplmUo_e4kgh5Gmp7SKjbPe64RCrMqfDZ_NhLNY7YbezU_yOW8hxuKxDha6tHNxgiW3Gt2u3iN_xJpfGD1qz2sgvAfcEpNEpX1EAN3RmMWJ4dnAeodC0aWp9" target="_blank" rel="noopener noreferrer">🗂️ SEI: 00066.010601/2026-11</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLScePmNTs9FxXDt8ElUy-GHxGiFATHeyEaWlUfABPogG-mpHr7iBxZ3qqFA3e_RcM2zmnVtD97u8vm5SdmiggRGDf" target="_blank" rel="noopener noreferrer">🗂️ SEI: Minuta de IS nº 21.10a-001 Revisão A</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLScdvxBe43Z_1FqoL_RrRtJygnBakDSH7IlL-ACA11bikTLtidtnvAfBnoc7bti0IUtzuk9q2P57LvhbimfKimuMk" target="_blank" rel="noopener noreferrer">🗂️ SEI: Minuta de Portaria</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLSce9D_FnV4vHM8_bRudgqaAxK_a78lwVEjAOSChl3RWk_x_4SND3YAFGSkgQmrRXcfq06b0APvB9nPLUL1CXMOVW" target="_blank" rel="noopener noreferrer">🗂️ SEI: Justificativa</a>
+          <a class="doc-btn doc-btn-sei" href="https://sei.anac.gov.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?MGXfn_rSLgk3yrq8W15NMw4XBsgIiD8wP1BZZuyLScdJ-XDqeAj3xQ-wEe4yvAIWPSv-J-DAO4BqX3fUPgtAAL_fcSagvRArKjSaoEBFTFUMbRs32hct4bvv8XprhcHQ" target="_blank" rel="noopener noreferrer">🗂️ SEI: Nota Técnica nº 32/2026/GTNI/SAR</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-12-07" data-pub-iso="2026-10-21T11:14:09-03:00" data-fim-br="07/12/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -1734,7 +1733,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-12-11" data-fim-br="11/12/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-12-11" data-pub-iso="2026-10-29T08:46:24-03:00" data-fim-br="11/12/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -1770,7 +1769,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-12-12" data-fim-br="12/12/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-12-12" data-pub-iso="2026-10-29T08:46:22-03:00" data-fim-br="12/12/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -1805,7 +1804,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-divida" data-status="ABERTO" data-vertical="divida" data-deadline-iso="2026-12-14" data-fim-br="14/12/2026">
+      <article class="dossier-card vertical-divida" data-status="ABERTO" data-vertical="divida" data-deadline-iso="2026-12-14" data-pub-iso="2026-10-29T08:46:13-03:00" data-fim-br="14/12/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-divida">Finanças & Crédito</span>
@@ -1840,7 +1839,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-12-24" data-fim-br="24/12/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-12-24" data-pub-iso="2026-11-09T09:00:00-03:00" data-fim-br="24/12/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -1880,7 +1879,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-carbono" data-status="ABERTO" data-vertical="carbono" data-deadline-iso="2026-12-25" data-fim-br="25/12/2026">
+      <article class="dossier-card vertical-carbono" data-status="ABERTO" data-vertical="carbono" data-deadline-iso="2026-12-25" data-pub-iso="2026-10-29T08:42:36-03:00" data-fim-br="25/12/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-carbono">Clima & Sustentabilidade</span>
@@ -1916,7 +1915,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-carbono" data-status="ABERTO" data-vertical="carbono" data-deadline-iso="2026-12-26" data-fim-br="26/12/2026">
+      <article class="dossier-card vertical-carbono" data-status="ABERTO" data-vertical="carbono" data-deadline-iso="2026-12-26" data-pub-iso="2026-10-29T08:46:30-03:00" data-fim-br="26/12/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-carbono">Clima & Sustentabilidade</span>
@@ -1952,7 +1951,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-12-29" data-fim-br="29/12/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-12-29" data-pub-iso="2026-10-30T05:11:16-03:00" data-fim-br="29/12/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -1992,7 +1991,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-12-29" data-fim-br="29/12/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-12-29" data-pub-iso="2026-10-01T12:27:25-03:00" data-fim-br="29/12/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -2030,7 +2029,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-13" data-fim-br="13/11/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-13" data-pub-iso="2026-10-16T08:41:57-03:00" data-fim-br="13/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -2070,7 +2069,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-seguros" data-status="ABERTO" data-vertical="seguros" data-deadline-iso="2026-11-16" data-fim-br="16/11/2026">
+      <article class="dossier-card vertical-seguros" data-status="ABERTO" data-vertical="seguros" data-deadline-iso="2026-11-16" data-pub-iso="2026-10-29T19:21:40-03:00" data-fim-br="16/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-seguros">Seguros & Garantias</span>
@@ -2107,12 +2106,12 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-18" data-fim-br="18/11/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-18" data-pub-iso="2026-09-23T11:28:27-03:00" data-fim-br="18/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
-            <span class="badge badge-orgao">🏛️ CADE</span>
-            <span class="badge badge-modalidade">Consulta Pública</span>
+            <span class="badge badge-orgao">🏛️ Gabinete da Presidência do Conselho Administrativo de Defesa Econômica</span>
+            <span class="badge badge-modalidade">⚠️ Consultas Públicas (Não analisado — IA indisponível)</span>
           </div>
           <span class="deadline-pill status-ABERTO">🟢 Aberto • 13 dias restantes (até 18/11/2026)</span>
         </div>
@@ -2128,24 +2127,24 @@
         <div class="dossier-box">
           <div class="dossier-section">
             <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
-            <p class="dossier-text">Proposta de emenda ao Regimento Interno do CADE, incluindo a criação de um comitê de planejamento, agenda pública de prioridades e novas regras de participação social.</p>
+            <p class="dossier-text">Cade abre consulta pública sobre a reforma do seu Regimento Interno Proposta cria um comitê de planejamento, uma agenda pública de prioridades e novas regras de participação social. Contribuições podem ser enviadas até 06 de novembro de 2026. O Conselho Administrativo de Defesa Econômica (Cade) abri</p>
           </div>
           <div class="incidencia-box">
             <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
-            <p class="dossier-text">A alteração na governança do CADE impacta diretamente a análise de atos de concentração e condutas em mercados de infraestrutura, concessões e logística, exigindo monitoramento da nova agenda de prioridades.</p>
+            <p class="dossier-text">⚠️ Curadoria automática por IA temporariamente indisponível nesta rodada. Consulte os documentos oficiais nos botões abaixo.</p>
           </div>
         </div>
 
         <div class="docs-area">
           <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/ricade" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
-          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/web/dou/-/despacho-n-44-de-23-de-setembro-de-2026-734831591" target="_blank" rel="noopener noreferrer">📜 Ato Oficial no DOU</a>
+          <a class="doc-btn doc-btn-dou" href="https://www.in.gov.br/web/dou/-/despachos-de-4-de-novembro-de-2026-741856095" target="_blank" rel="noopener noreferrer">📜 Ato Oficial no DOU</a>
           <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOWJPQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--15a6566f91aad9543e2195ca697ed2b8d48931ab/Proposta%20de%20emenda%20regimental.pdf" target="_blank" rel="noopener noreferrer">📎 Proposta de emenda regimental.pdf</a>
           <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOW5PQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--857cd98cfd217587a50056a15d3bb7b51b9cebe3/Exposicao_de_Motivos.pdf" target="_blank" rel="noopener noreferrer">📎 Exposicao_de_Motivos.pdf</a>
           <a class="doc-btn doc-btn-pdf" href="https://brasilparticipativo.presidencia.gov.br/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOXJPQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--3ef208d81374de7730379d3d762dee9dc9926ee9/Nota_Tecnica_10.pdf" target="_blank" rel="noopener noreferrer">📎 Nota_Tecnica_10.pdf</a>
         </div>
       </article>
 
-      <article class="dossier-card vertical-carbono" data-status="ABERTO" data-vertical="carbono" data-deadline-iso="2026-11-22" data-fim-br="22/11/2026">
+      <article class="dossier-card vertical-carbono" data-status="ABERTO" data-vertical="carbono" data-deadline-iso="2026-11-22" data-pub-iso="2026-10-23T08:44:58-03:00" data-fim-br="22/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-carbono">Clima & Sustentabilidade</span>
@@ -2181,7 +2180,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-22" data-fim-br="22/11/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-22" data-pub-iso="2026-10-21T10:54:17-03:00" data-fim-br="22/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -2215,7 +2214,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-27" data-fim-br="27/11/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-27" data-pub-iso="2026-10-29T17:35:53-03:00" data-fim-br="27/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -2249,7 +2248,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-27" data-fim-br="27/11/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-11-27" data-pub-iso="2026-10-29T09:59:10-03:00" data-fim-br="27/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -2285,7 +2284,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-12-18" data-fim-br="18/12/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-12-18" data-pub-iso="2026-10-28T09:59:24-03:00" data-fim-br="18/12/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -2321,7 +2320,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-carbono" data-status="ABERTO" data-vertical="carbono" data-deadline-iso="2026-12-27" data-fim-br="27/12/2026">
+      <article class="dossier-card vertical-carbono" data-status="ABERTO" data-vertical="carbono" data-deadline-iso="2026-12-27" data-pub-iso="2026-10-29T08:46:06-03:00" data-fim-br="27/12/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-carbono">Clima & Sustentabilidade</span>
@@ -2361,7 +2360,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-12-29" data-fim-br="29/12/2026">
+      <article class="dossier-card vertical-infra" data-status="ABERTO" data-vertical="infra" data-deadline-iso="2026-12-29" data-pub-iso="2026-10-29T08:46:28-03:00" data-fim-br="29/12/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -2401,7 +2400,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-carbono" data-status="ABERTO" data-vertical="carbono" data-deadline-iso="2026-12-31" data-fim-br="31/12/2026">
+      <article class="dossier-card vertical-carbono" data-status="ABERTO" data-vertical="carbono" data-deadline-iso="2026-12-31" data-pub-iso="2026-10-28T16:21:05-03:00" data-fim-br="31/12/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-carbono">Clima & Sustentabilidade</span>
@@ -2441,7 +2440,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra" data-deadline-iso="2026-11-23" data-fim-br="23/11/2026">
+      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra" data-deadline-iso="2026-11-23" data-pub-iso="2026-10-02T09:49:42-03:00" data-fim-br="23/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -2475,7 +2474,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra" data-deadline-iso="2027-01-02" data-fim-br="02/01/2027">
+      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra" data-deadline-iso="2027-01-02" data-pub-iso="2026-09-23T10:40:17-03:00" data-fim-br="02/01/2027">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -2515,7 +2514,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra" data-deadline-iso="2026-11-20" data-fim-br="20/11/2026">
+      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra" data-deadline-iso="2026-11-20" data-pub-iso="2026-11-03T10:49:26-03:00" data-fim-br="20/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -2551,7 +2550,41 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra" data-deadline-iso="2026-11-27" data-fim-br="27/11/2026">
+      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra" data-deadline-iso="2026-11-26" data-pub-iso="2026-11-03T15:23:48-03:00" data-fim-br="26/11/2026">
+        <div class="card-top-meta">
+          <div class="badges-left">
+            <span class="badge badge-infra">Infraestrutura & Outorgas</span>
+            <span class="badge badge-orgao">🏛️ Diretoria de Prevenção a Conflito de Interesses</span>
+            <span class="badge badge-modalidade">⚠️ Consultas Públicas (Não analisado — IA indisponível)</span>
+          </div>
+          <span class="deadline-pill status-PRE_PUBLICACAO">📡 Pré-Publicação (Rascunho na API)</span>
+        </div>
+
+        <a class="process-title" href="https://brasilparticipativo.presidencia.gov.br/processes/PREVENCAO" target="_blank" rel="noopener noreferrer">CONSULTA PÚBLICA - Estratégia de Monitoramento da Qualidade da Atividade de Prevenção a Conflito de Interesses</a>
+
+        <div class="dates-row">
+          <span><strong>ID:</strong> #811</span>
+          <span><strong>Publicação:</strong> 03/11/2026</span>
+          <span><strong>Janela de Contribuição:</strong> 05/11/2026 até 26/11/2026</span>
+        </div>
+
+        <div class="dossier-box">
+          <div class="dossier-section">
+            <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
+            <p class="dossier-text">Contribua para a construção do normativo que estabelece a Estratégia de Monitoramento da Qualidade da Atividade de Prevenção a Conflito de Interesses. A finalidade principal desse normativo pode ser sintetizada nos seguintes pontos: 1. Aprovar e operacionalizar a Estratégia de Monitoramento da Quali</p>
+          </div>
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">⚠️ Curadoria automática por IA temporariamente indisponível nesta rodada. Consulte os documentos oficiais nos botões abaixo.</p>
+          </div>
+        </div>
+
+        <div class="docs-area">
+          <a class="doc-btn doc-btn-primary" href="https://brasilparticipativo.presidencia.gov.br/processes/PREVENCAO" target="_blank" rel="noopener noreferrer">🌐 Abrir Processo no Portal ↗</a>
+        </div>
+      </article>
+
+      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra" data-deadline-iso="2026-11-27" data-pub-iso="2026-11-04T14:56:22-03:00" data-fim-br="27/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -2586,7 +2619,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra" data-deadline-iso="2026-12-14" data-fim-br="14/12/2026">
+      <article class="dossier-card vertical-infra" data-status="PRE_PUBLICACAO" data-vertical="infra" data-deadline-iso="2026-12-14" data-pub-iso="2026-10-28T10:58:26-03:00" data-fim-br="14/12/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -2626,7 +2659,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-divida" data-status="PRE_PUBLICACAO" data-vertical="divida" data-deadline-iso="2026-12-20" data-fim-br="20/12/2026">
+      <article class="dossier-card vertical-divida" data-status="PRE_PUBLICACAO" data-vertical="divida" data-deadline-iso="2026-12-20" data-pub-iso="2026-09-15T08:53:25-03:00" data-fim-br="20/12/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-divida">Finanças & Crédito</span>
@@ -2661,7 +2694,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-infra" data-status="ENCERRADO_RECENTE" data-vertical="infra" data-deadline-iso="2026-11-03" data-fim-br="03/11/2026">
+      <article class="dossier-card vertical-infra" data-status="ENCERRADO_RECENTE" data-vertical="infra" data-deadline-iso="2026-11-03" data-pub-iso="2026-10-05T15:16:30-03:00" data-fim-br="03/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">Infraestrutura & Outorgas</span>
@@ -2695,7 +2728,7 @@
         </div>
       </article>
 
-      <article class="dossier-card vertical-divida" data-status="ENCERRADO_RECENTE" data-vertical="divida" data-deadline-iso="2026-11-03" data-fim-br="03/11/2026">
+      <article class="dossier-card vertical-divida" data-status="ENCERRADO_RECENTE" data-vertical="divida" data-deadline-iso="2026-11-03" data-pub-iso="2026-09-24T15:42:37-03:00" data-fim-br="03/11/2026">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-divida">Finanças & Crédito</span>
@@ -2750,10 +2783,10 @@
           </div>
           <div class="kpi-icon" style="background: #f1f5f9; color: #0f172a;">📐</div>
         </div>
-        <div class="kpi-card" onclick="filtrarCategoriaEst('PRIORIDADE_A')">
+        <div class="kpi-card" onclick="filtrarCategoriaEst('PRIORIDADE_A_MPOR')">
           <div class="kpi-info">
             <span>Prioridade A (Portos & Hidrovias)</span>
-            <strong style="color: #0284c7;">3</strong>
+            <strong style="color: #0284c7;">0</strong>
           </div>
           <div class="kpi-icon" style="background: #e0f2fe; color: #0284c7;">⚓</div>
         </div>
@@ -2777,7 +2810,7 @@
         <div class="filter-group" id="est-cat-filters">
           <span class="filter-label">Recorte:</span>
           <button class="filter-btn active" data-est-cat="TODAS" onclick="filtrarCategoriaEst('TODAS')">Todos (6)</button>
-          <button class="filter-btn" data-est-cat="PRIORIDADE_A" onclick="filtrarCategoriaEst('PRIORIDADE_A')">⚓ Prioridade A — Portos, Aeroportos & Hidrovias (3)</button>
+          <button class="filter-btn" data-est-cat="PRIORIDADE_A_MPOR" onclick="filtrarCategoriaEst('PRIORIDADE_A_MPOR')">⚓ Prioridade A — Portos, Aeroportos & Hidrovias (0)</button>
           <button class="filter-btn" data-est-cat="PRIORIDADE_B_COMPARACAO" onclick="filtrarCategoriaEst('PRIORIDADE_B_COMPARACAO')">⚖️ Prioridade B — Comparação Federal (3)</button>
           <button class="filter-btn" data-est-cat="PROPOSTAS_ABERTAS" onclick="filtrarCategoriaEst('PROPOSTAS_ABERTAS')">⏳ Editais com Propostas Abertas (1)</button>
         </div>
@@ -2845,14 +2878,14 @@
         </div>
       </article>
 
-      <article class="est-card cat-PRIORIDADE_A" data-est-cat="PRIORIDADE_A" data-proposta-aberta="0" data-deadline-iso="" data-fim-br="Contrato assinado em 17/05/2024">
+      <article class="est-card cat-PRIORIDADE_A" data-est-cat="PRIORIDADE_A" data-proposta-aberta="0" data-deadline-iso="" data-fim-br="Em Execução (Consórcio EY / Planave)">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-infra">⚓ Prioridade A — Portos, Aeroportos & Hidrovias</span>
             <span class="badge badge-orgao">🏛️ BNDES • Portos (Santos / APS)</span>
             
           </div>
-          <span class="deadline-pill est-deadline-pill status-CONTRATO_ASSINADO">📅 Contrato assinado em 17/05/2024</span>
+          <span class="deadline-pill est-deadline-pill status-CONTRATO_ASSINADO">📅 Em Execução (Consórcio EY / Planave)</span>
         </div>
 
         <a class="process-title" href="https://www.bndes.gov.br/wps/portal/site/home/transparencia/desestatizacao/processos-em-andamento?1dmy&urile=wcm%3apath%3a%2Fbndes_institucional%2Fhome%2Ftransparencia%2Fdesestatizacao%2Fprojetos-em-andamento%2Fporto-organizado-de-santos" target="_blank" rel="noopener noreferrer">BNDES — RFP nº 17/2023 (Contrato OCS nº 157/2024) — Estruturação de Projeto de Concessão de Serviços Portuários no Porto Organizado de Santos</a>
@@ -2906,14 +2939,14 @@
         </div>
       </article>
 
-      <article class="est-card cat-PRIORIDADE_B_COMPARACAO" data-est-cat="PRIORIDADE_B_COMPARACAO" data-proposta-aberta="0" data-deadline-iso="" data-fim-br="Contrato assinado em 30/07/2025">
+      <article class="est-card cat-PRIORIDADE_B_COMPARACAO" data-est-cat="PRIORIDADE_B_COMPARACAO" data-proposta-aberta="0" data-deadline-iso="" data-fim-br="Em Execução (Consórcio Rodoviário NE)">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-seguros">⚖️ Prioridade B — EVTEA & Modelagem Federal (Comparação)</span>
             <span class="badge badge-orgao">🏛️ BNDES • Rodovias Federais (MT / ANTT)</span>
             
           </div>
-          <span class="deadline-pill est-deadline-pill status-CONTRATO_ASSINADO">📅 Contrato assinado em 30/07/2025</span>
+          <span class="deadline-pill est-deadline-pill status-CONTRATO_ASSINADO">📅 Em Execução (Consórcio Rodoviário NE)</span>
         </div>
 
         <a class="process-title" href="https://www.bndes.gov.br/wps/portal/site/home/transparencia/desestatizacao/processos-em-andamento?1dmy&urile=wcm%3apath%3a%2Fbndes_institucional%2Fhome%2Ftransparencia%2Fdesestatizacao%2Fprojetos-em-andamento%2Frodovias-ne" target="_blank" rel="noopener noreferrer">BNDES — RFP nº 014/2024 (Contrato OCS nº 270/2025) — Estruturação de Concessões de Rodovias Federais na Região Nordeste (2.530 km)</a>
@@ -3705,10 +3738,23 @@
           const mins = totalMin % 60;
 
           const relogio = `${dias}d ${pad2(horas)}h ${pad2(mins)}m`;
-          if (st === 'LANCADO_48H') {
-            pill.innerHTML = `🆕 Lançado • <span class="countdown-mono">⏳ ${relogio}</span> (até ${fimBr})`;
+          let stAtual = card.getAttribute('data-status');
+          const pubIso = card.getAttribute('data-pub-iso');
+          if (stAtual === 'LANCADO_48H' && pubIso) {
+            const pubDate = new Date(pubIso);
+            if (!isNaN(pubDate.getTime()) && (agora - pubDate > 48 * 3600 * 1000)) {
+              const novoSt = (dias <= 7) ? 'PRAZO_URGENTE' : 'ABERTO';
+              card.setAttribute('data-status', novoSt);
+              pill.className = 'deadline-pill status-' + novoSt;
+              stAtual = novoSt;
+              mudancaStatus = true;
+            }
+          }
+
+          if (stAtual === 'LANCADO_48H') {
+            pill.innerHTML = `🆕 Lançado Agora • <span class="countdown-mono">⏳ ${relogio}</span> (até ${fimBr})`;
           } else if (dias <= 7) {
-            if (st !== 'PRAZO_URGENTE') {
+            if (stAtual !== 'PRAZO_URGENTE') {
               card.setAttribute('data-status', 'PRAZO_URGENTE');
               pill.className = 'deadline-pill status-PRAZO_URGENTE';
               mudancaStatus = true;
