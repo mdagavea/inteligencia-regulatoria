@@ -19,7 +19,7 @@ load_dotenv()
 VIP_SITES_QUERY = (
     "(site:valor.globo.com OR site:oglobo.globo.com OR site:folha.uol.com.br "
     "OR site:estadao.com.br OR site:broadcast.com.br OR site:agenciainfra.com "
-    "OR site:jota.info OR site:cnseg.org.br OR site:reuters.com OR \"Reuters\")"
+    "OR site:jota.info OR site:cnseg.org.br OR site:reuters.com)"
 )
 
 GMAIL_ALLOWED_SENDERS = [
@@ -232,7 +232,11 @@ def _classificar_vertical_boletim(titulo: str, resumo: str) -> str:
         return "carbono"
     if any(k in texto for k in ["seguro garantia", "susep", "cnseg", "resseguro", "apólice", "sinistro"]):
         return "seguros"
-    return "infra"
+    if any(k in texto for k in ["inteligência artificial", " ia ", " ai ", "data center", "automação", "software", "govtech", "transformação digital"]):
+        return "tech"
+    if any(k in texto for k in ["concessão", "concessões", "leilão", "outorga", "ppi", "pnd", "antt", "anac", "antaq", "rodovia", "ferrovia", "porto", "aeroporto", "hidrovia", "reequilíbrio"]):
+        return "infra"
+    return "outros"
 
 
 def _parse_boletim_agencia_infra(html_content: str, base_url: str, published_str: str = "", max_atos_dou: int = 10) -> list:
@@ -671,28 +675,28 @@ def fetch_all_raw_news(when="24h"):
     queries = {
         "infra": {
             "nome": "Infraestrutura & Outorgas",
-            "query": "(concessão OR leilão OR outorga OR PPI OR reequilíbrio) AND (ANTT OR ANAC OR ANTAQ OR rodovia OR ferrovia OR porto OR aeroporto)",
-            "vip_query": f"{VIP_SITES_QUERY} AND (concessão OR leilão OR outorga OR PPI OR ANTT OR ANAC OR ANTAQ OR ferrovia OR rodovia OR porto OR aeroporto)",
+            "query": "(concessão OR leilão OR outorga OR PPI OR reequilíbrio) (ANTT OR ANAC OR ANTAQ OR rodovia OR ferrovia OR porto OR aeroporto)",
+            "vip_query": f"{VIP_SITES_QUERY} (concessão OR leilão OR outorga OR PPI OR ANTT OR ANAC OR ANTAQ OR ferrovia OR rodovia OR porto OR aeroporto)",
         },
         "seguros": {
             "nome": "Seguros de Grandes Riscos",
-            "query": '("seguro garantia" OR "performance bond" OR SUSEP OR CNseg OR "grandes riscos" OR "resseguro") AND (seguros OR regulação OR obras OR sinistro)',
-            "vip_query": f'{VIP_SITES_QUERY} AND ("seguro garantia" OR SUSEP OR CNseg OR resseguro OR "grandes riscos" OR apólice OR seguradora)',
+            "query": '("seguro garantia" OR "performance bond" OR SUSEP OR CNseg OR "grandes riscos" OR "resseguro") (seguros OR regulação OR obras OR sinistro)',
+            "vip_query": f'{VIP_SITES_QUERY} ("seguro garantia" OR SUSEP OR CNseg OR resseguro OR "grandes riscos" OR apólice OR seguradora)',
         },
         "carbono": {
             "nome": "Mercado de Carbono & Transição Climática",
             "query": '("crédito de carbono" OR "mercado de carbono" OR SBCE OR "Fundo Clima" OR "transição ecológica" OR "finanças verdes" OR "Eco Invest")',
-            "vip_query": f'{VIP_SITES_QUERY} AND ("mercado de carbono" OR "crédito de carbono" OR SBCE OR "Fundo Clima" OR "transição energética" OR descarbonização)',
+            "vip_query": f'{VIP_SITES_QUERY} ("mercado de carbono" OR "crédito de carbono" OR SBCE OR "Fundo Clima" OR "transição energética" OR descarbonização)',
         },
         "divida": {
             "nome": "Instrumentos de Dívida & Mercado de Capitais",
-            "query": '("debêntures de infraestrutura" OR "debêntures incentivadas" OR "Lei 14.801" OR "Lei 12.431" OR CVM OR ANBIMA OR FIDC) AND (emissão OR mercado OR crédito OR infraestrutura)',
-            "vip_query": f'{VIP_SITES_QUERY} AND (debêntures OR "Lei 14.801" OR "Lei 12.431" OR CVM OR ANBIMA OR FIDC OR "crédito privado" OR BNDES)',
+            "query": '("debêntures de infraestrutura" OR "debêntures incentivadas" OR "Lei 14.801" OR "Lei 12.431" OR CVM OR ANBIMA OR FIDC) (emissão OR mercado OR crédito OR infraestrutura)',
+            "vip_query": f'{VIP_SITES_QUERY} (debêntures OR "Lei 14.801" OR "Lei 12.431" OR CVM OR ANBIMA OR FIDC OR "crédito privado" OR BNDES)',
         },
         "tech": {
             "nome": "Tecnologia, IA & Gestão Aplicada",
-            "query": '("inteligência artificial" OR "data center" OR McKinsey OR GovTech OR automação) AND (infraestrutura OR energia OR regulação OR governo OR financeiro OR produtividade)',
-            "vip_query": f'{VIP_SITES_QUERY} AND ("inteligência artificial" OR "data center" OR McKinsey OR automação) AND (infraestrutura OR energia OR regulação OR bancos OR seguros OR gestão)',
+            "query": '("inteligência artificial" OR "data center" OR McKinsey OR GovTech OR automação) (infraestrutura OR energia OR regulação OR governo OR financeiro OR produtividade)',
+            "vip_query": f'{VIP_SITES_QUERY} ("inteligência artificial" OR "data center" OR McKinsey OR automação) (infraestrutura OR energia OR regulação OR bancos OR seguros OR gestão)',
         },
     }
 

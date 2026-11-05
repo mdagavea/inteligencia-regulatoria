@@ -195,10 +195,94 @@ def _vincular_links_originais(dados_curados, noticias_brutas):
     return resultado_limpo
 
 
+CRITERIOS_TEMATICOS_CONTINGENCIA = {
+    "infra": {
+        "positivos": [
+            "antt", "anac", "antaq", "mpor", "portos e aeroportos", "ministério dos transportes",
+            "dnit", "concessão", "concessões", "concessionári", "outorga", "outorgas", "ppi", "pnd",
+            "reequilíbrio", "arrendamento", "arrendamentos", "porto", "portos", "portuár",
+            "aeroporto", "aeroportos", "aeroportuár", "rodovia", "rodovias", "rodoviár",
+            "ferrovia", "ferrovias", "ferroviár", "hidrovia", "hidrovias", "hidroviár",
+            "pedágio", "evtea", "tup", "fmm", "marinha mercante", "infovia"
+        ],
+        "ruidos": [
+            "hospital", "médic", "cirurgia", "saúde", "restaurante", "gastronomia", "receita",
+            "móveis", "cadeira", "emagrecimento", "medicamento", "farmacêutic", "aparelho celular",
+            "futebol", "campeonato", "novela"
+        ],
+    },
+    "seguros": {
+        "positivos": [
+            "seguro", "seguros", "segurador", "seguradora", "susep", "cnseg", "resseguro",
+            "ressegurador", "resseguradora", "apólice", "apólices", "sinistro", "sinistros",
+            "sinistralidade", "performance bond", "garantia judicial", "seguro garantia",
+            "previdência complementar"
+        ],
+        "ruidos": [
+            "segurança pública", "segurança no trânsito", "segurança alimentar"
+        ],
+    },
+    "carbono": {
+        "positivos": [
+            "carbono", "sbce", "fundo clima", "transição ecológica", "transição energética",
+            "finanças verdes", "eco invest", "ecoinvest", "esg", "descarbonização", "crédito de carbono",
+            "créditos de carbono", "títulos verdes", "green bond", "cop30", "cop31", "cbio", "cbios",
+            "saf ", "biocombustível", "hidrogênio verde", "biometano"
+        ],
+        "ruidos": [],
+    },
+    "divida": {
+        "positivos": [
+            "debênture", "debêntures", "lei 12.431", "lei 14.801", "cvm", "anbima", "fidc", "fidcs",
+            "crédito privado", "mercado de capitais", "título incentivado", "títulos incentivados",
+            "bndes", "reidi", "emissão de dívida", "cra", "cri"
+        ],
+        "ruidos": [],
+    },
+    "tech": {
+        "positivos": [
+            "inteligência artificial", " ia ", " ai ", "ia,", "ia.", "data center", "data centers",
+            "automação", "govtech", "fintech", "mckinsey", "a16z", "algoritmo", "machine learning",
+            "transformação digital", "infraestrutura digital"
+        ],
+        "ruidos": [
+            "smartphone", "celular", "iphone", "galaxy", "videogame", "playstation", "xbox"
+        ],
+    },
+}
+
+
+def _validar_e_ajustar_vertical_contingencia(item):
+    """
+    Valida e ajusta deterministicamente a vertical de um item no modo sem IA,
+    impedindo que matérias fora de tema entrem em 'infra' ou qualquer outro pilar.
+    """
+    texto = f"{item.get('title', '')} {item.get('summary', '')}".lower()
+    vert_sugerida = item.get("vertical_original", "").strip().lower()
+
+    # 1. Se a vertical sugerida for uma das 5 oficiais, valida se atende aos critérios dela
+    if vert_sugerida in CRITERIOS_TEMATICOS_CONTINGENCIA:
+        info = CRITERIOS_TEMATICOS_CONTINGENCIA[vert_sugerida]
+        if not any(r in texto for r in info["ruidos"]):
+            if any(p in texto for p in info["positivos"]):
+                return vert_sugerida
+
+    # 2. Se a vertical era genérica ('direto', 'gmail', 'outros') ou falhou nos critérios da vertical sugerida,
+    # busca a vertical que melhor corresponde aos termos temáticos
+    for v_candidata, info in CRITERIOS_TEMATICOS_CONTINGENCIA.items():
+        if any(r in texto for r in info["ruidos"]):
+            continue
+        if any(p in texto for p in info["positivos"]):
+            return v_candidata
+
+    return None  # Descarta matéria que não pertence a nenhum dos 5 pilares temáticos
+
+
 def curar_noticias_contingencia_sem_ia(noticias_brutas):
     """
     Modo de contingência determinístico (sem IA): acionado automaticamente caso a API Gemini
-    esteja indisponível ou sem créditos/cota, garantindo que o Clipping e o e-mail nunca falhem.
+    esteja indisponível ou sem créditos/cota, garantindo que o Clipping e o e-mail nunca falhem
+    e mantendo 100% de aderência aos 5 pilares temáticos.
     """
     subsecoes_padrao = {
         "infra": "Regulação, Leilões & Contratos (Contingência sem IA)",
@@ -217,14 +301,16 @@ def curar_noticias_contingencia_sem_ia(noticias_brutas):
         # Deduplicação simples por similaridade de título
         if any(SequenceMatcher(None, titulo.lower(), tv).ratio() > 0.78 for tv in titulos_vistos):
             continue
-        titulos_vistos.append(titulo.lower())
 
-        vert = n.get("vertical_original") or "infra"
-        if vert not in agrupado:
-            vert = "infra"
+        # Blindagem temática: valida e classifica com base nas regras do pilar temático
+        vert = _validar_e_ajustar_vertical_contingencia(n)
+        if not vert or vert not in agrupado:
+            continue
+
         if len(agrupado[vert]) >= 8:
             continue
 
+        titulos_vistos.append(titulo.lower())
         camada = "destaque" if len(agrupado[vert]) < 4 else "complementar"
         resumo = (n.get("summary") or "").strip()
         if not resumo or resumo.lower() == titulo.lower():
