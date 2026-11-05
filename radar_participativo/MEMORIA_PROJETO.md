@@ -1,6 +1,6 @@
 # Memória do Projeto: Radar DECON/MPor (Estado Atual)
 
-> **Última Atualização:** 05/11/2026  
+> **Última Atualização:** 05/11/2026 (Encerramento do Expediente)  
 > **Repositório GitHub (Nuvem Oficial):** `https://github.com/mdagavea/inteligencia-regulatoria`  
 > **Painel Web (4 Abas):** `https://mdagavea.github.io/inteligencia-regulatoria/radar.html`  
 > **Histórico de Evoluções Passadas:** consulte [`HISTORICO_PROJETO.md`](HISTORICO_PROJETO.md) apenas quando necessário.
@@ -23,30 +23,66 @@
 
 ---
 
-## 2. Regras Inegociáveis e Lições Aprendidas (05/11/2026)
+## 2. Fase 1: Coletor do Diário Oficial da União (`coletor_dou.py`)
 
-* **1. Nenhum dado digitado à mão (saída bruta antes de qualquer card):**
-  - Proibida inserção manual ou inferência de números, prazos, URLs ou escopos. Todos os dados devem ser extraídos de coletores oficiais de saída bruta verificável.
-* **2. Correções valem na origem (código que gera a página), nunca só no HTML gerado:**
-  - **Lição desta fase:** Qualquer edição realizada diretamente nos arquivos `.html` é sobrescrita e perdida na próxima execução do gerador. Todo ajuste de layout, texto, dados ou trava deve ser implementado nos coletores e renderizadores Python.
-* **3. Trava de Segurança Editorial e Sanidade Pré-Publicação ([`validador_publicacao.py`](validador_publicacao.py)):**
-  - **Listas por arquivo:** O validador aplica regras específicas para o Radar (`radar.html`, `index.html`) e para o Clipping (`clipping.html`).
-  - **Termos reprovados no Radar:** Substrings `decon`, `núcleo`, `nucleo`, `segurabilidade`; `mpor` fora das exceções léxicas legítimas (`import*`, `tempor*`); e `"em execução"` nos selos de situação (`deadline-pill` e atributos `data-fim-br`).
-  - **Sanidade Estrutural:** O validador reprova a publicação se a Aba Estruturação contiver 0 cards (`[SANIDADE_ESTRUTURACAO_VAZIA]`) ou se qualquer uma das abas registrar queda superior a 50% de cards em relação à versão ativa na nuvem (`[SANIDADE_QUEDA_ABRUPTA]`).
-* **4. Desacoplamento do Clipping e Agendamento do Radar:**
-  - O clipping diário da nuvem não depende do Radar e **não sobrescreve `radar.html`**.
-  - O Radar é mantido e publicado exclusivamente pelo pipeline completo local (`gerar_radar.py --no-browser`), configurado no Agendador de Tarefas do Windows (`RadarInteligenciaRegulatoria`) de **segunda a sexta-feira às 08:00 BRT** com opção `StartWhenAvailable` (recuperação imediata caso o computador esteja desligado no horário). Esse modelo elimina o risco de bloqueio de IP por WAF/geobloqueio que ocorreria em datacenters do GitHub Actions contra o portal do BNDES.
-* **5. Auditoria Independente na Ponta:**
-  - A conformidade do Radar deve ser sempre conferida baixando o arquivo diretamente da URL pública (`https://mdagavea.github.io/inteligencia-regulatoria/radar.html`), auditando contagem de cards, selos e ausência de termos proibidos.
-* **6. TCU com Colegiado Plenário:**
-  - Nenhum dado de acórdão do TCU pode ser publicado sem conferência prévia via API oficial do TCU com filtro de COLEGIADO "Plenário".
-* **7. Operação sem IA no Radar:**
-  - A `GEMINI_API_KEY` permanece intencionalmente não configurada em `radar_participativo/.env`. O Radar opera em modo factual nativo, sem consumo de tokens.
+Em 05/11/2026, foi concluído o desenvolvimento preliminar da Fase 1, em **modo estritamente somente leitura** (sem publicação, sem cards criados e sem alteração no Radar).
+
+### A. Travas no Código
+1. **Link exclusivo via `urlTitle` com HTTP 200 obrigatório:** O endereço é montado unicamente a partir de `https://www.in.gov.br/web/dou/-/{urlTitle}` e testado na fonte oficial via requisição HTTP (status 200). Se falhar ou não tiver link válido, o ato é reprovado e vai para a lista de descartados.
+2. **Ementa e 1ª linha literais:** Transcrição estrita dos primeiros caracteres do texto do ato (`content`), sem qualquer resumo, dedução ou paráfrase.
+3. **Processo e Relator por regra:** Extraídos estritamente por regex; se não forem encontrados no texto bruto, o campo permanece vazio (`""`).
+4. **Isolamento de REIDI e Enquadramentos:** Atos fiscais e de enquadramentos de projetos são gravados exclusivamente em arquivo local (`dados_reidi/atos_AAAA-MM.jsonl`), **fora do repositório**. A pasta `dados_reidi/` foi incluída no `.gitignore` e não consta no `ARQUIVOS_SINCRONIZADOS`.
+5. **Setor Factual:** O setor só é gravado quando vier expressamente do texto da portaria do ministério; nunca por dedução.
+
+### B. O que o DOU Entrega e o que Não Entrega (5 dias úteis de 2026: 29/10 a 05/11)
+* **Total varrido:** 12.014 atos (1.703 no DO1 e 10.311 no DO3; dia 30/10 sem circulação ordinária regular).
+* **Nos órgãos do filtro regulatório:** 1.855 atos.
+* **O que o DOU entrega factualmente:**
+  - Decretos do PPI e PND (ex.: Decreto nº 13.142/2026 no DO1 de 03/11).
+  - Resoluções do CMN (ex.: Resolução CMN nº 5.344/2026 no DO1 de 03/11).
+  - Portarias de composição do Fundo da Marinha Mercante (Portaria GM-MPOR nº 60/2026 no DO1 de 03/11).
+  - Despachos ministeriais sobre Fundos Garantidores (Despacho MF de 28/10/2026 — 60ª Novação FCVS com FGC).
+  - Enquadramentos prioritários para debêntures incentivadas (Portarias MCID nº 1.483/2026 [Socicam] e nº 1.484/2026 [Trivia Trens]).
+  - Enquadramento e habilitações de REIDI (Portaria MCID nº 1.482/2026 e atos declaratórios da Receita Federal).
+  - Acórdãos da ANTAQ (24 acórdãos no DO1 de 03/11 e 1 no DO1 de 04/11, incluindo o Acórdão nº 640/2026 sobre a Agenda EVTEA 2.0).
+* **O que o DOU não entrega nessas 10 edições:**
+  - Não houve atos normativos específicos publicados para FNAC, FGE, FGI, FGO nem FGHAB por seus órgãos gestores nesse intervalo de 5 dias úteis.
+* **Status do Coletor:** O `coletor_dou.py` **NÃO está agendado em nenhum cron ou agendador local e NÃO publica nada**.
 
 ---
 
-## 3. Próximas Tarefas Planejadas
+## 3. Erros da Sessão de 05/11/2026 e Lições Aprendidas
 
-1. **Fase 1 (DOU em Leitura Amostral):** Criação do `coletor_dou.py` para leitura do índice JSON (`in.gov.br/leiturajornal`, seções `do1` e `do3`) em modo somente leitura durante 5 dias úteis, avaliando entrega de decretos PND/PPI, resoluções CMN, atos de fundos (FNAC, FMM, FGE, FGI, FGO, FGHAB) e acórdãos ANTAQ (Acórdão nº 640/2026).
-2. **Fontes Adicionais na Aba 4 (BCB, PREVIC e ANBIMA):** Avaliar integração via DOU (`in.gov.br`) ou endpoints alternativos para BCB, PREVIC e circulares da ANBIMA.
-3. **Fontes Adicionais na Aba 1 (ANA, ANEEL e ANP):** Mapear portais próprios de consultas públicas de ANA, ANEEL e ANP para complementar a Aba 1.
+1. **Amostra Inicial com Ano Errado (2024 em vez de 2026):**
+   * *Erro:* O coletor rodou inicialmente sobre datas de 2024, distorcendo o levantamento e gerando a conclusão errada de que acórdãos da ANTAQ "não saíam no DOU".
+   * *Lição:* Verificar sempre a data corrente do sistema (2026) e auditar os metadados do payload antes de consolidar relatórios.
+2. **Links e Ementa Digitados à Mão:**
+   * *Erro:* Na formatação da resposta, 12 links foram montados manualmente com sufixos inventados (gerando 404), a ementa do Acórdão 640/2026 foi parafraseada com dados incorretos ("Caio Farias / proc. 009762") e o despacho da Fazenda foi descrito como "limites e diretrizes" em vez de novação do FCVS/FGC.
+   * *Lição:* Regra nº 1 reforçada: **Nenhum dado digitado à mão**. Os links devem vir exclusivamente do `urlTitle` com teste prévio HTTP 200, e textos de ementa devem ser cópias literais dos primeiros caracteres do ato bruto.
+3. **Filtro de Debêntures Incompleto:**
+   * *Erro:* A busca inicial procurou apenas por "debêntures" e omitiu atos com "enquadramento, como prioritário", "Emissor/Controladora" e as Leis 12.431 e 14.801, deixando de fora as Portarias MCID 1.483 e 1.484.
+   * *Lição:* Termos de busca em finanças públicas devem contemplar o vocabulário regulatório formal dos ministérios setoriais.
+4. **Afirmação de Ausência sem Prova de Busca:**
+   * *Erro:* Afirmou-se "não houve ato do tema X" sem exibir a lista de regex utilizada e o universo de atos varridos.
+   * *Lição:* Proibido afirmar ausência de atos sem apresentar previamente a lista completa de termos pesquisados e a quantidade exata de atos inspecionados.
+5. **Correções Valem na Origem:**
+   * *Lição:* Qualquer correção realizada apenas no HTML gerado é revertida na próxima execução. A correção deve sempre residir nos scripts Python geradores.
+6. **Desacoplamento e Segurança de Execução:**
+   * O clipping na nuvem não toca no radar; o radar é gerado e publicado apenas pela tarefa local agendada às 08:00 BRT (`RadarInteligenciaRegulatoria`), evitando bloqueios de WAF do BNDES. Destinatários de teste ficam restritos a secrets criptografados (`EMAIL_TESTE`), sem expor endereços no console do GitHub Actions.
+
+---
+
+## 4. Pauta da Próxima Sessão (06/11/2026)
+
+Executar strictly em ordem:
+1. **Conferência das Rodadas Agendadas:**
+   - Rodada das 07:17 BRT na nuvem (Clipping via GitHub Actions): checar logs e confirmar recebimento de e-mail até 08:00.
+   - Rodada das 08:00 BRT local (Radar via Agendador de Tarefas do Windows): checar log e confirmar no site público o carimbo `Atualizado em 06/11 08:xx`.
+2. **Decisões Editoriais com o Marcos:**
+   - Definição do filtro dos Acórdãos da ANTAQ (critérios discriminantes: arrendamento, tarifa, reequilíbrio, EVTEA, seguro, garantia, e interessado MPOR ou autoridade portuária vs. bloco completo).
+   - Definição da exibição dos atos do DOU no painel (aba "Atos do DOU" ou integração às abas temáticas).
+3. **Construção da Aba "Atos do DOU" no Radar:**
+   - Um card por ato individual relevante; REIDI e acórdãos agrupados por dia; todos com travas de link HTTP 200 e texto literal; validação prévia na trava de sanidade (`validador_publicacao.py`).
+4. **Evoluções Seguintes:**
+   - Integração do feed próprio do Poder360 ao Clipping (uma fonte por vez).
+   - Monitor Legislativo (APIs da Câmara e do Senado) e pautas regulatórias da semana.

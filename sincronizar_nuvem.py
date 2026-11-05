@@ -58,6 +58,7 @@ ARQUIVOS_SINCRONIZADOS = [
     "radar_participativo/REGRAS_ABA_LEILOES.md",
     "radar_participativo/termos_selos_estruturacao.json",
     "radar_participativo/coletor_tcu.py",
+    "radar_participativo/coletor_dou.py",
     "radar_participativo/validador_radar.py",
     "radar_participativo/validador_publicacao.py",
     "radar_participativo/testar_trava.py",
