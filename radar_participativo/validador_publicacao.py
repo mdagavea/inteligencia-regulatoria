@@ -203,6 +203,90 @@ def verificar_radar_html(conteudo: str, nome_arquivo: str) -> List[Dict]:
     # 3. 'Em execução' restrito aos selos de situação
     violacoes.extend(verificar_em_execucao_selos(conteudo, nome_arquivo))
 
+    # 4. Checagem de Sanidade de Cards por Aba
+    violacoes.extend(verificar_sanidade_radar(conteudo, nome_arquivo))
+
+    return violacoes
+
+
+def contar_cards_radar(conteudo: str) -> Dict[str, int]:
+    """Conta os cards presentes em cada painel do Radar."""
+    contagens = {"participativo": 0, "estruturacao": 0, "leiloes": 0, "sfn": 0}
+    if TEM_BS4:
+        try:
+            soup = BeautifulSoup(conteudo, "html.parser")
+            for chave, pid in [
+                ("participativo", "panel-participativo"),
+                ("estruturacao", "panel-estruturacao"),
+                ("leiloes", "panel-leiloes"),
+                ("sfn", "panel-sfn"),
+            ]:
+                el = soup.find(id=pid)
+                if el:
+                    contagens[chave] = len(el.find_all("article"))
+            return contagens
+        except Exception:
+            pass
+
+    # Fallback via regex por section de painel
+    for chave, pid in [
+        ("participativo", "panel-participativo"),
+        ("estruturacao", "panel-estruturacao"),
+        ("leiloes", "panel-leiloes"),
+        ("sfn", "panel-sfn"),
+    ]:
+        m = re.search(rf'id=[\"\']{pid}[\"\'][^>]*>(.*?)(?:</section>|<section|$)', conteudo, re.DOTALL)
+        if m:
+            contagens[chave] = len(re.findall(r'<article\b', m.group(1), re.IGNORECASE))
+    return contagens
+
+
+def verificar_sanidade_radar(conteudo: str, nome_arquivo: str) -> List[Dict]:
+    """
+    Checagem de sanidade obrigatória para o Radar:
+    1. Reprova se a aba Estruturação tiver 0 cards.
+    2. Reprova se qualquer aba cair mais de 50% em relação à versão publicada.
+    """
+    if "radar" not in nome_arquivo.lower():
+        return []
+
+    violacoes = []
+    contagens = contar_cards_radar(conteudo)
+
+    # 1. Checagem obrigatória: Aba Estruturação nunca pode ter 0 cards
+    if contagens["estruturacao"] == 0:
+        violacoes.append({
+            "arquivo": nome_arquivo,
+            "termo": "[SANIDADE_ESTRUTURACAO_VAZIA]",
+            "posicao": 0,
+            "trecho": f"Contagem de cards detectada: {contagens}",
+            "detalhe": "Aba Estruturação contém 0 cards. A publicação de radar com abas vazias foi bloqueada."
+        })
+
+    # 2. Checagem contra versão publicada na nuvem (se acessível)
+    try:
+        import urllib.request
+        url_ref = "https://mdagavea.github.io/inteligencia-regulatoria/radar.html"
+        req = urllib.request.Request(url_ref, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=4) as resp:
+            html_ref = resp.read().decode("utf-8", errors="replace")
+        contagens_ref = contar_cards_radar(html_ref)
+
+        for aba, qtd_ref in contagens_ref.items():
+            if qtd_ref > 0:
+                qtd_atual = contagens.get(aba, 0)
+                # Se cair mais de 50% em relação à versão publicada
+                if qtd_atual < (qtd_ref * 0.5):
+                    violacoes.append({
+                        "arquivo": nome_arquivo,
+                        "termo": f"[SANIDADE_QUEDA_ABRUPTA_{aba.upper()}]",
+                        "posicao": 0,
+                        "trecho": f"Aba '{aba}': caiu de {qtd_ref} cards publicados para {qtd_atual} cards no HTML atual.",
+                        "detalhe": f"Queda anômala superior a 50% detectada na aba '{aba}'. Publicação reprovada."
+                    })
+    except Exception:
+        pass
+
     return violacoes
 
 

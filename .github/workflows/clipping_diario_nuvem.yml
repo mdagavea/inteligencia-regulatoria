@@ -70,7 +70,7 @@ jobs:
       - name: Trava de Seguranca Editorial (Varredura de Termos Proibidos no HTML)
         if: steps.check_hoje.outputs.ja_existe != 'true'
         run: |
-          python radar_participativo/validador_publicacao.py radar.html clipping.html
+          python radar_participativo/validador_publicacao.py clipping.html
 
       - name: Publicar paineis atualizados no GitHub Pages (commit & push)
         if: steps.check_hoje.outputs.ja_existe != 'true'
@@ -80,11 +80,11 @@ jobs:
           git config user.email "actions@github.com"
           # email_dispatch.json NAO entra no commit: contem os e-mails dos destinatarios (repositorio publico).
           # Ele e lido no proprio job, no passo de envio abaixo, direto da pasta de trabalho.
-          git add clipping.html radar.html historico/ radar_participativo/historico_processos.json || true
+          git add clipping.html historico/ radar_participativo/historico_processos.json || true
           if git diff --staged --quiet; then
             echo "Nenhuma alteracao nos arquivos para commit."
           else
-            git commit -m "Publicacao automatica na nuvem — Clipping & Radar (${HOJE_BR})"
+            git commit -m "Publicacao automatica na nuvem — Clipping (${HOJE_BR})"
             git pull --rebase origin main || true
             git push origin main
           fi
@@ -124,7 +124,9 @@ jobs:
           with smtplib.SMTP_SSL('smtp.gmail.com', 465) as s:
               s.login(user, pwd)
               s.sendmail(user, dests, msg.as_string())
-          print('E-mail enviado com sucesso na nuvem para:', dests)
+          qtd = len(dests)
+          plur = 'destinatário' if qtd == 1 else 'destinatários'
+          print(f'E-mail enviado com sucesso na nuvem para {qtd} {plur}.')
 
           # Grava marcador local de e-mail enviado (sem dados de destinatarios para preservar privacidade)
           hoje_iso = data.get('timestamp', '')[:10]

@@ -28,14 +28,6 @@ def obter_novos_processos_participativos_48h(api_key, em_github_actions=False):
         candidatos = coletor_participativo.coletar_processos_brasil_participativo()
         dossies = curador_participativo.curar_processos_participativos(candidatos, PASTA_RADAR, api_key=api_key)
 
-        # Renderiza e publica o painel contínuo do Radar automaticamente junto com o Clipping
-        _, caminho_radar_local = renderizador_participativo.gerar_painel_radar_html(dossies, PASTA_RADAR)
-        if em_github_actions:
-            import shutil
-            shutil.copyfile(caminho_radar_local, PASTA_PROJETO.parent / "radar.html")
-        else:
-            publicador_web.publicar_arquivo_html(caminho_radar_local, "radar.html", "Radar Brasil Participativo (Contínuo)")
-
         recentes = [
             d for d in dossies
             if d.get("status_ciclo") == "LANCADO_48H"
