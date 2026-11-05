@@ -1682,6 +1682,66 @@
       "relevancia": "ALTA",
       "objeto_normativo": "Audiência pública para subsidiar a estruturação da concessão do Museu Histórico do Exército e Forte de Copacabana (MHEx/FC), projeto incluído no Programa de Parceria de Investimentos (PPI).",
       "pontos_atencao": "Trata-se de um projeto de concessão de ativo público com potencial de exploração comercial e turística, exigindo análise da matriz de riscos, investimentos previstos e obrigações de manutenção do patrimônio histórico."
+    },
+    "809_2026-11-04T16:01": {
+      "id": "809",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ANP",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de resolução que regulamenta a certificação do Combustível Sustentável de Aviação (SAF) e os procedimentos de verificação de lastro para emissão do Certificado de Sustentabilidade (CS-SAF).",
+      "pontos_atencao": "Impacto direto na descarbonização do setor aéreo e na estruturação do mercado de créditos de carbono associados ao ProBioQAV, essencial para o planejamento estratégico de infraestrutura aeroportuária sustentável."
+    },
+    "814_2026-11-04T18:47": {
+      "id": "814",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Audiência Pública",
+      "orgao_sigla": "DECEx / Exército",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Audiência para subsidiar a estruturação da concessão do Museu Histórico do Exército e Forte de Copacabana, projeto incluído no Programa de Parceria de Investimentos (PPI).",
+      "pontos_atencao": "Monitorar a modelagem da concessão, matriz de riscos e obrigações de investimento em patrimônio histórico, que servem de referência para futuros projetos de concessão de ativos públicos."
+    },
+    "815_2026-11-04T19:21": {
+      "id": "815",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "DECEx / Exército",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Consulta pública para colher contribuições sobre a concessão do Museu Histórico do Exército e Forte de Copacabana (PPI).",
+      "pontos_atencao": "Acompanhar as exigências de seguro-garantia e os indicadores de desempenho previstos na minuta do contrato de concessão."
+    },
+    "817_2026-11-04T15:45": {
+      "id": "817",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MME",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Proposta de metodologias e procedimentos para cálculo e revisão da Garantia Física de energia de usinas eólicas e solares fotovoltaicas.",
+      "pontos_atencao": "A alteração na metodologia de garantia física impacta diretamente a bancabilidade (financiabilidade) de projetos de geração renovável e a precificação de ativos no mercado de energia."
+    },
+    "785_2026-11-04T15:51": {
+      "id": "785",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MT / SNTF",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Versão preliminar do Plano Setorial de Transporte Ferroviário (PSTF), estabelecendo diretrizes para planejamento, logística e integração modal.",
+      "pontos_atencao": "Documento fundamental para o mapeamento de futuras concessões, renovações antecipadas e priorização de investimentos em infraestrutura ferroviária nacional."
+    },
+    "702_2026-11-05T09:32": {
+      "id": "702",
+      "aprovar": true,
+      "vertical": "divida",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MDIC / SECEX",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Negociação de Acordo de Preferências Comerciais entre Mercosul e Indonésia.",
+      "pontos_atencao": "Possíveis impactos nas tarifas de importação de bens de capital e insumos estratégicos para infraestrutura, afetando o custo de projetos e a competitividade industrial."
     }
   },
   "analises_estruturacao_v2": {
