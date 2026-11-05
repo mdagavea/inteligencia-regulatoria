@@ -38,6 +38,7 @@ ARQUIVOS_SINCRONIZADOS = [
     "clipping/INSTRUCOES.md",
     "clipping/MEMORIA_PROJETO.md",
     "clipping/HISTORICO_PROJETO.md",
+    "clipping/2026-11-05_Passagem_Envio_Email_Clipping_para_Gemini.md",
     "clipping/termos_filtro.json",
     "clipping/log_descartados_filtro.txt",
     "radar_participativo/coletor_participativo.py",
