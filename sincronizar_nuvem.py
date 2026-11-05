@@ -59,6 +59,8 @@ ARQUIVOS_SINCRONIZADOS = [
     "radar_participativo/termos_selos_estruturacao.json",
     "radar_participativo/coletor_tcu.py",
     "radar_participativo/validador_radar.py",
+    "radar_participativo/validador_publicacao.py",
+    "radar_participativo/testar_trava.py",
     "radar_participativo/HISTORICO_PROJETO.md",
     "radar_participativo/2026-10-28_Ajustes_Aba_Estruturacao_para_Gemini.md",
     "radar_participativo/2026-10-29_Passagem_Aba_SFN_e_Agencias_para_Gemini.md",

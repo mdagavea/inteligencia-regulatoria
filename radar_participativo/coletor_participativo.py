@@ -43,8 +43,8 @@ def criar_contexto_ssl():
     return ctx
 
 
-def executar_graphql(query: str, timeout: int = 25) -> dict:
-    """Executa uma consulta GraphQL na API do Brasil Participativo."""
+def executar_graphql(query: str, timeout: int = 35) -> dict:
+    """Executa uma consulta GraphQL na API do Brasil Participativo com retry automático."""
     ctx = criar_contexto_ssl()
     payload = json.dumps({"query": query}).encode("utf-8")
     req = urllib.request.Request(
@@ -56,9 +56,16 @@ def executar_graphql(query: str, timeout: int = 25) -> dict:
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) RadarParticipativo/1.0"
         }
     )
-    with urllib.request.urlopen(req, context=ctx, timeout=timeout) as resp:
-        raw = resp.read().decode("utf-8", errors="replace")
-        return json.loads(raw)
+    for tentativa in range(1, 4):
+        try:
+            with urllib.request.urlopen(req, context=ctx, timeout=timeout) as resp:
+                raw = resp.read().decode("utf-8", errors="replace")
+                return json.loads(raw)
+        except Exception as e:
+            if tentativa == 3:
+                raise
+            print(f"   [Aviso GraphQL] Tentativa {tentativa}/3 falhou ({e}). Tentando novamente em 3s...")
+            time.sleep(3)
 
 
 def higienizar_titulo_portal(titulo: str) -> str:
@@ -281,7 +288,7 @@ def coletar_processos_brasil_participativo(dias_historico_encerrados: int = 20):
                 rascunhos_por_id[pid] = (proc, nome_tipo)
 
     hoje = date.today()
-    agora_lim = datetime.now().astimezone() - timedelta(hours=54)  # Janela de ~48h (dia + véspera)
+    agora_lim = datetime.now().astimezone() - timedelta(hours=48)  # Janela estrita de 48h a partir da data de publicação
     limite_rascunho = datetime.now().astimezone() - timedelta(days=10)
 
     candidatos = []
@@ -376,7 +383,7 @@ def coletar_complemento_agencias(hoje: date, agora_lim_48h: datetime) -> list:
             if dias_rest is not None and dias_rest < -3:
                 continue
 
-            lanc_48h = bool((hoje - d_ini).days <= 2)
+            lanc_48h = bool(0 <= (hoje - d_ini).days <= 2)
             if dias_rest is not None and dias_rest < 0:
                 st_ciclo = "ENCERRADO_RECENTE"
             elif lanc_48h:
@@ -410,6 +417,7 @@ def coletar_complemento_agencias(hoje: date, agora_lim_48h: datetime) -> list:
                 "contato": "participantt.antt.gov.br",
                 "data_publicacao": f"{d_ini.isoformat()} 09:00",
                 "data_publicacao_br": d_ini.strftime("%d/%m/%Y"),
+                "data_publicacao_iso": f"{d_ini.isoformat()}T09:00:00-03:00",
                 "data_atualizacao_iso": f"{d_ini.isoformat()}T09:00:00",
                 "data_inicio_br": d_ini.strftime("%d/%m/%Y"),
                 "data_fim_br": d_fim.strftime("%d/%m/%Y") if d_fim else "—",
@@ -467,7 +475,7 @@ def coletar_complemento_agencias(hoje: date, agora_lim_48h: datetime) -> list:
             if dias_rest < -3:
                 continue
 
-            lanc_48h = bool((hoje - d_ini).days <= 2 and (hoje - d_ini).days >= 0)
+            lanc_48h = bool(0 <= (hoje - d_ini).days <= 2)
             if dias_rest < 0:
                 st_ciclo = "ENCERRADO_RECENTE"
             elif lanc_48h:
@@ -511,6 +519,7 @@ def coletar_complemento_agencias(hoje: date, agora_lim_48h: datetime) -> list:
                 "contato": "antaq.gov.br",
                 "data_publicacao": f"{d_ini.isoformat()} 09:00",
                 "data_publicacao_br": d_ini.strftime("%d/%m/%Y"),
+                "data_publicacao_iso": f"{d_ini.isoformat()}T09:00:00-03:00",
                 "data_atualizacao_iso": f"{d_ini.isoformat()}T09:00:00",
                 "data_inicio_br": d_ini.strftime("%d/%m/%Y"),
                 "data_fim_br": d_fim.strftime("%d/%m/%Y"),
@@ -580,7 +589,8 @@ def normalizar_processo(p: dict, tipo_catalogo: str, publicado: bool, hoje: date
     end_d = corrigir_data_fim_se_erro_digitacao(start_d, end_d, pub_dt)
 
     dias_restantes = (end_d - hoje).days if end_d else None
-    lancado_48h = bool(publicado and pub_dt and pub_dt >= agora_lim_48h)
+    agora_atual = datetime.now().astimezone()
+    lancado_48h = bool(publicado and pub_dt and agora_lim_48h <= pub_dt <= agora_atual)
 
     if not publicado:
         status_ciclo = "PRE_PUBLICACAO"
@@ -620,6 +630,7 @@ def normalizar_processo(p: dict, tipo_catalogo: str, publicado: bool, hoje: date
         "contato": contato,
         "data_publicacao": pub_dt.strftime("%Y-%m-%d %H:%M") if pub_dt else "",
         "data_publicacao_br": pub_dt.strftime("%d/%m/%Y") if pub_dt else "Pré-publicação",
+        "data_publicacao_iso": pub_dt.isoformat() if pub_dt else "",
         "data_atualizacao_iso": (upd_dt or pub_dt).isoformat() if (upd_dt or pub_dt) else "",
         "data_inicio_br": start_d.strftime("%d/%m/%Y") if start_d else "—",
         "data_fim_br": end_d.strftime("%d/%m/%Y") if end_d else "Sem data limite",

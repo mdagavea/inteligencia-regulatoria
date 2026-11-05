@@ -213,7 +213,7 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
       display: block;
     }}
 
-    /* Banner Contextual Portaria de Riscos e Segurabilidade */
+    /* Banner Contextual */
     .context-banner {{
       background: linear-gradient(90deg, #eff6ff 0%, #f5f3ff 100%);
       border: 1px solid #bfdbfe;
@@ -392,7 +392,7 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
     .dossier-card.vertical-carbono {{ border-left: 5px solid var(--color-carbono); }}
     .dossier-card.vertical-divida {{ border-left: 5px solid var(--color-divida); }}
 
-    .est-card.cat-PRIORIDADE_A_MPOR {{ border-left: 5px solid #0284c7; }}
+    .est-card.cat-PRIORIDADE_A {{ border-left: 5px solid #0284c7; }}
     .est-card.cat-PRIORIDADE_B_COMPARACAO {{ border-left: 5px solid #7c3aed; }}
     .est-card.cat-PRIORIDADE_C_ART102 {{ border-left: 5px solid #059669; }}
     .badge-destaque {{ background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }}
@@ -807,7 +807,7 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
           </div>
           <div class="kpi-icon" style="background: #f1f5f9; color: #0f172a;">📐</div>
         </div>
-        <div class="kpi-card" onclick="filtrarCategoriaEst('PRIORIDADE_A_MPOR')">
+        <div class="kpi-card" onclick="filtrarCategoriaEst('PRIORIDADE_A')">
           <div class="kpi-info">
             <span>Prioridade A (Portos & Hidrovias)</span>
             <strong style="color: #0284c7;">{est_kpi_evtea}</strong>
@@ -834,7 +834,7 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
         <div class="filter-group" id="est-cat-filters">
           <span class="filter-label">Recorte:</span>
           <button class="filter-btn active" data-est-cat="TODAS" onclick="filtrarCategoriaEst('TODAS')">Todos ({est_total})</button>
-          <button class="filter-btn" data-est-cat="PRIORIDADE_A_MPOR" onclick="filtrarCategoriaEst('PRIORIDADE_A_MPOR')">⚓ Prioridade A — Portos, Aeroportos & Hidrovias ({est_kpi_evtea})</button>
+          <button class="filter-btn" data-est-cat="PRIORIDADE_A" onclick="filtrarCategoriaEst('PRIORIDADE_A')">⚓ Prioridade A — Portos, Aeroportos & Hidrovias ({est_kpi_evtea})</button>
           <button class="filter-btn" data-est-cat="PRIORIDADE_B_COMPARACAO" onclick="filtrarCategoriaEst('PRIORIDADE_B_COMPARACAO')">⚖️ Prioridade B — Comparação Federal ({est_kpi_seguros})</button>
           <button class="filter-btn" data-est-cat="PROPOSTAS_ABERTAS" onclick="filtrarCategoriaEst('PROPOSTAS_ABERTAS')">⏳ Editais com Propostas Abertas ({est_kpi_carteira})</button>
         </div>
@@ -873,7 +873,7 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
           </div>
           <div class="kpi-icon" style="background: #fef3c7; color: #b45309;">⚖️</div>
         </div>
-        <div class="kpi-card" onclick="filtrarSetorLeilao('MPOR_FOCO')">
+        <div class="kpi-card" onclick="filtrarSetorLeilao('FOCO_INFRA_TRANSPORTE')">
           <div class="kpi-info">
             <span>Portos, Hidrovias & Aeroportos</span>
             <strong style="color: #0284c7;">{leil_kpi_mpor}</strong>
@@ -886,7 +886,7 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
         <div class="filter-group" id="leilao-setor-filters">
           <span class="filter-label">Setor:</span>
           <button class="filter-btn active" data-setor="TODOS" onclick="filtrarSetorLeilao('TODOS')">Todos ({leil_total})</button>
-          <button class="filter-btn" data-setor="MPOR_FOCO" onclick="filtrarSetorLeilao('MPOR_FOCO')">🏛️ Portos/Hidro/Aero ({leil_kpi_mpor})</button>
+          <button class="filter-btn" data-setor="FOCO_INFRA_TRANSPORTE" onclick="filtrarSetorLeilao('FOCO_INFRA_TRANSPORTE')">🏛️ Portos/Hidro/Aero ({leil_kpi_mpor})</button>
           <button class="filter-btn" data-setor="portos_hidrovias" onclick="filtrarSetorLeilao('portos_hidrovias')">⚓ Portos & Hidrovias</button>
           <button class="filter-btn" data-setor="aeroportos" onclick="filtrarSetorLeilao('aeroportos')">✈️ Aeroportos</button>
           <button class="filter-btn" data-setor="rodovias_ferrovias" onclick="filtrarSetorLeilao('rodovias_ferrovias')">🛣️ Rodovias & Ferrovias</button>
@@ -1086,7 +1086,7 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
         let matchSetor = false;
         if (setorLeilaoAtual === 'TODOS') {{
           matchSetor = true;
-        }} else if (setorLeilaoAtual === 'MPOR_FOCO') {{
+        }} else if (setorLeilaoAtual === 'FOCO_INFRA_TRANSPORTE') {{
           matchSetor = ['portos_hidrovias', 'aeroportos'].includes(s);
         }} else {{
           matchSetor = (s === setorLeilaoAtual);
@@ -1103,7 +1103,7 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
       return String(n).padStart(2, '0');
     }}
 
-    function atualizarContadoresTempoReal() {{
+    function atualizarContadores() {{
       const agora = new Date();
       const cards = document.querySelectorAll('.dossier-card');
       let mudancaStatus = false;
@@ -1127,10 +1127,23 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
           const mins = totalMin % 60;
 
           const relogio = `${{dias}}d ${{pad2(horas)}}h ${{pad2(mins)}}m`;
-          if (st === 'LANCADO_48H') {{
-            pill.innerHTML = `🆕 Lançado • <span class="countdown-mono">⏳ ${{relogio}}</span> (até ${{fimBr}})`;
+          let stAtual = card.getAttribute('data-status');
+          const pubIso = card.getAttribute('data-pub-iso');
+          if (stAtual === 'LANCADO_48H' && pubIso) {{
+            const pubDate = new Date(pubIso);
+            if (!isNaN(pubDate.getTime()) && (agora - pubDate > 48 * 3600 * 1000)) {{
+              const novoSt = (dias <= 7) ? 'PRAZO_URGENTE' : 'ABERTO';
+              card.setAttribute('data-status', novoSt);
+              pill.className = 'deadline-pill status-' + novoSt;
+              stAtual = novoSt;
+              mudancaStatus = true;
+            }}
+          }}
+
+          if (stAtual === 'LANCADO_48H') {{
+            pill.innerHTML = `🆕 Lançado Agora • <span class="countdown-mono">⏳ ${{relogio}}</span> (até ${{fimBr}})`;
           }} else if (dias <= 7) {{
-            if (st !== 'PRAZO_URGENTE') {{
+            if (stAtual !== 'PRAZO_URGENTE') {{
               card.setAttribute('data-status', 'PRAZO_URGENTE');
               pill.className = 'deadline-pill status-PRAZO_URGENTE';
               mudancaStatus = true;
@@ -1180,8 +1193,8 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
       }}
     }}
 
-    atualizarContadoresTempoReal();
-    setInterval(atualizarContadoresTempoReal, 30000);
+    atualizarContadores();
+    setInterval(atualizarContadores, 30000);
   </script>
 </body>
 </html>
@@ -1196,7 +1209,6 @@ NOMES_VERTICAIS = {
 
 NOMES_CATEGORIAS_EST = {
     "PRIORIDADE_A": ("⚓ Prioridade A — Portos, Aeroportos & Hidrovias", "badge-infra"),
-    "PRIORIDADE_A_MPOR": ("⚓ Prioridade A — Portos, Aeroportos & Hidrovias", "badge-infra"),
     "PRIORIDADE_B_COMPARACAO": ("⚖️ Prioridade B — EVTEA & Modelagem Federal (Comparação)", "badge-seguros"),
     "PRIORIDADE_C_ART102": ("🛡️ Prioridade C — Obra Portos/Hidro/Aero • Art. 102 Lei 14.133", "badge-carbono"),
 }
@@ -1277,7 +1289,7 @@ def _renderizar_cards_estruturacao(itens_estruturacao: list) -> str:
 
     blocos = []
     for it in itens_estruturacao:
-        cat = it.get("categoria_item", "PRIORIDADE_A_MPOR")
+        cat = it.get("categoria_item", "PRIORIDADE_A")
         rotulo_cat, classe_badge = NOMES_CATEGORIAS_EST.get(cat, ("📐 Estruturação & EVTEA", "badge-infra"))
         prio = it.get("prioridade_escopo", "")
         fim_iso = it.get("data_fim_iso", "")
@@ -1289,7 +1301,7 @@ def _renderizar_cards_estruturacao(itens_estruturacao: list) -> str:
             classe_prazo = "status-PRAZO_URGENTE" if dias <= 7 else "status-ABERTO"
             texto_prazo = f"⏳ Propostas: {dias}d restantes (até {fim_br})"
         else:
-            classe_prazo = "status-LANCADO_48H"
+            classe_prazo = "status-CONTRATO_ASSINADO"
             texto_prazo = f"📅 {fim_br}"
 
         badge_destaque = '<span class="badge badge-destaque">⭐ Destaque Prioritário</span>' if prio == "PRIORIDADE_A_DESTAQUE" else ""
@@ -1544,7 +1556,7 @@ def gerar_painel_radar_html(
 
     # KPIs Aba 2 (Estruturação & Contratações)
     est_total = len(itens_estruturacao)
-    est_kpi_evtea = sum(1 for e in itens_estruturacao if e.get("categoria_item") == "PRIORIDADE_A_MPOR")
+    est_kpi_evtea = sum(1 for e in itens_estruturacao if e.get("categoria_item") == "PRIORIDADE_A")
     est_kpi_seguros = sum(1 for e in itens_estruturacao if e.get("categoria_item") == "PRIORIDADE_B_COMPARACAO")
     est_kpi_carteira = sum(
         1 for e in itens_estruturacao
@@ -1573,8 +1585,10 @@ def gerar_painel_radar_html(
             pub_br = d.get("data_publicacao_br", "—")
             rotulo_pub = "Cadastro no Portal" if _inicio_anterior_a_publicacao(ini_br, pub_br) else "Publicação"
 
+            pub_iso = d.get("data_publicacao_iso", "")
+
             cards_html_list.append(f"""
-      <article class="dossier-card vertical-{vert}" data-status="{st}" data-vertical="{vert}" data-deadline-iso="{fim_iso}" data-fim-br="{fim_br}">
+      <article class="dossier-card vertical-{vert}" data-status="{st}" data-vertical="{vert}" data-deadline-iso="{fim_iso}" data-pub-iso="{pub_iso}" data-fim-br="{fim_br}">
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-{vert}">{nome_vert}</span>

@@ -23,6 +23,7 @@
 ## 2. Regras de Operação e Economia de API
 
 * **Tom 100% Factual:** Proibido opinião, juízo de valor, "ótica DECON" ou "recomenda-se".
+* **Correções valem na origem (código que gera a página), nunca só no HTML gerado:** Qualquer ajuste em dados, textos, selos, termos ou formatações deve ser implementado no código Python que renderiza a página (coletores, renderizadores e curadores), nunca apenas no arquivo `.html` gerado, para evitar que novas execuções revertam o que foi corrigido.
 * **Economia de API Gemini:**
   1. Filtro por `termos_filtro.json` / regex roda **antes** da IA;
   2. Só itens novos (por URL/hash em `historico_processos.json`) vão à IA;

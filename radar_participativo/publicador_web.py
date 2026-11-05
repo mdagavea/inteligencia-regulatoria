@@ -2,6 +2,10 @@ import base64
 import json
 import subprocess
 from pathlib import Path
+try:
+    import validador_publicacao
+except ImportError:
+    from . import validador_publicacao
 
 REPO = "mdagavea/inteligencia-regulatoria"
 URL_BASE_PAGES = "https://mdagavea.github.io/inteligencia-regulatoria"
@@ -128,10 +132,21 @@ def garantir_github_pages_ativo():
 
 
 def publicar_arquivo_html(caminho_local: Path, nome_remoto: str, titulo_log: str) -> str:
-    """Publica um arquivo HTML local no GitHub Pages e retorna a URL pública."""
+    """Publica um arquivo HTML local no GitHub Pages e retorna a URL pública, após validação editorial estrita."""
+    # Trava automática de segurança editorial
+    aprovado, violacoes, avisos = validador_publicacao.validar_arquivo_html(caminho_local)
+    validador_publicacao.emitir_relatorio_validacao(aprovado, violacoes, avisos, Path(caminho_local).name)
+    if not aprovado:
+        print(f"   [BLOQUEIO] Publicação de {nome_remoto} cancelada pela trava de segurança editorial!")
+        return ""
+
     conteudo = Path(caminho_local).read_text(encoding="utf-8")
     ok = enviar_arquivo_github(nome_remoto, conteudo, f"Atualiza {titulo_log}")
-    # Garante também o index.html
+    # Garante também o index.html (também validado)
+    violacoes_hub, avisos_hub = validador_publicacao.verificar_conteudo_html(INDEX_HTML, "index.html")
+    if violacoes_hub:
+        validador_publicacao.emitir_relatorio_validacao(False, violacoes_hub, avisos_hub, "index.html")
+        return ""
     enviar_arquivo_github("index.html", INDEX_HTML, "Atualiza Hub index.html")
     garantir_github_pages_ativo()
     if ok:

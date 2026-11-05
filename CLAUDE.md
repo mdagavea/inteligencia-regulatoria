@@ -57,6 +57,7 @@ Sempre que o usuário solicitar manutenção ou evolução (seja pelo **Claude**
 3. **Respeitar as Regras Inegociáveis do Projeto:**
    - **Proibido alucinar URLs:** no Clipping, os links vêm exclusivamente de `_vincular_links_originais` por ID numérico; no Radar, apenas links oficiais verificados.
    - **Tom 100% factual e verificável nas fichas técnicas do Radar:** nunca usar opiniões ou expressões prescritivas ("deve contemplar", "recomenda-se", "sob a ótica da DECON").
+   - **Correções valem na origem (código que gera a página), nunca só no HTML gerado:** qualquer ajuste em dados, textos, selos ou formatações deve ser feito no código Python que renderiza a página (coletores, renderizadores e curadores), nunca apenas no arquivo `.html` gerado.
    - **Resiliência sem IA:** nenhuma falha de cota/crédito da API de IA pode derrubar a geração dos painéis ou o envio do e-mail.
 4. **Publicar alterações diretamente na nuvem:**
    - Como a execução oficial ocorre no GitHub Actions, toda alteração feita em scripts Python (`clipping/*.py` ou `radar_participativo/*.py`) ou nas memórias (`*.md`) **deve ser enviada ao repositório GitHub** imediatamente após editar:

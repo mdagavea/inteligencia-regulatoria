@@ -231,7 +231,7 @@ def coletar_licitacoes_infra_sa(max_itens: int = 12) -> list:
                         "Produto 4 – Modelagem Econômico-Financeira (item 4.5.1.2 \"m\" e \"n\", p. 29): \"as planilhas eletrônicas deverão dispor de um "
                         "painel de controle com os principais dados de entrada (inputs) e premissas projetadas ao longo do prazo da concessão, para "
                         "variáveis como: (...) m) Seguros e Garantias\".\n"
-                        "• Não há no Termo de Referência previsão de produto específico de estudo de segurabilidade, cotação no mercado segurador "
+                        "• Não há no Termo de Referência previsão de cotação prévia no mercado segurador "
                         "ou modelagem de seguro-garantia com cláusula de retomada para a futura concessão.\n"
                         "• Outras menções a riscos no TR referem-se a: Plano de Gerenciamento de Riscos (PGR) de produtos perigosos no Modelo Operacional "
                         "(Produto 3, item 4.4.1.2 \"q\", p. 26) e riscos climáticos na Resiliência Climática (Produto 2B, item 4.3.2, p. 23–25)."
@@ -470,8 +470,8 @@ def coletar_estruturacao_e_seguros_pncp() -> list:
                         "(Projeto Básico/Executivo), de modo a subsidiar a matriz de riscos hidrodinâmicos e geotécnicos do empreendimento.\"\n"
                         "• No diagnóstico operacional de cargas (Anexo II, Item 7.1.2.5 \"d\" – Produtos Perigosos, p. 14), prevê-se que "
                         "\"deverá ser elaborado um diagnóstico e oferecido um anteprojeto de programa de gestão de risco.\"\n"
-                        "• Não há no Termo de Referência nem no Anexo II previsão de produto específico de estudo de segurabilidade da futura hidrovia/IP4s "
-                        "(o Item 4.4 do TR, p. 5–6, disciplina apenas a garantia de execução de 5% do próprio contrato de consultoria, nos termos do art. 96 da Lei 14.133/2021)."
+                        "• O Item 4.4 do TR (p. 5–6) disciplina a garantia de execução de 5% do próprio contrato de consultoria, "
+                        "nos termos do art. 96 da Lei 14.133/2021, sem detalhamento de apólices operacionais para a futura hidrovia/IP4s."
                     ),
                 })
 
@@ -531,12 +531,12 @@ def coletar_carteira_bndes_estruturadores() -> list:
             "valor_formatado": "R$ 4,08 mi (Contratado)",
             "data_publicacao_br": "17/05/2024 (Contrato)",
             "data_publicacao_iso": "2024-05-17",
-            "data_fim_br": "Em Execução (Consórcio EY / Planave)",
+            "data_fim_br": "Contrato assinado em 17/05/2024",
             "escopo_sintetico": (
                 "Objeto: Contratação de serviços técnicos de apoio (Serviço B) necessários à estruturação de projeto de concessão de serviços "
                 "portuários no Porto Organizado de Santos (incluindo canal de acesso aquaviário, dragagem e infraestrutura associada, aproveitando "
                 "insumos da Etapa 1 da RFP 01/2020) | Valor contratado: R$ 4.083.000,00 | Contrato OCS nº 157/2024 assinado em 17/05/2024 "
-                "(Consórcio EY / Rhein Schirato Meireles / Planave) | Situação: Em execução | "
+                "(Consórcio EY / Rhein Schirato Meireles / Planave) | Situação: Contrato assinado em 17/05/2024 | "
                 "Onde está o escopo: Anexo I – Termo de Especificações Técnicas (30 páginas)."
             ),
             "analise_riscos_segurabilidade": (
@@ -551,8 +551,7 @@ def coletar_carteira_bndes_estruturadores() -> list:
                 "portuárias, utilidades e seguros, dentre outros\" e a avaliação de interferências da travessia seca Santos–Guarujá com \"as remediações "
                 "contratuais necessárias para mitigação desse risco\".\n"
                 "• No Relatório de Decisão do Modelo de Negócios (Item 2.2.1.8 \"b\" e \"f\", p. 11–12) e no Relatório de Modelagem (Item 2.2.2.4, p. 12–13), "
-                "exige-se a análise de \"alocação de riscos entre o PODER CONCEDENTE, AUTORIDADE PORTUÁRIA e OUTORGADA\". Não há previsão de estudo específico "
-                "de segurabilidade da concessão."
+                "exige-se a análise de \"alocação de riscos entre o PODER CONCEDENTE, AUTORIDADE PORTUÁRIA e OUTORGADA\"."
             ),
             "documentos": [
                 {"rotulo": "🏦 Página do Projeto no BNDES", "url": base_pag + "porto-organizado-de-santos", "categoria": "SEI"},
@@ -578,14 +577,14 @@ def coletar_carteira_bndes_estruturadores() -> list:
             "valor_formatado": "R$ 11,50 mi (Contratado)",
             "data_publicacao_br": "30/07/2025 (Contrato)",
             "data_publicacao_iso": "2025-07-30",
-            "data_fim_br": "Em Execução (Consórcio Rodoviário NE)",
+            "data_fim_br": "Contrato assinado em 30/07/2025",
             "escopo_sintetico": (
                 "Objeto: Contratação de serviços técnicos necessários para a estruturação de projetos de concessão rodoviária de até 2.530 km "
                 "de trechos existentes (BR-101/BA/RN/PE/PB/SE, BR-116/304/CE/RN, BR-230/PB, BR-232/PE, BR-235/SE, acessos ao Porto do Pecém/CE) "
                 "e 184,8 km de contornos/variantes na Região Nordeste, observando a Portaria MT nº 995/2023 | "
                 "Valor contratado: R$ 11.501.251,47 (valor estimado na RFP: R$ 24.528.219,73) | "
                 "Contrato OCS nº 270/2025 assinado em 30/07/2025 (Consórcio Rodoviário Nordeste — Dynatest / Estratégica / Ambiente Brasil / Infraconsult / Manesco) | "
-                "Situação: Em execução | Onde está o escopo: Anexo I – Termo de Especificações Técnicas (135 páginas)."
+                "Situação: Contrato assinado em 30/07/2025 | Onde está o escopo: Anexo I – Termo de Especificações Técnicas (135 páginas)."
             ),
             "analise_riscos_segurabilidade": (
                 "• O Anexo VI – Matriz de Riscos (PDF) refere-se à matriz de riscos do contrato de consultoria celebrado com o BNDES, "
@@ -598,7 +597,7 @@ def coletar_carteira_bndes_estruturadores() -> list:
                 "análise das \"garantias de proposta, documentos de habilitação e demais documentos necessários para assinatura do CONTRATO\".\n"
                 "• No Anexo 6 (Item 7, p. 108–109) e no Anexo 7 (Item 8.4, p. 115–116), exige-se a apresentação de cenários alternativos com vantagens, "
                 "desvantagens e sugestão de texto contratual \"a fim de subsidiar a tomada de decisão acerca da alocação de risco nos contratos de concessão\" "
-                "quanto a desapropriações/desocupações da faixa de domínio e licenciamento/passivos ambientais. Não há previsão de estudo específico de segurabilidade."
+                "quanto a desapropriações/desocupações da faixa de domínio e licenciamento/passivos ambientais."
             ),
             "documentos": [
                 {"rotulo": "🏦 Página do Projeto no BNDES (Rodovias NE)", "url": base_pag + "rodovias-ne", "categoria": "SEI"},
@@ -628,7 +627,7 @@ def coletar_carteira_bndes_estruturadores() -> list:
             "titulo_executivo": p["titulo_executivo"],
             "descricao_bruta": p["escopo_sintetico"],
             "escopo_sintetico": p["escopo_sintetico"],
-            "analise_riscos_segurabilidade": p["analise_riscos_segurabilidade"],
+            "analise_riscos_segurabilidade": p.get("analise_riscos_segurabilidade", ""),
             "ficha_documental_verificada": True,
             "url": p["url"],
             "valor_estimado": p["valor_estimado"],

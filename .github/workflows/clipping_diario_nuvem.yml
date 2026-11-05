@@ -67,6 +67,11 @@ jobs:
         run: |
           python clipping/gerar_clipping.py --headless --force
 
+      - name: Trava de Seguranca Editorial (Varredura de Termos Proibidos no HTML)
+        if: steps.check_hoje.outputs.ja_existe != 'true'
+        run: |
+          python radar_participativo/validador_publicacao.py radar.html clipping.html
+
       - name: Publicar paineis atualizados no GitHub Pages (commit & push)
         if: steps.check_hoje.outputs.ja_existe != 'true'
         run: |
