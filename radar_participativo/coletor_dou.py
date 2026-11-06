@@ -304,7 +304,16 @@ def extrair_objeto_ementa_literal(texto_completo: str) -> str:
         if len(assunto) > 10:
             return assunto
 
-    # 3. Se for Decreto / Portaria / Resolução: captura a ementa literal entre a data do ato e a autoridade
+    # 3. Se for ato normativo com dispositivo articulado (Portaria / Resolução), prioriza o Art. 1º literal após 'resolve:'
+    m_resolve = re.search(r"(?:resolve|RESOLVE):\s*(Art\.\s*1[ºo°]\s*.*?)(?=(?:\.?\s*Art\.\s*2[ºo°]|\.?\s*Par[aá]grafo\s+[uú]nico|\.?\s*Art\.\s*3[ºo°]|$))", txt, re.I | re.S)
+    if m_resolve:
+        art = re.sub(r"\s+", " ", m_resolve.group(1)).strip()
+        if not art.endswith("."):
+            art += "."
+        if len(art) > 15:
+            return art
+
+    # 4. Se for Decreto / Portaria / Resolução sem 'resolve:' articulado: captura a ementa literal entre a data do ato e a autoridade
     m_ementa = re.search(r"(?:DE\s+\d+\s+DE\s+[A-Za-zçÇ]+\s+DE\s+\d{4}|DE\s+\d{1,2}/\d{1,2}/\d{4})\s*[\r\n\s]+(.*?)(?=\.\s*O\s+PRESIDENTE|\.\s*O\s+MINISTRO|\.\s*O\s+Banco\s+Central|\.\s*A\s+DIRETORIA|\.\s*O\s+DIRETOR|\.\s*Art\.\s*1[ºo°]|$)", txt, re.I | re.S)
     if m_ementa:
         em = re.sub(r"\s+", " ", m_ementa.group(1)).strip()
