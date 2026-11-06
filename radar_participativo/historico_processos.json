@@ -1845,26 +1845,6 @@
       "relevancia": null,
       "objeto_normativo": "Plano de Dados Abertos da Universidade Federal de Uberlândia.",
       "pontos_atencao": "Tema acadêmico e de transparência institucional sem impacto nas verticais de atuação."
-    },
-    "811_2026-11-05T18:17": {
-      "id": "811",
-      "aprovar": false,
-      "vertical": null,
-      "modalidade_exibicao": "Consulta Pública",
-      "orgao_sigla": "CGU",
-      "relevancia": "MEDIA",
-      "objeto_normativo": "Minuta de Instrução Normativa sobre a Estratégia de Monitoramento da Qualidade da Atividade de Prevenção a Conflito de Interesses.",
-      "pontos_atencao": "O tema é de governança interna e compliance administrativo, sem impacto direto ou transversal nas verticais de infraestrutura, seguros, financiamento ou transição climática."
-    },
-    "813_2026-11-05T19:29": {
-      "id": "813",
-      "aprovar": false,
-      "vertical": null,
-      "modalidade_exibicao": "Consulta Pública",
-      "orgao_sigla": "MDHC",
-      "relevancia": "MEDIA",
-      "objeto_normativo": "Plano Trienal da Política Nacional de Promoção e Proteção dos Direitos da Criança e do Adolescente no Ambiente Digital.",
-      "pontos_atencao": "O objeto trata de políticas sociais e proteção digital de menores, não possuindo aderência com as verticais de infraestrutura, regulação econômica ou mercado de capitais."
     }
   },
   "analises_estruturacao_v2": {
@@ -1915,6 +1895,12 @@
       "titulo_executivo": "Infra S.A. — RLE Edital nº 019/2026 — Elaboração de estudos técnicos para estruturação de projetos de infraestrutura",
       "escopo_sintetico": "Objeto: Contratação de serviços técnicos especializados para elaboração de estudos de viabilidade (EVTEA) e estruturação de projetos. Valor: Conforme Caderno Orçamentário (Anexo III do PB). Prazo/Situação: Conforme Edital nº 019/2026. Documento de escopo: Termo de Referência e Especificações Técnicas constantes no Edital.",
       "analise_riscos_segurabilidade": "• Anexo VIII do PB: Define a Matriz de Riscos específica para a execução do contrato de consultoria entre a Infra S.A. e a contratada. • Anexo X do PB: Estabelece o Mapa de Riscos Processuais referente à condução do certame e gestão do contrato de consultoria. • Garantias e Seguros: As exigências de garantias contratuais e coberturas securitárias para a execução dos serviços de consultoria estão detalhadas nas cláusulas do Edital nº 019/2026 e na minuta do contrato anexa."
+    },
+    "ANTAQ_ACORDAO_640_EVTEA_530": {
+      "id": "ANTAQ_ACORDAO_640_EVTEA_530",
+      "titulo_executivo": "Modernização dos Estudos de Viabilidade (EVTEA 2.0) e Subsídios à Revisão da Portaria MInfra nº 530",
+      "escopo_sintetico": "• Agenda institucional da ANTAQ para aprimoramento dos EVTEAs (EVTEA 2.0);\n• Contribuições institucionais da ANTAQ à revisão da Portaria MInfra nº 530/2019 com prazo até 13/11/2026;\n• Grupo Técnico conjunto com MPOR e TCU para elaboração do Catálogo de Referência de Custos Portuários;\n• Plano de Trabalho conjunto em até 90 dias (~20/01/2027).",
+      "analise_riscos_segurabilidade": "Diretriz estruturante para modelagens, matrizes de riscos e exigências de seguros em futuras concessões e arrendamentos portuários e hidroviários federais."
     }
   },
   "analises_sfn_ia": {

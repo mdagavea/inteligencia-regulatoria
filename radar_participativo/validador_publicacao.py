@@ -50,9 +50,14 @@ PREFIXOS_EXCECAO_MPOR = (
     "extempor",
 )
 
-# Para CLIPPING (padrões estritamente proibidos em repositório público)
+# Para CLIPPING e RADAR (padrões estritamente proibidos em repositório público)
 PADRAO_EMAIL_INSTITUCIONAL = re.compile(r"[\w\.-]+@mpor\.gov\.br", re.IGNORECASE)
 PADRAO_PROCESSO_SEI = re.compile(r"\b\d{5}\.\d{6}/\d{4}-\d{2}\b")
+
+# Trava contra vazamento de CNPJ (REIDI e empresas privadas): formatado (XX.XXX.XXX/XXXX-XX) e 14 dígitos puros
+PADRAO_CNPJ_FORMATADO = re.compile(r"\b\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}\b")
+PADRAO_CNPJ_14DIGITOS = re.compile(r"\b\d{14}\b")
+PADRAO_EXCECAO_PNCP_URL = re.compile(r"pncp\.gov\.br/app/editais/(\d{14})")
 
 
 def obter_trecho_contexto(texto: str, inicio_idx: int, fim_idx: int, raio: int = 35) -> str:
@@ -70,6 +75,40 @@ def identificar_tipo_arquivo(nome_ou_caminho: str) -> str:
     if "clipping" in nome or "historico" in caminho_str:
         return "CLIPPING"
     return "RADAR"
+
+
+def verificar_vazamento_cnpj(conteudo: str, nome_arquivo: str) -> List[Dict]:
+    """
+    Varre o documento contra CNPJs de empresas privadas / REIDI.
+    Reprova tanto o formato padrão (XX.XXX.XXX/XXXX-XX) quanto 14 dígitos contínuos.
+    Exceção autorizada: caminho canônico de URL oficial do PNCP (pncp.gov.br/app/editais/<cnpj>/...).
+    """
+    violacoes = []
+
+    # 1. CNPJ Formatado
+    for m in PADRAO_CNPJ_FORMATADO.finditer(conteudo):
+        trecho = obter_trecho_contexto(conteudo, m.start(), m.end())
+        violacoes.append({
+            "arquivo": nome_arquivo,
+            "termo": "[VAZAMENTO_CNPJ_FORMATADO]",
+            "posicao": m.start(),
+            "trecho": trecho,
+            "detalhe": f"CNPJ formatado proibido em painel público: '{m.group(0)}'."
+        })
+
+    # 2. CNPJ 14 dígitos desformatado (mascarando URLs oficiais do PNCP antes da busca)
+    conteudo_para_busca = PADRAO_EXCECAO_PNCP_URL.sub(r"pncp.gov.br/app/editais/[CNPJ_ORGAO_PNCP]", conteudo)
+    for m in PADRAO_CNPJ_14DIGITOS.finditer(conteudo_para_busca):
+        trecho = obter_trecho_contexto(conteudo_para_busca, m.start(), m.end())
+        violacoes.append({
+            "arquivo": nome_arquivo,
+            "termo": "[VAZAMENTO_CNPJ_14DIGITOS]",
+            "posicao": m.start(),
+            "trecho": trecho,
+            "detalhe": f"Sequência de 14 dígitos (CNPJ desformatado) proibida em painel público: '{m.group(0)}'."
+        })
+
+    return violacoes
 
 
 # ==============================================================================
@@ -203,7 +242,10 @@ def verificar_radar_html(conteudo: str, nome_arquivo: str) -> List[Dict]:
     # 3. 'Em execução' restrito aos selos de situação
     violacoes.extend(verificar_em_execucao_selos(conteudo, nome_arquivo))
 
-    # 4. Checagem de Sanidade de Cards por Aba
+    # 4. Trava contra vazamento de CNPJs (formatados e 14 dígitos puros)
+    violacoes.extend(verificar_vazamento_cnpj(conteudo, nome_arquivo))
+
+    # 5. Checagem de Sanidade de Cards por Aba
     violacoes.extend(verificar_sanidade_radar(conteudo, nome_arquivo))
 
     return violacoes
@@ -328,6 +370,9 @@ def verificar_clipping_html(conteudo: str, nome_arquivo: str) -> Tuple[List[Dict
             "trecho": trecho,
             "detalhe": f"Número de processo SEI proibido no clipping público: '{m.group(0)}'."
         })
+
+    # 3. Bloqueante: Trava contra vazamento de CNPJs (formatados e 14 dígitos puros)
+    violacoes.extend(verificar_vazamento_cnpj(conteudo, nome_arquivo))
 
     # 3. Avisos informativos (NÃO bloqueiam a publicação nem o envio)
     for termo_aviso in ["segurabilidade", "núcleo", "nucleo"]:

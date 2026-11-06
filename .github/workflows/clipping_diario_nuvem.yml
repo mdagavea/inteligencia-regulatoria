@@ -2,8 +2,13 @@ name: Clipping Diario e Radar na Nuvem (DECON/MPOR)
 
 on:
   schedule:
-    # Roda de Segunda a Sexta-feira às 07:17 BRT (10:17 UTC) — minuto quebrado para evitar filas de horário cheio no GitHub
+    # Minutos quebrados para contornar filas de horário de pico no GitHub Actions:
+    # Tentativa 1: 07:17 BRT (10:17 UTC) — Faixa prioritária matinal
     - cron: "17 10 * * 1-5"
+    # Tentativa 2: 08:43 BRT (11:43 UTC) — Redundância intermediária caso a primeira atrase
+    - cron: "43 11 * * 1-5"
+    # Tentativa 3: 10:18 BRT (13:18 UTC) — Salvaguarda tardia para garantir entrega
+    - cron: "18 13 * * 1-5"
   workflow_dispatch:
     inputs:
       forcar_reexecucao:

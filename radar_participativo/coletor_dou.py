@@ -106,17 +106,28 @@ REGEX_TEMAS = {
     "EVTEA": re.compile(r"\bEVTEA\b|Estudos?\s+de\s+Viabilidade\s+T[eé]cnica|Estudos?\s+de\s+Via\b", re.I),
 }
 
-# Filtro temático para deliberações e acórdãos da ANTAQ
-REGEX_ANTAQ_TEMAS = {
-    "arrendamento": re.compile(r"\barrendament|\barrendat[aá]ri", re.I),
-    "reequilíbrio": re.compile(r"reequil[ií]bri", re.I),
-    "tarifa": re.compile(r"\btarif", re.I),
-    "concessão": re.compile(r"\bconcess", re.I),
-    "outorga": re.compile(r"\boutorg", re.I),
-    "EVTEA": re.compile(r"\bEVTEA\b|Estudos?\s+de\s+Viabilidade|Estudos?\s+de\s+Via\b", re.I),
-    "seguro": re.compile(r"\bsegur(o|os|adora|abilidade)?\b", re.I),
-    "garantia": re.compile(r"\bgaranti(a|as)?\b", re.I),
-}
+# Filtro temático para deliberações e acórdãos da ANTAQ carregado de configuração externa
+ARQ_FILTRO_ANTAQ = PASTA_ATUAL / "filtro_acordaos_antaq.json"
+REGEX_ANTAQ_TEMAS = {}
+REGEX_ANTAQ_EXCLUSOES = {}
+
+if ARQ_FILTRO_ANTAQ.exists():
+    try:
+        cfg_antaq = json.loads(ARQ_FILTRO_ANTAQ.read_text(encoding="utf-8"))
+        for k, v in cfg_antaq.get("criterios_inclusao", {}).items():
+            REGEX_ANTAQ_TEMAS[k] = re.compile(v["regex"], re.I)
+        for k, v in cfg_antaq.get("criterios_exclusao_expressa", {}).items():
+            REGEX_ANTAQ_EXCLUSOES[k] = re.compile(v["regex"], re.I)
+    except Exception as e:
+        print(f"[AVISO] Falha ao carregar filtro_acordaos_antaq.json ({e}). Usando fallback.")
+
+if not REGEX_ANTAQ_TEMAS:
+    REGEX_ANTAQ_TEMAS = {
+        "arrendamento": re.compile(r"\barrendament|\barrendat[aá]ri", re.I),
+        "reequilíbrio": re.compile(r"reequil[ií]bri", re.I),
+        "tarifa": re.compile(r"\btarif", re.I),
+        "EVTEA": re.compile(r"\bEVTEA\b|Estudos?\s+de\s+Viabilidade|Portaria\s+530", re.I),
+    }
 
 TIPOS_VALIDOS_TEMATICOS = [
     "decreto", "decreto numerado", "resolução", "portaria", "acórdão",
@@ -406,11 +417,18 @@ def executar_coleta_e_filtragem(datas: List[str] = None) -> Dict[str, Any]:
                     proc_a, rel_a = extrair_processo_relator(content)
                     l0_a = extrair_primeira_linha(content)
 
-                    # Testa se passa no filtro temático da ANTAQ
+                    # Testa se passa no filtro temático da ANTAQ (inclusões vs exclusões expressas)
                     temas_antaq = []
                     for t_nome, rgx_a in REGEX_ANTAQ_TEMAS.items():
                         if rgx_a.search(texto_busca):
                             temas_antaq.append(t_nome)
+
+                    exclusoes_antaq = []
+                    for e_nome, rgx_e in REGEX_ANTAQ_EXCLUSOES.items():
+                        if rgx_e.search(texto_busca):
+                            exclusoes_antaq.append(e_nome)
+
+                    passou_filtro = len(temas_antaq) > 0 and len(exclusoes_antaq) == 0
 
                     acordaos_antaq_avaliados.append({
                         "data": d,
@@ -419,7 +437,8 @@ def executar_coleta_e_filtragem(datas: List[str] = None) -> Dict[str, Any]:
                         "processo": proc_a,
                         "relator": rel_a,
                         "temas": temas_antaq,
-                        "passou_tematico": len(temas_antaq) > 0,
+                        "exclusoes": exclusoes_antaq,
+                        "passou_tematico": passou_filtro,
                         "primeira_linha_literal": l0_a,
                         "url": url_c,
                         "http_status": status_h,

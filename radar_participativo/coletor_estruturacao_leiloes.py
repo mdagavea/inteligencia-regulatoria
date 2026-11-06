@@ -684,7 +684,55 @@ def coletar_tudo_aba_estruturacao() -> list:
         else:
             pncp_filtrados.append(p)
 
-    todos = itens_infra + pncp_filtrados + itens_bndes
+    # Atalho de contingência editorial: Acompanhamento prioritário do Acórdão ANTAQ 640/2026 e Portaria 530/2019
+    hoje = date.today()
+    prazo_530 = date(2026, 11, 13)
+    dias_530 = (prazo_530 - hoje).days
+
+    card_portaria_530 = {
+        "id": "ANTAQ_ACORDAO_640_EVTEA_530",
+        "origem": "DOU • ANTAQ",
+        "estruturador_sigla": "ANTAQ • Agenda EVTEA 2.0",
+        "prioridade_escopo": "PRIORIDADE_A_DESTAQUE",
+        "categoria_item": "ESTUDO_EVTEA",
+        "modalidade": "Acórdão nº 640/2026-ANTAQ • Processo 50300.014412/2026-68",
+        "titulo": "Acórdão nº 640/2026-ANTAQ — Agenda Institucional EVTEA 2.0 e Revisão da Portaria MInfra nº 530/2019",
+        "titulo_executivo": "Modernização dos Estudos de Viabilidade (EVTEA 2.0) e Subsídios à Revisão da Portaria MInfra nº 530",
+        "descricao_bruta": (
+            "VISTOS, relatados e discutidos os presentes autos, que tratam de proposta da Superintendência de Outorgas - SOG "
+            "de instituição de agenda institucional de modernização e aprimoramento dos Estudos de Viabilidade Técnica, Econômica "
+            "e Ambiental (EVTEA 2.0), bem como de contribuições institucionais à revisão da Portaria nº 530/2019/MInfra."
+        ),
+        "escopo_sintetico": (
+            "• Agenda institucional da ANTAQ para aprimoramento dos EVTEAs (EVTEA 2.0);\n"
+            "• Contribuições institucionais da ANTAQ à revisão da Portaria MInfra nº 530/2019 com prazo até 13/11/2026;\n"
+            "• Grupo Técnico conjunto com MPOR e TCU para elaboração do Catálogo de Referência de Custos Portuários;\n"
+            "• Plano de Trabalho conjunto em até 90 dias (~20/01/2027)."
+        ),
+        "analise_riscos_segurabilidade": (
+            "Diretriz estruturante para modelagens, matrizes de riscos e exigências de seguros em futuras concessões "
+            "e arrendamentos portuários e hidroviários federais."
+        ),
+        "ficha_documental_verificada": True,
+        "url": "https://www.in.gov.br/web/dou/-/acordao-n-640/2026-antaq-741192815",
+        "valor_estimado": None,
+        "valor_formatado": "Diretriz Regulatória",
+        "data_publicacao_br": "03/11/2026",
+        "data_publicacao_iso": "2026-11-03",
+        "data_fim_br": "13/11/2026",
+        "data_fim_iso": "2026-11-13",
+        "dias_restantes": dias_530,
+        "tem_matriz_risco": True,
+        "documentos": [
+            {
+                "rotulo": "📜 Acórdão nº 640/2026-ANTAQ (DOU 03/11/2026 — Link Validado HTTP 200)",
+                "url": "https://www.in.gov.br/web/dou/-/acordao-n-640/2026-antaq-741192815",
+                "categoria": "DOU"
+            }
+        ],
+    }
+
+    todos = [card_portaria_530] + itens_infra + pncp_filtrados + itens_bndes
 
     # Ordena priorizando:
     # 1) PRIORIDADE_A_DESTAQUE (ex: DNIT Laguna de Araruama e BNDES Hidrovias Tapajós/Tocantins)
