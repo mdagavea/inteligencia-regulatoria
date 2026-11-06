@@ -1845,6 +1845,26 @@
       "relevancia": null,
       "objeto_normativo": "Plano de Dados Abertos da Universidade Federal de Uberlândia.",
       "pontos_atencao": "Tema acadêmico e de transparência institucional sem impacto nas verticais de atuação."
+    },
+    "811_2026-11-05T18:17": {
+      "id": "811",
+      "aprovar": false,
+      "vertical": null,
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "CGU",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Minuta de Instrução Normativa sobre a Estratégia de Monitoramento da Qualidade da Atividade de Prevenção a Conflito de Interesses.",
+      "pontos_atencao": "O tema é de governança interna e compliance administrativo, sem impacto direto ou transversal nas verticais de infraestrutura, seguros, financiamento ou transição climática."
+    },
+    "813_2026-11-05T19:29": {
+      "id": "813",
+      "aprovar": false,
+      "vertical": null,
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MDHC",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Plano Trienal da Política Nacional de Promoção e Proteção dos Direitos da Criança e do Adolescente no Ambiente Digital.",
+      "pontos_atencao": "O objeto trata de políticas sociais e proteção digital de menores, não possuindo aderência com as verticais de infraestrutura, regulação econômica ou mercado de capitais."
     }
   },
   "analises_estruturacao_v2": {
