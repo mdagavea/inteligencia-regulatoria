@@ -46,16 +46,15 @@ Em 06/11/2026, a Fase 1 foi **concluída, refinada editorialmente e integrada di
    - Validação prévia de HTTP 200 obrigatória em todos os links canônicos (`in.gov.br/web/dou/-/`).
    - Trava contra vazamento de CNPJ (14 dígitos contínuos e formatados) validada por `testar_trava_cnpj.py` (5/5 aprovados).
    - Trava editorial `validador_publicacao.py` aprovada com dicionário expandido para verbos lexicais regulares (`compor`, `comporem`).
-   - Mapa de Fontes consolidado e catalogado em [`MAPA_DE_FONTES.md`](MAPA_DE_FONTES.md).
+   - Mapa de Fontes mantido centralizadamente na planilha oficial `2026-11-05_Mapa_de_Fontes_Clipping_e_Radar.xlsx`.
 
 ---
 
-## 3. Fontes Estaduais Testadas (SPI-SP e ARTESP) — Diagnóstico Técnico
+## 3. Fontes Estaduais (SPI-SP e ARTESP) — Diagnóstico
 
-Em 06/11/2026, foi realizada a amostragem técnica para expansão de fontes estaduais de parcerias e regulação (São Paulo):
-* **SPI-SP (Secretaria de Parcerias em Investimentos):** Portal sob firewall **Imperva Incapsula / Distil Networks (WAF)**. Consultas e minutas utilizam renderização dinâmica no cliente pós-validação de sessão.
-* **ARTESP:** Portal corporativo na Prodesp, também protegido por **Imperva Incapsula (WAF)**.
-* **Diretriz de Segurança:** Como as instruções proíbem expressamente resolver ou contornar desafios de bot/WAF, a automação autônoma direta nesses portais via HTTP simples requer avaliação de rotas alternativas (como o Diário Oficial do Estado de SP — DOE-SP ou APIs abertas oficiais). Detalhes no [`MAPA_DE_FONTES.md`](MAPA_DE_FONTES.md).
+Em 06/11/2026, foi realizada a verificação técnica nos portais estaduais de São Paulo:
+* **SPI-SP e ARTESP:** firewall Imperva bloqueia acesso automatizado; consulta manual pelo navegador; sem amostra verificada.
+* **Regra Operacional:** Bloqueada qualquer tentativa de raspagem contra o firewall. Novas fontes exigem trecho literal da própria página com o endereço exato; em caso de bloqueio, reportar "não consegui ler", sem preenchimento sintético.
 
 ---
 
