@@ -146,15 +146,19 @@ def eh_orgao_filtro(hierarchy_str: str, hierarchy_list: List[str]) -> bool:
 
 
 def testar_url_http_200(url: str, timeout: int = 15) -> int:
-    """Trava obrigatória: testa se o link existe e responde HTTP 200 na fonte oficial."""
+    """Trava obrigatória: testa se o link existe e responde HTTP 200 na fonte oficial com retry."""
     req = urllib.request.Request(url, headers=HEADERS_DOU, method="GET")
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            return resp.status
-    except urllib.error.HTTPError as e:
-        return e.code
-    except Exception:
-        return -1
+    for tentativa in range(2):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                return resp.status
+        except urllib.error.HTTPError as e:
+            return e.code
+        except Exception:
+            if tentativa == 1:
+                return -1
+            time.sleep(1)
+    return -1
 
 
 def baixar_ou_carregar_indice_dou(data_str: str, secao: str, max_tentativas: int = 4, timeout: int = 35) -> Dict[str, Any]:
@@ -1005,18 +1009,15 @@ def executar_varredura_consultas_modo_sombra(datas: List[str] = None) -> List[Di
 
             texto_busca = f"{titulo} {content}"
 
-            # Regra 4: Despacho só entra com 'consulta pública' ou 'audiência pública' expressamente no texto
+            # Regra de gatilho estrito de participação social:
+            # 1. Deve conter expressamente: 'consulta pública', 'audiência pública', 'tomada de subsídios', 'recebimento de contribuições' ou 'participação social'.
+            # 2. Atos com 'prorroga' ou 'prorrogação' SÓ entram se o texto também trouxer 'consulta pública', 'audiência pública' ou 'contribuições' (elimina prorrogações internas/administrativas como COFIEX 184, RFB 742 e CVM 246).
+            # 3. 'Despacho' só entra com 'consulta pública' ou 'audiência pública' expressamente no texto.
             if "despacho" in tipo.lower() or "despacho" in titulo.lower():
                 if not re.search(r"consulta\s+p[uú]blica|audi[eê]ncia\s+p[uú]blica", texto_busca, re.I):
                     continue
             else:
-                # Gatilhos de consulta/audiência/contribuições/prorrogação
-                if not re.search(
-                    r"consulta\s+p[uú]blica|audi[eê]ncia\s+p[uú]blica|tomada\s+de\s+subs[ií]dios|"
-                    r"recebimento\s+de\s+contribui[çc]|participa[çc][aã]o\s+social|"
-                    r"prorroga[^\.\n]*?(?:consulta|prazo)|chamamento\s+p[uú]blico",
-                    texto_busca, re.I
-                ):
+                if not re.search(r"consulta\s+p[uú]blica|audi[eê]ncia\s+p[uú]blica|tomada\s+de\s+subs[ií]dios|recebimento\s+de\s+contribui[çc]|participa[çc][aã]o\s+social", texto_busca, re.I):
                     continue
 
             # Filtro negativo: homologação de resultado já concluído, gestão interna, servidores, pregão de custeio
