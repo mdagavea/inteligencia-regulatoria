@@ -23,31 +23,26 @@
 
 ---
 
-## 2. Fase 1: Coletor do Diário Oficial da União (`coletor_dou.py`)
+## 2. Fase 1: Coletor do Diário Oficial da União (`coletor_dou.py`) — Integrado
 
-Em 05/11/2026, foi concluído o desenvolvimento preliminar da Fase 1, em **modo estritamente somente leitura** (sem publicação, sem cards criados e sem alteração no Radar).
+Em 06/11/2026, a Fase 1 foi **concluída e integrada diretamente ao pipeline de geração do Radar** (`gerar_radar.py` etapa 4.5), distribuindo os atos aprovados nas abas temáticas existentes sem necessidade de nova aba:
 
-### A. Travas no Código
-1. **Link exclusivo via `urlTitle` com HTTP 200 obrigatório:** O endereço é montado unicamente a partir de `https://www.in.gov.br/web/dou/-/{urlTitle}` e testado na fonte oficial via requisição HTTP (status 200). Se falhar ou não tiver link válido, o ato é reprovado e vai para a lista de descartados.
-2. **Ementa e 1ª linha literais:** Transcrição estrita dos primeiros caracteres do texto do ato (`content`), sem qualquer resumo, dedução ou paráfrase.
-3. **Processo e Relator por regra:** Extraídos estritamente por regex; se não forem encontrados no texto bruto, o campo permanece vazio (`""`).
-4. **Isolamento de REIDI e Enquadramentos:** Atos fiscais e de enquadramentos de projetos são gravados exclusivamente em arquivo local (`dados_reidi/atos_AAAA-MM.jsonl`), **fora do repositório**. A pasta `dados_reidi/` foi incluída no `.gitignore` e não consta no `ARQUIVOS_SINCRONIZADOS`.
-5. **Setor Factual:** O setor só é gravado quando vier expressamente do texto da portaria do ministério; nunca por dedução.
+1. **Aba 2 (`#estruturacao`):**
+   - Decreto nº 13.142/2026 (Qualificação PPI e inclusão no PND).
+   - Acórdãos da ANTAQ de modelagem e arrendamento portuário aprovados pelo filtro estreito ([`filtro_acordaos_antaq.json`](filtro_acordaos_antaq.json)): Acórdãos nº 650, 641, 652, 637, 653, 633 e 634.
+   - Card prioritário de contingência da Agenda EVTEA 2.0 / Portaria MInfra nº 530/2019 (Acórdão nº 640/2026-ANTAQ).
 
-### B. O que o DOU Entrega e o que Não Entrega (5 dias úteis de 2026: 29/10 a 05/11)
-* **Total varrido:** 12.014 atos (1.703 no DO1 e 10.311 no DO3; dia 30/10 sem circulação ordinária regular).
-* **Nos órgãos do filtro regulatório:** 1.855 atos.
-* **O que o DOU entrega factualmente:**
-  - Decretos do PPI e PND (ex.: Decreto nº 13.142/2026 no DO1 de 03/11).
-  - Resoluções do CMN (ex.: Resolução CMN nº 5.344/2026 no DO1 de 03/11).
-  - Portarias de composição do Fundo da Marinha Mercante (Portaria GM-MPOR nº 60/2026 no DO1 de 03/11).
-  - Despachos ministeriais sobre Fundos Garantidores (Despacho MF de 28/10/2026 — 60ª Novação FCVS com FGC).
-  - Enquadramentos prioritários para debêntures incentivadas (Portarias MCID nº 1.483/2026 [Socicam] e nº 1.484/2026 [Trivia Trens]).
-  - Enquadramento e habilitações de REIDI (Portaria MCID nº 1.482/2026 e atos declaratórios da Receita Federal).
-  - Acórdãos da ANTAQ (24 acórdãos no DO1 de 03/11 e 1 no DO1 de 04/11, incluindo o Acórdão nº 640/2026 sobre a Agenda EVTEA 2.0).
-* **O que o DOU não entrega nessas 10 edições:**
-  - Não houve atos normativos específicos publicados para FNAC, FGE, FGI, FGO nem FGHAB por seus órgãos gestores nesse intervalo de 5 dias úteis.
-* **Status do Coletor:** O `coletor_dou.py` **NÃO está agendado em nenhum cron ou agendador local e NÃO publica nada**.
+2. **Aba 4 (`#sfn`):**
+   - Resolução CMN nº 5.344/2026 (Conselho Monetário Nacional).
+   - Portaria GM nº 60/2026 (Composição do Conselho Diretor do Fundo da Marinha Mercante - FMM).
+   - Despacho MF de 28/10/2026 (Fundos Garantidores — Novação FCVS com FGC).
+   - Portarias MCID nº 1.483 e 1.484/2026 (Enquadramento prioritário para debêntures incentivadas — sem CNPJ).
+   - **Painel Agregado REIDI:** Card institucional com contagem consolidada de 8 atos declaratórios de habilitação da Receita Federal. O banco de dados completo com CNPJs permanece estritamente local em `dados_reidi/` (fora do git).
+
+3. **Travas e Conformidade Editorial:**
+   - Links testados na fonte oficial com HTTP 200 obrigatório (`urlTitle`).
+   - Trava contra CNPJ (formatado e 14 dígitos contínuos) auditada pelo script [`testar_trava_cnpj.py`](testar_trava_cnpj.py).
+   - Validação editorial pelo [`validador_publicacao.py`](validador_publicacao.py) aprovada antes da publicação web.
 
 ---
 

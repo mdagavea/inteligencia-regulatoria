@@ -12,8 +12,10 @@
 
 ## 1. Estado Atual da Arquitetura
 
-* **Execução Diária e Envio de E-mail 100% na Nuvem (Ajustado em 05/11/2026):**
-  * **Cron da Nuvem às 07:17 BRT (`17 10 * * 1-5`):** adiantado para minuto quebrado no workflow ([`.github/workflows/clipping_diario_nuvem.yml`](../.github/workflows/clipping_diario_nuvem.yml)) para evitar filas de horário cheio no GitHub Actions.
+* **Execução Diária e Envio de E-mail 100% na Nuvem (Ajustado em 05/11 e 06/11/2026):**
+  * **Cron da Nuvem Multi-Faixa em Minutos Quebrados (06/11/2026):** três faixas agendadas no workflow ([`.github/workflows/clipping_diario_nuvem.yml`](../.github/workflows/clipping_diario_nuvem.yml)) para contornar filas: Tentativa 1 às 07:17 BRT (`17 10 * * 1-5`), Tentativa 2 às 08:43 BRT (`43 11 * * 1-5`) e Tentativa 3 às 10:18 BRT (`18 13 * * 1-5`).
+  * **Workflow de Alerta Preventivo às 09:33 BRT ([`.github/workflows/alerta_falha_clipping.yml`](../.github/workflows/alerta_falha_clipping.yml)):** checa se o marcador do dia existe; se não existir, dispara e-mail de alerta para `EMAIL_TESTE` avisando sobre a retenção e informando que haverá nova tentativa automática às 10:18 BRT.
+  * **Feriados Nacionais (Decisão de 06/11/2026):** o envio do clipping é mantido em feriados nacionais úteis, sem calendário de supressão.
   * **Agendador Local como Despertador Redundante (07:50 BRT):** `executar_automatico.bat` dispara `gh workflow run clipping_diario_nuvem.yml` via HTTPS 443 sem gerar nem subir arquivos locais, garantindo pontualidade caso o cron do GitHub atrase.
   * **Trava Anti-Duplicidade Robusta com Marcador (`historico/.email_enviado_AAAA-MM-DD`):** O workflow só pula a execução se encontrar o marcador criado após o envio com sucesso pelo SMTP do Gmail. Se o e-mail ainda não saiu, a geração e o envio ocorrem normalmente.
   * **Privacidade Absoluta e Mascaramento Nativo (05/11/2026):**
