@@ -873,7 +873,8 @@ def obter_cards_dou_por_aba(usar_cache_se_disponivel: bool = True) -> Dict[str, 
             "modalidade_numero": "Portaria SNTF nº 940/2026",
             "modalidade_exibicao": "Consulta Pública • DOU DO1",
             "titulo": "Prorrogação de consulta (Portaria nº 940/2026)",
-            "data_inicio_br": "03/11/2026",
+            "data_inicio_br": "",
+            "texto_janela": "Prorrogada até 15/11/2026",
             "data_publicacao_br": "03/11/2026",
             "data_publicacao_iso": "2026-11-03",
             "data_fim_br": "15/11/2026",
@@ -885,7 +886,7 @@ def obter_cards_dou_por_aba(usar_cache_se_disponivel: bool = True) -> Dict[str, 
                 "instituída pela Portaria nº 940, de 28 de outubro de 2026. "
                 "Art. 2º Permanecem inalteradas as demais disposições da Portaria nº 893, de 16 de outubro de 2026."
             ),
-            "pontos_atencao": "Prazo oficial para recebimento de contribuições prorrogado até 15/11/2026 (conforme Art. 1º do ato publicado no DOU).",
+            "pontos_atencao": "",
             "resumo_ia": "",
             "url": "https://www.in.gov.br/web/dou/-/portaria-n-940-de-28-de-outubro-de-2026-741225950",
             "url_principal": "https://www.in.gov.br/web/dou/-/portaria-n-940-de-28-de-outubro-de-2026-741225950",
@@ -907,7 +908,8 @@ def obter_cards_dou_por_aba(usar_cache_se_disponivel: bool = True) -> Dict[str, 
             "modalidade_numero": "Portaria SNTR nº 950/2026",
             "modalidade_exibicao": "Consulta Pública • DOU DO1",
             "titulo": "Prorrogação de consulta (Portaria nº 950/2026)",
-            "data_inicio_br": "03/11/2026",
+            "data_inicio_br": "",
+            "texto_janela": "Prorrogada até 15/11/2026",
             "data_publicacao_br": "03/11/2026",
             "data_publicacao_iso": "2026-11-03",
             "data_fim_br": "15/11/2026",
@@ -919,7 +921,7 @@ def obter_cards_dou_por_aba(usar_cache_se_disponivel: bool = True) -> Dict[str, 
                 "de 19 de outubro de 2026. "
                 "Art. 2º Permanecem inalteradas as demais disposições da Portaria SNTR nº 895, de 19 de outubro de 2026."
             ),
-            "pontos_atencao": "Prazo oficial para recebimento de contribuições prorrogado até 15/11/2026 (conforme Art. 1º do ato publicado no DOU).",
+            "pontos_atencao": "",
             "resumo_ia": "",
             "url": "https://www.in.gov.br/web/dou/-/portaria-n-950-de-29-de-outubro-de-2026-741227805",
             "url_principal": "https://www.in.gov.br/web/dou/-/portaria-n-950-de-29-de-outubro-de-2026-741227805",
@@ -936,8 +938,147 @@ def obter_cards_dou_por_aba(usar_cache_se_disponivel: bool = True) -> Dict[str, 
     return cards_distribuidos
 
 
+def extrair_frase_literal_prazo_sombra(texto: str) -> str:
+    """
+    Extrai a frase literal de prazo conforme regras aprovadas:
+    1. Padrão A: Data explícita na MESMA frase de 'contribuições', 'manifestações' ou 'consulta'.
+    2. Padrão B: 'prazo de N dias...' sem data calculada (apenas a oração literal).
+    3. Sem data na mesma frase de consulta/contribuição/manifestação: retorna 'Ver ato'.
+    """
+    # Protege abreviações comuns da redação legislativa antes de quebrar em sentenças
+    t_prot = re.sub(r'\b(art|arts|n[ºo°]|inc|par|fls|p[aá]g)\.\s*', r'\1_PONTO_ ', texto, flags=re.I)
+    frases = [re.sub(r'_PONTO_\s*', '. ', f).strip() for f in re.split(r'[\.\n;]', t_prot) if f.strip()]
+
+    # 1. Padrão A: data explícita na MESMA frase de 'contribuições', 'manifestações' ou 'consulta'
+    for f in frases:
+        if re.search(r'(?:contribui[çc]|manifesta[çc]|consulta|recep[çc][aã]o)', f, re.I):
+            m = re.search(r'(?:at[eé]\s+(?:o\s+dia\s+|a\s+data\s+de\s+)?(?:\d{1,2}(?:/\d{1,2}/\d{4}|\s+de\s+[a-zçA-ZÇ]+\s+de\s+\d{4})))', f, re.I)
+            if m:
+                return m.group(0).strip()
+
+    # 2. Padrão B: 'prazo de N dias...' sem data calculada (apenas o texto literal)
+    for f in frases:
+        if re.search(r'(?:contribui[çc]|manifesta[çc]|consulta|recep[çc][aã]o)', f, re.I):
+            m_dias = re.search(r'prazo\s+de\s+\d+(?:\s*\([^\)]+\))?\s+dias[^\.\n;]*', f, re.I)
+            if m_dias:
+                return m_dias.group(0).strip()
+
+    return "Ver ato"
+
+
+def executar_varredura_consultas_modo_sombra(datas: List[str] = None) -> List[Dict[str, Any]]:
+    """
+    Varredura diária em Modo Sombra (3 a 5 dias úteis) de novas consultas e prorrogações
+    publicadas por Ministérios e Secretarias no DOU (DO1).
+    Gera apenas lista de candidatos para validação humana prévia. Não publica nada no painel.
+    """
+    if datas is None:
+        datas = DATAS_AMOSTRA_2026
+
+    regex_ministerios = re.compile(
+        r"Ministério dos Transportes|Ministério de Portos e Aeroportos|Ministério das Cidades|"
+        r"Ministério da Fazenda|Ministério de Minas e Energia|Ministério do Planejamento|"
+        r"Secretaria Especial do Programa de Parcerias de Investimentos|SEPPI",
+        re.I
+    )
+
+    candidatos = []
+
+    for d in datas:
+        res = baixar_ou_carregar_indice_dou(d, "do1")
+        itens = res.get("itens", [])
+
+        for it in itens:
+            h = it.get("hierarchyStr", "")
+            tipo = (it.get("artType") or "").strip()
+            titulo = (it.get("title") or "").strip()
+            content = (it.get("content") or "").strip()
+            url_title = (it.get("urlTitle") or "").strip()
+
+            # Ignora Portaria 530 (acompanhamento prévio dedicado)
+            if "530" in titulo or "530" in content:
+                continue
+
+            # Escopo: Ministérios e Secretarias (exclui agências com pipeline próprio)
+            if not regex_ministerios.search(h) or "Agência Nacional" in h:
+                continue
+
+            texto_busca = f"{titulo} {content}"
+
+            # Regra 4: Despacho só entra com 'consulta pública' ou 'audiência pública' expressamente no texto
+            if "despacho" in tipo.lower() or "despacho" in titulo.lower():
+                if not re.search(r"consulta\s+p[uú]blica|audi[eê]ncia\s+p[uú]blica", texto_busca, re.I):
+                    continue
+            else:
+                # Gatilhos de consulta/audiência/contribuições/prorrogação
+                if not re.search(
+                    r"consulta\s+p[uú]blica|audi[eê]ncia\s+p[uú]blica|tomada\s+de\s+subs[ií]dios|"
+                    r"recebimento\s+de\s+contribui[çc]|participa[çc][aã]o\s+social|"
+                    r"prorroga[^\.\n]*?(?:consulta|prazo)|chamamento\s+p[uú]blico",
+                    texto_busca, re.I
+                ):
+                    continue
+
+            # Filtro negativo: homologação de resultado já concluído, gestão interna, servidores, pregão de custeio
+            if re.search(
+                r"homologa[çc][aã]o\s+e\s+publica[çc][aã]o\s+do\s+resultado|resultado\s+definitivo|"
+                r"remo[çc][aã]o\s+interna|processo\s+disciplinar|preg[aã]o\s+eletr[oô]nico",
+                texto_busca, re.I
+            ):
+                continue
+
+            url_completa = f"https://www.in.gov.br/web/dou/-/{url_title}" if url_title else ""
+            status_http = testar_url_http_200(url_completa) if url_completa else 0
+
+            # Obtém texto completo para extração literal
+            txt_completo = obter_texto_completo_ato(url_completa, content) if status_http == 200 else content
+
+            # Confirma número do ato no texto aberto
+            num_match = re.search(r"n[ºo°]?\s*(\d+[\.\d]*)", titulo, re.I)
+            num_str = num_match.group(1) if num_match else ""
+            contem_num = (num_str in txt_completo) if num_str else True
+
+            # Objeto literal e frase de prazo
+            objeto_lit = extrair_objeto_ementa_literal(txt_completo)
+            prazo_lit = extrair_frase_literal_prazo_sombra(txt_completo)
+
+            candidatos.append({
+                "data_edicao": d,
+                "orgao": h,
+                "tipo": tipo,
+                "numero_ato": num_str,
+                "titulo": titulo,
+                "objeto_literal": objeto_lit,
+                "frase_literal_prazo": prazo_lit,
+                "url": url_completa,
+                "http_status": status_http,
+                "confirmacao_numero_no_texto": contem_num,
+                "status_validacao": "CANDIDATO_MODO_SOMBRA",
+            })
+
+    # Grava relatório de candidatos em JSON e log de texto para auditoria
+    arq_json = PASTA_CACHE_DOU / "candidatos_consultas_sombra.json"
+    arq_json.write_text(json.dumps(candidatos, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    arq_log = PASTA_CACHE_DOU / "log_consultas_sombra.txt"
+    with open(arq_log, "w", encoding="utf-8") as f:
+        f.write("=== RELATÓRIO DO COLETOR DE CONSULTAS EM MODO SOMBRA (NÃO PUBLICADO) ===\n")
+        f.write(f"Total de candidatos identificados: {len(candidatos)}\n\n")
+        for idx, c in enumerate(candidatos, 1):
+            f.write(f"[{idx}] {c['titulo']}\n")
+            f.write(f"    Órgão: {c['orgao']}\n")
+            f.write(f"    Tipo: {c['tipo']} | Número: {c['numero_ato']}\n")
+            f.write(f"    Objeto Literal: {c['objeto_literal']}\n")
+            f.write(f"    Prazo Literal: {c['frase_literal_prazo']}\n")
+            f.write(f"    URL (HTTP {c['http_status']}): {c['url']}\n")
+            f.write(f"    Número confere no texto aberto: {c['confirmacao_numero_no_texto']}\n\n")
+
+    return candidatos
+
+
 if __name__ == "__main__":
     res = executar_coleta_e_filtragem()
+    cands_sombra = executar_varredura_consultas_modo_sombra()
     arq_out = PASTA_CACHE_DOU / "resultado_consolidado_fase1.json"
     arq_out.write_text(json.dumps({
         "total_varridos": res["total_varridos"],

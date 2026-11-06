@@ -1591,6 +1591,21 @@ def gerar_painel_radar_html(
 
             pub_iso = d.get("data_publicacao_iso", "")
 
+            if d.get("texto_janela"):
+                bloco_janela = f"<span><strong>Prazo de Contribuição:</strong> {d['texto_janela']}</span>"
+            elif ini_br and ini_br != "—":
+                bloco_janela = f"<span><strong>Janela de Contribuição:</strong> {ini_br} até {fim_br}</span>"
+            else:
+                bloco_janela = f"<span><strong>Prazo de Contribuição:</strong> até {fim_br}</span>"
+
+            bloco_incidencia = ""
+            if d.get("pontos_atencao"):
+                bloco_incidencia = f"""
+          <div class="incidencia-box">
+            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
+            <p class="dossier-text">{d.get('pontos_atencao', '')}</p>
+          </div>"""
+
             cards_html_list.append(f"""
       <article class="dossier-card vertical-{vert}" data-status="{st}" data-vertical="{vert}" data-deadline-iso="{fim_iso}" data-pub-iso="{pub_iso}" data-fim-br="{fim_br}">
         <div class="card-top-meta">
@@ -1607,18 +1622,14 @@ def gerar_painel_radar_html(
         <div class="dates-row">
           <span><strong>ID:</strong> #{d['id']}</span>
           <span><strong>{rotulo_pub}:</strong> {pub_br}</span>
-          <span><strong>Janela de Contribuição:</strong> {ini_br} até {fim_br}</span>
+          {bloco_janela}
         </div>
 
         <div class="dossier-box">
           <div class="dossier-section">
             <div class="dossier-label">📌 Objeto Normativo / O que está em discussão</div>
             <p class="dossier-text">{d.get('objeto_normativo', '')}</p>
-          </div>
-          <div class="incidencia-box">
-            <div class="dossier-label">🎯 Ponto de Atenção & Oportunidade de Incidência</div>
-            <p class="dossier-text">{d.get('pontos_atencao', '')}</p>
-          </div>
+          </div>{bloco_incidencia}
         </div>
 
         <div class="docs-area">
