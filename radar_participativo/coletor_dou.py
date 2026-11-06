@@ -22,6 +22,7 @@ import sys
 import re
 import json
 import time
+import datetime
 import urllib.request
 import urllib.error
 from pathlib import Path
@@ -854,6 +855,83 @@ def obter_cards_dou_por_aba(usar_cache_se_disponivel: bool = True) -> Dict[str, 
                     {"rotulo": f"📜 {titulo_ac} (DOU Oficial)", "url": url_ac, "categoria": "DOU"}
                 ],
             })
+
+    # 4. Consultas Públicas e Prorrogações de Ministérios na Aba Participativo (#participativo)
+    hoje = datetime.date.today()
+    prazo_mt = datetime.date(2026, 11, 15)
+    dias_mt = (prazo_mt - hoje).days if prazo_mt >= hoje else -1
+    st_ciclo_mt = "PRAZO_URGENTE" if (0 <= dias_mt <= 7) else ("ABERTO" if dias_mt > 7 else "ENCERRADO_RECENTE")
+
+    cards_distribuidos["participativo"].extend([
+        {
+            "id": "DOU_MT_PORT_940",
+            "vertical": "infra",
+            "status_ciclo": st_ciclo_mt,
+            "orgao_sigla": "MT / SNTF",
+            "entidade": "Ministério dos Transportes",
+            "entidade_nome": "Secretaria Nacional de Transporte Ferroviário",
+            "modalidade_numero": "Portaria SNTF nº 940/2026",
+            "modalidade_exibicao": "Consulta Pública • DOU DO1",
+            "titulo": "Prorrogação de consulta (Portaria nº 940/2026)",
+            "data_inicio_br": "03/11/2026",
+            "data_publicacao_br": "03/11/2026",
+            "data_publicacao_iso": "2026-11-03",
+            "data_fim_br": "15/11/2026",
+            "data_fim_iso": "2026-11-15",
+            "dias_restantes": dias_mt,
+            "objeto_normativo": (
+                "Art. 1º Fica prorrogado até o dia 15 de novembro de 2026 o prazo para recebimento de contribuições "
+                "referentes à minuta do Plano Setorial de Transporte Ferroviário (PSTF), objeto da consulta pública "
+                "instituída pela Portaria nº 940, de 28 de outubro de 2026. "
+                "Art. 2º Permanecem inalteradas as demais disposições da Portaria nº 893, de 16 de outubro de 2026."
+            ),
+            "pontos_atencao": "Prazo oficial para recebimento de contribuições prorrogado até 15/11/2026 (conforme Art. 1º do ato publicado no DOU).",
+            "resumo_ia": "",
+            "url": "https://www.in.gov.br/web/dou/-/portaria-n-940-de-28-de-outubro-de-2026-741225950",
+            "url_principal": "https://www.in.gov.br/web/dou/-/portaria-n-940-de-28-de-outubro-de-2026-741225950",
+            "documentos": [
+                {
+                    "rotulo": "📜 Publicação Oficial no DOU (Edição 03/11/2026)",
+                    "url": "https://www.in.gov.br/web/dou/-/portaria-n-940-de-28-de-outubro-de-2026-741225950",
+                    "categoria": "DOU"
+                }
+            ],
+        },
+        {
+            "id": "DOU_MT_PORT_950",
+            "vertical": "infra",
+            "status_ciclo": st_ciclo_mt,
+            "orgao_sigla": "MT / SNTR",
+            "entidade": "Ministério dos Transportes",
+            "entidade_nome": "Secretaria Nacional de Transporte Rodoviário",
+            "modalidade_numero": "Portaria SNTR nº 950/2026",
+            "modalidade_exibicao": "Consulta Pública • DOU DO1",
+            "titulo": "Prorrogação de consulta (Portaria nº 950/2026)",
+            "data_inicio_br": "03/11/2026",
+            "data_publicacao_br": "03/11/2026",
+            "data_publicacao_iso": "2026-11-03",
+            "data_fim_br": "15/11/2026",
+            "data_fim_iso": "2026-11-15",
+            "dias_restantes": dias_mt,
+            "objeto_normativo": (
+                "Art. 1º Fica prorrogado até 15 de novembro de 2026 o prazo para recebimento de contribuições "
+                "à consulta pública do Plano Setorial de Transporte Rodoviário - PSTR, instituída pela Portaria SNTR nº 895, "
+                "de 19 de outubro de 2026. "
+                "Art. 2º Permanecem inalteradas as demais disposições da Portaria SNTR nº 895, de 19 de outubro de 2026."
+            ),
+            "pontos_atencao": "Prazo oficial para recebimento de contribuições prorrogado até 15/11/2026 (conforme Art. 1º do ato publicado no DOU).",
+            "resumo_ia": "",
+            "url": "https://www.in.gov.br/web/dou/-/portaria-n-950-de-29-de-outubro-de-2026-741227805",
+            "url_principal": "https://www.in.gov.br/web/dou/-/portaria-n-950-de-29-de-outubro-de-2026-741227805",
+            "documentos": [
+                {
+                    "rotulo": "📜 Publicação Oficial no DOU (Edição 03/11/2026)",
+                    "url": "https://www.in.gov.br/web/dou/-/portaria-n-950-de-29-de-outubro-de-2026-741227805",
+                    "categoria": "DOU"
+                }
+            ],
+        }
+    ])
 
     return cards_distribuidos
 
