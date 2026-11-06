@@ -278,6 +278,41 @@ def extrair_primeira_linha(content: str) -> str:
     return c[:150]
 
 
+def extrair_objeto_ementa_literal(texto_completo: str) -> str:
+    """
+    Extrai estritamente a ementa ou frase de objeto literal do texto oficial do DOU:
+    - Acórdão: frase entre 'tratam de...' e 'ACORDAM'
+    - Despacho: trecho de 'Assunto:' até a decisão/autorização
+    - Decreto/Portaria/Resolução: ementa oficial entre a data e a autoridade emissora
+    """
+    txt = texto_completo.strip()
+    # 1. Se for acórdão com 'tratam de...'
+    m_obj = re.search(r"tratam\s+d[eaoas]+\s+(.*?)(?=,\s*ACORDAM|\.\s*ACORDAM|\s*ACORDAM|$)", txt, re.I)
+    if m_obj:
+        obj = m_obj.group(1).strip()
+        return re.sub(r"[\.,]?\s*ACORDAM.*$", "", obj, flags=re.I).strip()
+
+    # 2. Se for despacho/processo com 'Assunto:'
+    m_assunto = re.search(r"Assunto:\s*(.*?)(?=\.\s*Autorizo|\.\s*Decis[aã]o|\.\s*Determino|\.\s*Homologo|$)", txt, re.I | re.S)
+    if m_assunto:
+        assunto = re.sub(r"\s+", " ", m_assunto.group(1)).strip()
+        if len(assunto) > 10:
+            return assunto
+
+    # 3. Se for Decreto / Portaria / Resolução: captura a ementa literal entre a data do ato e a autoridade
+    m_ementa = re.search(r"(?:DE\s+\d+\s+DE\s+[A-Za-zçÇ]+\s+DE\s+\d{4}|DE\s+\d{1,2}/\d{1,2}/\d{4})\s*[\r\n\s]+(.*?)(?=\.\s*O\s+PRESIDENTE|\.\s*O\s+MINISTRO|\.\s*O\s+Banco\s+Central|\.\s*A\s+DIRETORIA|\.\s*O\s+DIRETOR|\.\s*Art\.\s*1[ºo°]|$)", txt, re.I | re.S)
+    if m_ementa:
+        em = re.sub(r"\s+", " ", m_ementa.group(1)).strip()
+        if len(em) > 10:
+            return em
+
+    # Fallback: primeira linha limpa
+    linhas = [l.strip() for l in txt.split("\n") if l.strip()]
+    if len(linhas) > 1:
+        return re.sub(r"\s+", " ", " ".join(linhas[1:3]))[:350].strip()
+    return re.sub(r"\s+", " ", txt[:350]).strip()
+
+
 def extrair_dados_reidi_enquadramento(it: Dict[str, Any], texto_completo: str, data_pub: str, secao: str, url: str) -> Dict[str, Any]:
     """
     Extrai estritamente por regra os campos de REIDI / Enquadramento:
@@ -538,11 +573,31 @@ def executar_coleta_e_filtragem(datas: List[str] = None) -> Dict[str, Any]:
 
                 proc, rel = extrair_processo_relator(content)
                 l0 = extrair_primeira_linha(content)
+                txt_completo = obter_texto_completo_ato(url_completa, content) if status_http == 200 else content
+                objeto_literal = extrair_objeto_ementa_literal(txt_completo)
+
+                # Avaliação estrita dos temas do Radar sobre a frase de objeto/ementa e título (nunca sobre corpo inteiro)
+                texto_objeto_busca = f"{titulo} {objeto_literal}"
+                temas_objeto = []
+                for tema, rgx in REGEX_TEMAS.items():
+                    if rgx.search(texto_objeto_busca) or (tema == "CMN" and rgx.search(h)):
+                        temas_objeto.append(tema)
+
+                if not temas_objeto:
+                    atos_descartados.append({
+                        "data": d,
+                        "secao": s.upper(),
+                        "titulo": titulo,
+                        "tipo": tipo,
+                        "orgao": h,
+                        "temas": temas_casados,
+                        "motivo": "Objeto/ementa literal do ato não possui aderência temática direta aos temas monitorados",
+                    })
+                    continue
 
                 # Se for ato de REIDI ou Enquadramento Prioritário: grava o registro completo no JSONL local
-                eh_reidi_ou_enquadramento = "REIDI" in temas_casados or "debêntures" in temas_casados or "enquadramento" in l0.lower()
+                eh_reidi_ou_enquadramento = "REIDI" in temas_objeto or "debêntures" in temas_objeto or "enquadramento" in objeto_literal.lower()
                 if eh_reidi_ou_enquadramento:
-                    txt_completo = obter_texto_completo_ato(url_completa, content)
                     reg_reidi = extrair_dados_reidi_enquadramento(it, txt_completo, d, s.upper(), url_completa)
                     gravar_registro_reidi_local(reg_reidi)
                     registros_reidi_enquadramento.append(reg_reidi)
@@ -550,16 +605,17 @@ def executar_coleta_e_filtragem(datas: List[str] = None) -> Dict[str, Any]:
                 atos_aprovados.append({
                     "data": d,
                     "secao": s.upper(),
-                    "temas": temas_casados,
+                    "temas": temas_objeto,
                     "tipo": tipo,
                     "orgao": h,
                     "titulo": titulo,
                     "primeira_linha_literal": l0,
+                    "objeto_literal": objeto_literal,
                     "processo": proc,
                     "relator": rel,
                     "url": url_completa,
                     "http_status": status_http,
-                    "eh_reidi_rfb": "REIDI" in temas_casados and "receita federal" in h.lower(),
+                    "eh_reidi_rfb": "REIDI" in temas_objeto and "receita federal" in h.lower(),
                 })
                 time.sleep(0.05)
 
@@ -613,6 +669,7 @@ def obter_cards_dou_por_aba(usar_cache_se_disponivel: bool = True) -> Dict[str, 
         data_br = ato.get("data", "")
         url = ato.get("url", "")
         l0 = ato.get("primeira_linha_literal", "")
+        obj_ato = ato.get("objeto_literal") or l0
         proc = ato.get("processo", "")
         rel = ato.get("relator", "")
 
@@ -636,9 +693,9 @@ def obter_cards_dou_por_aba(usar_cache_se_disponivel: bool = True) -> Dict[str, 
                 "modalidade": f"{tipo} • DOU {data_br}",
                 "titulo": titulo,
                 "titulo_executivo": f"{tipo}: {titulo}",
-                "descricao_bruta": l0,
-                "escopo_sintetico": l0,
-                "analise_riscos_segurabilidade": "Ato normativo de estruturação federal com impacto direto em concessões e parcerias.",
+                "descricao_bruta": obj_ato,
+                "escopo_sintetico": obj_ato,
+                "analise_riscos_segurabilidade": f"Publicação oficial no DOU ({orgao}).",
                 "ficha_documental_verificada": True,
                 "url": url,
                 "valor_estimado": None,
@@ -656,11 +713,26 @@ def obter_cards_dou_por_aba(usar_cache_se_disponivel: bool = True) -> Dict[str, 
 
         # B. Aba SFN (CMN, FMM, Fundos Garantidores, Debêntures Incentivadas)
         elif "CMN" in temas or "FMM" in temas or "fundos garantidores" in temas or "debêntures" in temas:
-            sigla_orgao = "CMN" if "CMN" in temas else ("FMM" if "FMM" in temas else ("MF / Fundos" if "fundos" in str(temas) else "MCID / Debêntures"))
+            partes_orgao = [p.strip() for p in orgao.split("/") if p.strip()]
+            nome_entidade = partes_orgao[0] if partes_orgao else orgao
+            sigla_orgao = partes_orgao[1] if len(partes_orgao) > 1 else partes_orgao[0]
+            if "CMN" in temas:
+                sigla_orgao = "CMN"
+                nome_entidade = "Conselho Monetário Nacional"
+            elif "FMM" in temas:
+                sigla_orgao = "CDFMM"
+                nome_entidade = "Ministério de Portos e Aeroportos / CDFMM"
+            elif "fundos garantidores" in temas:
+                sigla_orgao = "MF / STN"
+                nome_entidade = "Ministério da Fazenda"
+            elif "debêntures" in temas:
+                sigla_orgao = "MCID"
+                nome_entidade = "Ministério das Cidades"
+
             vert_sfn = "mercado_capitais" if ("debêntures" in temas or "CMN" in temas) else "seguros"
 
             # Limpa qualquer eventual menção a CNPJ ou siglas restritas do texto livre antes de gerar o card
-            texto_limpo = re.sub(r"\b\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}\b", "[CNPJ_RESTRITO_BASE_LOCAL]", l0)
+            texto_limpo = re.sub(r"\b\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}\b", "[CNPJ_RESTRITO_BASE_LOCAL]", obj_ato)
             texto_limpo = re.sub(r"\b\d{14}\b", "[CNPJ_RESTRITO_BASE_LOCAL]", texto_limpo)
             texto_limpo = re.sub(r"\bGM-MPOR\b", "GM (Portos e Aeroportos)", texto_limpo, flags=re.I)
             texto_limpo = re.sub(r"\bMPOR\b", "Portos e Aeroportos", texto_limpo, flags=re.I)
@@ -673,7 +745,7 @@ def obter_cards_dou_por_aba(usar_cache_se_disponivel: bool = True) -> Dict[str, 
                 "status_ciclo": "VIGENTE",
                 "orgao_sigla": sigla_orgao,
                 "entidade": sigla_orgao,
-                "entidade_nome": orgao.split("/")[0] if "/" in orgao else orgao,
+                "entidade_nome": nome_entidade,
                 "modalidade_numero": f"{tipo} • {titulo_limpo}",
                 "modalidade_exibicao": f"{tipo} • DOU {data_br}",
                 "titulo": titulo_limpo,
@@ -685,9 +757,9 @@ def obter_cards_dou_por_aba(usar_cache_se_disponivel: bool = True) -> Dict[str, 
                 "termo_casado": ", ".join(temas),
                 "ementa": texto_limpo,
                 "objeto_normativo": texto_limpo,
-                "resumo_ia": "Ato oficial publicado no DOU com impacto em regulação financeira, garantias públicas ou incentivos de mercado de capitais.",
+                "resumo_ia": "",
                 "resumo_executivo": texto_limpo,
-                "pontos_atencao": "Ato oficial publicado no DOU com impacto em regulação de capitais, garantias públicas ou enquadramento prioritário de debêntures.",
+                "pontos_atencao": "",
                 "url": url,
                 "url_principal": url,
                 "documentos": [

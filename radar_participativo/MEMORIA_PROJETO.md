@@ -23,26 +23,39 @@
 
 ---
 
-## 2. Fase 1: Coletor do Diário Oficial da União (`coletor_dou.py`) — Integrado
+## 2. Fase 1: Coletor do Diário Oficial da União (`coletor_dou.py`) — Integrado e Auditado
 
-Em 06/11/2026, a Fase 1 foi **concluída e integrada diretamente ao pipeline de geração do Radar** (`gerar_radar.py` etapa 4.5), distribuindo os atos aprovados nas abas temáticas existentes sem necessidade de nova aba:
+Em 06/11/2026, a Fase 1 foi **concluída, refinada editorialmente e integrada diretamente ao pipeline de geração do Radar** (`gerar_radar.py` etapa 4.5), distribuindo os atos aprovados nas abas temáticas existentes sem necessidade de nova aba:
 
 1. **Aba 2 (`#estruturacao`):**
    - Decreto nº 13.142/2026 (Qualificação PPI e inclusão no PND).
-   - Acórdãos da ANTAQ de modelagem e arrendamento portuário aprovados pelo filtro estreito ([`filtro_acordaos_antaq.json`](filtro_acordaos_antaq.json)): Acórdãos nº 650, 641, 652, 637, 653, 633 e 634.
+   - Acórdãos da ANTAQ aprovados estritamente pelo objeto literal (`"tratam de..."`): Acórdãos nº 650/2026 (modelagem MUC03 Fortaleza), 652/2026 (arrendamento RDJ10 Rio de Janeiro), 637/2026 (aditivo arrendamento Paranaguá), 633/2026 (reajuste tarifário São Sebastião) e 634/2026 (cronograma arrendamento BEL08 Belém).
+   - Acórdãos nº 641/2026 (autorização especial de cais público) e 653/2026 (critérios de auditoria) foram **descartados** por não se enquadrarem no escopo estreito.
    - Card prioritário de contingência da Agenda EVTEA 2.0 / Portaria MInfra nº 530/2019 (Acórdão nº 640/2026-ANTAQ).
 
 2. **Aba 4 (`#sfn`):**
    - Resolução CMN nº 5.344/2026 (Conselho Monetário Nacional).
-   - Portaria GM nº 60/2026 (Composição do Conselho Diretor do Fundo da Marinha Mercante - FMM).
+   - Portaria GM nº 60/2026 (Conselho Diretor do Fundo da Marinha Mercante - CDFMM).
    - Despacho MF de 28/10/2026 (Fundos Garantidores — Novação FCVS com FGC).
    - Portarias MCID nº 1.483 e 1.484/2026 (Enquadramento prioritário para debêntures incentivadas — sem CNPJ).
-   - **Painel Agregado REIDI:** Card institucional com contagem consolidada de 8 atos declaratórios de habilitação da Receita Federal. O banco de dados completo com CNPJs permanece estritamente local em `dados_reidi/` (fora do git).
+   - **Painel Agregado REIDI:** Card institucional com contagem consolidada de habilitações da Receita Federal. Base analítica completa local em `dados_reidi/`.
+   - **Textos de Autoria Eliminados:** Os cards de atos do DOU exibem estritamente a ementa ou objeto literal da fonte oficial, sem resumos sintéticos ou parágrafos autorais.
 
 3. **Travas e Conformidade Editorial:**
-   - Links testados na fonte oficial com HTTP 200 obrigatório (`urlTitle`).
-   - Trava contra CNPJ (formatado e 14 dígitos contínuos) auditada pelo script [`testar_trava_cnpj.py`](testar_trava_cnpj.py).
-   - Validação editorial pelo [`validador_publicacao.py`](validador_publicacao.py) aprovada antes da publicação web.
+   - Extração da Unidade Técnica oficial diretamente do texto do ato (`Unidades Técnicas:`).
+   - Validação prévia de HTTP 200 obrigatória em todos os links canônicos (`in.gov.br/web/dou/-/`).
+   - Trava contra vazamento de CNPJ (14 dígitos contínuos e formatados) validada por `testar_trava_cnpj.py` (5/5 aprovados).
+   - Trava editorial `validador_publicacao.py` aprovada com dicionário expandido para verbos lexicais regulares (`compor`, `comporem`).
+   - Mapa de Fontes consolidado e catalogado em [`MAPA_DE_FONTES.md`](MAPA_DE_FONTES.md).
+
+---
+
+## 3. Fontes Estaduais Testadas (SPI-SP e ARTESP) — Diagnóstico Técnico
+
+Em 06/11/2026, foi realizada a amostragem técnica para expansão de fontes estaduais de parcerias e regulação (São Paulo):
+* **SPI-SP (Secretaria de Parcerias em Investimentos):** Portal sob firewall **Imperva Incapsula / Distil Networks (WAF)**. Consultas e minutas utilizam renderização dinâmica no cliente pós-validação de sessão.
+* **ARTESP:** Portal corporativo na Prodesp, também protegido por **Imperva Incapsula (WAF)**.
+* **Diretriz de Segurança:** Como as instruções proíbem expressamente resolver ou contornar desafios de bot/WAF, a automação autônoma direta nesses portais via HTTP simples requer avaliação de rotas alternativas (como o Diário Oficial do Estado de SP — DOE-SP ou APIs abertas oficiais). Detalhes no [`MAPA_DE_FONTES.md`](MAPA_DE_FONTES.md).
 
 ---
 

@@ -48,6 +48,9 @@ PREFIXOS_EXCECAO_MPOR = (
     "tempor",
     "contempor",
     "extempor",
+    "compor",
+    "decompor",
+    "recompor",
 )
 
 # Para CLIPPING e RADAR (padrões estritamente proibidos em repositório público)
