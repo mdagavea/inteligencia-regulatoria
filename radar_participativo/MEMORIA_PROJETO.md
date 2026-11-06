@@ -79,27 +79,53 @@ Em 06/11/2026, foi realizada a verificação técnica nos portais estaduais de S
 
 ---
 
-## 4. Sessão de 06/11/2026 — Avanços da Fase 1 e Consolidação Editorial
+## 4. Sessão de 06/11/2026 — Registro de Decisões e Consolidação Editorial
 
-1. **Aba Participativo (#participativo):**
-   * Inclusão das **Portarias nº 940/2026** e **nº 950/2026** do Ministério dos Transportes (prorrogação das consultas públicas dos Planos Setoriais Ferroviário - PSTF e Rodoviário - PSTR até 15/11/2026).
-   * Cards estruturados com títulos literais padronizados, texto oficial literal dos artigos (incluindo citação cruzada oficial da Portaria 940 à Portaria 893), órgão extraído do ato (`MT / SNTF` e `MT / SNTR`), links oficiais do DOU testados com HTTP 200 e confirmação de presença do número do ato.
-   * Contagem dinâmica de dias restantes e status inicial `ABERTO` (9 dias até 15/11), com transição automática para `PRAZO_URGENTE` quando atingir 7 dias.
+1. **Alerta de Falha e Envio em Feriados (Clipping):**
+   * Aprovado o workflow de alerta preventivo das 09:33 BRT (`.github/workflows/alerta_falha_clipping.yml`) que avisa sobre retenção do clipping e informa nova tentativa às 10:18 BRT.
+   * O clipping diário continua rodando em feriados nacionais que ocorram em dias de semana, sem calendário de supressão.
 
-2. **Filtro ANTAQ Ampliado (filtro_acordaos_antaq.json):**
-   * Regras adicionadas para `contrato_transicao` (Acórdão 654), `direito_real_uso` (Acórdão 646) e `revisao_normativa` (Acórdão 644).
-   * Total de 9 atos aprovados na aba `#estruturacao` (Decreto 13.142 + 8 acórdãos da ANTAQ, além do card dedicado da Portaria 530).
+2. **Filtro da ANTAQ Ampliado (`filtro_acordaos_antaq.json`):**
+   * Aprovada a inclusão de regras para `contrato_transicao` (Acórdão 654), `direito_real_uso` (Acórdão 646) e `revisao_normativa` (Acórdão 644).
+   * Mantidos excluídos: Acórdão 643 (terminal privado / TPN Maricá) e Acórdão 639 (passagem de dutos / Cattalini).
+   * O rótulo da Unidade Técnica deve vir exclusivamente do campo "Unidade Técnica" extraído do próprio texto do ato. Total de 9 atos aprovados na aba `#estruturacao`.
 
-3. **Governança e Travas de Segurança:**
-   * Teste da trava de CNPJ executado com 100% de aprovação (5 testes automatizados sem falsos positivos).
-   * Validador editorial executado com liberação integral da publicação.
-   * Publicação sincronizada no GitHub Pages e repositório (`mdagavea/inteligencia-regulatoria`).
+3. **Diretriz de Fontes Subnacionais (SPI-SP e ARTESP):**
+   * Bloqueada qualquer raspagem automatizada contra o firewall Imperva. Acompanhamento exclusivamente manual via navegador.
+   * Amostra anterior sintética/não verificada foi 100% eliminada de arquivos, memórias e da planilha central.
+   * **Regra permanente para novas fontes:** só entra o que tiver trecho literal comprovado na própria página com endereço exato. Se a página não puder ser lida, registrar expressamente "não consegui ler", sem preenchimento dedutivo.
+
+4. **Consultas Públicas de Ministérios na Aba `#participativo`:**
+   * Inclusão e publicação aprovada das **Portarias nº 940/2026 e nº 950/2026** do Ministério dos Transportes (prorrogação do PSTF e PSTR até 15/11/2026).
+   * Padrão aprovado: título literal, transcrição ipsis litteris dos artigos do ato, órgão extraído do texto (`MT / SNTF` e `MT / SNTR`), links oficiais com HTTP 200 e confirmação de presença do número no texto aberto.
+   * Removido o bloco "Ponto de Atenção & Oportunidade de Incidência" e removida menção a "Janela de Contribuição: 03/11 a 15/11" (03/11 é publicação da prorrogação; início de janela só aparece se o ato trouxer a data expressa; exibido `Prazo de Contribuição: Prorrogada até 15/11/2026`).
+
+5. **Diretriz de Card Único por Plano Setorial (Aprovada com Ajustes):**
+   * O mesmo plano setorial (PSTR, PSTF, PSPort) não deve gerar card duplo (um do Brasil Participativo e outro avulso do DOU).
+   * **Critério de Casamento:** Exclusivamente por citação cruzada no texto do ato oficial (950→895, 940→893, 509→463). Coincidência por sigla (`PSTR`, `PSTF`, `PSPort`) serve apenas como critério de reserva e deve ser explicitamente sinalizada.
+   * **Tratamento de Divergência de Prazos:** Se a data final informada no portal divergir da publicada no Diário Oficial, o card deve exibir as duas datas, destacando visualmente a divergência.
+   * **Data de Publicação:** A data de publicação da consulta deve vir do portal original (abertura), e não do ato de prorrogação.
+   * **Aplicação:** A unificação dos cards será aplicada somente após validação editorial, aprovação da trava de CNPJ e comunicação do commit e carimbo ao Marcos.
+
+6. **Modo Sombra de Consultas de Ministérios (09/11 a 13/11/2026):**
+   * O coletor roda em modo sombra nos dias úteis, gerando apenas uma lista de candidatos por dia com: Órgão, Tipo, Número, Objeto literal do Art. 1º, Frase literal do prazo e Link HTTP 200.
+   * Nenhuma publicação automática no painel sem aprovação prévia.
+   * "Prorroga/prorrogação" só é capturada se o texto também contiver expressamente "consulta pública", "audiência pública" ou "contribuições" (rejeitando atos administrativos de vigência interna como COFIEX 184, RFB 742 e CVM 246).
+   * "Despacho" só entra se trouxer expressamente "consulta pública" ou "audiência pública".
+   * Padrão B sem data derivada: prazos de N dias exibem a oração literal sem cálculo de data final.
+   * Padrão A com proximidade textual: data explícita só é válida se estiver na mesma frase de consulta/contribuições; caso contrário, registra "Ver ato".
+   * A Portaria SNP nº 509/2026 sai do modo sombra apenas junto com a publicação do card único do PSPort 2050.
 
 ---
 
-## 5. Próximos Passos (Fase 1 — DOU Contínuo)
+## 5. Roteiro a Partir de Segunda-Feira (09/11/2026)
 
-1. **Aprovação da Regra de Captura Contínua de Consultas e Prorrogações:**
-   * Implementação do algoritmo de varredura positiva e extração de prazo para todos os ministérios de infraestrutura e afins no DOU.
-2. **Monitoramento do Workflow das 09:33 BRT:**
-   * Alerta de salvaguarda operacional com texto informativo de nova tentativa às 10:18 BRT.
+1. **Abertura da Rodada de Segunda (09/11):**
+   * Conferir execução do clipping da nuvem das 07:17 BRT e do despertador local das 07:50 BRT.
+   * Confirmar que o e-mail saiu e que o alerta de falha das 09:33 BRT não disparou. Em caso de anomalia, relatar com evidências antes de intervir.
+2. **Execução Diária do Modo Sombra (09/11 a 13/11):**
+   * Executar a varredura das edições do DO1 e apresentar diariamente a lista estruturada de candidatos para conferência do Marcos.
+3. **Pauta de Encerramento do Modo Sombra (13/11/2026):**
+   * Decisão do Marcos sobre a automação contínua da coleta de consultas ministeriais.
+   * Entrada no painel da Consulta Pública nº 740 (Portaria dos Níveis Operacionais de Hidrovias, prazo até 23/11/2026), via fonte oficial do Brasil Participativo.
+   * Monitoramento contínuo dos Planos Setoriais Hidroviário (PSHN) e Aeroviário (PAN), que permanecem classificados como "não verificados" até que ato formal de consulta de minuta seja publicado.
