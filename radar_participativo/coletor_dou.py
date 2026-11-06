@@ -421,7 +421,7 @@ def executar_coleta_e_filtragem(datas: List[str] = None) -> Dict[str, Any]:
                     contagem_orgaos_filtro[orgao_1] += 1
                     contagem_tipos_filtro[tipo or "Não Informado"] += 1
 
-                # Avaliação de acórdãos da ANTAQ para decisão do Marcos
+                # Avaliação de acórdãos da ANTAQ com filtro estrito no objeto e Unidade Técnica
                 if ("transportes aquavi" in h.lower() or "antaq" in h.lower()) and ("acórdão" in tipo.lower() or "acórdão" in titulo.lower() or "acordao" in titulo.lower()):
                     url_t = (it.get("urlTitle") or "").strip()
                     url_c = f"https://www.in.gov.br/web/dou/-/{url_t}"
@@ -431,17 +431,25 @@ def executar_coleta_e_filtragem(datas: List[str] = None) -> Dict[str, Any]:
 
                     # Obtém texto completo para avaliação sem truncamento
                     txt_completo_a = obter_texto_completo_ato(url_c, content) if status_h == 200 else content
-                    texto_busca_acordao = f"{titulo} {txt_completo_a}"
 
-                    # Testa se passa no filtro temático da ANTAQ (inclusões vs exclusões expressas)
+                    # Extrai Unidade Técnica oficial
+                    m_ut = re.search(r"Unidade(?:s)?\s+T[eé]cnica(?:s)?:\s*([^\d\n\r;]+?)(?=\s*\d+\.|\s*Acórdão|\s*$|[;\.])", txt_completo_a, re.I)
+                    ut_a = m_ut.group(1).strip() if m_ut else "ANTAQ"
+
+                    # Extrai frase do objeto ("tratam de..." até "ACORDAM")
+                    m_obj = re.search(r"tratam\s+d[eaoas]+\s+(.*?)(?=,\s*ACORDAM|\.\s*ACORDAM|\s*ACORDAM|$)", txt_completo_a, re.I)
+                    obj_a = m_obj.group(1).strip() if m_obj else l0_a
+                    obj_a = re.sub(r"[\.,]?\s*ACORDAM.*$", "", obj_a, flags=re.I).strip()
+
+                    # Avaliação ESTRITA do filtro apenas sobre a frase do objeto
                     temas_antaq = []
                     for t_nome, rgx_a in REGEX_ANTAQ_TEMAS.items():
-                        if rgx_a.search(texto_busca_acordao):
+                        if rgx_a.search(obj_a):
                             temas_antaq.append(t_nome)
 
                     exclusoes_antaq = []
                     for e_nome, rgx_e in REGEX_ANTAQ_EXCLUSOES.items():
-                        if rgx_e.search(texto_busca_acordao):
+                        if rgx_e.search(obj_a):
                             exclusoes_antaq.append(e_nome)
 
                     passou_filtro = len(temas_antaq) > 0 and len(exclusoes_antaq) == 0
@@ -452,6 +460,8 @@ def executar_coleta_e_filtragem(datas: List[str] = None) -> Dict[str, Any]:
                         "numero": titulo,
                         "processo": proc_a,
                         "relator": rel_a,
+                        "unidade_tecnica": ut_a,
+                        "objeto": obj_a,
                         "temas": temas_antaq,
                         "exclusoes": exclusoes_antaq,
                         "passou_tematico": passou_filtro,
@@ -734,24 +744,30 @@ def obter_cards_dou_por_aba(usar_cache_se_disponivel: bool = True) -> Dict[str, 
             ],
         })
 
-    # 3. Acórdãos ANTAQ filtrados que entraram (ex: Acórdão 650 sobre modelagem/arrendamento)
+    # 3. Acórdãos ANTAQ filtrados pelo objeto que entraram (o 640 já possui card dedicado Portaria 530)
     for ac in acordaos_antaq:
         if ac.get("passou_tematico") and "640" not in ac.get("numero", ""):
             titulo_ac = ac.get("numero", "")
             url_ac = ac.get("url", "")
-            l0_ac = ac.get("primeira_linha_literal", "")
+            ut_ac = ac.get("unidade_tecnica") or "ANTAQ"
+            obj_ac = ac.get("objeto") or ac.get("primeira_linha_literal", "")
+            temas_ac = ac.get("temas", [])
+
+            cat_item = "DELIBERACAO_TARIFARIA" if "tarifa" in temas_ac else "ESTUDO_EVTEA"
+            badge_mod = f"Acórdão Tarifário • {ut_ac}" if "tarifa" in temas_ac else f"Acórdão ANTAQ • {ut_ac}"
+
             cards_distribuidos["estruturacao"].append({
                 "id": f"DOU_ANTAQ_{abs(hash(url_ac)) % 100000}",
                 "origem": "DOU • DO1",
-                "estruturador_sigla": "ANTAQ",
+                "estruturador_sigla": f"ANTAQ • {ut_ac}",
                 "prioridade_escopo": "PRIORIDADE_A",
-                "categoria_item": "ESTUDO_EVTEA",
-                "modalidade": f"Acórdão ANTAQ • DOU {ac.get('data', '')}",
-                "titulo": f"{titulo_ac} — Modelagem / Arrendamento Portuário",
-                "titulo_executivo": f"{titulo_ac} (SELC/SOG)",
-                "descricao_bruta": l0_ac,
-                "escopo_sintetico": l0_ac,
-                "analise_riscos_segurabilidade": "Deliberação da Diretoria Colegiada da ANTAQ sobre modelagens e licitações de arrendamentos portuários.",
+                "categoria_item": cat_item,
+                "modalidade": badge_mod,
+                "titulo": titulo_ac,
+                "titulo_executivo": f"{titulo_ac} — {ut_ac}",
+                "descricao_bruta": obj_ac,
+                "escopo_sintetico": obj_ac,
+                "analise_riscos_segurabilidade": f"Deliberação oficial da Diretoria Colegiada da ANTAQ com base em manifestação da {ut_ac}.",
                 "ficha_documental_verificada": True,
                 "url": url_ac,
                 "valor_estimado": None,

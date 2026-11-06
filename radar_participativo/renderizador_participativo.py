@@ -1211,6 +1211,8 @@ NOMES_CATEGORIAS_EST = {
     "PRIORIDADE_A": ("⚓ Prioridade A — Portos, Aeroportos & Hidrovias", "badge-infra"),
     "PRIORIDADE_B_COMPARACAO": ("⚖️ Prioridade B — EVTEA & Modelagem Federal (Comparação)", "badge-seguros"),
     "PRIORIDADE_C_ART102": ("🛡️ Prioridade C — Obra Portos/Hidro/Aero • Art. 102 Lei 14.133", "badge-carbono"),
+    "ESTUDO_EVTEA": ("📐 Deliberação & Modelagem", "badge-infra"),
+    "DELIBERACAO_TARIFARIA": ("💰 Deliberação Tarifária", "badge-seguros"),
 }
 
 NOMES_FASES_LEILAO = {
@@ -1331,6 +1333,9 @@ def _renderizar_cards_estruturacao(itens_estruturacao: list) -> str:
         titulo_exib = it.get("titulo_executivo") or it.get("titulo", "")
         texto_riscos_html = (it.get("analise_riscos_segurabilidade") or "").replace("\n", "<br>")
 
+        desc_texto = it.get("descricao_bruta") or it.get("escopo_sintetico") or ""
+        desc_box = f'<p style="margin:8px 0;font-size:0.875rem;color:#334155;line-height:1.45;background:#f8fafc;padding:8px 12px;border-radius:6px;border-left:3px solid #0284c7;"><strong>Objeto Oficial:</strong> {desc_texto}</p>' if desc_texto else ""
+
         blocos.append(f"""
       <article class="est-card cat-{cat}" data-est-cat="{cat}" data-proposta-aberta="{proposta_aberta}" data-deadline-iso="{fim_iso}" data-fim-br="{fim_br}">
         <div class="card-top-meta">
@@ -1349,6 +1354,8 @@ def _renderizar_cards_estruturacao(itens_estruturacao: list) -> str:
           <span><strong>Instrumento:</strong> {it.get('modalidade', 'Licitação')}</span>
           <span><strong>Data / Marco:</strong> {it.get('data_publicacao_br', 'Recente')}</span>
         </div>
+
+        {desc_box}
 
         <div class="docs-area">
           {botoes_html}
