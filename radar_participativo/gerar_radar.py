@@ -10,6 +10,7 @@ load_dotenv(PASTA_PROJETO / ".env")
 import coletor_participativo
 import coletor_estruturacao_leiloes
 import coletor_sfn
+import coletor_dou
 import curador_participativo
 import renderizador_participativo
 import publicador_web
@@ -44,6 +45,21 @@ def executar_radar(abrir_navegador=True):
     dados_sfn = coletor_sfn.coletar_tudo_aba_sfn()
     dados_sfn = curador_participativo.enriquecer_sfn_com_ia_lote(dados_sfn, PASTA_PROJETO, api_key=api_key)
     print(f"   -> {len(dados_sfn['aprovados'])} processos no filtro temático (+ {len(dados_sfn['fora_do_filtro'])} retidos fora do filtro e gravados em log).")
+
+    print("\n[4.5/6] Integrando Atos Oficiais do DOU (PPI, CMN, Debêntures, FMM & Deliberações ANTAQ)...")
+    try:
+        cards_dou = coletor_dou.obter_cards_dou_por_aba(usar_cache_se_disponivel=True)
+        if cards_dou.get("participativo"):
+            dossies.extend(cards_dou["participativo"])
+        if cards_dou.get("estruturacao"):
+            itens_estruturacao = cards_dou["estruturacao"] + itens_estruturacao
+        if cards_dou.get("leiloes"):
+            itens_leiloes.extend(cards_dou["leiloes"])
+        if cards_dou.get("sfn"):
+            dados_sfn["aprovados"] = cards_dou["sfn"] + dados_sfn["aprovados"]
+        print(f"   -> {len(cards_dou.get('estruturacao', []))} atos na Estruturação, {len(cards_dou.get('sfn', []))} atos no SFN integrados.")
+    except Exception as e:
+        print(f"   [Aviso DOU] Falha ao integrar atos do DOU: {e}")
 
     print("\n[5/6] Renderizando Painel Executivo Unificado em 4 Abas (radar_atual.html)...")
     _, caminho_atual = renderizador_participativo.gerar_painel_radar_html(

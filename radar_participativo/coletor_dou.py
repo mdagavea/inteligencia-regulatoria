@@ -32,6 +32,8 @@ PASTA_ATUAL = Path(__file__).parent.resolve()
 PASTA_RAIZ = PASTA_ATUAL.parent.resolve()
 PASTA_CACHE_DOU = PASTA_ATUAL / "cache_dou"
 PASTA_CACHE_DOU.mkdir(exist_ok=True)
+PASTA_CACHE_ATOS = PASTA_CACHE_DOU / "atos_completos"
+PASTA_CACHE_ATOS.mkdir(exist_ok=True)
 
 # Pasta de dados de REIDI fora do repositório (no .gitignore)
 PASTA_DADOS_REIDI = PASTA_RAIZ / "dados_reidi"
@@ -226,7 +228,15 @@ def baixar_ou_carregar_indice_dou(data_str: str, secao: str, max_tentativas: int
 
 
 def obter_texto_completo_ato(url: str, content_indice: str) -> str:
-    """Obtém o texto integral do ato da página oficial para extração precisa."""
+    """Obtém o texto integral do ato da página oficial para extração precisa (com cache em disco)."""
+    slug = url.rstrip("/").split("/")[-1]
+    arq_cache_ato = PASTA_CACHE_ATOS / f"{slug}.txt"
+    if arq_cache_ato.exists():
+        try:
+            return arq_cache_ato.read_text(encoding="utf-8")
+        except Exception:
+            pass
+
     req = urllib.request.Request(url, headers=HEADERS_DOU)
     try:
         with urllib.request.urlopen(req, timeout=15) as r:
@@ -234,7 +244,9 @@ def obter_texto_completo_ato(url: str, content_indice: str) -> str:
         m = re.search(r'class="texto-dou">(.*?)</div>', html, re.DOTALL)
         if m:
             texto = re.sub(r'<[^>]+>', ' ', m.group(1))
-            return " ".join(texto.split())
+            texto_limpo = " ".join(texto.split())
+            arq_cache_ato.write_text(texto_limpo, encoding="utf-8")
+            return texto_limpo
     except Exception:
         pass
     return content_indice
@@ -417,15 +429,19 @@ def executar_coleta_e_filtragem(datas: List[str] = None) -> Dict[str, Any]:
                     proc_a, rel_a = extrair_processo_relator(content)
                     l0_a = extrair_primeira_linha(content)
 
+                    # Obtém texto completo para avaliação sem truncamento
+                    txt_completo_a = obter_texto_completo_ato(url_c, content) if status_h == 200 else content
+                    texto_busca_acordao = f"{titulo} {txt_completo_a}"
+
                     # Testa se passa no filtro temático da ANTAQ (inclusões vs exclusões expressas)
                     temas_antaq = []
                     for t_nome, rgx_a in REGEX_ANTAQ_TEMAS.items():
-                        if rgx_a.search(texto_busca):
+                        if rgx_a.search(texto_busca_acordao):
                             temas_antaq.append(t_nome)
 
                     exclusoes_antaq = []
                     for e_nome, rgx_e in REGEX_ANTAQ_EXCLUSOES.items():
-                        if rgx_e.search(texto_busca):
+                        if rgx_e.search(texto_busca_acordao):
                             exclusoes_antaq.append(e_nome)
 
                     passou_filtro = len(temas_antaq) > 0 and len(exclusoes_antaq) == 0
@@ -549,6 +565,209 @@ def executar_coleta_e_filtragem(datas: List[str] = None) -> Dict[str, Any]:
         "registros_reidi": registros_reidi_enquadramento,
         "acordaos_antaq_avaliados": acordaos_antaq_avaliados,
     }
+
+
+def obter_cards_dou_por_aba(usar_cache_se_disponivel: bool = True) -> Dict[str, list]:
+    """
+    Consolida e distribui os atos aprovados do DOU nas abas existentes do Radar:
+    - participativo: Consultas e audiências públicas publicadas no DOU
+    - estruturacao: Decretos PPI/PND e Acórdãos ANTAQ de modelagem/arrendamento
+    - leiloes: Editais e avisos de licitação de infraestrutura no DO3
+    - sfn: Resoluções CMN, atos FMM, fundos garantidores e debêntures incentivadas (sem CNPJ)
+    """
+    arq_cons = PASTA_CACHE_DOU / "resultado_consolidado_fase1.json"
+    if usar_cache_se_disponivel and arq_cons.exists():
+        try:
+            dados = json.loads(arq_cons.read_text(encoding="utf-8"))
+        except Exception:
+            dados = executar_coleta_e_filtragem()
+    else:
+        dados = executar_coleta_e_filtragem()
+
+    atos_aprovados = dados.get("atos_aprovados", [])
+    acordaos_antaq = dados.get("acordaos_antaq_avaliados", [])
+
+    cards_distribuidos = {
+        "participativo": [],
+        "estruturacao": [],
+        "leiloes": [],
+        "sfn": [],
+    }
+
+    # 1. Atos Temáticos do DOU
+    for ato in atos_aprovados:
+        temas = ato.get("temas", [])
+        tipo = ato.get("tipo", "Ato Normativo")
+        titulo = ato.get("titulo", "")
+        orgao = ato.get("orgao", "")
+        data_br = ato.get("data", "")
+        url = ato.get("url", "")
+        l0 = ato.get("primeira_linha_literal", "")
+        proc = ato.get("processo", "")
+        rel = ato.get("relator", "")
+
+        # Pula habilitações fiscais individuais da Receita Federal (ficam só no JSONL local e no card agregado)
+        if ato.get("eh_reidi_rfb"):
+            continue
+
+        # A. Aba Estruturação (PPI, PND, EVTEA)
+        if "PND" in temas or "PPI" in temas or "EVTEA" in temas:
+            # Se for o Acórdão 640, pula pois já possui card de contingência dedicado
+            if "640" in titulo:
+                continue
+
+            sigla_est = "PPI / Presidência da República" if ("PND" in temas or "PPI" in temas) else "ANTAQ"
+            cards_distribuidos["estruturacao"].append({
+                "id": f"DOU_{ato.get('secao', 'DO1')}_{abs(hash(url)) % 100000}",
+                "origem": f"DOU • {ato.get('secao', 'DO1')}",
+                "estruturador_sigla": sigla_est,
+                "prioridade_escopo": "PRIORIDADE_A_DESTAQUE" if ("PPI" in temas or "PND" in temas) else "PRIORIDADE_A",
+                "categoria_item": "ESTUDO_EVTEA" if "EVTEA" in temas else "CONTRATACAO",
+                "modalidade": f"{tipo} • DOU {data_br}",
+                "titulo": titulo,
+                "titulo_executivo": f"{tipo}: {titulo}",
+                "descricao_bruta": l0,
+                "escopo_sintetico": l0,
+                "analise_riscos_segurabilidade": "Ato normativo de estruturação federal com impacto direto em concessões e parcerias.",
+                "ficha_documental_verificada": True,
+                "url": url,
+                "valor_estimado": None,
+                "valor_formatado": "Diretriz Governamental",
+                "data_publicacao_br": data_br,
+                "data_publicacao_iso": f"2026-{data_br[3:5]}-{data_br[:2]}" if len(data_br) >= 10 else "",
+                "data_fim_br": "Em Vigor",
+                "data_fim_iso": "",
+                "dias_restantes": None,
+                "tem_matriz_risco": True,
+                "documentos": [
+                    {"rotulo": f"📜 Publicação no DOU ({tipo})", "url": url, "categoria": "DOU"}
+                ],
+            })
+
+        # B. Aba SFN (CMN, FMM, Fundos Garantidores, Debêntures Incentivadas)
+        elif "CMN" in temas or "FMM" in temas or "fundos garantidores" in temas or "debêntures" in temas:
+            sigla_orgao = "CMN" if "CMN" in temas else ("FMM" if "FMM" in temas else ("MF / Fundos" if "fundos" in str(temas) else "MCID / Debêntures"))
+            vert_sfn = "mercado_capitais" if ("debêntures" in temas or "CMN" in temas) else "seguros"
+
+            # Limpa qualquer eventual menção a CNPJ ou siglas restritas do texto livre antes de gerar o card
+            texto_limpo = re.sub(r"\b\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}\b", "[CNPJ_RESTRITO_BASE_LOCAL]", l0)
+            texto_limpo = re.sub(r"\b\d{14}\b", "[CNPJ_RESTRITO_BASE_LOCAL]", texto_limpo)
+            texto_limpo = re.sub(r"\bGM-MPOR\b", "GM (Portos e Aeroportos)", texto_limpo, flags=re.I)
+            texto_limpo = re.sub(r"\bMPOR\b", "Portos e Aeroportos", texto_limpo, flags=re.I)
+            titulo_limpo = re.sub(r"\bGM-MPOR\b", "GM", titulo, flags=re.I)
+            titulo_limpo = re.sub(r"\bMPOR\b", "Portos e Aeroportos", titulo_limpo, flags=re.I)
+
+            cards_distribuidos["sfn"].append({
+                "id": f"DOU_SFN_{abs(hash(url)) % 100000}",
+                "vertical": vert_sfn,
+                "status_ciclo": "VIGENTE",
+                "orgao_sigla": sigla_orgao,
+                "entidade": sigla_orgao,
+                "entidade_nome": orgao.split("/")[0] if "/" in orgao else orgao,
+                "modalidade_numero": f"{tipo} • {titulo_limpo}",
+                "modalidade_exibicao": f"{tipo} • DOU {data_br}",
+                "titulo": titulo_limpo,
+                "data_inicio_br": data_br,
+                "data_publicacao_br": data_br,
+                "data_fim_br": "Vigente",
+                "data_fim_iso": "",
+                "dias_restantes": None,
+                "termo_casado": ", ".join(temas),
+                "ementa": texto_limpo,
+                "objeto_normativo": texto_limpo,
+                "resumo_ia": "Ato oficial publicado no DOU com impacto em regulação financeira, garantias públicas ou incentivos de mercado de capitais.",
+                "resumo_executivo": texto_limpo,
+                "pontos_atencao": "Ato oficial publicado no DOU com impacto em regulação de capitais, garantias públicas ou enquadramento prioritário de debêntures.",
+                "url": url,
+                "url_principal": url,
+                "documentos": [
+                    {"rotulo": f"📜 Publicação Oficial no DOU ({tipo})", "url": url, "categoria": "DOU"}
+                ],
+            })
+
+        # C. Aba Participativo (Consultas e Audiências Públicas no DOU)
+        elif "consulta pública" in tipo.lower() or "audiência pública" in tipo.lower():
+            cards_distribuidos["participativo"].append({
+                "id": f"DOU_PART_{abs(hash(url)) % 100000}",
+                "orgao_sigla": orgao.split("/")[0] if "/" in orgao else orgao[:15],
+                "titulo": titulo,
+                "objeto_normativo": l0,
+                "data_publicacao_br": data_br,
+                "data_fim_br": "Ver Edital",
+                "dias_restantes": None,
+                "url": url,
+            })
+
+    # 2. Card Agregado de Habilitações REIDI (sem CNPJ individual) na Aba SFN
+    qtd_reidi = sum(1 for ato in atos_aprovados if ato.get("eh_reidi_rfb"))
+    if qtd_reidi > 0:
+        desc_reidi = (
+            f"Foram identificados e catalogados {qtd_reidi} Atos Declaratórios Executivos de habilitação e coabilitação "
+            "ao Regime Especial de Incentivos para o Desenvolvimento da Infraestrutura (REIDI) publicados nas edições do DO1. "
+            "Conforme diretriz de privacidade, os dados fiscais e CNPJs completos são armazenados estritamente na base analítica local (dados_reidi/)."
+        )
+        cards_distribuidos["sfn"].append({
+            "id": "DOU_SFN_PAINEL_REIDI_AGREGADO",
+            "vertical": "mercado_capitais",
+            "status_ciclo": "VIGENTE",
+            "orgao_sigla": "RFB / REIDI",
+            "entidade": "RFB / REIDI",
+            "entidade_nome": "Receita Federal do Brasil",
+            "modalidade_numero": f"Painel de Monitoramento Fiscal • {qtd_reidi} Habilitações",
+            "modalidade_exibicao": "Painel de Monitoramento Fiscal • DOU DO1",
+            "titulo": f"Painel Agregado: {qtd_reidi} Atos Declaratórios de Habilitação no REIDI (Receita Federal)",
+            "data_inicio_br": "Edições Recentes",
+            "data_publicacao_br": "Edições Recentes",
+            "data_fim_br": "Ativo",
+            "data_fim_iso": "",
+            "dias_restantes": None,
+            "termo_casado": "REIDI",
+            "ementa": desc_reidi,
+            "objeto_normativo": desc_reidi,
+            "resumo_ia": f"Monitoramento contínuo das habilitações do REIDI publicadas pela Receita Federal ({qtd_reidi} atos recentes auditados na base analítica local).",
+            "resumo_executivo": f"Monitoramento contínuo das habilitações do REIDI publicadas pela Receita Federal ({qtd_reidi} atos recentes auditados).",
+            "pontos_atencao": "Incentivo fiscal a projetos setoriais de infraestrutura (suspensão de PIS/COFINS em bens e serviços).",
+            "url": "https://www.in.gov.br",
+            "url_principal": "https://www.in.gov.br",
+            "documentos": [
+                {"rotulo": "🌐 Portal da Imprensa Nacional (DOU)", "url": "https://www.in.gov.br", "categoria": "DOU"}
+            ],
+        })
+
+    # 3. Acórdãos ANTAQ filtrados que entraram (ex: Acórdão 650 sobre modelagem/arrendamento)
+    for ac in acordaos_antaq:
+        if ac.get("passou_tematico") and "640" not in ac.get("numero", ""):
+            titulo_ac = ac.get("numero", "")
+            url_ac = ac.get("url", "")
+            l0_ac = ac.get("primeira_linha_literal", "")
+            cards_distribuidos["estruturacao"].append({
+                "id": f"DOU_ANTAQ_{abs(hash(url_ac)) % 100000}",
+                "origem": "DOU • DO1",
+                "estruturador_sigla": "ANTAQ",
+                "prioridade_escopo": "PRIORIDADE_A",
+                "categoria_item": "ESTUDO_EVTEA",
+                "modalidade": f"Acórdão ANTAQ • DOU {ac.get('data', '')}",
+                "titulo": f"{titulo_ac} — Modelagem / Arrendamento Portuário",
+                "titulo_executivo": f"{titulo_ac} (SELC/SOG)",
+                "descricao_bruta": l0_ac,
+                "escopo_sintetico": l0_ac,
+                "analise_riscos_segurabilidade": "Deliberação da Diretoria Colegiada da ANTAQ sobre modelagens e licitações de arrendamentos portuários.",
+                "ficha_documental_verificada": True,
+                "url": url_ac,
+                "valor_estimado": None,
+                "valor_formatado": "Deliberação Regulatória",
+                "data_publicacao_br": ac.get("data", ""),
+                "data_publicacao_iso": "",
+                "data_fim_br": "Deliberado",
+                "data_fim_iso": "",
+                "dias_restantes": None,
+                "tem_matriz_risco": True,
+                "documentos": [
+                    {"rotulo": f"📜 {titulo_ac} (DOU Oficial)", "url": url_ac, "categoria": "DOU"}
+                ],
+            })
+
+    return cards_distribuidos
 
 
 if __name__ == "__main__":

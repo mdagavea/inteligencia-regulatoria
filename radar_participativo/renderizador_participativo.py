@@ -1232,10 +1232,12 @@ def _inicio_anterior_a_publicacao(inicio_br: str, pub_br: str) -> bool:
 
 
 def formatar_badge_prazo(item: dict) -> str:
-    st = item["status_ciclo"]
+    st = item.get("status_ciclo", "ABERTO")
     dias = item.get("dias_restantes")
     fim_br = item.get("data_fim_br", "—")
 
+    if st == "VIGENTE":
+        return f"📜 Publicação Oficial • {fim_br}"
     if st == "PRE_PUBLICACAO":
         return "📡 Pré-Publicação (Rascunho na API)"
     if st == "LANCADO_48H":

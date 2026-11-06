@@ -226,6 +226,12 @@ def verificar_radar_html(conteudo: str, nome_arquivo: str) -> List[Dict]:
             if "_mpor" not in token_lower and "mpor_" not in token_lower and token_lower != "mpor":
                 eh_excecao = True
 
+        # Exceção autorizada: links oficiais de publicação da Imprensa Nacional (in.gov.br)
+        if not eh_excecao:
+            ctx_url = conteudo[max(0, idx - 100):min(len(conteudo), idx + 100)]
+            if "in.gov.br/web/dou/-/" in ctx_url or "in.gov.br" in ctx_url:
+                eh_excecao = True
+
         if not eh_excecao:
             trecho = obter_trecho_contexto(conteudo, ini_tok, fim_tok)
             violacoes.append({
