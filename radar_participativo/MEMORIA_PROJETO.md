@@ -79,17 +79,27 @@ Em 06/11/2026, foi realizada a verificação técnica nos portais estaduais de S
 
 ---
 
-## 4. Pauta da Próxima Sessão (06/11/2026)
+## 4. Sessão de 06/11/2026 — Avanços da Fase 1 e Consolidação Editorial
 
-Executar strictly em ordem:
-1. **Conferência das Rodadas Agendadas:**
-   - Rodada das 07:17 BRT na nuvem (Clipping via GitHub Actions): checar logs e confirmar recebimento de e-mail até 08:00.
-   - Rodada das 08:00 BRT local (Radar via Agendador de Tarefas do Windows): checar log e confirmar no site público o carimbo `Atualizado em 06/11 08:xx`.
-2. **Decisões Editoriais com o Marcos:**
-   - Definição do filtro dos Acórdãos da ANTAQ (critérios discriminantes: arrendamento, tarifa, reequilíbrio, EVTEA, seguro, garantia, e interessado MPOR ou autoridade portuária vs. bloco completo).
-   - Definição da exibição dos atos do DOU no painel (aba "Atos do DOU" ou integração às abas temáticas).
-3. **Construção da Aba "Atos do DOU" no Radar:**
-   - Um card por ato individual relevante; REIDI e acórdãos agrupados por dia; todos com travas de link HTTP 200 e texto literal; validação prévia na trava de sanidade (`validador_publicacao.py`).
-4. **Evoluções Seguintes:**
-   - Integração do feed próprio do Poder360 ao Clipping (uma fonte por vez).
-   - Monitor Legislativo (APIs da Câmara e do Senado) e pautas regulatórias da semana.
+1. **Aba Participativo (#participativo):**
+   * Inclusão das **Portarias nº 940/2026** e **nº 950/2026** do Ministério dos Transportes (prorrogação das consultas públicas dos Planos Setoriais Ferroviário - PSTF e Rodoviário - PSTR até 15/11/2026).
+   * Cards estruturados com títulos literais padronizados, texto oficial literal dos artigos (incluindo citação cruzada oficial da Portaria 940 à Portaria 893), órgão extraído do ato (`MT / SNTF` e `MT / SNTR`), links oficiais do DOU testados com HTTP 200 e confirmação de presença do número do ato.
+   * Contagem dinâmica de dias restantes e status inicial `ABERTO` (9 dias até 15/11), com transição automática para `PRAZO_URGENTE` quando atingir 7 dias.
+
+2. **Filtro ANTAQ Ampliado (filtro_acordaos_antaq.json):**
+   * Regras adicionadas para `contrato_transicao` (Acórdão 654), `direito_real_uso` (Acórdão 646) e `revisao_normativa` (Acórdão 644).
+   * Total de 9 atos aprovados na aba `#estruturacao` (Decreto 13.142 + 8 acórdãos da ANTAQ, além do card dedicado da Portaria 530).
+
+3. **Governança e Travas de Segurança:**
+   * Teste da trava de CNPJ executado com 100% de aprovação (5 testes automatizados sem falsos positivos).
+   * Validador editorial executado com liberação integral da publicação.
+   * Publicação sincronizada no GitHub Pages e repositório (`mdagavea/inteligencia-regulatoria`).
+
+---
+
+## 5. Próximos Passos (Fase 1 — DOU Contínuo)
+
+1. **Aprovação da Regra de Captura Contínua de Consultas e Prorrogações:**
+   * Implementação do algoritmo de varredura positiva e extração de prazo para todos os ministérios de infraestrutura e afins no DOU.
+2. **Monitoramento do Workflow das 09:33 BRT:**
+   * Alerta de salvaguarda operacional com texto informativo de nova tentativa às 10:18 BRT.
