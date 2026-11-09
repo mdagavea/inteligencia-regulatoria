@@ -65,7 +65,6 @@ ARQUIVOS_SINCRONIZADOS = [
     "radar_participativo/HISTORICO_PROJETO.md",
     "radar_participativo/2026-10-28_Ajustes_Aba_Estruturacao_para_Gemini.md",
     "radar_participativo/2026-10-29_Passagem_Aba_SFN_e_Agencias_para_Gemini.md",
-    "RULES.md",
 ]
 
 

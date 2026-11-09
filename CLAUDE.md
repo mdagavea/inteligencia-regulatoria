@@ -81,7 +81,12 @@ Sempre que o usuário solicitar manutenção ou evolução (seja pelo **Claude**
 7. **Tom 100% Factual:**
    - Proibido opinião, juízo de valor, "ótica DECON" ou recomendações prescritivas ("deve contemplar", "recomenda-se").
 
-8. **Sincronizar antes e depois de editar:**
+8. **Privacidade Absoluta, Sanitização de Links e Bloqueio de E-mails (09/11/2026):**
+   - É estritamente proibido expor ou publicar endereços de e-mail (pessoais ou institucionais) em qualquer arquivo, documentação, commit, log ou página HTML pública.
+   - Em `clipping/coletor.py`, o parâmetro `account_id` dos links retornados pelo feed Atom do Gmail é sanitizado via regex (`re.sub(r"account_id=[^&]*&", "", ...)`). Essa remoção **nunca deve ser revertida nem o parâmetro account_id reintroduzido nos links**.
+   - O arquivo `RULES.md` foi removido do repositório público e excluído da lista de sincronização (`sincronizar_nuvem.py`); **não o recoloque**.
+
+9. **Sincronizar antes e depois de editar:**
    ```powershell
    python3.12 $HOME\testes-gemini\sincronizar_nuvem.py pull
    # ... após editar:
