@@ -650,7 +650,7 @@ def fetch_gmail_newsletters(max_items=12):
                 summary = clean_html(entry.get("summary", ""))
                 newsletters.append({
                     "title": title,
-                    "link": entry.get("link", ""),
+                    "link": re.sub(r"account_id=[^&]*&", "", entry.get("link", "")),
                     "published": entry.get("issued", entry.get("published", "")),
                     "source": f"{sender_name} (Newsletter Gmail)",
                     "summary": summary[:450],
