@@ -87,3 +87,6 @@ Sempre que o usuário solicitar manutenção ou evolução (seja pelo **Claude**
    # ... após editar:
    python3.12 $HOME\testes-gemini\sincronizar_nuvem.py push "Descricao da alteracao"
    ```
+
+
+9. **Dados pessoais:** nenhum endereço de e-mail, nome de usuário ou caminho local pode ser publicado no repositório. O link do Gmail é limpo do parâmetro `account_id` no `coletor.py` (commit 7782877). **Não reverter.**
