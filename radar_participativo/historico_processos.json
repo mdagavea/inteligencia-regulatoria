@@ -118,7 +118,8 @@
     "811": "2026-11-05",
     "820": "2026-11-05",
     "813": "2026-11-05",
-    "823": "2026-11-06"
+    "823": "2026-11-06",
+    "824": "2026-11-09"
   },
   "analises_ia": {
     "782_2026-10-21": {
@@ -1846,6 +1847,66 @@
       "relevancia": null,
       "objeto_normativo": "Plano de Dados Abertos da Universidade Federal de Uberlândia.",
       "pontos_atencao": "Tema acadêmico e de transparência institucional sem impacto nas verticais de atuação."
+    },
+    "814_2026-11-07T10:53": {
+      "id": "814",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Audiência Pública",
+      "orgao_sigla": "DECEx / Exército",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Audiência pública para discutir a modelagem de concessão do Museu Histórico do Exército e Forte de Copacabana, incluído no Programa de Parcerias de Investimentos (PPI).",
+      "pontos_atencao": "Acompanhar a estruturação do projeto de concessão, especialmente no que tange à alocação de riscos, investimentos obrigatórios e garantias contratuais."
+    },
+    "823_2026-11-06T17:01": {
+      "id": "823",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "SNTR / MT",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de Portaria que estabelece diretrizes para a aplicação dos Recursos para Desenvolvimento Tecnológico (RDT) em concessões rodoviárias federais.",
+      "pontos_atencao": "Impacto direto na gestão de contratos de concessão e na elegibilidade de investimentos em inovação tecnológica, que podem ser abatidos ou compensados conforme a matriz de riscos."
+    },
+    "786_2026-11-06T10:57": {
+      "id": "786",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ICMBio",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Proposta de Portaria que regulamenta a aplicação de recursos financeiros de encargos acessórios em contratos de concessão florestal, vinculados a indicadores de infraestrutura social.",
+      "pontos_atencao": "Monitorar a governança desses recursos e a conformidade dos indicadores de sustentabilidade, essenciais para a gestão de riscos ESG em concessões ambientais."
+    },
+    "815_2026-11-07T10:53": {
+      "id": "815",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "DECEx / Exército",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Consulta pública complementar à audiência sobre a concessão do Museu Histórico do Exército e Forte de Copacabana.",
+      "pontos_atencao": "Oportunidade para submeter contribuições técnicas sobre a viabilidade econômico-financeira e as exigências de seguro-garantia para a execução do contrato de concessão."
+    },
+    "702_2026-11-06T09:05": {
+      "id": "702",
+      "aprovar": true,
+      "vertical": "divida",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "SECEX / MDIC",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Consulta sobre a negociação de Acordo de Preferências Comerciais entre Mercosul e Indonésia.",
+      "pontos_atencao": "Avaliar potenciais impactos nas tarifas de importação de bens de capital e insumos estratégicos para projetos de infraestrutura, afetando o CAPEX de futuros empreendimentos."
+    },
+    "824_2026-11-08T22:09": {
+      "id": "824",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "SNP / SNHN",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Proposta de Portaria que estrutura o Programa Nacional de Descarbonização de Portos (PND-Portos) e de Navegação (PND-Navegação).",
+      "pontos_atencao": "Essencial para o alinhamento estratégico com metas de descarbonização, podendo impactar futuras exigências de licenciamento ambiental e acesso a linhas de financiamento verde (Green Bonds)."
     }
   },
   "analises_estruturacao_v2": {

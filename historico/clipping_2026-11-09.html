@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clipping Diário Regulatório, Financeiro & Tecnológico - 09 de Novembro de 2026</title>
+  <style>
+    :root {
+      --bg-cream: #F4EFE6;
+      --card-paper: #FFFCF6;
+      --ink: #2C2B28;
+      --muted: #6B6457;
+      --kraft: #8A7350;
+      --sand-border: #CDB892;
+      --navy: #1F3A5F;
+      
+      --color-infra: #1F3A5F;
+      --dark-infra: #162944;
+      --bg-infra: #E6ECF4;
+      
+      --color-seguros: #D2694A;
+      --dark-seguros: #B55437;
+      --bg-seguros: #F9E5DE;
+      
+      --color-carbono: #2F8291;
+      --dark-carbono: #226470;
+      --bg-carbono: #E0F1F3;
+      
+      --color-divida: #C18C24;
+      --dark-divida: #9B6F19;
+      --bg-divida: #F8EDD2;
+      
+      --color-tech: #3B4D6B;
+      --dark-tech: #28364D;
+      --bg-tech: #E5E9F0;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-cream);
+      background-image: radial-gradient(rgba(138, 115, 80, 0.08) 1px, transparent 1px);
+      background-size: 18px 18px;
+      color: var(--ink);
+      margin: 0;
+      padding: 18px 24px 0 24px;
+      line-height: 1.45;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .outer-frame {
+      max-width: 1420px;
+      width: 100%;
+      margin: 0 auto;
+      border: 2px dotted var(--sand-border);
+      border-radius: 16px;
+      padding: 20px 24px 0 24px;
+      background: rgba(244, 239, 230, 0.65);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header {
+      background: var(--card-paper);
+      padding: 16px 24px;
+      border-radius: 12px;
+      border: 1px solid #DECZAA;
+      border-bottom: 3px solid var(--sand-border);
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      box-shadow: 0 3px 10px rgba(42, 32, 16, 0.07);
+      position: relative;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .compass-icon {
+      flex-shrink: 0;
+      filter: drop-shadow(0 2px 4px rgba(42,32,16,0.15));
+    }
+
+    .header-kicker {
+      font-family: "Bahnschrift", "Segoe UI", sans-serif;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--kraft);
+      margin: 0 0 2px 0;
+    }
+
+    .header-title-area h1 {
+      font-family: "Bahnschrift", "Segoe UI", sans-serif;
+      margin: 0;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.01em;
+    }
+
+    .header-bars {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .bar-ochre {
+      width: 58px;
+      height: 5px;
+      border-radius: 4px;
+      background: #D9A23C;
+    }
+
+    .bar-coral {
+      width: 18px;
+      height: 5px;
+      border-radius: 4px;
+      background: #D2694A;
+    }
+
+    .bar-teal {
+      width: 18px;
+      height: 5px;
+      border-radius: 4px;
+      background: #2F8291;
+    }
+
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .toggle-drawers-btn {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--navy);
+      background: #F4EFE6;
+      border: 1px solid var(--sand-border);
+      padding: 6px 13px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .toggle-drawers-btn:hover {
+      background: #E9DCC3;
+    }
+
+    .whatsapp-btn {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #FFF8EC;
+      background: #1F3A5F;
+      border: 1px solid #162944;
+      padding: 6px 13px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .whatsapp-btn:hover {
+      background: #2F8291;
+      border-color: #226470;
+    }
+
+    .history-select {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--navy);
+      background: #F4EFE6;
+      border: 1px solid var(--sand-border);
+      padding: 5px 11px;
+      border-radius: 20px;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.15s ease;
+    }
+
+    .history-select:hover {
+      background: #E9DCC3;
+    }
+
+    /* Carimbo de Data estilo DECON */
+    .date-stamp {
+      font-family: "Bahnschrift", "Segoe UI", sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #B5462B;
+      background: #FBF7EE;
+      border: 2px solid #B5462B;
+      outline: 1px dashed #B5462B;
+      outline-offset: -5px;
+      padding: 6px 16px;
+      border-radius: 24px;
+      transform: rotate(-1.5deg);
+      box-shadow: 0 2px 5px rgba(42, 32, 16, 0.1);
+      letter-spacing: 0.03em;
+    }
+
+    .grid-dashboard {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    @media (max-width: 960px) {
+      .grid-dashboard {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .theme-card {
+      background: var(--card-paper);
+      border-radius: 12px;
+      border: 1px solid #E2D5BE;
+      box-shadow: 3px 4px 0px rgba(205, 184, 146, 0.45), 0 3px 10px rgba(42, 32, 16, 0.06);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .theme-card:hover {
+      box-shadow: 4px 6px 0px rgba(205, 184, 146, 0.65), 0 6px 16px rgba(42, 32, 16, 0.09);
+    }
+
+    /* Faixa superior com textura sutil de Container Marítimo (inspirado nos slides DECON) */
+    .card-header {
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px 10px;
+      color: #FFF8EC;
+      position: relative;
+      border-bottom: 3px solid rgba(0, 0, 0, 0.18);
+    }
+
+    .card-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1 1 190px;
+      min-width: 0;
+    }
+
+    .medallion-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.22));
+    }
+
+    .card-title {
+      font-family: "Bahnschrift", "Segoe UI", sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 0;
+      color: #FFF8EC;
+      letter-spacing: 0.01em;
+      line-height: 1.2;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .item-count-badge {
+      font-family: "Bahnschrift", "Segoe UI", sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 12px;
+      background: #FFF8EC;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 8px 8px 0 8px;
+      }
+      .outer-frame {
+        padding: 12px 10px 0 10px;
+        border-radius: 12px;
+      }
+      header {
+        padding: 12px 14px;
+      }
+      .header-title-area h1 {
+        font-size: 1.25rem;
+      }
+      .card-header {
+        padding: 9px 12px;
+      }
+      .medallion-wrap svg {
+        width: 36px;
+        height: 36px;
+      }
+      .card-title {
+        font-size: 0.95rem;
+      }
+      .item-count-badge {
+        font-size: 0.66rem;
+        padding: 2px 7px;
+      }
+      .card-body {
+        padding: 12px 14px;
+      }
+      .theme-tech .card-body {
+        grid-template-columns: 1fr;
+      }
+      .theme-tech .subsection {
+        border-right: none;
+        border-bottom: 1.5px dotted var(--sand-border);
+        padding-right: 0;
+        padding-bottom: 12px;
+      }
+      .scenic-footer, .footer-caption {
+        margin-left: -10px;
+        margin-right: -10px;
+      }
+    }
+
+    .theme-infra .card-header {
+      background: repeating-linear-gradient(90deg, var(--color-infra) 0px, var(--color-infra) 14px, var(--dark-infra) 14px, var(--dark-infra) 16px);
+    }
+    .theme-infra .item-count-badge { color: var(--color-infra); }
+
+    .theme-seguros .card-header {
+      background: repeating-linear-gradient(90deg, var(--color-seguros) 0px, var(--color-seguros) 14px, var(--dark-seguros) 14px, var(--dark-seguros) 16px);
+    }
+    .theme-seguros .item-count-badge { color: var(--color-seguros); }
+
+    .theme-carbono .card-header {
+      background: repeating-linear-gradient(90deg, var(--color-carbono) 0px, var(--color-carbono) 14px, var(--dark-carbono) 14px, var(--dark-carbono) 16px);
+    }
+    .theme-carbono .item-count-badge { color: var(--color-carbono); }
+
+    .theme-divida .card-header {
+      background: repeating-linear-gradient(90deg, var(--color-divida) 0px, var(--color-divida) 14px, var(--dark-divida) 14px, var(--dark-divida) 16px);
+    }
+    .theme-divida .item-count-badge { color: var(--color-divida); }
+
+    .theme-tech { grid-column: 1 / -1; }
+    .theme-tech .card-header {
+      background: repeating-linear-gradient(90deg, var(--color-tech) 0px, var(--color-tech) 14px, var(--dark-tech) 14px, var(--dark-tech) 16px);
+    }
+    .theme-tech .item-count-badge { color: var(--color-tech); }
+    .theme-tech .card-body {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 18px;
+    }
+    .theme-tech .subsection {
+      border-bottom: none;
+      border-right: 1.5px dotted var(--sand-border);
+      padding-right: 14px;
+      padding-bottom: 0;
+    }
+    .theme-tech .subsection:last-child {
+      border-right: none;
+      padding-right: 0;
+    }
+
+    .card-body {
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+    }
+
+    .subsection {
+      border-bottom: 1.5px dotted var(--sand-border);
+      padding-bottom: 12px;
+    }
+
+    .subsection:last-child {
+      border-bottom: none;
+      padding-bottom: 2px;
+    }
+
+    .subsection-title {
+      font-family: "Bahnschrift", "Segoe UI", sans-serif;
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--kraft);
+      margin-bottom: 8px;
+    }
+
+    .news-item {
+      margin-bottom: 11px;
+      padding-left: 10px;
+      border-left: 2.5px solid #E5D7BE;
+    }
+
+    .news-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .news-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 3px;
+    }
+
+    .source-tag {
+      font-size: 0.69rem;
+      font-weight: 700;
+      color: var(--navy);
+      background: #F4EFE6;
+      padding: 1px 7px;
+      border-radius: 4px;
+      border: 1px solid #DECZAA;
+    }
+
+    .news-link {
+      font-size: 0.93rem;
+      font-weight: 700;
+      color: var(--navy);
+      text-decoration: none;
+      line-height: 1.35;
+      display: block;
+    }
+
+    .news-link:hover {
+      color: #D2694A;
+      text-decoration: underline;
+    }
+
+    .news-desc {
+      font-size: 0.84rem;
+      color: #4A463F;
+      margin: 3px 0 0 0;
+      line-height: 1.42;
+    }
+
+    .empty-note {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-style: italic;
+      padding: 8px 0;
+    }
+
+    /* Gaveta Expansível (Radar Complementar) */
+    .radar-drawer {
+      border-top: 1.5px dotted var(--sand-border);
+      background: #F8F3E8;
+    }
+
+    .radar-drawer-summary {
+      padding: 9px 18px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--navy);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      list-style: none;
+      user-select: none;
+      transition: background 0.15s ease;
+    }
+
+    .radar-drawer-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .radar-drawer-summary:hover {
+      background: #EFE6D5;
+    }
+
+    .drawer-chevron {
+      font-size: 0.74rem;
+      color: #D2694A;
+      font-weight: 700;
+    }
+
+    .radar-drawer-content {
+      padding: 8px 18px 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      border-top: 1px dashed var(--sand-border);
+      background: #FAF6ED;
+    }
+
+    .radar-compact-item {
+      padding: 7px 11px;
+      background: var(--card-paper);
+      border: 1px solid #E2D5BE;
+      border-radius: 8px;
+    }
+
+    .subsecao-pill {
+      font-size: 0.66rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: #F4EFE6;
+      padding: 1px 6px;
+      border-radius: 4px;
+      border: 1px solid #E2D5BE;
+    }
+
+    /* Faixa Informativa Compacta Brasil Participativo (No Rodapé) */
+    .participativo-strip {
+      background: var(--card-paper);
+      border: 1px solid var(--sand-border);
+      border-left: 5px solid var(--navy);
+      border-radius: 10px;
+      margin-top: 20px;
+      box-shadow: 0 2px 6px rgba(42,32,16,0.05);
+      overflow: hidden;
+      position: relative;
+      z-index: 2;
+    }
+
+    .participativo-summary {
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+    }
+
+    .participativo-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .participativo-summary:hover {
+      background: #F8F3E8;
+    }
+
+    .participativo-title {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+    }
+
+    .participativo-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .participativo-radar-link {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--navy);
+      background: #E6ECF4;
+      border: 1px solid #B8C7DC;
+      padding: 4px 11px;
+      border-radius: 16px;
+      text-decoration: none;
+      transition: background 0.15s ease;
+    }
+
+    .participativo-radar-link:hover {
+      background: #D0DCEC;
+    }
+
+    .participativo-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 8px 16px 12px 16px;
+      border-top: 1px dashed var(--sand-border);
+      background: #FAF6ED;
+    }
+
+    .participativo-item {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.83rem;
+      padding: 5px 10px;
+      background: var(--card-paper);
+      border: 1px solid #E5D7BE;
+      border-radius: 6px;
+    }
+
+    .part-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: #E0F1F3;
+      color: #226470;
+      white-space: nowrap;
+    }
+
+    .part-orgao {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--kraft);
+      white-space: nowrap;
+    }
+
+    .part-link {
+      font-weight: 600;
+      color: var(--navy);
+      text-decoration: none;
+    }
+
+    .part-link:hover {
+      color: #D2694A;
+      text-decoration: underline;
+    }
+
+    .part-prazo {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-left: auto;
+      white-space: nowrap;
+    }
+
+    /* Ilustração Panorâmica Setorial no Rodapé (Portos, Hidrovias, Aviação e Sustentabilidade) */
+    .scenic-footer {
+      margin-top: 12px;
+      margin-left: -24px;
+      margin-right: -24px;
+      position: relative;
+      line-height: 0;
+    }
+
+    .scenic-footer svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .footer-caption {
+      background: #1F3A5F;
+      color: #E9DCC3;
+      text-align: center;
+      font-size: 0.76rem;
+      padding: 8px 16px 12px 16px;
+      margin-left: -24px;
+      margin-right: -24px;
+      letter-spacing: 0.04em;
+    }
+    /* Aviso de projeto piloto: faixa discreta no topo + texto completo no rodape */
+    .aviso-piloto-faixa {
+      background: #FFF4D6;
+      color: #6B5314;
+      border-bottom: 1px solid #E6D3A0;
+      text-align: center;
+      font-size: 0.72rem;
+      padding: 4px 12px;
+      letter-spacing: 0.02em;
+    }
+    .aviso-piloto-rodape {
+      background: #16294A;
+      color: #D9CDB2;
+      text-align: left;
+      font-size: 0.68rem;
+      line-height: 1.45;
+      padding: 8px 20px 12px 20px;
+      margin-left: -24px;
+      margin-right: -24px;
+      border-top: 1px solid #2D4A75;
+    }
+  </style>
+  <script>
+    function toggleAllDrawers() {
+      const drawers = document.querySelectorAll('details.radar-drawer');
+      const btn = document.getElementById('btn-toggle-drawers');
+      const anyClosed = Array.from(drawers).some(d => !d.open);
+      drawers.forEach(d => d.open = anyClosed);
+      if (btn) {
+        btn.textContent = anyClosed ? '➖ Recolher Radares Complementares' : '➕ Expandir Todos os Radares';
+      }
+    }
+
+    function navegarHistorico(arquivo) {
+      if (!arquivo) return;
+      const inHistorico = window.location.pathname.replace(/\\/g, '/').includes('/historico/');
+      if (arquivo === 'ATUAL') {
+        window.location.href = inHistorico ? '../clipping.html' : './clipping.html';
+      } else {
+        window.location.href = inHistorico ? ('./' + arquivo) : ('./historico/' + arquivo);
+      }
+    }
+
+    function copyWhatsAppSummary() {
+      const el = document.getElementById('whatsapp-summary-text');
+      const btn = document.getElementById('btn-copy-whatsapp');
+      if (!el) return;
+      navigator.clipboard.writeText(el.value).then(() => {
+        if (btn) {
+          const orig = btn.textContent;
+          btn.textContent = '✅ Copiado! (Cole no WhatsApp)';
+          btn.style.background = '#2F8291';
+          setTimeout(() => {
+            btn.textContent = orig;
+            btn.style.background = '';
+          }, 3000);
+        }
+      });
+    }
+  </script>
+</head>
+<body>
+  <textarea id="whatsapp-summary-text" style="display:none;" readonly>🧭 *CLIPPING DIÁRIO EXECUTIVO — DECON / MPOR*
+📅 _09 de Novembro de 2026_
+
+⚓ *Infraestrutura &amp; Outorgas*
+• [Governo Federal] ANTAQ define audiência pública sobre concessão do canal de acesso ao Porto de Santos
+• [Agência iNFRA] Pesquisa CNT 2026: Rodovias apresentam melhora geral com avanços em sinalização
+
+🛡️ *Seguros &amp; Grandes Riscos*
+• [Sonho Seguro] Susep prepara SRO para monitorar perdas climáticas em 2027
+• [Revista Apólice] CNseg estabelece critérios para classificação de seguros sustentáveis
+
+🍃 *Carbono &amp; Transição Climática*
+• [Capital Reset] Agenda verde será poupada de cortes, garante Fazenda
+• [Capital Reset] Governo antecipa exportação de créditos de carbono
+
+📈 *Dívida &amp; Mercado de Capitais*
+• [Governo Federal] CVM recebe 11 propostas de pilotos para testes de tokenização
+• [Valor Econômico] Presidente da CVM defende uso de IA na supervisão do mercado
+
+🔍 *Tecnologia, IA &amp; Gestão*
+• [InvestNews] Anthropic investe US$ 3,4 bilhões em geradores para data centers
+• [Exame] Energia e conectividade superam localização em data centers
+
+🏛️ *Brasil Participativo (48h):* 1 novo(s) processo(s) aberto(s).
+
+🔗 *Acesse o Painel Completo e Radares Complementares:*
+https://mdagavea.github.io/inteligencia-regulatoria/clipping.html</textarea>
+  <div class="aviso-piloto-faixa" role="note">Projeto piloto de inteligência regulatória, em fase de testes.</div>
+  <div class="outer-frame">
+    <header>
+      <div class="header-left">
+        <!-- Rosa dos Ventos DECON/MPOR -->
+        <svg class="compass-icon" width="54" height="54" viewBox="-52 -52 104 104">
+          <circle r="46" fill="#F9F5EC" stroke="#CDB892" stroke-width="2"/>
+          <circle r="36" fill="none" stroke="#CDB892" stroke-width="1.5" stroke-dasharray="3 5"/>
+          <polygon points="0,-40 8,0 0,40 -8,0" fill="#1F3A5F"/>
+          <polygon points="-40,0 0,-8 40,0 0,8" fill="#D9A23C"/>
+          <polygon points="0,-40 8,0 -8,0" fill="#D2694A"/>
+          <circle r="4" fill="#F9F5EC"/>
+        </svg>
+        <div class="header-title-area">
+          <p class="header-kicker">DECON · Inteligência Regulatória, Financeira & Setorial · MPOR</p>
+          <h1>Clipping Diário Executivo</h1>
+          <div class="header-bars">
+            <div class="bar-ochre"></div>
+            <div class="bar-coral"></div>
+            <div class="bar-teal"></div>
+          </div>
+        </div>
+      </div>
+      <div class="header-meta">
+        <button id="btn-copy-whatsapp" class="whatsapp-btn" onclick="copyWhatsAppSummary()" title="Copia o resumo executivo formatado para colar no Grupo da Diretoria no WhatsApp">📲 Copiar Resumo WhatsApp</button>
+        <a class="participativo-radar-link" href="https://mdagavea.github.io/inteligencia-regulatoria/radar.html" target="_blank" rel="noopener noreferrer" title="Abrir Radar de Participação, Estruturação & Leilões">🏛️ Radar: 1 novo (ANTAQ) | EVTEAs & Leilões ↗</a>
+        <select class="history-select" onchange="navegarHistorico(this.value); this.selectedIndex=0;" title="Consultar edições anteriores por data"><option value="">📚 Acervo de Edições (14)</option><option value="index.html">🗂️ Ver Catálogo Completo de Datas...</option><option value="clipping_2026-11-09.html">📄 Edição de 09/11/2026 (Hoje)</option><option value="clipping_2026-11-06.html">📄 Edição de 06/11/2026</option><option value="clipping_2026-11-05.html">📄 Edição de 05/11/2026</option><option value="clipping_2026-11-04.html">📄 Edição de 04/11/2026</option><option value="clipping_2026-11-03.html">📄 Edição de 03/11/2026</option><option value="clipping_2026-11-02.html">📄 Edição de 02/11/2026</option><option value="clipping_2026-10-30.html">📄 Edição de 30/10/2026</option><option value="clipping_2026-10-29.html">📄 Edição de 29/10/2026</option><option value="clipping_2026-10-28.html">📄 Edição de 28/10/2026</option><option value="clipping_2026-10-27.html">📄 Edição de 27/10/2026</option><option value="clipping_2026-10-26.html">📄 Edição de 26/10/2026</option><option value="clipping_2026-10-25.html">📄 Edição de 25/10/2026</option><option value="clipping_2026-10-21.html">📄 Edição de 21/10/2026</option><option value="clipping_2026-09-25.html">📄 Edição de 25/09/2026</option></select>
+        <button id="btn-toggle-drawers" class="toggle-drawers-btn" onclick="toggleAllDrawers()">➕ Expandir Todos os Radares</button>
+        <span class="date-stamp">📅 09 de Novembro de 2026</span>
+      </div>
+    </header>
+
+    <div class="grid-dashboard">
+      
+      <div class="theme-card theme-infra">
+        <div class="card-header">
+          <div class="card-header-left">
+            <div class="medallion-wrap"><svg viewBox="0 0 100 100" width="44" height="44">
+      <circle cx="50" cy="50" r="47" fill="#FFFBF3" stroke="#CDB892" stroke-width="2"/>
+      <circle cx="50" cy="50" r="41" fill="#1F3A5F"/>
+      <circle cx="50" cy="50" r="35.5" fill="none" stroke="#FFF8EC" stroke-opacity=".4" stroke-width="1.3" stroke-dasharray="2.5 3.5"/>
+      <g fill="none" stroke="#FFF8EC" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="50" cy="27" r="6"/><path d="M50 33 V75"/><path d="M38 42 H62"/>
+        <path d="M28 58 C30 74 70 74 72 58"/><path d="M24 62 L28 56 L34 61"/><path d="M76 62 L72 56 L66 61"/>
+      </g>
+    </svg></div>
+            <h2 class="card-title">Infraestrutura & Outorgas</h2>
+          </div>
+          <span class="item-count-badge">3 destaques + 4 no radar</span>
+        </div>
+        <div class="card-body">
+          
+          <div class="subsection">
+            <div class="subsection-title">Regulação & Contratos (ANTT / ANAC / ANTAQ / Portos)</div>
+            
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">Governo Federal</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMi5AFBVV95cUxOUjZ3SFBoaGxJalNnVjhvVFE5TlRhOWw4QjlfOV9IdEdHLVlRNzBIU2pUS2NEM1BWNjhHUUdJbG5ySy1LMjV0ZXhLbkdWSEtIWWItMW1KV1Y4S1BSMWpsU1ZtNThRZjFBRGUxcWdSVGFCQXI5cmYxWEx0Y3B2aURWMDdSTk90QWJDNUZSX243MDNjQ1p4eGpSbXBNYjYwUVg1ck9xbVBFUVVyR0JYd3pxQk5aTGRLYWhWaE9rQnVXMXhSM0RyOTIyX0tHM1h3WlVwcHFhUVpiY3Q0X0c5QTM4QWtjS3M?oc=5" target="_blank" rel="noopener noreferrer">ANTAQ define audiência pública sobre concessão do canal de acesso ao Porto de Santos</a>
+              <p class="news-desc">A agência reguladora avança no processo de concessão do canal de acesso ao Porto de Santos, um ativo estratégico para a logística nacional, ao convocar audiência pública para discutir os termos do certame.</p>
+            </div>
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">Agência iNFRA</span>
+              </div>
+              <a class="news-link" href="https://agenciainfra.com/blog/cnt-rodovias-tem-melhora-mas-pontos-criticos-crescem/?utm_source=rss&utm_medium=rss&utm_campaign=cnt-rodovias-tem-melhora-mas-pontos-criticos-crescem" target="_blank" rel="noopener noreferrer">Pesquisa CNT 2026: Rodovias apresentam melhora geral com avanços em sinalização</a>
+              <p class="news-desc">Dados da Pesquisa CNT de Rodovias 2026 indicam uma melhora nas condições gerais da malha rodoviária, impulsionada por investimentos em sinalização que compensaram a deterioração de outros indicadores técnicos.</p>
+            </div>
+          </div>
+          <div class="subsection">
+            <div class="subsection-title">Leilões, Editais & PPI</div>
+            
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">Portal BE News</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMiiwFBVV95cUxOVC1ER3U4WHVRb281Q2NNaTFUenFPMEJuOFFmQ3RoakZNdW9odGw4d3YxZ1lKbHg4bExZQ0tNYUMzdHFsOHNlWDBiRFN5U0Y1aHcwU2p3N1JDM3N2VEV6YWlPbUxyQVUtVTlYR09LY1cxNXpFcVZ6WVl5bjBTbmZvZDRaNEx5SXR2SlhZ?oc=5" target="_blank" rel="noopener noreferrer">ANTT abre disputa pelo controle da concessão da BR-163</a>
+              <p class="news-desc">A agência iniciou o processo de disputa para a relicitação da BR-163, estabelecendo diretrizes rigorosas para a transição do controle da concessão e saneamento de passivos.</p>
+            </div>
+          </div>
+        </div>
+        <details class="radar-drawer">
+          <summary class="radar-drawer-summary">
+            <span>📂 Radar Complementar (+4 matérias relevantes no período)</span>
+            <span class="drawer-chevron">Expandir lista ▾</span>
+          </summary>
+          <div class="radar-drawer-content">
+            
+            <div class="radar-compact-item">
+              <div class="news-meta">
+                <span class="source-tag">Agência iNFRA</span>
+                <span class="subsecao-pill">Regulação & Contratos (ANTT / ANAC / ANTAQ / Portos)</span>
+              </div>
+              <a class="news-link" href="https://agenciainfra.com/blog/governo-publica-mp-para-prorrogar-auxilio-gas-do-povo-ate-2031/?utm_source=rss&utm_medium=rss&utm_campaign=governo-publica-mp-para-prorrogar-auxilio-gas-do-povo-ate-2031" target="_blank" rel="noopener noreferrer">Governo prorroga Auxílio Gás do Povo até 2031</a>
+              <p class="news-desc">Publicada a MP 1.400/2026, que estende a vigência do programa de subsídio ao gás de cozinha até novembro de 2031, mantendo a política de proteção social aos consumidores.</p>
+            </div>
+            <div class="radar-compact-item">
+              <div class="news-meta">
+                <span class="source-tag">Agência iNFRA</span>
+                <span class="subsecao-pill">Regulação & Contratos (ANTT / ANAC / ANTAQ / Portos)</span>
+              </div>
+              <a class="news-link" href="https://agenciainfra.com/blog/antt-estabelece-limite-de-30-dias-uteis-para-quitacao-de-fretes/?utm_source=rss&utm_medium=rss&utm_campaign=antt-estabelece-limite-de-30-dias-uteis-para-quitacao-de-fretes" target="_blank" rel="noopener noreferrer">ANTT estabelece prazo de 30 dias úteis para quitação de fretes</a>
+              <p class="news-desc">A agência reguladora definiu o limite máximo para o pagamento de fretes rodoviários, visando reduzir a inadimplência e garantir maior segurança jurídica aos transportadores autônomos.</p>
+            </div>
+            <div class="radar-compact-item">
+              <div class="news-meta">
+                <span class="source-tag">VEJA</span>
+                <span class="subsecao-pill">Reequilíbrio & Matriz de Riscos</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMipwFBVV95cUxOcWZ3TnYxTXZ4bjZjcFkxa2haekx1d3VGbmNpZ2NVcnphUHEzUUZIbG5wS0FWUlVoZVEyY1lJWlA2azRGY1g2SWFtSTBXSkJUaThSNktlS0JlOG1zbFQzaHoxeHdaX0VKNWNwOG40RkxfeWp1cEc3MGMzdnZnY0RETjJPNUN1dUdpS2tSeFJpZ3ZtaXlleXd6Zk96UFFYWEtCbS1GZHlSOA?oc=5" target="_blank" rel="noopener noreferrer">MPF investiga possíveis falhas em prorrogação de concessão ferroviária</a>
+              <p class="news-desc">O Ministério Público Federal instaurou procedimento para apurar irregularidades na prorrogação antecipada de contrato de concessão ferroviária, focando na análise da matriz de riscos e contrapartidas.</p>
+            </div>
+            <div class="radar-compact-item">
+              <div class="news-meta">
+                <span class="source-tag">Agência iNFRA</span>
+                <span class="subsecao-pill">Reequilíbrio & Matriz de Riscos</span>
+              </div>
+              <a class="news-link" href="https://agenciainfra.com/blog/atgas-suspensao-de-investimentos-e-consequencia-da-percepcao-de-risco/?utm_source=rss&utm_medium=rss&utm_campaign=atgas-suspensao-de-investimentos-e-consequencia-da-percepcao-de-risco" target="_blank" rel="noopener noreferrer">ATGás aponta que suspensão de investimentos decorre de risco regulatório</a>
+              <p class="news-desc">Associação do setor de transporte de gás natural alerta que a reavaliação de aportes pelas empresas é reflexo direto da percepção de instabilidade no ambiente regulatório.</p>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="theme-card theme-seguros">
+        <div class="card-header">
+          <div class="card-header-left">
+            <div class="medallion-wrap"><svg viewBox="0 0 100 100" width="44" height="44">
+      <circle cx="50" cy="50" r="47" fill="#FFFBF3" stroke="#CDB892" stroke-width="2"/>
+      <circle cx="50" cy="50" r="41" fill="#D2694A"/>
+      <circle cx="50" cy="50" r="35.5" fill="none" stroke="#FFF8EC" stroke-opacity=".4" stroke-width="1.3" stroke-dasharray="2.5 3.5"/>
+      <g fill="none" stroke="#FFF8EC" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M50 22 L72 30 V50 C72 64 62 74 50 80 C38 74 28 64 28 50 V30 Z"/>
+        <path d="M40 50 L47 57 L61 43"/>
+      </g>
+    </svg></div>
+            <h2 class="card-title">Seguros de Grandes Riscos</h2>
+          </div>
+          <span class="item-count-badge">3 destaques + 4 no radar</span>
+        </div>
+        <div class="card-body">
+          
+          <div class="subsection">
+            <div class="subsection-title">Resseguro & Riscos Climáticos</div>
+            
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">Sonho Seguro</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMi0gFBVV95cUxOZ19jZUo2Q1kyQkktREU0MllreXo1d2k1eGZMT0JtdUVIQmFmV2MzR092a1ZHNUJUaUUtdGZzQVZwYm5jWUgwRkwycV9aS0hDa3FhN2w2ZkhPOGtoYmFKeEFLTHhFYnlQS0Z1UEMwT3lJNXJDcUUxWklTektBb3RVaFh0TFJKV1BhWHQ1cElzUGRQRHpBOUN3MWxvQnJBREo5a0lMcG1oaFJNTE1vYlpuc21nSEI1TGRfMlVORDFsRVJHSVpmX3lrTGxPY1pjZ0hmcXc?oc=5" target="_blank" rel="noopener noreferrer">Susep prepara SRO para monitorar perdas climáticas em 2027</a>
+              <p class="news-desc">A autarquia desenvolve o Sistema de Registro de Operações (SRO) com foco em identificar e mensurar perdas decorrentes de eventos climáticos, visando aprimorar a gestão de riscos do mercado.</p>
+            </div>
+          </div>
+          <div class="subsection">
+            <div class="subsection-title">Regulação SUSEP, CNseg & Mercado Corporativo</div>
+            
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">Revista Apólice</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMingFBVV95cUxPR2Vhb0NJV1JzSGJlTk1GY081VnA3SE5HbkZScDJYb2JUY0x2UGdBZVhNZWs1aVU1LWVRZXZMQ3NybUZ0Z24ycHZDdjJiblk3bHZoZEEyNXBpY1czWWh2S0NYSk5OYjBxeVhldWlENlRLekh5SHJoR1ZNWlo4N2dnSHZMRjNUZ2lTT2k2aU9YLVhxY1NIWmRtcVIzVTU3Zw?oc=5" target="_blank" rel="noopener noreferrer">CNseg estabelece critérios para classificação de seguros sustentáveis</a>
+              <p class="news-desc">A confederação define padrões para o mercado corporativo, visando padronizar o que constitui um seguro sustentável e fomentar o alinhamento com práticas ESG.</p>
+            </div>
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">CQCS</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMimAFBVV95cUxNV2FkZFAzdDRKVEU4RGdJeFhVQlZsbXRPSzFjMmw0RDBmVlNTN3ZHM3NjamFRRG52aHRjNktjbkFWNXFyZkFOc0tmWmhJSFcyMW1qa3A5bW5TS1FsbjJQblgzVUNZSmNzcVpxUW1EbWh4eEdlMk5jRFVPM3V3dmZPLUlGTDFqZ19XaWs5ekExSU1NVnFMcFV2Uw?oc=5" target="_blank" rel="noopener noreferrer">Susep abre consulta pública sobre novas regras para corretagem</a>
+              <p class="news-desc">A Susep submete a debate novas diretrizes para a atividade de corretagem, buscando modernizar a regulação do canal de distribuição de seguros.</p>
+            </div>
+          </div>
+        </div>
+        <details class="radar-drawer">
+          <summary class="radar-drawer-summary">
+            <span>📂 Radar Complementar (+4 matérias relevantes no período)</span>
+            <span class="drawer-chevron">Expandir lista ▾</span>
+          </summary>
+          <div class="radar-drawer-content">
+            
+            <div class="radar-compact-item">
+              <div class="news-meta">
+                <span class="source-tag">Confederação Nacional de Municípios (CNM)</span>
+                <span class="subsecao-pill">Seguro Garantia & Performance Bonds</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMiwwFBVV95cUxQQTNYLTdTdkVTS3h2cEk4WWUzcTVJaXlpNURkaUJDR3h2clpEWmpNTUtzTHJLcTFtZVRYeEFBQU53T1dmWXU0eFEyS1ZMbXhyUWk3S2VuNGRMTWV0SDdidG8wRC01RDJWVEI2TTh5RzhBUkEzTlY2QTd4dEpwQnBFYTdKTFdDVG5PajRqNW5VY3k2SndTRGJfQUZJLXNkbWlPZldxRloySFh1Q1BUUkZIemE2eHpLYlFVVW52N3dhNWtPcWs?oc=5" target="_blank" rel="noopener noreferrer">CNM debate seguros de infraestrutura na Susep</a>
+              <p class="news-desc">Representantes municipais levam ao regulador a necessidade de adequação dos seguros de garantia para obras públicas, visando mitigar riscos de paralisação em projetos locais.</p>
+            </div>
+            <div class="radar-compact-item">
+              <div class="news-meta">
+                <span class="source-tag">Revista Apólice</span>
+                <span class="subsecao-pill">Regulação SUSEP, CNseg & Mercado Corporativo</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMimwFBVV95cUxObkgxdS04RVlLN1N3cEJ4Q2MwVFpRMlRNQkZmWmI0Vl96b2VNbDFSQ2ZyWWUycFNsaFM5eWdhYmNqNS1oeGpLc1dHWUlRNjBHbjFtYnZoRTBTN2FsbUhqZ1UzTzFQNEV4OFZsUVFsY3BmN0FCWkxVZVlkTUt4SjdwbS1sY2FZd2ZzTmg2NGNRRkZMZGFibFFNN256OA?oc=5" target="_blank" rel="noopener noreferrer">CNseg atualiza guia de combate à lavagem de dinheiro</a>
+              <p class="news-desc">O setor segurador revisa suas diretrizes de compliance para alinhar-se às novas exigências de prevenção à lavagem de dinheiro e financiamento ao terrorismo.</p>
+            </div>
+            <div class="radar-compact-item">
+              <div class="news-meta">
+                <span class="source-tag">Revista Cobertura</span>
+                <span class="subsecao-pill">Regulação SUSEP, CNseg & Mercado Corporativo</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMi1wFBVV95cUxNOXREV21fQlhBd0FkN2xSLTVHTUxUbHRYZlEtWDNtTC1QYXpQNUNRM1VzcFAwampBM0M1dmhJZVdPVk1YXzNVTktCVzJBcTdJeFdrQU5aT3BPWUNPMkdaTWVLcmo4bVBUWVR2NEdiY0NBNE0zT1VRZ09HUVZkeUkzRW82UUxEd3k3SFExRFRQb2ZEN0dyMlBudkpIcWNqdER2VC1VcjQzWlFsOUZ0N2U1Ni0wRVBERmFIOG1FZnd4Y2MxaEN1Z1Y4aGZxbjVDaVc5bE1SRkw3QQ?oc=5" target="_blank" rel="noopener noreferrer">Setor supervisionado pela Susep atinge R$ 315 bi em receitas</a>
+              <p class="news-desc">Dados consolidados até setembro mostram a resiliência do mercado segurador brasileiro, com receita robusta apesar do cenário macroeconômico desafiador.</p>
+            </div>
+            <div class="radar-compact-item">
+              <div class="news-meta">
+                <span class="source-tag">Governo Federal</span>
+                <span class="subsecao-pill">Regulação SUSEP, CNseg & Mercado Corporativo</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMi4wFBVV95cUxQTUtBcnQtQ3hpcUJoaFNUVkdkZlRqQnhxZXkwbnZzdkllYlBSajktZ0J5TS1hLUNkb2JOVGNaaWhhNFpXSDFYd242amVMaTc2Z1hqM0Z6OHQ2LWZvR0xIYUl5Z2RMMmRraVFuNWdFVkYtbjJQcjhHdl96RXZhckRHMUhxNTFaOVdMb2ZYbUtoYUNISDJjVVkzNEQ5aEZONDROMXNBRlF4MVRUVzhocHNCanlXZ2VNaHBoaS1MZWE3UGQ3eGczV0g5Y25FT3VFcC12NXNBXzZSbDJWY21ac1FOVjFzaw?oc=5" target="_blank" rel="noopener noreferrer">Susep divulga Estratégia Nacional de Educação Securitária</a>
+              <p class="news-desc">Lançamento da política pública voltada para a disseminação de cultura securitária e previdenciária, visando aumentar a penetração do seguro na sociedade.</p>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="theme-card theme-carbono">
+        <div class="card-header">
+          <div class="card-header-left">
+            <div class="medallion-wrap"><svg viewBox="0 0 100 100" width="44" height="44">
+      <circle cx="50" cy="50" r="47" fill="#FFFBF3" stroke="#CDB892" stroke-width="2"/>
+      <circle cx="50" cy="50" r="41" fill="#2F8291"/>
+      <circle cx="50" cy="50" r="35.5" fill="none" stroke="#FFF8EC" stroke-opacity=".4" stroke-width="1.3" stroke-dasharray="2.5 3.5"/>
+      <g fill="none" stroke="#FFF8EC" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M28 72 C28 44 48 28 74 26 C74 52 58 70 28 72 Z"/><path d="M28 72 L58 42"/>
+      </g>
+    </svg></div>
+            <h2 class="card-title">Mercado de Carbono & Transição Climática</h2>
+          </div>
+          <span class="item-count-badge">3 destaques + 4 no radar</span>
+        </div>
+        <div class="card-body">
+          
+          <div class="subsection">
+            <div class="subsection-title">SBCE, Eco Invest & Financiamento Climático</div>
+            
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">Capital Reset</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxOT3pDWlZyV0dCb1hCdVdYUDBtaWlMXzlMbFA5ak0yeGtiX1pEZGxESjYzYW1qV3BjV2hFU29qd2xqVDhzNmJfaUltMUdvWEFRUU9nWkRwSHZSa3JUZmEzVEtsT2dleUhCMmx3dElKYl92djRmLXAxWm8tNDRGbGpMOTM0OUJMUzRBcWk0bC1TT3dqN0pnSlU4bjhSX2o1a2JuZGUxTkxVWEVLZGo3MzNHbl91a3J5Skl4Y05F?oc=5" target="_blank" rel="noopener noreferrer">Agenda verde será poupada de cortes, garante Fazenda</a>
+              <p class="news-desc">O governo federal assegura a manutenção de R$ 54 bilhões para o Fundo Clima e novos leilões do Eco Invest, reafirmando a prioridade da transição energética no ajuste fiscal.</p>
+            </div>
+          </div>
+          <div class="subsection">
+            <div class="subsection-title">Segurança Jurídica & Integridade de Créditos</div>
+            
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">Capital Reset</span>
+              </div>
+              <a class="news-link" href="https://capitalreset.uol.com.br/carbono/governo-antecipa-exportacao-de-creditos-de-carbono-conservacao-fica-de-fora/" target="_blank" rel="noopener noreferrer">Governo antecipa exportação de créditos de carbono</a>
+              <p class="news-desc">Nova resolução permite a exportação de créditos (ITMOs) para atender à demanda do setor aéreo internacional (Corsia), embora a exclusão de projetos de REDD+ gere críticas no mercado.</p>
+            </div>
+          </div>
+          <div class="subsection">
+            <div class="subsection-title">Transição Energética, Minerais Críticos & ESG</div>
+            
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">Agência Gov</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMihAJBVV95cUxNUkxVM2FDcjhtNlhidGR3dFNidWRDTnN2VjJZa3N1QUc5Vk5CMURONFFzUGxiSm1iakFjZlM2WHhuWVFYRjNjYThteldqVTlETExkNGYyS3Y4a0NJWTFDSmxPQzJIYUlqUWItRXRKeURSSEM4dUhtX09BSkJzNWtxY1RNZFlWUER1SE0xVlBuWHJrby15bGdoSjVpclBfY2x0UjlaOFhFcWxlSUladzFLY3B6bnVNd21rMV9DcTh3dkk5ajNDaUdNRmdJM0Izb3RvaVBCb1ZoZHdnSHRrOXVjbXRMNEVyU2N6Ukg0TEhUNGEySzRzVEhDUzRLOFlSSkJVeUQtSQ?oc=5" target="_blank" rel="noopener noreferrer">Aprovado Mapa do Caminho para reversão do desmatamento até 2030</a>
+              <p class="news-desc">O governo federal oficializou o plano estratégico para zerar o desmatamento, estabelecendo metas claras para a transição florestal e climática.</p>
+            </div>
+          </div>
+        </div>
+        <details class="radar-drawer">
+          <summary class="radar-drawer-summary">
+            <span>📂 Radar Complementar (+4 matérias relevantes no período)</span>
+            <span class="drawer-chevron">Expandir lista ▾</span>
+          </summary>
+          <div class="radar-drawer-content">
+            
+            <div class="radar-compact-item">
+              <div class="news-meta">
+                <span class="source-tag">Capital Reset</span>
+                <span class="subsecao-pill">Transição Energética, Minerais Críticos & ESG</span>
+              </div>
+              <a class="news-link" href="https://capitalreset.uol.com.br/clima/cop/brasil-desenha-roteiro-global-para-o-fim-dos-combustiveis-fosseis/" target="_blank" rel="noopener noreferrer">Brasil propõe roteiro global para fim dos combustíveis fósseis</a>
+              <p class="news-desc">A presidência da COP30 apresenta estratégia em três fases para a descarbonização global, focada na redução da oferta de fósseis e expansão de energias limpas.</p>
+            </div>
+            <div class="radar-compact-item">
+              <div class="news-meta">
+                <span class="source-tag">Capital Reset</span>
+                <span class="subsecao-pill">Transição Energética, Minerais Críticos & ESG</span>
+              </div>
+              <a class="news-link" href="https://capitalreset.uol.com.br/transicao-energetica/coalizao-propoe-tratar-descarbonizacao-como-questao-de-cadeia-de-valor/" target="_blank" rel="noopener noreferrer">Coalizão propõe descarbonização por cadeia de valor</a>
+              <p class="news-desc">Grupo de 270 organizações, coordenado pelo CEBDS, mapeia 100 ações integradas para viabilizar a transição em setores como agro, transporte e mineração.</p>
+            </div>
+            <div class="radar-compact-item">
+              <div class="news-meta">
+                <span class="source-tag">Capital Reset</span>
+                <span class="subsecao-pill">Transição Energética, Minerais Críticos & ESG</span>
+              </div>
+              <a class="news-link" href="https://capitalreset.uol.com.br/transicao-energetica/leilao-de-baterias-enfrenta-corrida-contra-o-tempo-no-setor-eletrico/" target="_blank" rel="noopener noreferrer">Leilão de baterias enfrenta corrida contra o tempo</a>
+              <p class="news-desc">O setor elétrico busca viabilizar projetos de armazenamento até 2028 para mitigar riscos de falta de potência, em um cronograma considerado apertado.</p>
+            </div>
+            <div class="radar-compact-item">
+              <div class="news-meta">
+                <span class="source-tag">Exame</span>
+                <span class="subsecao-pill">Segurança Jurídica & Integridade de Créditos</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMiwAFBVV95cUxNZDZNMG5lOWJaa19tbm1rUVVkN1dzWTlINy1BRE4ycHQtUlFxUUo4enNacGJjci1FUmZab1BnaEk1MVNXVlAwa3hDYmtNZTB3NHJIR1BGQm1iclR6SURsWHBmTlZvLXg1MWFOdVl2Nlc2NGdBNEx6bDNRYUMzVGdObGxSeV9MUUQ2QTFFZVNNa25PdE9LSUFiTzItOG10c1dpZ1luQUVhX0I3V1I4X2dWQzhKMWdhV3puR09ZZi1uSDA?oc=5" target="_blank" rel="noopener noreferrer">Advocacia especializada ganha protagonismo na regulação do carbono</a>
+              <p class="news-desc">A profissionalização jurídica no mercado de carbono reflete a necessidade de segurança regulatória para a estruturação de projetos de alta integridade.</p>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="theme-card theme-divida">
+        <div class="card-header">
+          <div class="card-header-left">
+            <div class="medallion-wrap"><svg viewBox="0 0 100 100" width="44" height="44">
+      <circle cx="50" cy="50" r="47" fill="#FFFBF3" stroke="#CDB892" stroke-width="2"/>
+      <circle cx="50" cy="50" r="41" fill="#C18C24"/>
+      <circle cx="50" cy="50" r="35.5" fill="none" stroke="#FFF8EC" stroke-opacity=".4" stroke-width="1.3" stroke-dasharray="2.5 3.5"/>
+      <g fill="none" stroke="#FFF8EC" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M26 74 H76"/><path d="M33 74 V60"/><path d="M46 74 V52"/><path d="M59 74 V44"/>
+        <path d="M28 48 L44 34 L54 40 L72 24"/><path d="M62 24 H72 V34"/>
+      </g>
+    </svg></div>
+            <h2 class="card-title">Instrumentos de Dívida & Mercado de Capitais</h2>
+          </div>
+          <span class="item-count-badge">3 destaques + 3 no radar</span>
+        </div>
+        <div class="card-body">
+          
+          <div class="subsection">
+            <div class="subsection-title">Regulação CVM, ANBIMA & BNDES</div>
+            
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">Governo Federal</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMizwFBVV95cUxPOE5JZU8ydnlYZ09wSFFqRllKT0pCRmkyb19iUVFwbmhLYWM0bXU0LTFoNW5ZZzVhWkZ1N1RTSlpuNEVYaGZfQ0Z0bzlUZnZWWXJKU3A5akZfSTVsNHZyQTVKUnJELUFPWlhycWJjOUpZVXVmajB2ZVVXd282Vl9QOTJ3U1ktN3d2Y1lJOTRubkU1SFY5MGtXYWtBVG9BUWF0ZFEzaGhWNkhMYnE1YTVvSDFmYmxkSG13dEZqRWxhTlpZVmIyWmxFY3VCckJ2WWs?oc=5" target="_blank" rel="noopener noreferrer">CVM recebe 11 propostas de pilotos para testes de tokenização</a>
+              <p class="news-desc">O Grupo de Trabalho de Tokenização da CVM avança na fase de testes, selecionando propostas para avaliar a viabilidade de ativos tokenizados no mercado de capitais.</p>
+            </div>
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">Valor Econômico</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxOX0d5eEVHTkczR3BDXzNuRVVFelQwU1RpT0RSYlhqZWYzVDBadmRiY0tKaFVJaFItcExsMlRBamQ3bkRZeGh3bUIwSkEwYTZHVGlUam56bERZQUZWY05CNUN6RXdza3Q1RTItemVkSDU5cEhOM1lRM2FVMEJFRlRhODRBbE1lWU84Y1ZGUkJqSWx3OUFDRjVpMk44Q1NaTDZ2aWJjSmxlRml1Q0RPbUVQNG8wUmM1NXZrdTJ0MDJ6b1Z1X3ZJOFhqUtIB1wFBVV95cUxPc0FIZVlhOEJsaUc5SmxvSklKVjk0Y1QyaU1aY1lZdUdRN0ttOEJSRmhyNUJGYkt1VlEtNXRHNEN1anZ5amFiUjhPYlFrOG1tLVpJNm5IbWN3cndYX2x6S2hNSHp3MkdEVzNHWjRSR1pTNFBRU2RTMks4VnpqOXdmU3dPaHNNLVRtd2xmODhSMVcyckNrZ2JVN3VhSGx1Sm94Mi1uR1NkbzUwb1ZhclZUWHlqcF82WE1UTkk1TzhzTDdHZE1LMlVuWWJGZTVIMUYwOTE3cFNpTQ?oc=5" target="_blank" rel="noopener noreferrer">Presidente da CVM defende uso de IA na supervisão do mercado</a>
+              <p class="news-desc">Em resposta aos desafios tecnológicos, a CVM prioriza a implementação de ferramentas de IA para monitoramento e fiscalização de operações financeiras.</p>
+            </div>
+          </div>
+          <div class="subsection">
+            <div class="subsection-title">Mercado de Crédito Privado & Títulos Verdes</div>
+            
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">Seu Dinheiro</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMi1AFBVV95cUxPRnVwYXBjMlhUejd4elJRM2U2VVpZYng3aWFPOFphR1RrUmVRUEo2ckNMVkpjRnA0UGpGbkdsb21UY3Ytd1RBQWI3LWQ4VEJlVW9VRDBFbGRJbDFjVDNkSWFha0c2MWVBSm1PeFBPQ2ZTYVJLWWhGN012emtrUk9uc2pLUUd1cjFFN2Faem1USjBUR0EyWkY5b1p1U19jLTZoeUUtSEdKT3dZb01IS3BralN1S0JGLVBCMmUyeVlsdzMtU28zT3RxNDI5a1dJNTJVdVZNeg?oc=5" target="_blank" rel="noopener noreferrer">Crédito privado rende menos que o CDI no acumulado do ano</a>
+              <p class="news-desc">Análise aponta que o prêmio de risco do crédito privado tem sido insuficiente frente à volatilidade, levantando questões sobre a atratividade do instrumento para investidores.</p>
+            </div>
+          </div>
+        </div>
+        <details class="radar-drawer">
+          <summary class="radar-drawer-summary">
+            <span>📂 Radar Complementar (+3 matérias relevantes no período)</span>
+            <span class="drawer-chevron">Expandir lista ▾</span>
+          </summary>
+          <div class="radar-drawer-content">
+            
+            <div class="radar-compact-item">
+              <div class="news-meta">
+                <span class="source-tag">ativovirtual.com.br</span>
+                <span class="subsecao-pill">Regulação CVM, ANBIMA & BNDES</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMiwwFBVV95cUxOb1BaQ3dTX1pJeU5fTTdJZlV1ZkFpQWUwZnNIRlc5bFBmTnNIM1hhSEY5dXJCUk5kd0ZFV1hMWTE2X3ZVRnc0cEhldjdYdGVpYXZhZE1lQ1JIa1llY2xDSkpFN3pXN1VOYnFZNTN0VFFwSVZuR0FfcEo0VnhpdWhzUmNZX0Vqc2gzZ2ZYT0tMWmtHWVJiYlZWZlk3UDlrSVl6bFZ0NzJjakwyWmFwQ2xWZmkwQVAtUS05aG5rSFBhUmFlRkE?oc=5" target="_blank" rel="noopener noreferrer">ABcripto propõe CVM como observadora de redes de ativos tokenizados</a>
+              <p class="news-desc">Entidade do setor sugere maior integração entre regulador e infraestruturas de rede para garantir transparência e conformidade nas negociações de ativos digitais.</p>
+            </div>
+            <div class="radar-compact-item">
+              <div class="news-meta">
+                <span class="source-tag">Capital Aberto</span>
+                <span class="subsecao-pill">Regulação CVM, ANBIMA & BNDES</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMiswFBVV95cUxNOHFzY0dCQ0hEdWRXbUhUTVo5ajVON0haUFhKclcxRG12NTg4Mk13Qk92VGlwUUx0UW02enVwWkNjUFVERW1jMV8xNHVfYjZDcUxIZzNQT290Wm05VE9ZTzdMdFlQSUc1YjFGamROeWFwcTFvaTRucVpMT3JxOENCMUdxVHZtdmN2NDdVdnB5bVJnb0dTX29VSjAxMXlVeElHWkp2d2ZZaGI1WFk3VWhPZlJUWQ?oc=5" target="_blank" rel="noopener noreferrer">CVM fomenta debate sobre o futuro da tokenização</a>
+              <p class="news-desc">O regulador promove encontros com o mercado para definir o arcabouço normativo necessário para a expansão segura da tokenização de valores mobiliários.</p>
+            </div>
+            <div class="radar-compact-item">
+              <div class="news-meta">
+                <span class="source-tag">JOTA</span>
+                <span class="subsecao-pill">Mercado de Crédito Privado & Títulos Verdes</span>
+              </div>
+              <a class="news-link" href="https://www.jota.info/opiniao-e-analise/artigos/restricoes-do-cmn-a-compra-de-sentencas-arbitrais-por-fidcs-premia-quem-perdeu" target="_blank" rel="noopener noreferrer">Restrições do CMN à compra de sentenças arbitrais por FIDCs</a>
+              <p class="news-desc">Norma do CMN que condiciona a venda de créditos ao fim de ações anulatórias gera debate sobre o impacto na liquidez e no risco de FIDCs que operam com sentenças arbitrais.</p>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="theme-card theme-tech">
+        <div class="card-header">
+          <div class="card-header-left">
+            <div class="medallion-wrap"><svg viewBox="0 0 100 100" width="44" height="44">
+      <circle cx="50" cy="50" r="47" fill="#FFFBF3" stroke="#CDB892" stroke-width="2"/>
+      <circle cx="50" cy="50" r="41" fill="#3B4D6B"/>
+      <circle cx="50" cy="50" r="35.5" fill="none" stroke="#FFF8EC" stroke-opacity=".4" stroke-width="1.3" stroke-dasharray="2.5 3.5"/>
+      <g fill="none" stroke="#FFF8EC" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="45" cy="45" r="16"/><path d="M57 57 L73 73"/><path d="M37 48 L43 42 L48 46 L54 39"/>
+      </g>
+    </svg></div>
+            <h2 class="card-title">Tecnologia, IA & Gestão Aplicada</h2>
+          </div>
+          <span class="item-count-badge">2 destaques + 3 no radar</span>
+        </div>
+        <div class="card-body">
+          
+          <div class="subsection">
+            <div class="subsection-title">Infraestrutura Digital, Energia & GovTech / FinTech</div>
+            
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">InvestNews</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMi-AFBVV95cUxNQk80Zk5UUlhEUExRbTBnbGxYQ211bk1NSWY0bU1tRTl3WFVUY0liVHJJZ0xSZ19DU2dvcUpnWlRCbi0tVVRUQlpGOGlOSGF4aERQMWtCemRfbFR6Z1lwdlZNYmh2Vy1rcmw2YVBXME91VTZvaC04SGo5a0tqZEthRzlQZ0lvcWM5RE4zaUVESk5BUFl0RlJiWndQZG5KaFowSy1vMHltNy1ETk0yTEdOZ2RTUFVKYkw0a00tWXlCWjhKZG1aNjBpWkllWVMyMWQtQVE4Y0cxMG1NMlcycGhCdWdvdTVoZnUzNzVEUDlUWDJldHd3Q3ZWbdIB_gFBVV95cUxOZnlXdWR1d1dkUkpGeVhGQUZOcnJ0ZnZZb3pzX0ptR0U4T2VmMTY3SXRjTThrMWxRV3hOM2JkV0YzZ2ZKWExhZlZwS2YxR1paXzVIbXdOMHVFM3F1SlplS2ZVS2JzbWZXUmhRNW1yY0t5SFhzeXdmWDF0Q21ZeTE1MW5CMndpcnIyc0dPQ19GT0JodmxaRGZiX3NDd1dLOU9rLVZqRE5tek45dnQ1cGQ5OURjY3Z5bnFnd1BNcFFEMkt6emRhbS1QaEcyRjlpOWtRT3pOQXJmdHo1UGJNVVlTdkk5ZEVrcjg3VWlGVW1hN2dGTFJJT1c0VXZjbHExUQ?oc=5" target="_blank" rel="noopener noreferrer">Anthropic investe US$ 3,4 bilhões em geradores para data centers</a>
+              <p class="news-desc">A estratégia de garantir energia própria torna-se central para empresas de IA, evidenciando o gargalo energético como principal barreira para a expansão da infraestrutura digital.</p>
+            </div>
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="source-tag">Exame</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMiswFBVV95cUxNWkxhTzRWeUUwSW42YkdyRzkySHRLckVKcmJDR1lzOGY1UzM5NlpLMVVfeUlYV1hYblY3Ti1LQXB0S0dXWGs3MHhmWTVyM21yQ3FVLW43Skpuc3dMamxiNWtLdjBzQVNqaUFwYTF1b0pDeXl1YllPcUpfVEd1UDQ3M1dTWXloXzNnMmptM09ZYXJjRmFnby0zN2kwYmNveWZ5Mm1KRjZIc2VqeWRXZ0kyNmJFRQ?oc=5" target="_blank" rel="noopener noreferrer">Energia e conectividade superam localização em data centers</a>
+              <p class="news-desc">O mercado imobiliário de data centers prioriza agora a proximidade com fontes de energia e infraestrutura de rede robusta, alterando os critérios de valorização de ativos.</p>
+            </div>
+          </div>
+        </div>
+        <details class="radar-drawer">
+          <summary class="radar-drawer-summary">
+            <span>📂 Radar Complementar (+3 matérias relevantes no período)</span>
+            <span class="drawer-chevron">Expandir lista ▾</span>
+          </summary>
+          <div class="radar-drawer-content">
+            
+            <div class="radar-compact-item">
+              <div class="news-meta">
+                <span class="source-tag">Google Discovery</span>
+                <span class="subsecao-pill">Infraestrutura Digital, Energia & GovTech / FinTech</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMi0wFBVV95cUxQWDRLX2xyQklEbXJpbm9KY2hxR0pXeHRYRmJKZUVpS2xhcl9SXzJCMTcyS05Cdng5UkxhLWdZTHJoei10ZmF4NWw3akUyQk5URktmeTF0cjRTMnRDNWdSb2pZc3locU5ieUltdmZFZDE5N2dWYXBBQU5BbG1qemphU2VOMEtrN2dIb3ZGZmdGQ2dtcFcyV3lZcXdmRlozSUtkcUwtY1dDTEV5ODlIdGN1ZUNnZEk4M0ZheFpzdm44a0xveEhOWDZkWi1PSFNnUGlIcjh3?oc=5" target="_blank" rel="noopener noreferrer">Google constrói data center de US$ 17 bi com energia própria</a>
+              <p class="news-desc">Projeto em Wyoming utiliza células de combustível e geração independente para atender à demanda massiva de processamento de IA, reforçando a tendência de autossuficiência energética.</p>
+            </div>
+            <div class="radar-compact-item">
+              <div class="news-meta">
+                <span class="source-tag">FecomercioSP</span>
+                <span class="subsecao-pill">Estratégia & Tendências Globais</span>
+              </div>
+              <a class="news-link" href="https://news.google.com/rss/articles/CBMi1gFBVV95cUxQbTlUYjZzZGFvZXVReldEZWhYUUxtcXhUQ290MGw0TGwzdUM3a292Z0xPOUZtNDItTTdxY2J2MjlWaG1ZM2dZQXZLSURPM0Zqb0F6bWR2N0ctUjdRcmdtMFdDeEZrUzRJYUFuT1Q0NDdqcEJrZG5NNF9FdVZ0VkVtOW5aTDZOdVh5TjNsel8zbi1IVkxRcVNpTmJnb2RVeEV3MzlJemRYamZtWEdNYVZSbmlZd2E5NkFwNjE0Q1E5RURVUHBGNTRtMThGOVc3ZW5XVGppZW9R?oc=5" target="_blank" rel="noopener noreferrer">Regulação do trabalho deve equilibrar automação e proteção social</a>
+              <p class="news-desc">Discussão sobre o impacto da IA e automação no mercado de trabalho brasileiro, focando na necessidade de um arcabouço regulatório que promova inovação sem precarização.</p>
+            </div>
+            <div class="radar-compact-item">
+              <div class="news-meta">
+                <span class="source-tag">a16z News</span>
+                <span class="subsecao-pill">Estratégia & Tendências Globais</span>
+              </div>
+              <a class="news-link" href="https://www.a16z.news/p/defense-in-depth-rebuilt-for-machine" target="_blank" rel="noopener noreferrer">Defesa em profundidade reconstruída para a velocidade da máquina</a>
+              <p class="news-desc">Análise da a16z sobre as novas oportunidades geracionais em cibersegurança, adaptadas para um ambiente onde a IA acelera tanto ataques quanto defesas.</p>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    
+    <details class="participativo-strip">
+      <summary class="participativo-summary">
+        <span class="participativo-title">🏛️ <strong>Radar Integrado DECON/MPor (48h):</strong> 1 novo processo (ANTAQ) + Monitoramento de EVTEAs & Leilões</span>
+        <div class="participativo-actions">
+          <span class="drawer-chevron">Espiar lista ▾</span>
+          <a class="participativo-radar-link" href="https://mdagavea.github.io/inteligencia-regulatoria/radar.html#estruturacao" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">📐 EVTEAs & Contratações ↗</a>
+          <a class="participativo-radar-link" href="https://mdagavea.github.io/inteligencia-regulatoria/radar.html#leiloes" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">🔔 Leilões ↗</a>
+          <a class="participativo-radar-link" href="https://mdagavea.github.io/inteligencia-regulatoria/radar.html#sfn" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">🛡️ SFN, Seguros & Capitais ↗</a>
+          <a class="participativo-radar-link" href="https://mdagavea.github.io/inteligencia-regulatoria/radar.html" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Abrir Radar Completo ↗</a>
+        </div>
+      </summary>
+      <div class="participativo-list">
+        
+        <div class="participativo-item">
+          <span class="part-badge">🆕 Audiência Pública</span>
+          <span class="part-orgao">[ANTAQ]</span>
+          <a class="part-link" href="https://www.gov.br/antaq/pt-br/acesso-a-informacao/participacao-social/audiencias-e-consultas-publicas/audiencias-publicas-em-andamento/audiencia-publica-no-08-2026/audiencia-publica-no-08-2026-antaq" target="_blank" rel="noopener noreferrer">ANTAQ — Audiência Pública nº 08/2026 - Obter contribuições, subsídios e sugestões para o aprimoramento da proposta de norma que aperfeiçoa os critérios, prazos, procedimentos e infrações d</a>
+          <span class="part-prazo">Abertura: 09/11/2026 • Até: <strong>24/12/2026</strong></span>
+        </div>
+      </div>
+    </details>
+
+    <!-- Panorama Setorial DECON/MPOR: Terminal Portuário, Navio Porta-Contêineres, Hidrovia, Avião e Torre -->
+    <div class="scenic-footer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 810 1920 270" preserveAspectRatio="xMidYMax slice">
+        <defs>
+          <filter id="sh" x="-10%" y="-10%" width="120%" height="130%">
+            <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#2a2010" flood-opacity=".22"/>
+          </filter>
+        </defs>
+        <!-- Terminal Portuário, Guindastes e Contêineres -->
+        <g transform="translate(0,18)">
+          <g filter="url(#sh)">
+            <rect x="0" y="972" width="560" height="22" fill="#CDB892"/>
+            <g stroke="#00000022" stroke-width="1">
+              <rect x="40" y="944" width="64" height="28" fill="#D2694A"/><rect x="104" y="944" width="64" height="28" fill="#2F8291"/><rect x="168" y="944" width="64" height="28" fill="#D9A23C"/>
+              <rect x="56" y="916" width="64" height="28" fill="#1F3A5F"/><rect x="120" y="916" width="64" height="28" fill="#D2694A"/>
+              <rect x="88" y="888" width="64" height="28" fill="#D9A23C"/>
+            </g>
+            <g transform="translate(37.5,148.5) scale(0.85)">
+              <g fill="#D2694A">
+                <rect x="300" y="880" width="9" height="92"/><rect x="362" y="880" width="9" height="92"/>
+                <rect x="292" y="876" width="88" height="10"/><rect x="250" y="858" width="250" height="8"/>
+                <polygon points="318,858 336,818 344,818 356,858"/>
+                <rect x="430" y="866" width="18" height="10" fill="#1F3A5F"/>
+              </g>
+              <g stroke="#D2694A" stroke-width="2"><line x1="340" y1="818" x2="498" y2="860"/><line x1="340" y1="818" x2="252" y2="860"/></g>
+              <g fill="#B85A3E" transform="translate(165,97.2) scale(0.9)">
+                <rect x="300" y="880" width="9" height="92"/><rect x="362" y="880" width="9" height="92"/>
+                <rect x="292" y="876" width="88" height="10"/><rect x="250" y="858" width="250" height="8"/>
+                <polygon points="318,858 336,818 344,818 356,858"/>
+              </g>
+            </g>
+          </g>
+          <!-- Navio Porta-Contêineres -->
+          <g filter="url(#sh)" transform="translate(0,-26)">
+            <rect x="600" y="958" width="44" height="20" fill="#D9A23C"/><rect x="644" y="958" width="44" height="20" fill="#2F8291"/><rect x="688" y="958" width="44" height="20" fill="#D2694A"/><rect x="732" y="958" width="44" height="20" fill="#E9DCC3"/>
+            <rect x="622" y="938" width="44" height="20" fill="#1F3A5F"/><rect x="666" y="938" width="44" height="20" fill="#D9A23C"/>
+            <rect x="790" y="930" width="26" height="48" fill="#F4EFE6"/><rect x="794" y="936" width="18" height="6" fill="#1F3A5F"/>
+            <polygon points="575,978 840,978 815,1012 595,1012" fill="#16304F"/>
+            <rect x="580" y="984" width="250" height="5" fill="#D2694A"/>
+          </g>
+          <!-- Aviação e Torre de Controle -->
+          <path d="M1060,1000 C1160,980 1250,930 1330,880" fill="none" stroke="#1F3A5F" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round" opacity=".55"/>
+          <g transform="translate(1352,866) rotate(-28) scale(1.15)" fill="#1F3A5F" filter="url(#sh)">
+            <path d="M-34,0 C-34,-5 30,-6 36,-1 C38,1 36,4 30,4 L-30,5 C-33,5 -34,3 -34,0 Z"/>
+            <path d="M-4,-2 L-22,-26 L-13,-26 L14,-2 Z"/><path d="M-4,3 L-22,27 L-13,27 L14,3 Z" fill="#2F8291"/>
+            <path d="M-30,-1 L-38,-14 L-32,-14 L-22,-2 Z"/>
+          </g>
+          <g filter="url(#sh)">
+            <rect x="1530" y="890" width="24" height="88" fill="#E9DCC3"/>
+            <polygon points="1514,868 1570,868 1562,892 1522,892" fill="#1F3A5F"/>
+            <rect x="1520" y="874" width="44" height="8" fill="#A9CBD8"/>
+            <rect x="1538" y="852" width="8" height="16" fill="#1F3A5F"/>
+            <rect x="1380" y="972" width="540" height="12" fill="#CDB892"/>
+            <rect x="1580" y="944" width="110" height="28" fill="#F4EFE6"/><rect x="1580" y="944" width="110" height="7" fill="#2F8291"/>
+          </g>
+        </g>
+        <!-- Ondas Marítimas e Hidroviárias -->
+        <g transform="translate(0,40)">
+          <path d="M0,968 C160,940 320,995 480,968 S800,940 960,968 S1280,995 1440,968 S1760,940 1920,968 L1920,1080 L0,1080 Z" fill="#A9CBD8"/>
+          <path d="M0,1000 C200,978 380,1022 600,998 S980,975 1200,1000 S1600,1025 1920,996 L1920,1080 L0,1080 Z" fill="#3E8E9C"/>
+          <path d="M0,1035 C240,1015 420,1055 700,1035 S1100,1012 1400,1036 S1750,1052 1920,1030 L1920,1080 L0,1080 Z" fill="#1F3A5F"/>
+        </g>
+      </svg>
+    </div>
+    <div class="footer-caption">
+      DECON / MPOR • Curadoria Autônoma de Inteligência Regulatória, Financeira e Tecnológica • Portos, Aeroportos, Hidrovias, Seguros, Clima & Mercado de Capitais
+    </div>
+    <div class="aviso-piloto-rodape">Projeto piloto de inteligência regulatória, em fase de testes. Compilação automatizada de notícias e documentos de acesso público. Os resumos podem ser gerados com apoio de inteligência artificial e estão sujeitos a erros. Este conteúdo não representa posição ou opinião oficial do Ministério de Portos e Aeroportos (MPOR) nem de suas unidades e não substitui a consulta às fontes originais, indicadas em cada item.</div>
+  </div>
+</body>
+</html>
