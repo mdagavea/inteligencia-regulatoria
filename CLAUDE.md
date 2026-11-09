@@ -39,7 +39,7 @@ Este repositório unifica dois sistemas autônomos de inteligência executiva da
   - `GMAIL_USER`: Conta Gmail para leitura Atom de newsletters e envio SMTP.
   - `GMAIL_APP_PASSWORD`: Senha de aplicativo do Gmail.
   - `EMAIL_DESTINATARIOS`: Lista de destinatários separada por vírgula.
-  - `EMAIL_TESTE`: Destinatário exclusivo para execuções de teste (marcos.castilho@mpor.gov.br).
+  - `EMAIL_TESTE`: Destinatário exclusivo para execuções de teste (endereço guardado no secret EMAIL_TESTE, não publicado).
 * **Execução manual (`workflow_dispatch`):**
   - `forcar_reexecucao`: Permite regenerar e reenviar mesmo que a edição do dia já exista.
   - `modo_teste`: Booleano (`true`/`false`). Quando `true`, o envio é direcionado exclusivamente para o secret `EMAIL_TESTE`.
@@ -83,7 +83,7 @@ Sempre que o usuário solicitar manutenção ou evolução (seja pelo **Claude**
 
 8. **Sincronizar antes e depois de editar:**
    ```powershell
-   python3.12 C:\Users\marcos.castilho\testes-gemini\sincronizar_nuvem.py pull
+   python3.12 $HOME\testes-gemini\sincronizar_nuvem.py pull
    # ... após editar:
-   python3.12 C:\Users\marcos.castilho\testes-gemini\sincronizar_nuvem.py push "Descricao da alteracao"
+   python3.12 $HOME\testes-gemini\sincronizar_nuvem.py push "Descricao da alteracao"
    ```
