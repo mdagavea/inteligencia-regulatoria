@@ -119,7 +119,9 @@
     "820": "2026-11-05",
     "813": "2026-11-05",
     "823": "2026-11-06",
-    "824": "2026-11-09"
+    "824": "2026-11-09",
+    "825": "2026-11-10",
+    "827": "2026-11-10"
   },
   "analises_ia": {
     "782_2026-10-21": {
@@ -1907,6 +1909,36 @@
       "relevancia": "ALTA",
       "objeto_normativo": "Proposta de Portaria que estrutura o Programa Nacional de Descarbonização de Portos (PND-Portos) e de Navegação (PND-Navegação).",
       "pontos_atencao": "Essencial para o alinhamento estratégico com metas de descarbonização, podendo impactar futuras exigências de licenciamento ambiental e acesso a linhas de financiamento verde (Green Bonds)."
+    },
+    "827_2026-11-09T14:46": {
+      "id": "827",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ANTAQ",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Aprimoramento de normas sobre circularização, bloqueio e afretamento de embarcações na cabotagem e apoio marítimo, alterando as Resoluções Antaq nº 129/2025 e nº 62/2021. O foco é a regulação da oferta de transporte aquaviário e a eficiência logística.",
+      "pontos_atencao": "Impacta diretamente a competitividade do setor de navegação e os custos logísticos de empresas que dependem de afretamento, sendo essencial monitorar as restrições de mercado propostas."
+    },
+    "687_2026-11-09T10:41": {
+      "id": "687",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ANAC",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Emenda aos RBAC nº 141 (Centros de Instrução de Aviação Civil) e nº 183 (Credenciamento de Pessoas). A proposta visa atualizar os requisitos de certificação e operação para entidades de treinamento e pessoal credenciado.",
+      "pontos_atencao": "Embora seja uma norma técnica de aviação, a alteração impacta a cadeia de suprimento de mão de obra qualificada para o setor aéreo, afetando a operação de concessionárias de aeroportos e empresas de táxi aéreo."
+    },
+    "740_2026-11-10T09:20": {
+      "id": "740",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MPor",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de Portaria que estabelece critérios e procedimentos para o monitoramento e classificação da navegabilidade de hidrovias nacionais não concedidas.",
+      "pontos_atencao": "A definição de níveis operacionais de hidrovias é crítica para a segurança da navegação e para o planejamento de investimentos em logística hidroviária, impactando diretamente o custo de escoamento de cargas."
     }
   },
   "analises_estruturacao_v2": {
