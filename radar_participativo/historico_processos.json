@@ -121,7 +121,10 @@
     "823": "2026-11-06",
     "824": "2026-11-09",
     "825": "2026-11-10",
-    "827": "2026-11-10"
+    "827": "2026-11-10",
+    "826": "2026-11-11",
+    "733": "2026-11-11",
+    "900697": "2026-11-11"
   },
   "analises_ia": {
     "782_2026-10-21": {
@@ -1939,6 +1942,46 @@
       "relevancia": "ALTA",
       "objeto_normativo": "Minuta de Portaria que estabelece critérios e procedimentos para o monitoramento e classificação da navegabilidade de hidrovias nacionais não concedidas.",
       "pontos_atencao": "A definição de níveis operacionais de hidrovias é crítica para a segurança da navegação e para o planejamento de investimentos em logística hidroviária, impactando diretamente o custo de escoamento de cargas."
+    },
+    "740_2026-11-10T17:16": {
+      "id": "740",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MPor / DGH",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de Portaria que estabelece critérios e procedimentos para o monitoramento e a classificação da situação operacional da infraestrutura das hidrovias nacionais não concedidas.",
+      "pontos_atencao": "A definição de níveis operacionais impacta diretamente a logística de transporte de cargas e a previsibilidade de investimentos em infraestrutura hidroviária, sendo essencial para a gestão de riscos logísticos."
+    },
+    "814_2026-11-10T19:26": {
+      "id": "814",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Audiência Pública",
+      "orgao_sigla": "DECEx / PPI",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Audiência Pública para subsidiar a estruturação da concessão do Museu Histórico do Exército e Forte de Copacabana, incluído no Programa de Parceria de Investimentos (PPI).",
+      "pontos_atencao": "Trata-se de um projeto de concessão de ativo público de alto valor histórico e turístico, exigindo análise rigorosa da modelagem de negócio, matriz de riscos e obrigações de investimento."
+    },
+    "815_2026-11-10T10:26": {
+      "id": "815",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "DECEx / PPI",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Consulta Pública para colher subsídios sobre a modelagem da concessão do Museu Histórico do Exército e Forte de Copacabana.",
+      "pontos_atencao": "Complementar à audiência pública, este processo permite a submissão de contribuições técnicas sobre o edital e o contrato de concessão, sendo vital para a mitigação de riscos contratuais."
+    },
+    "900697_2026-11-23T09:00": {
+      "id": "900697",
+      "aprovar": true,
+      "vertical": "seguros",
+      "modalidade_exibicao": "Audiência Pública",
+      "orgao_sigla": "ANTT",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Proposta de alteração da Resolução ANTT nº 5.982/2022 para inclusão de infrações e penalidades relacionadas aos seguros obrigatórios no setor de transportes.",
+      "pontos_atencao": "Impacta diretamente a conformidade regulatória e a gestão de apólices de seguro obrigatório no transporte rodoviário de cargas, exigindo atenção às novas exigências de fiscalização e penalidades."
     }
   },
   "analises_estruturacao_v2": {
