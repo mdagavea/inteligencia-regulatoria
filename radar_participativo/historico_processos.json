@@ -124,7 +124,9 @@
     "827": "2026-11-10",
     "826": "2026-11-11",
     "733": "2026-11-11",
-    "900697": "2026-11-11"
+    "900697": "2026-11-11",
+    "829": "2026-11-12",
+    "830": "2026-11-12"
   },
   "analises_ia": {
     "782_2026-10-21": {
@@ -1982,6 +1984,66 @@
       "relevancia": "ALTA",
       "objeto_normativo": "Proposta de alteração da Resolução ANTT nº 5.982/2022 para inclusão de infrações e penalidades relacionadas aos seguros obrigatórios no setor de transportes.",
       "pontos_atencao": "Impacta diretamente a conformidade regulatória e a gestão de apólices de seguro obrigatório no transporte rodoviário de cargas, exigindo atenção às novas exigências de fiscalização e penalidades."
+    },
+    "799_2026-11-11T14:25": {
+      "id": "799",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Setorial",
+      "orgao_sigla": "ANAC / SIA",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Proposta de edição da Instrução Suplementar nº 153.117-001, Revisão A, que estabelece diretrizes para a supervisão permanente de pátio em aeroportos.",
+      "pontos_atencao": "Impacta diretamente a eficiência operacional e a segurança aeroportuária, exigindo atenção aos custos de conformidade para concessionárias de aeroportos."
+    },
+    "814_2026-11-11T11:08": {
+      "id": "814",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Audiência Pública",
+      "orgao_sigla": "DECEx",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Audiência pública para discutir a modelagem de concessão do Museu Histórico do Exército e Forte de Copacabana, projeto incluído no PPI.",
+      "pontos_atencao": "Trata-se de um projeto de concessão de ativo público com potencial de exploração comercial, exigindo análise da matriz de riscos e viabilidade econômica."
+    },
+    "669_2026-11-11T14:02": {
+      "id": "669",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MDIC",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Consulta sobre os cadernos setoriais, temático e metodológico da 2ª edição da Taxonomia Sustentável Brasileira (TSB).",
+      "pontos_atencao": "A TSB é o guia fundamental para o financiamento verde e emissão de títulos sustentáveis (green bonds) em projetos de infraestrutura; essencial para alinhar investimentos aos critérios ESG."
+    },
+    "815_2026-11-11T11:10": {
+      "id": "815",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "DECEx",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Consulta pública complementar à audiência sobre a concessão do Museu Histórico do Exército e Forte de Copacabana.",
+      "pontos_atencao": "Fundamental para o acompanhamento das minutas contratuais e exigências de investimentos em infraestrutura cultural/turística."
+    },
+    "825_2026-11-10T11:52": {
+      "id": "825",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "ANAC / ASSOP",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Projeto de instituição do Programa de Ação em Segurança Operacional (PROAS), focado no relato voluntário de eventos na aviação civil.",
+      "pontos_atencao": "A implementação de programas de segurança operacional impacta a gestão de riscos e a cultura de compliance dos operadores aéreos e concessionários."
+    },
+    "754_2026-11-09T09:58": {
+      "id": "754",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "Exército / DFPC",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Revisão da Lista de Produtos Controlados pelo Exército (PCE), visando o aperfeiçoamento regulatório e desburocratização.",
+      "pontos_atencao": "A regulação de produtos controlados afeta diretamente a logística de insumos para grandes obras de infraestrutura e mineração que utilizam explosivos ou materiais correlatos."
     }
   },
   "analises_estruturacao_v2": {
