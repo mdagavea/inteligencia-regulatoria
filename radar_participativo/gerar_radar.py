@@ -76,6 +76,13 @@ def executar_radar(abrir_navegador=True):
     if url_web:
         print(f"   -> Link Web atualizado: {url_web}")
 
+    print("\n[Modo Sombra] Executando varredura diária de consultas no DOU (somente local, não publicado)...")
+    try:
+        cands_sombra = coletor_dou.executar_varredura_consultas_modo_sombra()
+        print(f"   -> {len(cands_sombra)} candidato(s) identificado(s) hoje no modo sombra.")
+    except Exception as e:
+        print(f"   [Aviso Modo Sombra] Falha na varredura diária (radar não interrompido): {e}")
+
     if abrir_navegador:
         print("\n[+] Abrindo painel no navegador padrão...")
         try:

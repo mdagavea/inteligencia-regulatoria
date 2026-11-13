@@ -986,11 +986,12 @@ def executar_varredura_consultas_modo_sombra(datas: List[str] = None) -> List[Di
     Gera apenas lista de candidatos para validação humana prévia. Não publica nada no painel.
     """
     if datas is None:
-        datas = DATAS_AMOSTRA_2026
+        datas = [datetime.date.today().strftime("%d-%m-%Y")]
 
     regex_ministerios = re.compile(
         r"Ministério dos Transportes|Ministério de Portos e Aeroportos|Ministério das Cidades|"
         r"Ministério da Fazenda|Ministério de Minas e Energia|Ministério do Planejamento|"
+        r"Ministério do Desenvolvimento, Indústria, Comércio e Serviços|"
         r"Secretaria Especial do Programa de Parcerias de Investimentos|SEPPI",
         re.I
     )
@@ -1066,22 +1067,43 @@ def executar_varredura_consultas_modo_sombra(datas: List[str] = None) -> List[Di
                 "status_validacao": "CANDIDATO_MODO_SOMBRA",
             })
 
-    # Grava relatório de candidatos em JSON e log de texto para auditoria
-    arq_json = PASTA_CACHE_DOU / "candidatos_consultas_sombra.json"
-    arq_json.write_text(json.dumps(candidatos, ensure_ascii=False, indent=2), encoding="utf-8")
+    # Grava relatório acumulado de candidatos em JSON e log de texto para auditoria (sem sobrescrever arquivos de 06/11)
+    arq_json = PASTA_CACHE_DOU / "candidatos_consultas_sombra_acumulado.json"
+    acumulados: List[Dict[str, Any]] = []
+    if arq_json.exists():
+        try:
+            dados_antigos = json.loads(arq_json.read_text(encoding="utf-8"))
+            if isinstance(dados_antigos, list):
+                acumulados = dados_antigos
+        except Exception:
+            acumulados = []
 
-    arq_log = PASTA_CACHE_DOU / "log_consultas_sombra.txt"
+    chaves_novas = {
+        (c.get("data_edicao", ""), c.get("url", ""), c.get("titulo", ""))
+        for c in candidatos
+    }
+    acumulados = [
+        c for c in acumulados
+        if (c.get("data_edicao", ""), c.get("url", ""), c.get("titulo", "")) not in chaves_novas
+    ]
+    acumulados.extend(candidatos)
+    arq_json.write_text(json.dumps(acumulados, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    arq_log = PASTA_CACHE_DOU / "log_consultas_sombra_acumulado.txt"
     with open(arq_log, "w", encoding="utf-8") as f:
-        f.write("=== RELATÓRIO DO COLETOR DE CONSULTAS EM MODO SOMBRA (NÃO PUBLICADO) ===\n")
-        f.write(f"Total de candidatos identificados: {len(candidatos)}\n\n")
-        for idx, c in enumerate(candidatos, 1):
-            f.write(f"[{idx}] {c['titulo']}\n")
-            f.write(f"    Órgão: {c['orgao']}\n")
-            f.write(f"    Tipo: {c['tipo']} | Número: {c['numero_ato']}\n")
-            f.write(f"    Objeto Literal: {c['objeto_literal']}\n")
-            f.write(f"    Prazo Literal: {c['frase_literal_prazo']}\n")
-            f.write(f"    URL (HTTP {c['http_status']}): {c['url']}\n")
-            f.write(f"    Número confere no texto aberto: {c['confirmacao_numero_no_texto']}\n\n")
+        f.write("=== RELATÓRIO ACUMULADO DO COLETOR DE CONSULTAS EM MODO SOMBRA (NÃO PUBLICADO) ===\n")
+        f.write(f"Última atualização: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+        f.write(f"Datas varridas nesta execução: {', '.join(datas)} | Novos/atualizados: {len(candidatos)}\n")
+        f.write(f"Total de candidatos acumulados: {len(acumulados)}\n\n")
+        for idx, c in enumerate(acumulados, 1):
+            f.write(f"[{idx}] ({c.get('data_edicao', '')}) {c.get('titulo', '')}\n")
+            f.write(f"    Data Edição: {c.get('data_edicao', '')}\n")
+            f.write(f"    Órgão: {c.get('orgao', '')}\n")
+            f.write(f"    Tipo: {c.get('tipo', '')} | Número: {c.get('numero_ato', '')}\n")
+            f.write(f"    Objeto Literal: {c.get('objeto_literal', '')}\n")
+            f.write(f"    Prazo Literal: {c.get('frase_literal_prazo', '')}\n")
+            f.write(f"    URL (HTTP {c.get('http_status', '')}): {c.get('url', '')}\n")
+            f.write(f"    Número confere no texto aberto: {c.get('confirmacao_numero_no_texto', '')}\n\n")
 
     return candidatos
 

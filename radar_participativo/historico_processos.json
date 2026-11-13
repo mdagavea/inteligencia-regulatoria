@@ -2045,46 +2045,6 @@
       "relevancia": "MEDIA",
       "objeto_normativo": "Revisão da Lista de Produtos Controlados pelo Exército (PCE), visando o aperfeiçoamento regulatório e desburocratização.",
       "pontos_atencao": "A regulação de produtos controlados afeta diretamente a logística de insumos para grandes obras de infraestrutura e mineração que utilizam explosivos ou materiais correlatos."
-    },
-    "777_2026-11-12T11:32": {
-      "id": "777",
-      "aprovar": true,
-      "vertical": "infra",
-      "modalidade_exibicao": "Consulta Pública",
-      "orgao_sigla": "ICMBio",
-      "relevancia": "ALTA",
-      "objeto_normativo": "Proposta de Instrução Normativa que estabelece critérios de priorização para a delegação de serviços de apoio à visitação em Unidades de Conservação Federais e institui o Plano Plurianual de Permissão e Concessão (PPPC).",
-      "pontos_atencao": "Impacto direto na estruturação de novos projetos de concessão em áreas protegidas, exigindo análise sobre a viabilidade econômica e o desenho das matrizes de risco para futuros concessionários."
-    },
-    "775_2026-11-12T11:31": {
-      "id": "775",
-      "aprovar": true,
-      "vertical": "infra",
-      "modalidade_exibicao": "Consulta Pública",
-      "orgao_sigla": "ICMBio",
-      "relevancia": "ALTA",
-      "objeto_normativo": "Minuta de Portaria que regulamenta a estruturação de projetos de permissão e concessão de serviços de apoio à visitação nas Unidades de Conservação Federais administradas pelo ICMBio.",
-      "pontos_atencao": "Fundamental para o entendimento das diretrizes de modelagem de projetos de infraestrutura turística e serviços associados, impactando diretamente o pipeline de concessões do setor."
-    },
-    "814_2026-11-12T11:39": {
-      "id": "814",
-      "aprovar": true,
-      "vertical": "infra",
-      "modalidade_exibicao": "Audiência Pública",
-      "orgao_sigla": "DECEx / Exército",
-      "relevancia": "ALTA",
-      "objeto_normativo": "Audiência pública para subsidiar a estruturação da concessão do Museu Histórico do Exército e Forte de Copacabana, projeto incluído no Programa de Parceria de Investimentos (PPI).",
-      "pontos_atencao": "Trata-se de um ativo de alto valor histórico e turístico; a participação é essencial para avaliar as exigências de investimentos em conservação e a modelagem financeira da concessão."
-    },
-    "815_2026-11-12T11:39": {
-      "id": "815",
-      "aprovar": true,
-      "vertical": "infra",
-      "modalidade_exibicao": "Consulta Pública",
-      "orgao_sigla": "DECEx / Exército",
-      "relevancia": "ALTA",
-      "objeto_normativo": "Consulta pública para a concessão do Museu Histórico do Exército e Forte de Copacabana, visando colher contribuições sobre o edital e o modelo de negócio proposto.",
-      "pontos_atencao": "Complementar à audiência pública, este processo permite a análise técnica detalhada das minutas contratuais, incluindo obrigações de performance e garantias exigidas."
     }
   },
   "analises_estruturacao_v2": {
