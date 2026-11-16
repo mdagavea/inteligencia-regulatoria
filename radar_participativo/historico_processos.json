@@ -127,7 +127,11 @@
     "900697": "2026-11-11",
     "829": "2026-11-12",
     "830": "2026-11-12",
-    "835": "2026-11-13"
+    "835": "2026-11-13",
+    "837": "2026-11-16",
+    "838": "2026-11-16",
+    "839": "2026-11-16",
+    "836": "2026-11-16"
   },
   "analises_ia": {
     "782_2026-10-21": {
@@ -2045,6 +2049,66 @@
       "relevancia": "MEDIA",
       "objeto_normativo": "Revisão da Lista de Produtos Controlados pelo Exército (PCE), visando o aperfeiçoamento regulatório e desburocratização.",
       "pontos_atencao": "A regulação de produtos controlados afeta diretamente a logística de insumos para grandes obras de infraestrutura e mineração que utilizam explosivos ou materiais correlatos."
+    },
+    "777_2026-11-12T11:32": {
+      "id": "777",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ICMBio",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Proposta de Instrução Normativa que estabelece critérios de priorização para delegação de serviços de apoio à visitação em Unidades de Conservação Federais e institui o Plano Plurianual de Permissão e Concessão (PPPC).",
+      "pontos_atencao": "Impacto direto na estruturação de novos projetos de concessão em áreas protegidas; essencial monitorar as diretrizes de modelagem de ativos e riscos contratuais."
+    },
+    "775_2026-11-12T11:31": {
+      "id": "775",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ICMBio",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de Portaria que regulamenta a estruturação de projetos de permissão e concessão de serviços de apoio à visitação em Unidades de Conservação Federais.",
+      "pontos_atencao": "Define o rito de estruturação de projetos; fundamental para garantir a bancabilidade e a atratividade de futuros leilões de concessão no setor de turismo ambiental."
+    },
+    "835_2026-11-12T16:50": {
+      "id": "835",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MME / DUPS",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Revisão do Manual de Operacionalização do Programa Luz para Todos, atualizando governança, critérios técnicos e financeiros para universalização do acesso à energia elétrica.",
+      "pontos_atencao": "A alteração nos critérios financeiros e operacionais impacta a execução de infraestrutura energética em áreas remotas e a gestão de contratos de fomento."
+    },
+    "814_2026-11-12T11:39": {
+      "id": "814",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Audiência Pública",
+      "orgao_sigla": "DECEx / Exército",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Audiência pública para subsidiar a concessão do Museu Histórico do Exército e Forte de Copacabana, projeto incluído no Programa de Parceria de Investimentos (PPI).",
+      "pontos_atencao": "Trata-se de um ativo de infraestrutura turística relevante sob modelagem de concessão; monitorar a matriz de riscos e as obrigações de investimento (CAPEX/OPEX)."
+    },
+    "815_2026-11-12T11:39": {
+      "id": "815",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "DECEx / Exército",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Consulta pública complementar à audiência sobre a concessão do Museu Histórico do Exército e Forte de Copacabana (MHEx/FC).",
+      "pontos_atencao": "Oportunidade para envio de contribuições técnicas sobre o edital e o contrato de concessão, visando mitigar riscos operacionais e financeiros do projeto."
+    },
+    "836_2026-11-13T15:23": {
+      "id": "836",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MDIC / SBCE",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Regulamentação das Atividades, Fontes e Gases de Efeito Estufa (GEE) sujeitos à Etapa 1 do Sistema Brasileiro de Comércio de Emissões (SBCE). O normativo estabelece os critérios de mensuração, relato e verificação (MRV) obrigatórios para setores industriais e de infraestrutura impactados pelo mercado de carbono.",
+      "pontos_atencao": "A definição das fontes e gases regulados impacta diretamente o custo operacional e a estratégia de descarbonização de ativos de infraestrutura e logística. É essencial monitorar a inclusão de setores de transporte e energia para avaliar riscos de passivos ambientais e necessidade de ajustes em matrizes de risco de concessões."
     }
   },
   "analises_estruturacao_v2": {
