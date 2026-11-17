@@ -1,11 +1,16 @@
 import base64
 import json
 import subprocess
+from datetime import datetime
 from pathlib import Path
 try:
     import validador_publicacao
 except ImportError:
     from . import validador_publicacao
+
+PASTA_RADAR = Path(__file__).parent.resolve()
+ARQUIVO_ULTIMO_BLOQUEIO = PASTA_RADAR / "ULTIMO_BLOQUEIO_RADAR.txt"
+ULTIMO_BLOQUEIO_OCORREU = False
 
 REPO = "mdagavea/inteligencia-regulatoria"
 URL_BASE_PAGES = "https://mdagavea.github.io/inteligencia-regulatoria"
@@ -131,12 +136,38 @@ def garantir_github_pages_ativo():
     _gh_api("POST", f"repos/{REPO}/pages/builds")
 
 
+def registrar_status_bloqueio_radar(aprovado: bool, violacoes: list = None, caminho_status: Path = None) -> Path:
+    """Grava radar_participativo/ULTIMO_BLOQUEIO_RADAR.txt com o status da trava editorial."""
+    global ULTIMO_BLOQUEIO_OCORREU
+    ULTIMO_BLOQUEIO_OCORREU = not aprovado
+    destino = Path(caminho_status) if caminho_status else ARQUIVO_ULTIMO_BLOQUEIO
+    agora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    if aprovado:
+        conteudo = f"STATUS: sem bloqueio\nData/Hora: {agora}\n"
+    else:
+        violacoes = violacoes or []
+        linhas = [
+            "STATUS: BLOQUEADO PELA TRAVA EDITORIAL",
+            f"Data/Hora: {agora}",
+            f"Total de violações bloqueantes: {len(violacoes)}",
+            "",
+        ]
+        for i, v in enumerate(violacoes, 1):
+            linhas.append(f"{i}. [{v.get('termo', '')}] {v.get('detalhe', '')}")
+            if v.get("trecho"):
+                linhas.append(f"   Trecho: \"...{v['trecho']}...\"")
+        conteudo = "\n".join(linhas) + "\n"
+    destino.write_text(conteudo, encoding="utf-8")
+    return destino
+
+
 def publicar_arquivo_html(caminho_local: Path, nome_remoto: str, titulo_log: str) -> str:
     """Publica um arquivo HTML local no GitHub Pages e retorna a URL pública, após validação editorial estrita."""
     # Trava automática de segurança editorial
     aprovado, violacoes, avisos = validador_publicacao.validar_arquivo_html(caminho_local)
     validador_publicacao.emitir_relatorio_validacao(aprovado, violacoes, avisos, Path(caminho_local).name)
     if not aprovado:
+        registrar_status_bloqueio_radar(False, violacoes)
         print(f"   [BLOQUEIO] Publicação de {nome_remoto} cancelada pela trava de segurança editorial!")
         return ""
 
@@ -146,9 +177,11 @@ def publicar_arquivo_html(caminho_local: Path, nome_remoto: str, titulo_log: str
     violacoes_hub, avisos_hub = validador_publicacao.verificar_conteudo_html(INDEX_HTML, "index.html")
     if violacoes_hub:
         validador_publicacao.emitir_relatorio_validacao(False, violacoes_hub, avisos_hub, "index.html")
+        registrar_status_bloqueio_radar(False, violacoes_hub)
         return ""
     enviar_arquivo_github("index.html", INDEX_HTML, "Atualiza Hub index.html")
     garantir_github_pages_ativo()
     if ok:
+        registrar_status_bloqueio_radar(True)
         return f"{URL_BASE_PAGES}/{nome_remoto}"
     return ""

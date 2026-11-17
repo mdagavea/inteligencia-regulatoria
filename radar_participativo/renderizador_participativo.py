@@ -1,6 +1,14 @@
 import os
+import re
 from datetime import datetime
 from pathlib import Path
+
+
+def normalizar_selo_orgao(sigla: str) -> str:
+    """Substitui a sigla do próprio Ministério (MPor/MPOR) pelo nome por extenso."""
+    if not sigla:
+        return sigla
+    return re.sub(r"\bMPor\b", "Ministério de Portos e Aeroportos", sigla, flags=re.IGNORECASE)
 
 # Aviso de projeto piloto (exibido na pagina, no e-mail e no radar): faixa no topo = so a 1a frase; texto completo no rodape.
 AVISO_PILOTO_FRASE = "Projeto piloto de inteligência regulatória, em fase de testes."
@@ -1341,7 +1349,7 @@ def _renderizar_cards_estruturacao(itens_estruturacao: list) -> str:
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge {classe_badge}">{rotulo_cat}</span>
-            <span class="badge badge-orgao">🏛️ {it.get('estruturador_sigla', 'Estruturador')}</span>
+            <span class="badge badge-orgao">🏛️ {normalizar_selo_orgao(it.get('estruturador_sigla', 'Estruturador'))}</span>
             {badge_destaque}
           </div>
           <span class="deadline-pill est-deadline-pill {classe_prazo}">{texto_prazo}</span>
@@ -1393,7 +1401,7 @@ def _renderizar_cards_leiloes(itens_leiloes: list) -> str:
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge {cls_setor}">{l.get('setor_nome', 'Infraestrutura')}</span>
-            <span class="badge badge-orgao">🏛️ {l.get('orgao_sigla', 'Governo Federal')}</span>
+            <span class="badge badge-orgao">🏛️ {normalizar_selo_orgao(l.get('orgao_sigla', 'Governo Federal'))}</span>
             <span class="badge badge-modalidade">🔖 {l.get('codigo_ativo', 'OUTORGA')}</span>
           </div>
           <span class="deadline-pill fase-{fase}">{rotulo_fase}</span>
@@ -1460,7 +1468,7 @@ def _renderizar_aba_sfn(dados_sfn: dict) -> tuple:
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-{vert}">{nome_vert}</span>
-            <span class="badge badge-orgao">🏛️ {it.get('entidade', 'SFN')}</span>
+            <span class="badge badge-orgao">🏛️ {normalizar_selo_orgao(it.get('entidade', 'SFN'))}</span>
             <span class="badge badge-modalidade">🎯 Filtro: {it.get('termo_casado', '')}</span>
           </div>
           <span class="deadline-pill status-{st}">{badge_prazo}</span>
@@ -1611,7 +1619,7 @@ def gerar_painel_radar_html(
         <div class="card-top-meta">
           <div class="badges-left">
             <span class="badge badge-{vert}">{nome_vert}</span>
-            <span class="badge badge-orgao">🏛️ {d.get('orgao_sigla', 'Governo Federal')}</span>
+            <span class="badge badge-orgao">🏛️ {normalizar_selo_orgao(d.get('orgao_sigla', 'Governo Federal'))}</span>
             <span class="badge badge-modalidade">{d.get('modalidade_exibicao', 'Processo')}</span>
           </div>
           <span class="deadline-pill status-{st}">{badge_prazo}</span>

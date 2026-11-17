@@ -14,9 +14,10 @@ import coletor_dou
 import curador_participativo
 import renderizador_participativo
 import publicador_web
+import validador_publicacao
 
 
-def executar_radar(abrir_navegador=True):
+def executar_radar(abrir_navegador=True, publicar=True):
     sys.stdout.reconfigure(encoding="utf-8")
     print("=" * 72)
     print("INICIANDO RADAR DE INTELIGÊNCIA REGULATÓRIA — 4 ABAS (PARTICIPAÇÃO, EVTEAS, LEILÕES & SFN)")
@@ -72,9 +73,22 @@ def executar_radar(abrir_navegador=True):
     print(f"   -> Painel contínuo atualizado: {caminho_atual}")
 
     print("\n[6/6] Publicando versão Web no GitHub Pages (Link Contínuo)...")
-    url_web = publicador_web.publicar_arquivo_html(caminho_atual, "radar.html", "Radar de Inteligência Regulatória — 4 Abas")
-    if url_web:
-        print(f"   -> Link Web atualizado: {url_web}")
+    bloqueado_trava = False
+    if publicar:
+        url_web = publicador_web.publicar_arquivo_html(caminho_atual, "radar.html", "Radar de Inteligência Regulatória — 4 Abas")
+        if url_web:
+            print(f"   -> Link Web atualizado: {url_web}")
+        elif publicador_web.ULTIMO_BLOQUEIO_OCORREU:
+            bloqueado_trava = True
+    else:
+        aprovado, violacoes, avisos = validador_publicacao.validar_arquivo_html(caminho_atual)
+        validador_publicacao.emitir_relatorio_validacao(aprovado, violacoes, avisos, Path(caminho_atual).name)
+        if not aprovado:
+            publicador_web.registrar_status_bloqueio_radar(False, violacoes)
+            bloqueado_trava = True
+            print("   [BLOQUEIO] Validação reprovada pela trava de segurança editorial (--no-publish).")
+        else:
+            print("   [--no-publish] Validação aprovada; publicação web desativada nesta execução.")
 
     print("\n[Modo Sombra] Executando varredura diária de consultas no DOU (somente local, não publicado)...")
     try:
@@ -90,10 +104,15 @@ def executar_radar(abrir_navegador=True):
         except Exception:
             webbrowser.open(Path(caminho_atual).as_uri())
 
+    if bloqueado_trava:
+        print("\n[ENCERRADO COM ERRO] Publicação bloqueada pela trava editorial. Verifique ULTIMO_BLOQUEIO_RADAR.txt.")
+        sys.exit(1)
+
     print("\n[CONCLUÍDO COM SUCESSO]")
     return dossies
 
 
 if __name__ == "__main__":
     abrir = "--no-browser" not in sys.argv
-    executar_radar(abrir_navegador=abrir)
+    publicar = "--no-publish" not in sys.argv
+    executar_radar(abrir_navegador=abrir, publicar=publicar)

@@ -979,7 +979,7 @@ def extrair_frase_literal_prazo_sombra(texto: str) -> str:
     return "Ver ato"
 
 
-def executar_varredura_consultas_modo_sombra(datas: List[str] = None) -> List[Dict[str, Any]]:
+def executar_varredura_consultas_modo_sombra(datas: List[str] = None, gravar_acumulado: bool = True) -> List[Dict[str, Any]]:
     """
     Varredura diária em Modo Sombra (3 a 5 dias úteis) de novas consultas e prorrogações
     publicadas por Ministérios e Secretarias no DOU (DO1).
@@ -987,6 +987,16 @@ def executar_varredura_consultas_modo_sombra(datas: List[str] = None) -> List[Di
     """
     if datas is None:
         datas = [datetime.date.today().strftime("%d-%m-%Y")]
+
+    arq_json = PASTA_CACHE_DOU / "candidatos_consultas_sombra_acumulado.json"
+    acumulados: List[Dict[str, Any]] = []
+    if arq_json.exists():
+        try:
+            dados_antigos = json.loads(arq_json.read_text(encoding="utf-8"))
+            if isinstance(dados_antigos, list):
+                acumulados = dados_antigos
+        except Exception:
+            acumulados = []
 
     regex_ministerios = re.compile(
         r"Ministério dos Transportes|Ministério de Portos e Aeroportos|Ministério das Cidades|"
@@ -997,6 +1007,7 @@ def executar_varredura_consultas_modo_sombra(datas: List[str] = None) -> List[Di
     )
 
     candidatos = []
+    retificacoes_existentes = []
 
     for d in datas:
         res = baixar_ou_carregar_indice_dou(d, "do1")
@@ -1044,10 +1055,31 @@ def executar_varredura_consultas_modo_sombra(datas: List[str] = None) -> List[Di
             # Obtém texto completo para extração literal
             txt_completo = obter_texto_completo_ato(url_completa, content) if status_http == 200 else content
 
-            # Confirma número do ato no texto aberto
+            # Confirma número do ato no texto aberto (só True se houver número e constar do texto)
             num_match = re.search(r"n[ºo°]?\s*(\d+[\.\d]*)", titulo, re.I)
             num_str = num_match.group(1) if num_match else ""
-            contem_num = (num_str in txt_completo) if num_str else True
+            contem_num = bool(num_str and (num_str in txt_completo))
+
+            # Retificação de ato já listado não entra como candidato novo
+            eh_retificacao = bool(
+                re.search(r"\bretifica[çc][aã]o\b", f"{titulo} {url_title}", re.I)
+                or re.match(r"^\s*retifica[çc][aã]o\b", txt_completo, re.I)
+            )
+            if eh_retificacao:
+                ato_referenciado = None
+                for ex in (acumulados + candidatos):
+                    ex_num = (ex.get("numero_ato") or "").strip()
+                    if not ex_num:
+                        continue
+                    mesmo_orgao = (ex.get("orgao", "").strip().lower() == h.strip().lower())
+                    if mesmo_orgao and re.search(rf"\bn[ºo°]?\s*{re.escape(ex_num)}\b", f"{titulo} {txt_completo}", re.I):
+                        ato_referenciado = ex
+                        break
+                if ato_referenciado is not None:
+                    msg_ret = f"({d}) {titulo} -> retificação de candidato existente ({ato_referenciado.get('titulo', '')}) | {url_completa}"
+                    print(f"   [Modo Sombra] retificação de candidato existente: {msg_ret}")
+                    retificacoes_existentes.append(msg_ret)
+                    continue
 
             # Objeto literal e frase de prazo
             objeto_lit = extrair_objeto_ementa_literal(txt_completo)
@@ -1067,17 +1099,10 @@ def executar_varredura_consultas_modo_sombra(datas: List[str] = None) -> List[Di
                 "status_validacao": "CANDIDATO_MODO_SOMBRA",
             })
 
-    # Grava relatório acumulado de candidatos em JSON e log de texto para auditoria (sem sobrescrever arquivos de 06/11)
-    arq_json = PASTA_CACHE_DOU / "candidatos_consultas_sombra_acumulado.json"
-    acumulados: List[Dict[str, Any]] = []
-    if arq_json.exists():
-        try:
-            dados_antigos = json.loads(arq_json.read_text(encoding="utf-8"))
-            if isinstance(dados_antigos, list):
-                acumulados = dados_antigos
-        except Exception:
-            acumulados = []
+    if not gravar_acumulado:
+        return candidatos
 
+    # Grava relatório acumulado de candidatos em JSON e log de texto para auditoria (sem sobrescrever arquivos de 06/11)
     chaves_novas = {
         (c.get("data_edicao", ""), c.get("url", ""), c.get("titulo", ""))
         for c in candidatos
@@ -1095,6 +1120,11 @@ def executar_varredura_consultas_modo_sombra(datas: List[str] = None) -> List[Di
         f.write(f"Última atualização: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
         f.write(f"Datas varridas nesta execução: {', '.join(datas)} | Novos/atualizados: {len(candidatos)}\n")
         f.write(f"Total de candidatos acumulados: {len(acumulados)}\n\n")
+        if retificacoes_existentes:
+            f.write("--- Retificações de candidatos existentes (não incluídas como novas) ---\n")
+            for r in retificacoes_existentes:
+                f.write(f"  * retificação de candidato existente: {r}\n")
+            f.write("\n")
         for idx, c in enumerate(acumulados, 1):
             f.write(f"[{idx}] ({c.get('data_edicao', '')}) {c.get('titulo', '')}\n")
             f.write(f"    Data Edição: {c.get('data_edicao', '')}\n")

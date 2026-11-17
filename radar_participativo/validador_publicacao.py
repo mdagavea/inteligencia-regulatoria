@@ -2,13 +2,18 @@
 validador_publicacao.py — Trava automática de segurança editorial pré-publicação.
 
 Regras por tipo de arquivo:
-1. RADAR / HUB (radar.html, radar_atual.html, index.html):
-   - Reprova substrings (case-insensitive): "decon", "núcleo", "nucleo", "segurabilidade".
-   - Reprova "mpor" exceto em palavras de dicionário com raízes autorizadas (import*, tempor*, contempor*, extempor*).
-     Identificadores como MPOR_FOCO, PRIORIDADE_A_MPOR ou mpor avulso são reprovados.
-   - Reprova "em execução" / "em execucao" RESTRITO aos selos de situação dos cards:
-     dentro de elementos com classe 'deadline-pill' (ou 'est-deadline-pill') ou atributos 'data-fim-br'.
-     Não varre o texto livre da página inteira para evitar falsos positivos de fontes externas.
+1. RADAR / HUB (radar.html, radar_atual.html, index.html) — Decisão nº 23 (17/11/2026):
+   - Bloqueia APENAS:
+     - Endereço de e-mail institucional: @mpor.gov.br
+     - CNPJ (formatado XX.XXX.XXX/XXXX-XX e 14 dígitos contínuos, exceto URL canônica do PNCP)
+     - "em execução" / "em execucao" RESTRITO aos selos de situação dos cards
+       ('deadline-pill' / 'est-deadline-pill' ou atributo 'data-fim-br')
+     - Sanidade obrigatória: Aba Estruturação com 0 cards ou queda > 50% em qualquer aba
+   - Deixa de bloquear: "mpor", "MPor", "Ministério de Portos e Aeroportos", "decon", "segurabilidade".
+   - Número de processo SEI NÃO é varrido no radar (decisão de Marcos, 17/11/2026): todo processo
+     participativo tem número público associado (ex.: botões "SEI" das agências).
+   - Gera apenas AVISO no log (sem bloquear): "núcleo" / "nucleo" e identificadores de prioridade
+     interna ligados ao Ministério (ex.: MPOR_FOCO, PRIORIDADE_A_MPOR, "foco MPor", "prioridade MPor").
 
 2. CLIPPING (clipping.html, historico/*.html):
    - "decon" e "mpor" NÃO são varridos (marca oficial DECON/MPOR mantida por decisão editorial).
@@ -35,22 +40,15 @@ except ImportError:
 # CONFIGURAÇÕES DE REGRAS
 # ==============================================================================
 
-# Para RADAR e INDEX
-TERMOS_PROIBIDOS_RADAR = [
-    "decon",
+# Para RADAR e INDEX — apenas avisos não bloqueantes (Decisão nº 23, 17/11/2026)
+TERMOS_AVISO_RADAR = [
     "núcleo",
     "nucleo",
-    "segurabilidade",
 ]
 
-PREFIXOS_EXCECAO_MPOR = (
-    "import",
-    "tempor",
-    "contempor",
-    "extempor",
-    "compor",
-    "decompor",
-    "recompor",
+PADRAO_PRIORIDADE_INTERNA_MPOR = re.compile(
+    r"(?:\b[A-Z0-9_]*_MPOR[A-Z0-9_]*\b|\b[A-Z0-9_]*MPOR_[A-Z0-9_]*\b|\b(?:foco|prioridade(?:\s+[A-Z0-9]+)?)\s+(?:do\s+|da\s+|no\s+)?mpor\b)",
+    re.IGNORECASE,
 )
 
 # Para CLIPPING e RADAR (padrões estritamente proibidos em repositório público)
@@ -182,13 +180,40 @@ def verificar_em_execucao_selos(conteudo: str, nome_arquivo: str) -> List[Dict]:
     return violacoes
 
 
-def verificar_radar_html(conteudo: str, nome_arquivo: str) -> List[Dict]:
-    """Varredura completa e estrita para radar.html, radar_atual.html e index.html."""
+def verificar_radar_html(conteudo: str, nome_arquivo: str) -> Tuple[List[Dict], List[Dict]]:
+    """
+    Varredura do Radar/Hub conforme Decisão nº 23 (17/11/2026).
+    Retorna: (violacoes_bloqueantes, avisos_nao_bloqueantes).
+    """
     violacoes = []
+    avisos = []
     texto_lower = conteudo.lower()
 
-    # 1. Termos proibidos por substring direta
-    for termo in TERMOS_PROIBIDOS_RADAR:
+    # 1. Bloqueante: E-mail institucional @mpor.gov.br
+    for m in PADRAO_EMAIL_INSTITUCIONAL.finditer(conteudo):
+        trecho = obter_trecho_contexto(conteudo, m.start(), m.end())
+        violacoes.append({
+            "arquivo": nome_arquivo,
+            "termo": "@mpor.gov.br",
+            "posicao": m.start(),
+            "trecho": trecho,
+            "detalhe": f"Endereço de e-mail institucional proibido em painel público: '{m.group(0)}'."
+        })
+
+    # 2. Número de processo SEI: NÃO é varrido no radar (decisão de Marcos, 17/11/2026).
+    #    Todo processo participativo tem número público associado. O clipping continua varrendo.
+
+    # 3. Bloqueante: 'Em execução' restrito aos selos de situação
+    violacoes.extend(verificar_em_execucao_selos(conteudo, nome_arquivo))
+
+    # 4. Bloqueante: Trava contra vazamento de CNPJs (formatados e 14 dígitos puros)
+    violacoes.extend(verificar_vazamento_cnpj(conteudo, nome_arquivo))
+
+    # 5. Bloqueante: Checagem de Sanidade de Cards por Aba
+    violacoes.extend(verificar_sanidade_radar(conteudo, nome_arquivo))
+
+    # 6. Avisos (não bloqueantes): "núcleo"/"nucleo"
+    for termo in TERMOS_AVISO_RADAR:
         pos = 0
         while True:
             idx = texto_lower.find(termo, pos)
@@ -196,68 +221,27 @@ def verificar_radar_html(conteudo: str, nome_arquivo: str) -> List[Dict]:
                 break
             fim = idx + len(termo)
             trecho = obter_trecho_contexto(conteudo, idx, fim)
-            violacoes.append({
+            avisos.append({
                 "arquivo": nome_arquivo,
                 "termo": termo,
                 "posicao": idx,
                 "trecho": trecho,
-                "detalhe": f"Substring proibida '{termo}' detectada no Radar."
+                "detalhe": f"Termo '{termo}' detectado no Radar (apenas aviso no log, não bloqueante)."
             })
             pos = fim
 
-    # 2. Varredura de 'mpor' com regra estrita de palavras autorizadas
-    pos = 0
-    while True:
-        idx = texto_lower.find("mpor", pos)
-        if idx == -1:
-            break
-        fim_mpor = idx + 4
+    # 7. Avisos (não bloqueantes): identificadores de prioridade interna ligados ao Ministério
+    for m in PADRAO_PRIORIDADE_INTERNA_MPOR.finditer(conteudo):
+        trecho = obter_trecho_contexto(conteudo, m.start(), m.end())
+        avisos.append({
+            "arquivo": nome_arquivo,
+            "termo": m.group(0),
+            "posicao": m.start(),
+            "trecho": trecho,
+            "detalhe": f"Identificador de prioridade interna '{m.group(0)}' detectado no Radar (apenas aviso no log, não bloqueante)."
+        })
 
-        ini_tok = idx
-        while ini_tok > 0 and (conteudo[ini_tok - 1].isalnum() or conteudo[ini_tok - 1] in "_-"):
-            ini_tok -= 1
-        fim_tok = fim_mpor
-        while fim_tok < len(conteudo) and (conteudo[fim_tok].isalnum() or conteudo[fim_tok] in "_-"):
-            fim_tok += 1
-
-        token = conteudo[ini_tok:fim_tok]
-        token_lower = token.lower()
-        letras_puras = re.sub(r"[^a-záàâãéèêíïóôõöúçñ]", "", token_lower)
-
-        eh_excecao = False
-        if any(letras_puras.startswith(pfx) for pfx in PREFIXOS_EXCECAO_MPOR):
-            if "_mpor" not in token_lower and "mpor_" not in token_lower and token_lower != "mpor":
-                eh_excecao = True
-
-        # Exceção autorizada: links oficiais de publicação da Imprensa Nacional (in.gov.br)
-        if not eh_excecao:
-            ctx_url = conteudo[max(0, idx - 100):min(len(conteudo), idx + 100)]
-            if "in.gov.br/web/dou/-/" in ctx_url or "in.gov.br" in ctx_url:
-                eh_excecao = True
-
-        if not eh_excecao:
-            trecho = obter_trecho_contexto(conteudo, ini_tok, fim_tok)
-            violacoes.append({
-                "arquivo": nome_arquivo,
-                "termo": "mpor",
-                "posicao": idx,
-                "trecho": trecho,
-                "token": token,
-                "detalhe": f"Ocorrência de 'mpor' no token '{token}' fora das exceções autorizadas."
-            })
-
-        pos = fim_mpor
-
-    # 3. 'Em execução' restrito aos selos de situação
-    violacoes.extend(verificar_em_execucao_selos(conteudo, nome_arquivo))
-
-    # 4. Trava contra vazamento de CNPJs (formatados e 14 dígitos puros)
-    violacoes.extend(verificar_vazamento_cnpj(conteudo, nome_arquivo))
-
-    # 5. Checagem de Sanidade de Cards por Aba
-    violacoes.extend(verificar_sanidade_radar(conteudo, nome_arquivo))
-
-    return violacoes
+    return violacoes, avisos
 
 
 def contar_cards_radar(conteudo: str) -> Dict[str, int]:
@@ -414,8 +398,7 @@ def verificar_conteudo_html(conteudo: str, nome_referencia: str = "documento.htm
     if tipo == "CLIPPING":
         return verificar_clipping_html(conteudo, nome_referencia)
     else:
-        violacoes = verificar_radar_html(conteudo, nome_referencia)
-        return violacoes, []
+        return verificar_radar_html(conteudo, nome_referencia)
 
 
 def validar_arquivo_html(caminho_arquivo: Path) -> Tuple[bool, List[Dict], List[Dict]]:
@@ -470,14 +453,14 @@ def emitir_relatorio_validacao(aprovado: bool, violacoes: List[Dict], avisos: Li
         if tipo == "CLIPPING":
             print("           Nenhum dado sensível proibido (@mpor.gov.br ou processo SEI) encontrado.")
         else:
-            print("           Nenhum termo proibido encontrado (mpor, decon, núcleo, segurabilidade, em execução em selos).")
+            print("           [BLOQUEIOS] Nenhum padrão bloqueante encontrado (@mpor.gov.br, CNPJ, 'em execução' em selos, sanidade).")
     else:
         print("=" * 80)
         print(f"[REPROVADO] TRAVA DE SEGURANÇA EDITORIAL ({tipo}): {nome_referencia}")
         print("=" * 80)
-        print(f"Total de violações bloqueantes: {len(violacoes)}")
+        print(f"[BLOQUEIOS] Total de violações bloqueantes: {len(violacoes)}")
         for i, v in enumerate(violacoes, 1):
-            print(f"\n--- Violação #{i} ---")
+            print(f"\n--- Bloqueio #{i} ---")
             print(f"  Arquivo : {v['arquivo']}")
             print(f"  Termo   : {v['termo']}")
             print(f"  Posição : caractere {v['posicao']}")
@@ -487,9 +470,9 @@ def emitir_relatorio_validacao(aprovado: bool, violacoes: List[Dict], avisos: Li
         print("=" * 80)
 
     if avisos:
-        print(f"   [Avisos Não-Bloqueantes] {len(avisos)} aviso(s) informativo(s) registrado(s) em {nome_referencia}:")
-        for a in avisos[:5]:
-            print(f"     - {a['termo']}: \"{a['trecho'][:60]}...\"")
+        print(f"\n[AVISOS (NÃO BLOQUEANTES)] {len(avisos)} aviso(s) informativo(s) registrado(s) em {nome_referencia}:")
+        for a in avisos[:10]:
+            print(f"  - {a['termo']}: \"{a['trecho'][:80]}...\"")
 
 
 def main():

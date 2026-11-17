@@ -132,7 +132,8 @@
     "838": "2026-11-16",
     "839": "2026-11-16",
     "836": "2026-11-16",
-    "840": "2026-11-17"
+    "840": "2026-11-17",
+    "842": "2026-11-17"
   },
   "analises_ia": {
     "782_2026-10-21": {
@@ -2110,56 +2111,6 @@
       "relevancia": "ALTA",
       "objeto_normativo": "Regulamentação das Atividades, Fontes e Gases de Efeito Estufa (GEE) sujeitos à Etapa 1 do Sistema Brasileiro de Comércio de Emissões (SBCE). O normativo estabelece os critérios de mensuração, relato e verificação (MRV) obrigatórios para setores industriais e de infraestrutura impactados pelo mercado de carbono.",
       "pontos_atencao": "A definição das fontes e gases regulados impacta diretamente o custo operacional e a estratégia de descarbonização de ativos de infraestrutura e logística. É essencial monitorar a inclusão de setores de transporte e energia para avaliar riscos de passivos ambientais e necessidade de ajustes em matrizes de risco de concessões."
-    },
-    "836_2026-11-16T09:59": {
-      "id": "836",
-      "aprovar": true,
-      "vertical": "carbono",
-      "modalidade_exibicao": "Consulta Pública",
-      "orgao_sigla": "MDIC / SBCE",
-      "relevancia": "ALTA",
-      "objeto_normativo": "Proposta de portaria que regulamenta as Atividades, Fontes e Gases Regulados da Etapa 1 do Sistema Brasileiro de Comércio de Emissões (SBCE). Define os critérios de mensuração, relato e verificação (MRV) para setores industriais e de infraestrutura.",
-      "pontos_atencao": "Impacto direto na precificação de carbono para grandes projetos de infraestrutura e logística; essencial para o alinhamento de estratégias de descarbonização e conformidade regulatória."
-    },
-    "669_2026-11-16T18:48": {
-      "id": "669",
-      "aprovar": true,
-      "vertical": "carbono",
-      "modalidade_exibicao": "Consulta Pública",
-      "orgao_sigla": "MDIC / SEAE",
-      "relevancia": "ALTA",
-      "objeto_normativo": "Consulta sobre os cadernos setoriais, temático e metodológico da 2ª edição da Taxonomia Sustentável Brasileira (TSB). Estabelece critérios de elegibilidade para atividades econômicas consideradas sustentáveis.",
-      "pontos_atencao": "A TSB ditará o acesso a linhas de crédito verde e debêntures incentivadas; fundamental para garantir que projetos de infraestrutura sejam classificados como sustentáveis no mercado financeiro."
-    },
-    "840_2026-11-16T14:07": {
-      "id": "840",
-      "aprovar": true,
-      "vertical": "infra",
-      "modalidade_exibicao": "Consulta Pública",
-      "orgao_sigla": "INMETRO",
-      "relevancia": "ALTA",
-      "objeto_normativo": "Regulamentação técnica metrológica para Instrumentos de Pesagem Automáticos de Veículos Ferroviários em Movimento (IPA Ferroviário). Define padrões para pesagem dinâmica de composições ferroviárias.",
-      "pontos_atencao": "Impacto direto na eficiência operacional e na regulação de contratos de concessão ferroviária, afetando a precisão da cobrança de tarifas e o controle de carga útil."
-    },
-    "719_2026-11-16T12:57": {
-      "id": "719",
-      "aprovar": true,
-      "vertical": "infra",
-      "modalidade_exibicao": "Consulta Pública",
-      "orgao_sigla": "MS / SEPPI / BNDES",
-      "relevancia": "ALTA",
-      "objeto_normativo": "Consulta pública para o projeto de Parceria Público-Privada (PPP) do Novo Campus Integrado do INCA. Inclui minutas de edital, contrato e diretrizes de engenharia.",
-      "pontos_atencao": "Projeto estruturante de infraestrutura social via PPP; exige análise rigorosa da matriz de riscos, garantias contratuais e modelagem financeira proposta pelo BNDES."
-    },
-    "704_2026-11-16T17:16": {
-      "id": "704",
-      "aprovar": true,
-      "vertical": "infra",
-      "modalidade_exibicao": "Consulta Pública",
-      "orgao_sigla": "MS / CIBS",
-      "relevancia": "ALTA",
-      "objeto_normativo": "Edital e minuta de contrato para a estruturação de Parceria Público-Privada (PPP) voltada à construção e operação de infraestrutura industrial para o Complexo Industrial de Biotecnologia em Saúde (CIBS). O objeto abrange a concessão de infraestrutura física e tecnológica para processamento final de vacinas e insumos biológicos.",
-      "pontos_atencao": "O projeto representa um modelo de concessão de infraestrutura industrial de alta complexidade, exigindo análise rigorosa da matriz de riscos, garantias contratuais e exigências de performance operacional. É fundamental avaliar as cláusulas de seguro-garantia e os mecanismos de reequilíbrio econômico-financeiro previstos para ativos de infraestrutura de saúde."
     }
   },
   "analises_estruturacao_v2": {
