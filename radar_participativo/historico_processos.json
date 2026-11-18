@@ -133,7 +133,8 @@
     "839": "2026-11-16",
     "836": "2026-11-16",
     "840": "2026-11-17",
-    "842": "2026-11-17"
+    "842": "2026-11-17",
+    "673": "2026-11-18"
   },
   "analises_ia": {
     "782_2026-10-21": {
@@ -2111,6 +2112,76 @@
       "relevancia": "ALTA",
       "objeto_normativo": "Regulamentação das Atividades, Fontes e Gases de Efeito Estufa (GEE) sujeitos à Etapa 1 do Sistema Brasileiro de Comércio de Emissões (SBCE). O normativo estabelece os critérios de mensuração, relato e verificação (MRV) obrigatórios para setores industriais e de infraestrutura impactados pelo mercado de carbono.",
       "pontos_atencao": "A definição das fontes e gases regulados impacta diretamente o custo operacional e a estratégia de descarbonização de ativos de infraestrutura e logística. É essencial monitorar a inclusão de setores de transporte e energia para avaliar riscos de passivos ambientais e necessidade de ajustes em matrizes de risco de concessões."
+    },
+    "836_2026-11-16T09:59": {
+      "id": "836",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "Subsecretaria de Implementação",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de portaria que regulamenta as Atividades, Fontes e Gases Regulados da Etapa 1 do Sistema Brasileiro de Comércio de Emissões (SBCE). Estabelece obrigações de mensuração, relato e verificação (MRV) de emissões de GEE.",
+      "pontos_atencao": "Impacto direto na precificação de carbono para setores de infraestrutura e logística; essencial monitorar os critérios de MRV para evitar sobreposição de custos regulatórios em concessões."
+    },
+    "669_2026-11-16T18:48": {
+      "id": "669",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "Subsecretaria de Desenvolvimento Econômico Sustentável",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Consulta sobre cadernos setoriais, temáticos e metodológicos da 2ª edição da Taxonomia Sustentável Brasileira (TSB).",
+      "pontos_atencao": "A TSB define o que é considerado 'investimento verde' no Brasil, impactando diretamente a elegibilidade de projetos de infraestrutura para emissão de debêntures incentivadas e financiamento sustentável."
+    },
+    "840_2026-11-17T14:51": {
+      "id": "840",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "Inmetro",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Regulamentação técnica metrológica para Instrumentos de Pesagem Automáticos de Veículos Ferroviários em Movimento (IPA Ferroviário).",
+      "pontos_atencao": "A padronização da pesagem dinâmica impacta a eficiência operacional e a fiscalização de carga em ferrovias, afetando contratos de concessão e a logística de transporte de commodities."
+    },
+    "842_2026-11-17T14:36": {
+      "id": "842",
+      "aprovar": true,
+      "vertical": "divida",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MDIC / SECEX",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Minuta de Portaria que regulamenta procedimentos administrativos para investigações de salvaguardas bilaterais no Brasil.",
+      "pontos_atencao": "Alterações em medidas de defesa comercial podem impactar o custo de importação de bens de capital e insumos críticos para obras de infraestrutura, afetando o CAPEX de projetos."
+    },
+    "719_2026-11-16T12:57": {
+      "id": "719",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "SEPPI / BNDES",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Consulta pública para estruturação de Parceria Público-Privada (PPP) voltada à construção e operação do Novo Campus Integrado do INCA. O projeto envolve modelagem de concessão administrativa, diretrizes de engenharia e matriz de riscos para infraestrutura hospitalar de grande porte.",
+      "pontos_atencao": "A modelagem de PPP em infraestrutura social exige atenção rigorosa às garantias de performance e aos mecanismos de reequilíbrio econômico-financeiro, sendo um benchmark relevante para projetos de infraestrutura pública complexa."
+    },
+    "704_2026-11-16T17:16": {
+      "id": "704",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MS / SEPPI",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Edital de concessão de infraestrutura para o Complexo Industrial de Biotecnologia em Saúde (CIBS). O objeto compreende a estruturação de ativos de engenharia e logística industrial estratégica sob o regime de concessão.",
+      "pontos_atencao": "O projeto possui forte componente de engenharia e logística industrial, exigindo análise das cláusulas de seguro-garantia e das responsabilidades de manutenção de ativos de alta complexidade tecnológica."
+    },
+    "813_2026-11-12T15:55": {
+      "id": "813",
+      "aprovar": false,
+      "vertical": null,
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MDHC",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Plano Trienal de proteção de direitos no ambiente digital.",
+      "pontos_atencao": "Tema focado em políticas sociais e direitos digitais, sem aderência direta às verticais de infraestrutura, seguros de grandes riscos ou financiamento de projetos."
     }
   },
   "analises_estruturacao_v2": {
