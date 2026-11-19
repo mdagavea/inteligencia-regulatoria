@@ -134,7 +134,8 @@
     "836": "2026-11-16",
     "840": "2026-11-17",
     "842": "2026-11-17",
-    "673": "2026-11-18"
+    "673": "2026-11-18",
+    "847": "2026-11-19"
   },
   "analises_ia": {
     "782_2026-10-21": {
@@ -2182,6 +2183,86 @@
       "relevancia": "MEDIA",
       "objeto_normativo": "Plano Trienal de proteção de direitos no ambiente digital.",
       "pontos_atencao": "Tema focado em políticas sociais e direitos digitais, sem aderência direta às verticais de infraestrutura, seguros de grandes riscos ou financiamento de projetos."
+    },
+    "824_2026-11-18T11:42": {
+      "id": "824",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "SNP / SNHN",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Proposta de Portaria para estruturação do Programa Nacional de Descarbonização de Portos (PND-Portos) e do Programa Nacional de Descarbonização da Navegação (PND-Navegação). O normativo estabelece diretrizes, metas e ações estratégicas para a transição energética e sustentabilidade no setor portuário e de navegação.",
+      "pontos_atencao": "Impacto direto na matriz de riscos e nos investimentos de longo prazo em concessões portuárias; exige análise sobre a viabilidade de novos encargos ou incentivos para a transição energética."
+    },
+    "738_2026-11-18T16:55": {
+      "id": "738",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "SNP",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Revisão da Portaria nº 574/2018, que disciplina a descentralização de competências para a exploração indireta de instalações portuárias e institui o Índice de Gestão da Autoridade Portuária (IGAP).",
+      "pontos_atencao": "Alterações no IGAP podem impactar a governança das autoridades portuárias e a eficiência operacional dos contratos de concessão vigentes."
+    },
+    "719_2026-11-18T08:18": {
+      "id": "719",
+      "aprovar": true,
+      "vertical": "divida",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "SEPPI / BNDES",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Estruturação de Parceria Público-Privada (PPP) para o Novo Campus Integrado do INCA, envolvendo estudos de viabilidade, minuta de edital e contrato de concessão de infraestrutura.",
+      "pontos_atencao": "Necessário avaliar a modelagem financeira, garantias contratuais e a alocação de riscos de engenharia em projetos de infraestrutura social de grande porte."
+    },
+    "704_2026-11-18T08:20": {
+      "id": "704",
+      "aprovar": true,
+      "vertical": "divida",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "Ministério da Saúde",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Edital de Concessão de Infraestrutura para o Complexo Industrial de Biotecnologia em Saúde (CIBS), visando a soberania sanitária e autonomia tecnológica.",
+      "pontos_atencao": "Projeto de alta complexidade com impacto em financiamento de longo prazo e necessidade de análise rigorosa da matriz de riscos e garantias de performance."
+    },
+    "669_2026-11-18T10:31": {
+      "id": "669",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "Subsecretaria de Desenvolvimento Econômico Sustentável",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Segunda edição da Taxonomia Sustentável Brasileira (TSB), incluindo cadernos setoriais, temáticos e metodológicos para classificação de atividades econômicas sustentáveis.",
+      "pontos_atencao": "A taxonomia definirá os critérios para emissão de títulos verdes (green bonds) e financiamento de projetos de infraestrutura, impactando o custo de capital para o setor."
+    },
+    "842_2026-11-18T10:50": {
+      "id": "842",
+      "aprovar": true,
+      "vertical": "divida",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MDIC / SECEX",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Minuta de Portaria que regulamenta procedimentos administrativos para investigações de salvaguardas bilaterais. O normativo detalha ritos de defesa comercial e revisão de medidas aplicadas a fluxos de importação.",
+      "pontos_atencao": "A medida impacta diretamente o custo de importação de bens de capital e insumos estratégicos para projetos de infraestrutura, podendo afetar o CAPEX de novos empreendimentos e a viabilidade econômica de concessões."
+    },
+    "820_2026-11-10T13:50": {
+      "id": "820",
+      "aprovar": false,
+      "vertical": null,
+      "modalidade_exibicao": null,
+      "orgao_sigla": null,
+      "relevancia": null,
+      "objeto_normativo": null,
+      "pontos_atencao": null
+    },
+    "847_2026-11-18T15:29": {
+      "id": "847",
+      "aprovar": false,
+      "vertical": null,
+      "modalidade_exibicao": null,
+      "orgao_sigla": null,
+      "relevancia": null,
+      "objeto_normativo": null,
+      "pontos_atencao": null
     }
   },
   "analises_estruturacao_v2": {
