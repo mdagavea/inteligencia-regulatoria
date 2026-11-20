@@ -135,7 +135,11 @@
     "840": "2026-11-17",
     "842": "2026-11-17",
     "673": "2026-11-18",
-    "847": "2026-11-19"
+    "847": "2026-11-19",
+    "850": "2026-11-20",
+    "848": "2026-11-20",
+    "900698": "2026-11-20",
+    "849": "2026-11-20"
   },
   "analises_ia": {
     "782_2026-10-21": {
@@ -2263,6 +2267,86 @@
       "relevancia": null,
       "objeto_normativo": null,
       "pontos_atencao": null
+    },
+    "850_2026-11-19T14:58": {
+      "id": "850",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Audiência Pública",
+      "orgao_sigla": "MRE / BNDES",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Projeto de concessão de uso de bem público localizado no Complexo do Itamaraty/RJ, estruturado com apoio do BNDES. O processo visa colher contribuições sobre o plano de negócios referencial e as condições da concessão.",
+      "pontos_atencao": "A estruturação via BNDES indica um projeto de concessão com potencial de modelagem financeira robusta; é essencial avaliar a matriz de riscos e as garantias contratuais propostas."
+    },
+    "848_2026-11-19T17:47": {
+      "id": "848",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "DNIT",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Revisão da Norma DNIT 166/2013-ES, que estabelece especificações técnicas para serviços de reciclagem de pavimento asfáltico in situ com espuma de asfalto.",
+      "pontos_atencao": "A atualização de normas técnicas impacta diretamente os custos de CAPEX/OPEX em contratos de concessão rodoviária e editais de manutenção, exigindo alinhamento com as novas exigências de qualidade."
+    },
+    "787_2026-11-19T17:16": {
+      "id": "787",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MME",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Coleta de subsídios para o diagnóstico nacional sobre a infraestrutura de recarga de veículos elétricos e sua integração às redes de energia.",
+      "pontos_atencao": "Este diagnóstico é fundamental para a transição energética no setor de transportes e impactará diretamente o planejamento de investimentos em infraestrutura de recarga em rodovias concedidas."
+    },
+    "669_2026-11-19T11:11": {
+      "id": "669",
+      "aprovar": true,
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MF / Subsecretaria de Desenvolvimento Econômico Sustentável",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Consulta sobre os cadernos setoriais e metodológicos da 2ª edição da Taxonomia Sustentável Brasileira (TSB).",
+      "pontos_atencao": "A TSB definirá os critérios para classificação de projetos como 'verdes', impactando diretamente a elegibilidade para emissão de debêntures incentivadas e o acesso a linhas de crédito sustentável."
+    },
+    "900698_2026-11-23T09:00": {
+      "id": "900698",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "ANTT",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Análise de Impacto Regulatório (AIR) do Projeto ESG Passageiros, visando aprimorar a solução regulatória e avaliar riscos e premissas do projeto.",
+      "pontos_atencao": "O projeto ESG da ANTT sinaliza uma mudança na regulação de concessões de transporte de passageiros, com possível inclusão de metas de sustentabilidade e governança que afetarão o equilíbrio econômico-financeiro dos contratos."
+    },
+    "840_2026-11-19T16:06": {
+      "id": "840",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "INMETRO",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Regulamentação técnica metrológica para Instrumentos de Pesagem Automáticos de Veículos Ferroviários em Movimento (IPA Ferroviário). A norma estabelece requisitos para a pesagem dinâmica de composições ferroviárias, visando padronizar a medição de carga em trânsito.",
+      "pontos_atencao": "A padronização impacta diretamente a eficiência logística e a fiscalização de peso em concessões ferroviárias, podendo exigir adequações em ativos de pesagem existentes e impactar contratos de transporte de carga."
+    },
+    "839_2026-11-13T15:23": {
+      "id": "839",
+      "aprovar": false,
+      "vertical": null,
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MinC",
+      "relevancia": "N/A",
+      "objeto_normativo": "Revisão da Instrução Normativa da Lei Rouanet para o exercício de 2027.",
+      "pontos_atencao": "Processo sem aderência às verticais de infraestrutura, seguros, financiamento de projetos de grande porte ou transição climática."
+    },
+    "724_2026-11-16T08:48": {
+      "id": "724",
+      "aprovar": false,
+      "vertical": null,
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "ANPD",
+      "relevancia": "N/A",
+      "objeto_normativo": "Construção do Plano de Dados Abertos (PDA) 2026-2028 da ANPD.",
+      "pontos_atencao": "Trata-se de governança de dados públicos e transparência administrativa, sem impacto direto nas verticais de infraestrutura, regulação econômica setorial ou financiamento de grandes projetos."
     }
   },
   "analises_estruturacao_v2": {
