@@ -22,8 +22,8 @@ ALLOWED_FEED_HOSTS = {
     "news.google.com",
     "agenciainfra.com",
     "www.agenciainfra.com",
-    "mailchi.mp",
-    "us14.campaign-archive.com",
+    "portalbenews.com.br",
+    "www.portalbenews.com.br",
     "capitalreset.uol.com.br",
     "jota.info",
     "www.jota.info",
@@ -67,10 +67,12 @@ Sua tarefa é analisar o lote de notícias brutas e newsletters coletadas hoje (
    - Subseções possíveis: "IA, Automação & Produtividade Executiva", "Infraestrutura Digital, Energia & GovTech / FinTech", "Estratégia & Tendências Globais (McKinsey / a16z / Mercado)"
 
 CRITÉRIOS DE CURADORIA E PRIORIDADE DE FONTES:
-- PRIORIZE SEMPRE os veículos de primeira linha e fontes especializadas: Valor Econômico, Broadcast, Reuters, Estadão, Folha de S.Paulo, O Globo, Agência iNFRA, JOTA, Capital Reset / Reset News, CNseg, McKinsey, a16z, Environmental Finance e órgãos oficiais (Gov.br, BNDES, CVM, SUSEP, ANTT, ANTAQ, ANAC).
-- Na vertical "infra" (e também em "divida" e "carbono" quando aplicável), dê atenção especial às matérias exclusivas e aos atos do DOU/Radar oriundos do Boletim de Assinantes da "Agência iNFRA (iNFRA Transportes)" e "Agência iNFRA (iNFRAEnergia)" (que trazem furos sobre debêntures, concessões, EVTEAs, acórdãos da ANTAQ/ANTT/ANAC/TCU, decretos do PPI/PND e portarias do MPor/MT antes de saírem no site aberto), combinando-os de forma equilibrada com os grandes jornais (Valor, Estadão, O Globo, Folha, Reuters, JOTA).
-- Descarte blogs regionais desconhecidos, fofocas políticas genéricas, acidentes de trânsito ou gadgets de consumo (ex.: rumores de celulares/jogos) que não tenham relação com regulação, investimentos, infraestrutura, finanças ou produtividade executiva.
-- Na vertical "tech", selecione APENAS pautas que cruzem tecnologia/IA/gestão com o nosso trabalho: infraestrutura digital (data centers, demanda energética da IA), aplicação de IA no setor público/financeiro/jurídico, produtividade executiva (Substack/McKinsey/a16z) ou estratégia corporativa e regulatória. Se um artigo estiver em inglês (ex.: a16z ou McKinsey), traduza o título e faça o resumo executivo em português.
+- PRIORIZE SEMPRE os veículos de primeira linha e fontes especializadas: Valor Econômico, Broadcast, Reuters, Estadão, Folha de S.Paulo, O Globo, Agência iNFRA (site aberto), BE News, JOTA, Capital Reset / Reset News, CNseg, McKinsey, a16z, Environmental Finance e órgãos oficiais (Gov.br, BNDES, CVM, SUSEP, ANTT, ANTAQ, ANAC).
+- CORTES OBRIGATÓRIOS POR VERTICAL (decisão editorial de 23/11/2026):
+  * Em "seguros": DESCARTE eventos cerimoniais/homenagens institucionais (ex.: sessões solenes, prêmios, debates genéricos de "perspectivas"), seguro de varejo/auto/vida/residencial/rural e releases comerciais de lançamento de produtos/vertical. MANTENHA grandes riscos, seguro-garantia (performance bond), resseguro, sinistros climáticos em infraestrutura e regulação concreta da SUSEP/CNSP/CNseg.
+  * Em "divida": DESCARTE FIDCs ou operações de crédito de varejo/PME (ex.: cartões, plataformas PME, crédito vencido), Fiagros e fatos corporativos isolados sem relação com infraestrutura ou regulação do mercado. MANTENHA debêntures incentivadas/de infraestrutura (Leis 12.431/14.801), REIDI, BNDES, fundos públicos/garantidores, títulos verdes e regulação da CVM/ANBIMA/CMN.
+  * Em "tech": DESCARTE releases corporativos (certificações, prêmios, treinamentos comerciais para corretoras), gadgets de consumo e artigos genéricos fora de nosso escopo. MANTENHA apenas pautas que cruzem tecnologia/IA/gestão com infraestrutura digital (data centers, demanda energética da IA), aplicação de IA no setor público/financeiro/regulatório ou estratégia executiva de alta densidade.
+- Descarte blogs regionais desconhecidos, fofocas políticas genéricas e acidentes de trânsito. Se um artigo estiver em inglês (ex.: a16z ou McKinsey), traduza o título e faça o resumo executivo em português.
 - Quando uma newsletter do Gmail (ex.: Reset News, JOTA, McKinsey) abordar um tema de carbono, dívida, seguros, infra ou tech, aloque-a na vertical correspondente mantendo a indicação da fonte.
 - Para cada notícia selecionada:
   * Informe obrigatoriamente o campo numérico `"id"` correspondente ao número `[ID: X]` exato da notícia bruta de origem (NÃO invente links; o sistema injetará o link original exato a partir desse `"id"`).
@@ -78,15 +80,15 @@ CRITÉRIOS DE CURADORIA E PRIORIDADE DE FONTES:
   * Título objetivo em português.
   * Resumo executivo de 1 a 2 frases claras, explicando o fato e sua relevância técnica, regulatória ou financeira.
   * Classifique no campo "camada":
-    - "destaque": para as 3 a 4 notícias de MAIOR impacto daquela vertical, que ficarão visíveis de imediato na vitrine principal do card.
-    - "complementar": para mais 4 a 5 notícias relevantes daquela vertical, que ficarão acessíveis na gaveta expansível "Radar Complementar" do respectivo card para que nenhuma pauta útil se perca.
+    - "destaque": para as 2 a 4 notícias de MAIOR impacto daquela vertical, visíveis de imediato na vitrine principal.
+    - "complementar": para eventuais notícias adicionais realmente relevantes (0 a 4), na gaveta expansível "Radar Complementar".
 - DIRETRIZES DE MEMÓRIA EDITORIAL E COMBATE A DUPLICIDADES COM ATRASO (DELAY DIÁRIO):
-  Junto com as notícias de hoje, você receberá a "MEMÓRIA DE FATOS JÁ PUBLICADOS NOS ÚLTIMOS DIAS". Muitos veículos divulgam a mesma notícia com atraso de 24h a 72h (efeito "eco de imprensa") ou cobrem o mesmo fato no mesmo dia com palavras diferentes. Aplique com rigor:
-  1. REPERCUSSÃO COM ATRASO (ECO DE NOTÍCIA ANTERIOR): Se uma matéria de hoje apenas requenta ou repercute o mesmo fato factual já abordado na MEMÓRIA DOS ÚLTIMOS DIAS (ex.: jornal geral noticiando hoje com atraso o que um veículo especializado já cobriu ontem), NUNCA a classifique como "destaque" na vitrine principal. A vitrine principal é reservada para FATOS FRESCOS E INÉDITOS DO DIA. Se trouxer análise rica inédita, pode ir para "complementar" (gaveta). Se for apenas a mesma notícia requentada de assessoria, DESCARTE-A para dar espaço a fatos novos.
-  2. DESDOBRAMENTO REAL (FATO NOVO NO PROCESSO) vs. REPETIÇÃO: Diferencie uma mera repetição de um avanço real no processo regulatório/jurídico. Repetição: Ontem "Governo qualifica 13 aeroportos", Hoje "Decreto formaliza 13 aeroportos no PND" -> MESMO FATO (não priorizar). Desdobramento real: Ontem "Governo publica edital", Hoje "TCU suspende edital" ou "Empresas entregam propostas" -> FATO NOVO / DESDOBRAMENTO (pode entrar, inclusive como destaque). Quando selecionar um desdobramento, REDIJA O RESUMO EXECUTIVO enfatizando o novo passo alcançado (ex.: "Após a qualificação inicial do projeto na semana anterior, o órgão regulador aprovou hoje...").
-  3. DEDUPLICAÇÃO NO MESMO DIA: Se vários veículos cobrirem o mesmo fato da manhã (ex.: leilão de transmissão coberto por Valor, Estadão e Folha), selecione APENAS A MELHOR cobertura (privilegiando veículos de maior profundidade técnica ou furos: Agência iNFRA, Valor, JOTA). Nunca selecione mais de uma notícia sobre o mesmo fato na mesma vertical no mesmo dia.
-  4. PRESERVAÇÃO DE PAUTAS HOMÔNIMAS: Não descarte matérias apenas por semelhança nominal se os objetos forem distintos (ex.: Lote 1 da BR-381 vs Lote 2 da BR-381; Acórdão 640 da ANTAQ vs Acórdão 645 da ANTAQ). Identifique o número do processo, o trecho geográfico, o ativo específico ou o ato formal para não suprimir matérias distintas.
-- META DE VOLUME (DEGRAU 1): Selecione de forma consistente entre 7 e 9 notícias por bloco temático (sendo 3 a 4 "destaque" na vitrine + 4 a 5 "complementar" na gaveta, totalizando entre 38 e 45 notícias curadas na soma das 5 verticais sempre que houver pautas pertinentes no lote). Não economize nas matérias "complementar": preencha a gaveta de cada card com pelo menos 4 boas pautas do lote.
+  Junto com as notícias de hoje, você receberá a "MEMÓRIA DE FATOS JÁ PUBLICADOS NOS ÚLTIMOS DIAS". Aplique com rigor:
+  1. REPERCUSSÃO COM ATRASO (ECO DE NOTÍCIA ANTERIOR): Se uma matéria de hoje apenas requenta ou repercute o mesmo fato já abordado na MEMÓRIA DOS ÚLTIMOS DIAS, DESCARTE-A. Nunca repita o mesmo fato em dias seguidos.
+  2. DESDOBRAMENTO REAL (FATO NOVO NO PROCESSO) vs. REPETIÇÃO: Só inclua assunto de dias anteriores se houver avanço concreto novo (ex.: "TCU suspende edital", "Empresas entregam propostas"), deixando explícito o novo passo no resumo.
+  3. DEDUPLICAÇÃO NO MESMO DIA: Se vários veículos cobrirem o mesmo fato no mesmo dia, selecione APENAS A MELHOR cobertura.
+  4. PRESERVAÇÃO DE PAUTAS HOMÔNIMAS: Não descarte matérias apenas por semelhança nominal se os objetos forem distintos (ex.: Lote 1 vs Lote 2; Acórdão 640 vs Acórdão 645).
+- REGRA DE QUALIDADE SOBRE VOLUME (SEM COTA MÍNIMA — decisão de 23/11/2026): NÃO existe meta mínima de notícias por vertical. Se em um dia houver apenas 1, 2 ou 3 fatos realmente novos e relevantes em uma vertical, retorne apenas esses (e até 0 na gaveta "complementar"). Jamais preencha espaço com notícias repetidas, releases comerciais ou temas fora do escopo. Máximo de 7 notícias por vertical.
 
 Retorne ESTRITAMENTE um objeto JSON no seguinte formato:
 {
@@ -285,16 +287,17 @@ def _validar_e_ajustar_vertical_contingencia(item):
     return None  # Descarta matéria que não pertence a nenhum dos 5 pilares temáticos
 
 
-def _obter_memoria_recente_fatos(dias_retroativos=4):
+def _obter_historico_recente_estruturado(dias_retroativos=5):
     """
-    Recupera a lista de fatos curados nos últimos dias úteis a partir do cache JSON
-    e dos arquivos HTML do histórico, fornecendo à IA a memória temporal deslizante
-    para suprimir repetições de releases com atraso (delay diário) e priorizar desdobramentos.
+    Recupera fatos, URLs e títulos já publicados nos últimos dias úteis a partir do cache JSON
+    e dos arquivos HTML do histórico (raiz/historico e clipping/historico).
     """
     hoje_iso = date.today().isoformat()
     limite_iso = (date.today() - timedelta(days=dias_retroativos)).isoformat()
     fatos = []
-    vistos = set()
+    vistos_tit = set()
+    urls_recentes = set()
+    titulos_recentes = []
 
     # 1. Carrega do cache de notícias
     if ARQUIVO_CACHE_NOTICIAS.exists():
@@ -305,17 +308,22 @@ def _obter_memoria_recente_fatos(dias_retroativos=4):
                 if dt and dt != hoje_iso and dt >= limite_iso:
                     it = v.get("item", {})
                     tit = (it.get("titulo") or it.get("title") or "").strip()
+                    lnk = (it.get("link") or "").strip()
                     src = (it.get("fonte") or it.get("source") or "Fonte").strip()
                     vert = v.get("vertical", "geral")
-                    if tit and tit.lower() not in vistos:
-                        vistos.add(tit.lower())
+                    if lnk:
+                        urls_recentes.add(lnk)
+                    if tit and tit.lower() not in vistos_tit:
+                        vistos_tit.add(tit.lower())
+                        titulos_recentes.append(tit.lower())
                         fatos.append({"data": dt, "vertical": vert, "fonte": src, "titulo": tit})
         except Exception:
             pass
 
-    # 2. Complementa com os arquivos HTML do histórico
-    pasta_hist = PASTA_CLIPPING / "historico"
-    if pasta_hist.exists():
+    # 2. Complementa com os arquivos HTML do histórico (raiz do repositório e pasta clipping)
+    for pasta_hist in [PASTA_CLIPPING.parent / "historico", PASTA_CLIPPING / "historico"]:
+        if not pasta_hist.exists():
+            continue
         for arq in sorted(pasta_hist.glob("clipping_*.html"), reverse=True):
             m = re.search(r"\d{4}-\d{2}-\d{2}", arq.name)
             if not m:
@@ -324,20 +332,30 @@ def _obter_memoria_recente_fatos(dias_retroativos=4):
             if dt == hoje_iso or dt < limite_iso:
                 continue
             try:
-                soup = BeautifulSoup(arq.read_text(encoding="utf-8"), "html.parser")
-                for item in soup.select(".news-item, .radar-compact-item"):
-                    lnk = item.select_one(".news-link")
-                    src = item.select_one(".source-tag")
-                    tit = lnk.get_text(strip=True) if lnk else ""
-                    fonte = src.get_text(strip=True) if src else "Fonte Web"
-                    if tit and tit.lower() not in vistos:
-                        vistos.add(tit.lower())
-                        fatos.append({"data": dt, "vertical": "historico", "fonte": fonte, "titulo": tit})
+                soup = BeautifulSoup(arq.read_text(encoding="utf-8", errors="ignore"), "html.parser")
+                for a in soup.find_all("a", href=True):
+                    href = (a.get("href") or "").strip()
+                    tit = " ".join(a.get_text(" ", strip=True).split())
+                    if not href.startswith("http") or "mdagavea.github.io" in href or "brasilparticipativo" in href:
+                        continue
+                    if len(tit) < 20:
+                        continue
+                    urls_recentes.add(href)
+                    if tit.lower() not in vistos_tit:
+                        vistos_tit.add(tit.lower())
+                        titulos_recentes.append(tit.lower())
+                        fatos.append({"data": dt, "vertical": "historico", "fonte": "Histórico", "titulo": tit})
             except Exception:
                 pass
 
     fatos.sort(key=lambda x: x["data"], reverse=True)
-    return [f"- [{f['data']}] [{f['fonte']}] {f['titulo']}" for f in fatos]
+    linhas_memoria = [f"- [{f['data']}] [{f['fonte']}] {f['titulo']}" for f in fatos]
+    return linhas_memoria, urls_recentes, titulos_recentes
+
+
+def _obter_memoria_recente_fatos(dias_retroativos=5):
+    linhas_memoria, _, _ = _obter_historico_recente_estruturado(dias_retroativos=dias_retroativos)
+    return linhas_memoria
 
 
 def curar_noticias_contingencia_sem_ia(noticias_brutas):
@@ -426,7 +444,8 @@ def curar_noticias_contingencia_sem_ia(noticias_brutas):
 
 def _filtrar_ruido_pre_ia(noticias_brutas):
     """
-    Aplica o filtro de termos_filtro.json ANTES da chamada à IA e grava log dos itens descartados.
+    Aplica o filtro de termos_filtro.json e o bloqueio determinístico anti-repetição
+    (URL exata ou título muito similar publicado nos últimos 5 dias) ANTES da chamada à IA.
     """
     termos_excluir = []
     if ARQUIVO_TERMOS_CLIPPING.exists():
@@ -436,10 +455,23 @@ def _filtrar_ruido_pre_ia(noticias_brutas):
         except Exception:
             pass
 
+    _, urls_recentes, titulos_recentes = _obter_historico_recente_estruturado(dias_retroativos=5)
+
     aprovadas = []
     descartadas = []
     for n in noticias_brutas:
-        texto = f"{n.get('title', '')} {n.get('summary', '')}".lower()
+        link_n = (n.get("link") or "").strip()
+        tit_n = (n.get("title") or "").strip()
+        texto = f"{tit_n} {n.get('summary', '')}".lower()
+
+        if link_n and link_n in urls_recentes:
+            descartadas.append((n, "Repetição (URL já publicada nos últimos 5 dias)"))
+            continue
+
+        if tit_n and any(SequenceMatcher(None, tit_n.lower(), tr).ratio() >= 0.80 for tr in titulos_recentes):
+            descartadas.append((n, "Repetição (título já publicado nos últimos 5 dias)"))
+            continue
+
         termo_achado = next((t for t in termos_excluir if t in texto), None)
         if termo_achado:
             descartadas.append((n, f"Termo de ruído: {termo_achado}"))

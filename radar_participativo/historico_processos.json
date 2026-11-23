@@ -139,7 +139,9 @@
     "850": "2026-11-20",
     "848": "2026-11-20",
     "900698": "2026-11-20",
-    "849": "2026-11-20"
+    "849": "2026-11-20",
+    "856": "2026-11-23",
+    "857": "2026-11-23"
   },
   "analises_ia": {
     "782_2026-10-21": {
@@ -2348,35 +2350,445 @@
       "objeto_normativo": "Construção do Plano de Dados Abertos (PDA) 2026-2028 da ANPD.",
       "pontos_atencao": "Trata-se de governança de dados públicos e transparência administrativa, sem impacto direto nas verticais de infraestrutura, regulação econômica setorial ou financiamento de grandes projetos."
     },
-    "842_2026-11-19T18:57": {
+    "v2_814_2026-11-23T10:16": {
+      "id": "814",
+      "aprovar": false,
+      "motivo_rejeicao": "Concessão de museu/patrimônio cultural sem nexo com infraestrutura de transportes ou energia.",
+      "vertical": null,
+      "modalidade_exibicao": "Audiência Pública",
+      "orgao_sigla": "DECEx",
+      "relevancia": null,
+      "objeto_normativo": null,
+      "pontos_atencao": null
+    },
+    "v2_815_2026-11-23T10:16": {
+      "id": "815",
+      "aprovar": false,
+      "motivo_rejeicao": "Concessão de museu/patrimônio cultural sem nexo com infraestrutura de transportes ou energia.",
+      "vertical": null,
+      "modalidade_exibicao": "Consultas Públicas",
+      "orgao_sigla": "DECEx",
+      "relevancia": null,
+      "objeto_normativo": null,
+      "pontos_atencao": null
+    },
+    "v2_900698_2026-11-23T09:00": {
+      "id": "900698",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "infra",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "ANTT",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Análise de Impacto Regulatório (AIR) do Projeto ESG Passageiros. O objetivo é colher contribuições para o aperfeiçoamento da solução regulatória e avaliação de impactos.",
+      "pontos_atencao": "Foco na regulação de impactos e riscos do projeto ESG no setor de transporte de passageiros."
+    },
+    "v2_856_2026-11-23T10:55": {
+      "id": "856",
+      "aprovar": false,
+      "motivo_rejeicao": "Tema focado em gestão ambiental de unidades de conservação, fora do escopo infra.",
+      "vertical": null,
+      "modalidade_exibicao": "Consultas Públicas",
+      "orgao_sigla": "ICMBio",
+      "relevancia": null,
+      "objeto_normativo": null,
+      "pontos_atencao": null
+    },
+    "v2_900697_2026-11-23T09:00": {
+      "id": "900697",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "seguros",
+      "modalidade_exibicao": "Audiência Pública",
+      "orgao_sigla": "ANTT",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Alteração da Resolução ANTT nº 5.982/2022 para inclusão de infrações e penalidades relacionadas aos seguros obrigatórios no setor de transportes.",
+      "pontos_atencao": "Regulação de conformidade e penalidades aplicáveis aos seguros obrigatórios no transporte rodoviário."
+    },
+    "v2_125_2026-10-29T08:46": {
+      "id": "125",
+      "aprovar": false,
+      "motivo_rejeicao": "Diretrizes de relato empresarial genérico, sem foco em infraestrutura ou regulação econômica.",
+      "vertical": null,
+      "modalidade_exibicao": "Consultas Públicas",
+      "orgao_sigla": "FGVces",
+      "relevancia": null,
+      "objeto_normativo": null,
+      "pontos_atencao": null
+    },
+    "v2_802_2026-10-29T09:41": {
+      "id": "802",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "infra",
+      "modalidade_exibicao": "Consultas Públicas",
+      "orgao_sigla": "MME",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Proposta de diretrizes para o Plano de Outorgas de Transmissão de Energia Elétrica (POTEE). Abrange desde o planejamento até a realização de leilões e autorização de reforços.",
+      "pontos_atencao": "Governança regulatória e planejamento de outorgas para expansão do sistema de transmissão."
+    },
+    "v2_787_2026-11-23T10:44": {
+      "id": "787",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "infra",
+      "modalidade_exibicao": "Consultas Públicas",
+      "orgao_sigla": "MME",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Coleta de subsídios para diagnóstico nacional sobre a infraestrutura de recarga de veículos elétricos. Visa identificar barreiras e integração com a rede elétrica.",
+      "pontos_atencao": "Infraestrutura de suporte à transição energética e mobilidade elétrica."
+    },
+    "v2_740_2026-11-10T17:16": {
+      "id": "740",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "infra",
+      "modalidade_exibicao": "Consultas Públicas",
+      "orgao_sigla": "MPor",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de Portaria que estabelece critérios para monitoramento e classificação da situação operacional da infraestrutura de hidrovias não concedidas.",
+      "pontos_atencao": "Regulação da infraestrutura hidroviária e critérios de desempenho operacional."
+    },
+    "v2_842_2026-11-19T18:57": {
       "id": "842",
       "aprovar": true,
+      "motivo_rejeicao": "",
       "vertical": "divida",
-      "modalidade_exibicao": "Consulta Pública",
+      "modalidade_exibicao": "Consultas Públicas",
       "orgao_sigla": "MDIC / SECEX",
       "relevancia": "MEDIA",
-      "objeto_normativo": "Minuta de Portaria que regulamenta procedimentos administrativos para investigações de salvaguardas bilaterais no Brasil. O ato detalha o rito processual de defesa comercial conforme o Decreto nº 12.866/2026.",
-      "pontos_atencao": "Impacta diretamente o custo de importação de insumos e bens de capital essenciais para projetos de infraestrutura, podendo alterar a viabilidade econômica de contratos e o fluxo de caixa de grandes obras."
+      "objeto_normativo": "Regulamentação de procedimentos administrativos para investigações de salvaguardas bilaterais. Detalha ritos de defesa comercial no Brasil.",
+      "pontos_atencao": "Instrumentos de defesa comercial e regulação de comércio exterior."
     },
-    "673_2026-11-17T14:57": {
-      "id": "673",
+    "v2_730_2026-10-20T10:05": {
+      "id": "730",
       "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "divida",
+      "modalidade_exibicao": "Consultas Públicas",
+      "orgao_sigla": "MDIC / SECEX",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Proposta de modificação da Tarifa Externa Comum (TEC) e da Nomenclatura Comum do MERCOSUL (NCM). Trata de ajustes tarifários e classificação de mercadorias.",
+      "pontos_atencao": "Impacto direto na política tarifária e comércio exterior."
+    },
+    "v2_116_2026-10-29T08:46": {
+      "id": "116",
+      "aprovar": false,
+      "motivo_rejeicao": "Protocolo de atuação da DPU em direitos humanos, sem nexo com infraestrutura.",
+      "vertical": null,
+      "modalidade_exibicao": "Consultas Públicas",
+      "orgao_sigla": "DPU",
+      "relevancia": null,
+      "objeto_normativo": null,
+      "pontos_atencao": null
+    },
+    "v2_823_2026-11-06T17:01": {
+      "id": "823",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "infra",
+      "modalidade_exibicao": "Consultas Públicas",
+      "orgao_sigla": "MT / SNTR",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Diretrizes de política pública para aplicação dos Recursos para Desenvolvimento Tecnológico (RDT) em concessões rodoviárias federais.",
+      "pontos_atencao": "Gestão de recursos contratuais e inovação em concessões de rodovias."
+    },
+    "v2_824_2026-11-18T11:42": {
+      "id": "824",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consultas Públicas",
+      "orgao_sigla": "MPor",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Estruturação do Programa Nacional de Descarbonização de Portos (PND-Portos) e de Navegação (PND-Navegação). Define metas e ações para o setor.",
+      "pontos_atencao": "Descarbonização setorial e transição climática em infraestrutura logística."
+    },
+    "v2_835_2026-11-12T16:50": {
+      "id": "835",
+      "aprovar": false,
+      "motivo_rejeicao": "Programa social de universalização de energia, sem caráter de regulação econômica/infraestrutura.",
+      "vertical": null,
+      "modalidade_exibicao": "Consultas Públicas",
+      "orgao_sigla": "MME",
+      "relevancia": null,
+      "objeto_normativo": null,
+      "pontos_atencao": null
+    },
+    "v2_161_2026-10-29T08:46": {
+      "id": "161",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "infra",
+      "modalidade_exibicao": "Audiência Pública",
+      "orgao_sigla": "ANTT",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Revisão da metodologia e coeficientes dos pisos mínimos do transporte rodoviário de cargas. Ajuste da Política Nacional de Pisos Mínimos.",
+      "pontos_atencao": "Regulação econômica de tarifas e custos no transporte rodoviário."
+    },
+    "v2_159_2026-10-29T08:46": {
+      "id": "159",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "infra",
+      "modalidade_exibicao": "Consultas Públicas",
+      "orgao_sigla": "ANTT",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Readaptação e otimização do contrato de concessão da Rodovia BR-116/SP/PR. Inclui revisão de edital, termo aditivo e modelo econômico-financeiro.",
+      "pontos_atencao": "Reequilíbrio e otimização de contrato de concessão rodoviária."
+    },
+    "v2_149_2026-10-29T08:46": {
+      "id": "149",
+      "aprovar": true,
+      "motivo_rejeicao": "",
       "vertical": "infra",
       "modalidade_exibicao": "Tomada de Subsídios",
       "orgao_sigla": "ANA",
       "relevancia": "ALTA",
-      "objeto_normativo": "Elaboração do Planejamento Estratégico Institucional (PEI) da Agência Nacional de Águas e Saneamento Básico para o ciclo 2027–2031.",
-      "pontos_atencao": "A ANA regula o uso de recursos hídricos e o saneamento, setores fundamentais para a estruturação de concessões de infraestrutura e projetos de transição energética (hidrelétricas e hidrovias)."
+      "objeto_normativo": "Regulação tarifária do serviço de adução de água bruta do Projeto de Integração do Rio São Francisco (PISF).",
+      "pontos_atencao": "Regulação econômica e tarifária de infraestrutura hídrica."
     },
-    "849_2026-11-19T09:50": {
-      "id": "849",
+    "v2_836_2026-11-16T09:59": {
+      "id": "836",
       "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MF / Subsecretaria de Implementação",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Regulamentação das atividades, fontes e gases de efeito estufa sujeitos ao Sistema Brasileiro de Comércio de Emissões (SBCE). Define as obrigações de mensuração, relato e verificação (MRV) para a Etapa 1 do mercado de carbono.",
+      "pontos_atencao": "Estabelece os critérios de conformidade e escopo de emissões para setores regulados."
+    },
+    "v2_817_2026-11-04T15:45": {
+      "id": "817",
+      "aprovar": true,
+      "motivo_rejeicao": "",
       "vertical": "infra",
       "modalidade_exibicao": "Consulta Pública",
-      "orgao_sigla": "DNIT",
+      "orgao_sigla": "MME / SNTEP",
       "relevancia": "ALTA",
-      "objeto_normativo": "Revisão da Norma DNIT 166/2014-ES, que estabelece especificações técnicas para serviços de reciclagem de pavimento asfáltico in situ a frio com adição de espuma de asfalto.",
-      "pontos_atencao": "Normas técnicas do DNIT definem os padrões de qualidade e custos de referência para obras rodoviárias, impactando diretamente o CAPEX de concessões e contratos de manutenção de rodovias."
+      "objeto_normativo": "Proposta de revisão das metodologias de cálculo e procedimentos de definição da garantia física de energia para usinas eólicas e solares. Visa aprimorar a segurança regulatória e a alocação de riscos no setor elétrico.",
+      "pontos_atencao": "Impacta diretamente a receita e a bancabilidade de projetos de geração renovável."
+    },
+    "v2_669_2026-11-19T11:11": {
+      "id": "669",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MF / Subsecretaria de Desenvolvimento Econômico Sustentável",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Consulta sobre cadernos setoriais e metodológicos da 2ª edição da Taxonomia Sustentável Brasileira (TSB). Define critérios para classificação de atividades econômicas como sustentáveis para fins de financiamento.",
+      "pontos_atencao": "Alinha o mercado financeiro brasileiro aos padrões internacionais de finanças sustentáveis."
+    },
+    "v2_702_2026-11-06T09:05": {
+      "id": "702",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "divida",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MDIC / SECEX",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Coleta de subsídios para a negociação de um Acordo de Preferências Comerciais entre o Mercosul e a Indonésia. Avalia interesses defensivos e ofensivos do setor produtivo nacional.",
+      "pontos_atencao": "Impacta a competitividade das exportações e a estrutura tarifária de importação."
+    },
+    "v2_827_2026-11-09T14:46": {
+      "id": "827",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ANTAQ",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Revisão das normas de circularização, bloqueio e afretamento de embarcações na cabotagem e apoio marítimo. Altera as Resoluções ANTAQ nº 129/2025 e nº 62/2021.",
+      "pontos_atencao": "Regula o acesso ao mercado de navegação e a proteção à frota nacional."
+    },
+    "v2_738_2026-11-18T16:55": {
+      "id": "738",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MPor / SNP",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Revisão da Portaria nº 574/2018, que disciplina a descentralização de competências para administrações portuárias. Inclui a atualização do Índice de Gestão da Autoridade Portuária (IGAP).",
+      "pontos_atencao": "Altera a governança e a autonomia das autoridades portuárias organizadas."
+    },
+    "v2_141_2026-10-29T08:46": {
+      "id": "141",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ANP / SBQ",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Regulamentação da individualização das metas de Certificado de Garantia de Origem (CGOB) para produtores e importadores de gás natural. Integra o Programa Nacional de Descarbonização do setor de gás.",
+      "pontos_atencao": "Cria obrigações de descarbonização para agentes do mercado de gás natural."
+    },
+    "v2_789_2026-10-30T05:11": {
+      "id": "789",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ANM",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Revisão da Resolução ANM nº 68/2020 sobre o Plano de Fechamento de Mina. Estabelece diretrizes para planejamento, execução e monitoramento do encerramento de atividades minerárias.",
+      "pontos_atencao": "Define garantias financeiras e responsabilidades pós-operacionais para o setor de mineração."
+    },
+    "v2_736_2026-10-21T16:09": {
+      "id": "736",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "infra",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "ANAC / SSA",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Coleta de subsídios sobre condições de acesso à infraestrutura e critérios de alocação de slots no Aeroporto de Congonhas. Avalia eficiência, capacidade competitiva e qualificação de operadores.",
+      "pontos_atencao": "Regulação econômica de acesso a infraestrutura aeroportuária saturada."
+    },
+    "v2_632_2026-08-20T10:42": {
+      "id": "632",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "seguros",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "SUSEP",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Portal de consultas e audiências públicas para aprimoramento da regulação do mercado de seguros. Abrange normas de solvência, produtos e gestão de riscos supervisionados pela autarquia.",
+      "pontos_atencao": "Impacta a regulação de seguros de grandes riscos e garantias financeiras."
+    },
+    "v2_173_2026-05-26T17:36": {
+      "id": "173",
+      "aprovar": false,
+      "motivo_rejeicao": "Regulação do mercado de medicamentos não possui nexo com infraestrutura ou finanças.",
+      "vertical": null,
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "CMED",
+      "relevancia": null,
+      "objeto_normativo": null,
+      "pontos_atencao": null
+    },
+    "v2_847_2026-11-18T15:29": {
+      "id": "847",
+      "aprovar": false,
+      "motivo_rejeicao": "Tema de políticas sociais sem relação com infraestrutura, regulação econômica ou finanças.",
+      "vertical": null,
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "Ministério das Mulheres",
+      "relevancia": null,
+      "objeto_normativo": null,
+      "pontos_atencao": null
+    },
+    "v2_825_2026-11-10T11:52": {
+      "id": "825",
+      "aprovar": false,
+      "motivo_rejeicao": "Norma técnico-operacional de segurança da aviação sem caráter de regulação econômica.",
+      "vertical": null,
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "ANAC / ASSOP",
+      "relevancia": null,
+      "objeto_normativo": null,
+      "pontos_atencao": null
+    },
+    "v2_794_2026-11-03T10:02": {
+      "id": "794",
+      "aprovar": false,
+      "motivo_rejeicao": "Financiamento de setor cultural/audiovisual fora do escopo de infraestrutura.",
+      "vertical": null,
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "Ancine",
+      "relevancia": null,
+      "objeto_normativo": null,
+      "pontos_atencao": null
+    },
+    "v2_91_2026-10-29T08:42": {
+      "id": "91",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MMA / Secretaria Nacional de Mudança do Clima",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Revisão da Política Nacional sobre Mudança do Clima (PNMC) através de anteprojeto de lei. O ato visa atualizar diretrizes nacionais para mitigação e adaptação aos efeitos climáticos.",
+      "pontos_atencao": "Impacto direto na regulação de setores intensivos em carbono e na transição energética."
+    },
+    "v2_122_2026-10-29T08:46": {
+      "id": "122",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MMA / Secretaria Nacional de Mudança do Clima",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Implementação da Etapa I do Programa Brasileiro de Redução do Consumo de HFCs. O programa estabelece metas e cronogramas para a redução de gases de efeito estufa no setor industrial.",
+      "pontos_atencao": "Regulação de insumos industriais com impacto direto na descarbonização da economia."
+    },
+    "v2_157_2026-10-29T08:45": {
+      "id": "157",
+      "aprovar": false,
+      "motivo_rejeicao": "Política genérica de ciência e tecnologia sem foco em infraestrutura.",
+      "vertical": null,
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MCTI",
+      "relevancia": null,
+      "objeto_normativo": null,
+      "pontos_atencao": null
+    },
+    "v2_540_2026-07-14T09:47": {
+      "id": "540",
+      "aprovar": false,
+      "motivo_rejeicao": "Iniciativa de mobilização social sem caráter normativo ou regulatório específico.",
+      "vertical": null,
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MGI / Secretaria Nacional de Recursos Hídricos",
+      "relevancia": null,
+      "objeto_normativo": null,
+      "pontos_atencao": null
+    },
+    "v2_13_2026-10-29T08:44": {
+      "id": "13",
+      "aprovar": false,
+      "motivo_rejeicao": "Tema de direitos humanos sem nexo com infraestrutura ou regulação econômica.",
+      "vertical": null,
+      "modalidade_exibicao": "Planos Participativos",
+      "orgao_sigla": "MDHC",
+      "relevancia": null,
+      "objeto_normativo": null,
+      "pontos_atencao": null
+    },
+    "v2_673_2026-11-17T14:57": {
+      "id": "673",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "infra",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "ANA",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Elaboração do Planejamento Estratégico Institucional (PEI) da ANA para o ciclo 2027-2031. O documento define as prioridades regulatórias para o setor de saneamento básico e recursos hídricos.",
+      "pontos_atencao": "Definição da agenda regulatória da ANA para o setor de saneamento e infraestrutura hídrica."
+    },
+    "v2_857_2026-11-23T11:36": {
+      "id": "857",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "carbono",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ICMBio / DIMAN",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Estabelece procedimentos para projetos privados de créditos de carbono e pagamentos por serviços ambientais em unidades de conservação federais. A norma regulamenta a aplicação da Lei nº 15.042/2024 no âmbito das áreas protegidas.",
+      "pontos_atencao": "Define as diretrizes regulatórias para a geração de créditos de carbono em ativos ambientais federais."
+    },
+    "v2_856_2026-11-23T11:33": {
+      "id": "856",
+      "aprovar": false,
+      "motivo_rejeicao": "Rascunho de consulta pública sem descrição técnica ou conteúdo normativo definido.",
+      "vertical": null,
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ICMBio / DIMAN",
+      "relevancia": null,
+      "objeto_normativo": null,
+      "pontos_atencao": null
     }
   },
   "analises_estruturacao_v2": {
@@ -2440,6 +2852,8 @@
     "https://www.in.gov.br/web/dou/-/edital-de-consulta-publica-n-14/2026/susep-740059842#b86261d787731554": "A proposta altera a Circular Susep nº 648 de 2021, que trata de provisões técnicas, capitais de risco e ativos garantidores.",
     "https://www.in.gov.br/web/dou/-/edital-de-consulta-publica-n-15/2026/susep-740086793#1461b7796c88f0a3": "A proposta altera a Resolução CNSP nº 432 de 2021, que dispõe sobre provisões técnicas, capitais de risco, normas contábeis e auditorias.",
     "https://www.in.gov.br/web/dou/-/edital-de-consulta-publica-n-10/2026/susep-735196827#f84033fc920bff32": "A minuta regulamenta o credenciamento de entidades e pessoas para a resolução alternativa de conflitos em contratos de seguro conforme a Lei nº 15.040 de 2024.",
-    "https://www.in.gov.br/web/dou/-/edital-de-consulta-publica-n-7/2026/susep-735270680#ff1c8f4e1a55774b": "A proposta estabelece procedimentos operacionais para oferta de riscos, aceitação de propostas de resseguro e comprovação de insuficiência de capacidade de resseguradores."
+    "https://www.in.gov.br/web/dou/-/edital-de-consulta-publica-n-7/2026/susep-735270680#ff1c8f4e1a55774b": "A proposta estabelece procedimentos operacionais para oferta de riscos, aceitação de propostas de resseguro e comprovação de insuficiência de capacidade de resseguradores.",
+    "https://www.in.gov.br/web/dou/-/edital-de-consulta-publica-n-16/2026/susep-742633152#8efb404bd7e38783": "A proposta altera as Resoluções CNSP nº 422/2021, 432/2021 e 494/2026 para instituir o reconhecimento prudencial de colaterais em operações de resseguro e retrocessão.",
+    "https://www.in.gov.br/web/dou/-/edital-de-consulta-publica-n-17/2026/susep-742550870#e0e9613ab9e3640a": "A proposta altera a Circular Susep nº 700/2024 para aprimorar as classificações de risco de contrapartes resseguradoras no cálculo do capital de risco de crédito."
   }
 }

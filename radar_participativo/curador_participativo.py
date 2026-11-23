@@ -8,31 +8,40 @@ from google.genai import types
 
 load_dotenv()
 
+# Versão do critério editorial das CPs (incrementar ao mudar regras de corte para reavaliar itens ativos)
+VERSAO_CRITERIO_CP = "v2"
+
 PROMPT_CURADORIA_PARTICIPATIVA = """
-Você é um Especialista Sênior em Regulação, Infraestrutura, Concessões, Seguros de Grandes Riscos, Financiamento e Transição Climática no Governo Federal.
+Você é um Especialista Sênior em Regulação Econômica, Infraestrutura, Concessões/PPPs, Seguros de Grandes Riscos, Financiamento, Energia/Petróleo, Comércio Exterior e Transição Climática no Governo Federal.
 
-Sua tarefa é avaliar uma lista de processos participativos (Consultas Públicas, Audiências Públicas, Tomadas de Subsídios, Planos Setoriais e Minutas em Pré-Publicação) capturados na plataforma Brasil Participativo e selecionar APENAS aqueles que possuem relação direta ou transversal relevante com nossas 4 verticais de atuação:
+Sua tarefa é avaliar uma lista de processos participativos (Consultas Públicas, Audiências Públicas, Tomadas de Subsídios, Planos Setoriais e Minutas em Pré-Publicação) e aprovar APENAS aqueles que possuem relação direta com nossas 4 verticais de atuação, respeitando rigorosamente os critérios de exclusão abaixo:
 
-1. "infra" — Infraestrutura, Transportes & Outorgas:
-   - Rodovias, ferrovias, portos, aeroportos, hidrovias, mobilidade, logística, trânsito/transporte de cargas, ANTT, ANAC, ANTAQ, DNIT, Ministério dos Transportes, agências e ministérios setoriais, concessões, PPPs, estruturação/priorização de delegações e projetos, leilões, reequilíbrio, matriz de riscos, sandbox regulatório.
+1. "infra" — Infraestrutura, Regulação Econômica, Transportes, Energia/Petróleo & Outorgas:
+   - Regulação econômica, outorgas, concessões, PPPs, leilões, contratos de concessão/arrendamento, tarifas, acesso à infraestrutura, reequilíbrio econômico-financeiro, matriz de riscos, sandbox regulatório e planos setoriais (PNL, PSTF, PSTR, PSPort, PSHN, PAN) em transportes (portos, aeroportos, hidrovias, rodovias, ferrovias, logística, mobilidade), energia elétrica, petróleo, gás e combustíveis (MPor, MT, MME, ANTAQ, ANTT, ANAC, ANEEL, ANP, ANA/saneamento ligado a infra).
+   - Concessões e PPPs: APROVAR APENAS quando tiverem relação com Infraestrutura (transportes, logística, energia, saneamento, telecomunicações).
 2. "seguros" — Seguros, Garantias & Gestão de Riscos:
    - Políticas e diretrizes de seguros em infraestrutura/portos/aeroportos/transportes, seguro-garantia (performance bond), SUSEP, resseguro, sinistros, riscos de engenharia e matriz de seguros.
-3. "carbono" — Transição Climática, Sustentabilidade & Meio Ambiente ligado a Infraestrutura/Economia:
-   - Infraestrutura sustentável, certificação ambiental, descarbonização, mercado de carbono (SBCE), Fundo Clima, licenciamento ambiental, logística reversa, concessões florestais/unidades de conservação, transição energética.
-4. "divida" — Financiamento, Fomento, Crédito & Mercado de Capitais:
-   - Apoio oficial ao crédito, compliance financeiro, garantias financeiras, debêntures incentivadas/infraestrutura, CVM, BNDES, comércio exterior/tarifas de bens de capital ou insumos econômicos relevantes.
+3. "carbono" — Transição Climática, Finanças Sustentáveis & Descarbonização ligada a Infraestrutura/Economia:
+   - Mercado de carbono (SBCE), Taxonomia Sustentável Brasileira (TSB), finanças sustentáveis, Fundo Clima, descarbonização de transportes/energia/indústria, transição energética e licenciamento ambiental ligado a infraestrutura.
+4. "divida" — Financiamento, Fomento, Crédito, Mercado de Capitais & Comércio Exterior:
+   - Debêntures incentivadas/infraestrutura, CVM, BNDES, fundos públicos/garantidores, mercado de capitais, apoio oficial ao crédito, garantias financeiras e comércio exterior (SECEX/MDIC/CAMEX, tarifas, defesa comercial, acordos comerciais).
 
-REGRAS ESTRITAS DE FILTRAGEM E DOSSIÊ:
-- EXCLUA (`"aprovar": false`) processos que sejam puramente sobre saúde pública, assistência social, cultura, educação básica/universitária, conselhos de biologia/psicologia ou temas sem nexo com infraestrutura, regulação econômica, seguros, crédito ou sustentabilidade aplicada.
-- Para cada processo APROVADO (`"aprovar": true`), elabore um Dossiê Executivo de alta precisão contendo:
+REGRAS ESTRITAS DE EXCLUSÃO (`"aprovar": false` — OBRIGATÓRIO):
+- EXCLUA normas **técnico-operacionais** de engenharia, manutenção, pavimentação/drenagem rodoviária (ex.: normas DNIT EM/ES de tubo dreno, reciclagem de pavimento), aeronavegabilidade/operação técnica de aviação (ex.: Instruções Suplementares IS e emendas técnicas de RBAC da ANAC sem caráter de regulação econômica/acesso/outorga), metrologia/pesagem (INMETRO), homologação veicular/trânsito operacional (SENATRAN). MANTENHA apenas a parte de **regulação** (regulação econômica, tarifas, acesso à infraestrutura, contratos, outorgas, planos setoriais, governança regulatória).
+- EXCLUA concessões e PPPs **sem relação com Infraestrutura** (ex.: apoio à visitação em parques/unidades de conservação do ICMBio, concessão florestal, concessão de imóveis/patrimônio como Complexo do Itamaraty, PPPs de hospitais/saúde como INCA e CIBS).
+- EXCLUA temas puramente administrativos, dados abertos (PDA), conflito de interesses (CGU), contratações de TI/software, controle de produtos controlados pelo Exército (DFPC/COLOG), planos estaduais genéricos, saúde pública, assistência social, cultura (Rouanet), segurança alimentar, educação, pesca/aquicultura, fauna/espécies silvestres ou direitos humanos sem nexo com infraestrutura/regulação econômica.
+- **Pré-publicação (rascunhos):** aprove APENAS se o título ou descrição trouxer indicativo claro de relação temática com os filtros acima; exclua rascunhos vazios, genéricos ou fora de escopo.
+
+Para cada processo avaliado, retorne:
   * "id": ID exato do processo (string).
-  * "aprovar": true.
-  * "vertical": uma das chaves ["infra", "seguros", "carbono", "divida"] (escolha a mais aderente ao tema central do processo; ex: a Portaria de Diretrizes de Política de Seguros deve ir em "seguros").
+  * "aprovar": true ou false.
+  * "motivo_rejeicao": (se aprovar=false) frase curta de até 12 palavras explicando o corte.
+  * "vertical": (se aprovar=true) uma das chaves ["infra", "seguros", "carbono", "divida"].
   * "modalidade_exibicao": ex: "Consulta Pública", "Audiência Pública", "Tomada de Subsídios", "Consulta Setorial", "Minuta em Pré-Publicação".
-  * "orgao_sigla": sigla e nome curto do órgão/secretaria responsável (ex: "SNP", "MT / SNTF", "ANAC / SIA", "ANTT", "MDIC / CAMEX", "MMA", "ICMBio").
-  * "relevancia": "ALTA" (impacto direto em transportes, portos, aeroportos, concessões, seguros ou financiamento de infra) ou "MEDIA" (impacto transversal/regulatório).
-  * "objeto_normativo": resumo técnico objetivo (2 a 3 frases) explicando exatamente qual ato normativo, plano, edital ou diretriz está sendo proposto ou alterado.
-  * "pontos_atencao": análise executiva (1 a 2 frases) destacando por que esse processo merece acompanhamento ou eventual contribuição técnica da nossa equipe (ex: impacto em contratos de concessão, exigências de apólices/garantias, planejamento logístico PNL/PIT, certificação de projetos).
+  * "orgao_sigla": sigla e nome curto do órgão/secretaria responsável (ex: "Ministério de Portos e Aeroportos / DGH", "MT / SNTF", "ANAC / SSA", "ANTT", "ANTAQ", "MDIC / SECEX", "MME", "MF").
+  * "relevancia": "ALTA" (impacto direto em transportes, portos, aeroportos, hidrovias, concessões de infra, seguros ou financiamento de infra) ou "MEDIA" (impacto transversal: energia/petróleo, clima/SBCE, comércio exterior).
+  * "objeto_normativo": resumo técnico objetivo e 100% factual (2 frases) explicando qual ato normativo, plano, edital ou diretriz está sendo proposto ou alterado.
+  * "pontos_atencao": frase curta e factual (1 frase) destacando o tema regulatório/econômico coberto, sem opinião ou prescrição ("recomenda-se", "deve contemplar").
 
 Retorne ESTRITAMENTE um objeto JSON no formato:
 {
@@ -40,6 +49,7 @@ Retorne ESTRITAMENTE um objeto JSON no formato:
     {
       "id": "767",
       "aprovar": true,
+      "motivo_rejeicao": "",
       "vertical": "infra",
       "modalidade_exibicao": "Consulta Pública",
       "orgao_sigla": "SNP",
@@ -156,20 +166,17 @@ def curar_processos_participativos(candidatos: list, pasta_projeto: Path, api_ke
     pendentes_ia = []
     for c in candidatos_ativos:
         pid = c["id"]
-        # Usa timestamp até minuto (YYYY-MM-DDTHH:MM) para invalidar o cache caso o ministério edite o rascunho no mesmo dia
-        chave_versao = f"{pid}_{c['data_atualizacao_iso'][:16]}"
-        chave_legada = f"{pid}_{c['data_atualizacao_iso'][:10]}"
+        # Usa versão do critério + timestamp até minuto para reavaliar ao mudar regras ou editar rascunho
+        chave_versao = f"{VERSAO_CRITERIO_CP}_{pid}_{c['data_atualizacao_iso'][:16]}"
         if pid not in vistos:
             vistos[pid] = hoje_str
         if chave_versao not in cache_ia:
-            if chave_legada in cache_ia:
-                cache_ia[chave_versao] = cache_ia[chave_legada]
-            else:
-                pendentes_ia.append(c)
+            pendentes_ia.append(c)
 
-    # Processa em lotes de até 18 processos por chamada para máxima velocidade e precisão
-    TAMANHO_LOTE = 18
+    # Processa em lotes menores (10) para evitar truncamento de JSON na resposta do modelo
+    TAMANHO_LOTE = 10
     if key and pendentes_ia:
+        import time
         for i in range(0, len(pendentes_ia), TAMANHO_LOTE):
             lote = pendentes_ia[i:i + TAMANHO_LOTE]
             avaliacoes = chamar_gemini_lote(lote, api_key=key)
@@ -178,18 +185,21 @@ def curar_processos_participativos(candidatos: list, pasta_projeto: Path, api_ke
                 continue
             for c in lote:
                 pid = c["id"]
-                chave_versao = f"{pid}_{c['data_atualizacao_iso'][:16]}"
+                chave_versao = f"{VERSAO_CRITERIO_CP}_{pid}_{c['data_atualizacao_iso'][:16]}"
                 if pid in avaliacoes:
                     cache_ia[chave_versao] = avaliacoes[pid]
+            if i + TAMANHO_LOTE < len(pendentes_ia):
+                time.sleep(1)
 
     salvar_historico(caminho_hist, historico)
 
     # Monta a lista final de dossiês aprovados (ou pendentes quando IA indisponível)
     dossies_aprovados = []
+    descartados_ia = []
     for c in candidatos_ativos:
         pid = c["id"]
-        chave_versao = f"{pid}_{c['data_atualizacao_iso'][:16]}"
-        av = cache_ia.get(chave_versao) or cache_ia.get(f"{pid}_{c['data_atualizacao_iso'][:10]}")
+        chave_versao = f"{VERSAO_CRITERIO_CP}_{pid}_{c['data_atualizacao_iso'][:16]}"
+        av = cache_ia.get(chave_versao)
         if av is None:
             # Processo ainda não analisado porque a IA estava indisponível: exibe com selo de aviso factual
             item_enriquecido = dict(c)
@@ -203,6 +213,14 @@ def curar_processos_participativos(candidatos: list, pasta_projeto: Path, api_ke
             dossies_aprovados.append(item_enriquecido)
             continue
         if not av.get("aprovar", False):
+            descartados_ia.append({
+                "origem": f"CURADORIA-IA ({VERSAO_CRITERIO_CP})",
+                "id": pid,
+                "orgao": c.get("orgao_informado", ""),
+                "titulo": c.get("titulo", ""),
+                "motivo": av.get("motivo_rejeicao") or "Fora do escopo editorial",
+                "url": c.get("url", ""),
+            })
             continue
 
         item_enriquecido = dict(c)
@@ -215,6 +233,14 @@ def curar_processos_participativos(candidatos: list, pasta_projeto: Path, api_ke
         item_enriquecido["primeira_deteccao"] = vistos.get(pid, hoje_str)
 
         dossies_aprovados.append(item_enriquecido)
+
+    if descartados_ia:
+        try:
+            import coletor_participativo
+            coletor_participativo.registrar_descartados_participativo(descartados_ia, modo="a")
+            print(f"   -> {len(descartados_ia)} processo(s) descartado(s) pela curadoria IA (log_descartados_participativo.txt).")
+        except Exception:
+            pass
 
     # Ordena: 1) Lançados 48h, 2) Prazo Urgente, 3) Abertos (por menor dias_restantes), 4) Pré-Publicação, 5) Encerrados Recentes
     ordem_status = {

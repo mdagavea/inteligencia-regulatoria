@@ -1,5 +1,115 @@
 {
-  "_comentario": "Arquivo de configuracao do filtro tematico do Radar de Inteligencia Regulatoria (Aba 1 e Aba 4 - SFN). Edite livremente as listas abaixo sem precisar alterar o codigo Python.",
+  "_comentario": "Arquivo de configuracao do filtro tematico do Radar de Inteligencia Regulatoria (Aba 1 - Participativo e Aba 4 - SFN). Edite livremente as listas abaixo sem precisar alterar o codigo Python.",
+  "exclusoes_participativo": [
+    {
+      "termo": "plano de dados abertos",
+      "motivo": "Administrativo: Plano de Dados Abertos (PDA)"
+    },
+    {
+      "termo": "(pda)",
+      "motivo": "Administrativo: Plano de Dados Abertos (PDA)"
+    },
+    {
+      "termo": "conflito de interesses",
+      "motivo": "Administrativo: prevenção a conflito de interesses"
+    },
+    {
+      "termo": "direitos da pessoa com deficiência",
+      "motivo": "Direitos sociais sem vínculo com infraestrutura"
+    },
+    {
+      "termo": "rouanet",
+      "motivo": "Cultura (Lei Rouanet)"
+    },
+    {
+      "termo": "culturas alimentares",
+      "motivo": "Segurança alimentar / MDS"
+    },
+    {
+      "termo": "cirurgia robótica",
+      "motivo": "Saúde / equipamentos médicos"
+    },
+    {
+      "termo": "atividade pesqueira",
+      "motivo": "Pesca e aquicultura"
+    },
+    {
+      "termo": "pesca e aquicultura",
+      "motivo": "Pesca e aquicultura"
+    },
+    {
+      "termo": "espécies silvestres",
+      "motivo": "Fauna / biodiversidade sem vínculo com infraestrutura"
+    },
+    {
+      "termo": "sustentação de software",
+      "motivo": "Administrativo: contratação de TI/software"
+    },
+    {
+      "termo": "exército / dfpc",
+      "motivo": "Controle de produtos controlados pelo Exército (DFPC)"
+    },
+    {
+      "termo": "dfpc",
+      "motivo": "Controle de produtos controlados pelo Exército (DFPC)"
+    },
+    {
+      "termo": "colog",
+      "motivo": "Norma técnico-administrativa do Exército (COLOG)"
+    },
+    {
+      "termo": "pacto rs",
+      "motivo": "Plano estadual genérico"
+    },
+    {
+      "termo": "instrução suplementar",
+      "motivo": "Norma técnico-operacional (IS ANAC) — decisão de 23/11/2026"
+    },
+    {
+      "termo": "emenda ao regulamento brasileiro da aviação civil",
+      "motivo": "Norma técnico-operacional (RBAC ANAC) — decisão de 23/11/2026"
+    },
+    {
+      "termo": "emendas aos regulamentos brasileiros da aviação civil",
+      "motivo": "Norma técnico-operacional (RBAC ANAC) — decisão de 23/11/2026"
+    },
+    {
+      "termo": "revisão de norma dnit",
+      "motivo": "Norma técnica de engenharia rodoviária (DNIT) — decisão de 23/11/2026"
+    },
+    {
+      "termo": "revisão da norma dnit",
+      "motivo": "Norma técnica de engenharia rodoviária (DNIT) — decisão de 23/11/2026"
+    },
+    {
+      "termo": "instrumentos de pesagem",
+      "motivo": "Norma metrológica/técnica (INMETRO) — decisão de 23/11/2026"
+    },
+    {
+      "termo": "homologação de veículos",
+      "motivo": "Norma técnica de homologação veicular (SENATRAN) — decisão de 23/11/2026"
+    },
+    {
+      "termo": "apoio à visitação",
+      "motivo": "Concessão de parques/visitação (ICMBio) sem vínculo com infraestrutura — decisão de 23/11/2026"
+    },
+    {
+      "termo": "concessão florestal",
+      "motivo": "Concessão florestal (ICMBio) sem vínculo com infraestrutura — decisão de 23/11/2026"
+    },
+    {
+      "termo": "complexo do itamaraty",
+      "motivo": "Concessão imobiliária/patrimonial sem vínculo com infraestrutura — decisão de 23/11/2026"
+    },
+    {
+      "termo": "instituto nacional do câncer",
+      "motivo": "PPP de saúde (INCA) sem vínculo com infraestrutura — decisão de 23/11/2026"
+    },
+    {
+      "termo": "biotecnologia em saúde",
+      "motivo": "PPP de saúde (CIBS) sem vínculo com infraestrutura — decisão de 23/11/2026"
+    }
+  ],
   "exclusoes_sfn": [
     {
       "termo": "open insurance",

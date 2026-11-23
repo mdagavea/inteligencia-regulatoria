@@ -1,13 +1,64 @@
 import json
 import re
 import ssl
+import time
 import urllib.parse
 import urllib.request
 from datetime import datetime, date, timedelta
+from pathlib import Path
 from bs4 import BeautifulSoup
 
 API_URL = "https://brasilparticipativo.presidencia.gov.br/api"
 BASE_URL = "https://brasilparticipativo.presidencia.gov.br"
+PASTA_PROJETO = Path(__file__).parent.resolve()
+ARQUIVO_TERMOS_FILTRO = PASTA_PROJETO / "termos_filtro.json"
+LOG_DESCARTADOS_PARTICIPATIVO = PASTA_PROJETO / "log_descartados_participativo.txt"
+
+
+def carregar_exclusoes_participativo() -> list:
+    """Carrega a lista de exclusões determinísticas da Aba 1 a partir de termos_filtro.json."""
+    try:
+        if ARQUIVO_TERMOS_FILTRO.exists():
+            dados = json.loads(ARQUIVO_TERMOS_FILTRO.read_text(encoding="utf-8"))
+            return dados.get("exclusoes_participativo", []) or []
+    except Exception as e:
+        print(f"   [Aviso] Falha ao ler exclusoes_participativo em termos_filtro.json: {e}")
+    return []
+
+
+def verificar_exclusao_participativo(texto_busca: str, exclusoes: list):
+    """Retorna o motivo da exclusão se algum termo de exclusoes_participativo casar, ou None."""
+    txt_low = (texto_busca or "").lower()
+    for regra in exclusoes:
+        termo = (regra.get("termo") or "").strip().lower()
+        if termo and termo in txt_low:
+            return regra.get("motivo") or f"Excluído por termo '{termo}'"
+    return None
+
+
+def registrar_descartados_participativo(descartados: list, modo: str = "w"):
+    """Grava log auditável dos processos descartados na Aba 1 (filtro determinístico e IA)."""
+    try:
+        hoje_s = datetime.now().strftime("%Y-%m-%d %H:%M")
+        linhas = []
+        if modo == "w":
+            linhas.append(f"# Log de descartados da Aba 1 (Consultas Públicas) — atualizado em {hoje_s}\n")
+        for d in descartados:
+            linhas.append(
+                f"{hoje_s} | {d.get('origem', 'PRE-FILTRO')} | ID {d.get('id', '')} | "
+                f"{d.get('orgao', '')} | {d.get('titulo', '')[:120]} | "
+                f"Motivo: {d.get('motivo', '')} | {d.get('url', '')}\n"
+            )
+        with open(LOG_DESCARTADOS_PARTICIPATIVO, modo, encoding="utf-8") as f:
+            f.writelines(linhas)
+    except Exception as e:
+        print(f"   [Aviso] Não foi possível gravar log_descartados_participativo.txt: {e}")
+
+
+def _normalizar_titulo_dedup(titulo: str) -> str:
+    t = higienizar_titulo_portal(titulo or "").lower()
+    t = re.sub(r"[^a-z0-9à-ÿ]+", " ", t).strip()
+    return t
 
 # Expressão regular ampla para pré-selecionar candidatos ligados às nossas verticais e setores correlatos
 REGEX_TEMAS_INTERESSE = re.compile(
@@ -270,7 +321,7 @@ def coletar_processos_brasil_participativo(dias_historico_encerrados: int = 20):
     rascunhos_por_id = {}
     ids_publicados = {str(p["id"]) for p in processos_publicados if p}
     titulos_publicados = {
-        ((p.get("title") or {}).get("translation") or "").strip().lower()
+        _normalizar_titulo_dedup((p.get("title") or {}).get("translation") or "")
         for p in processos_publicados if p
     }
 
@@ -282,7 +333,7 @@ def coletar_processos_brasil_participativo(dias_historico_encerrados: int = 20):
             if not proc:
                 continue
             pid = str(proc["id"])
-            t_proc = ((proc.get("title") or {}).get("translation") or "").strip().lower()
+            t_proc = _normalizar_titulo_dedup((proc.get("title") or {}).get("translation") or "")
             mapa_tipo_por_id[pid] = nome_tipo
             if pid not in ids_publicados and t_proc not in titulos_publicados:
                 rascunhos_por_id[pid] = (proc, nome_tipo)
@@ -290,8 +341,10 @@ def coletar_processos_brasil_participativo(dias_historico_encerrados: int = 20):
     hoje = date.today()
     agora_lim = datetime.now().astimezone() - timedelta(hours=48)  # Janela estrita de 48h a partir da data de publicação
     limite_rascunho = datetime.now().astimezone() - timedelta(days=10)
+    exclusoes = carregar_exclusoes_participativo()
 
     candidatos = []
+    descartados_prefiltro = []
 
     # 1. Processa todos os publicados oficialmente
     for p in processos_publicados:
@@ -299,6 +352,28 @@ def coletar_processos_brasil_participativo(dias_historico_encerrados: int = 20):
             continue
         item = normalizar_processo(p, mapa_tipo_por_id.get(str(p["id"]), "Consulta / Processo"), publicado=True, hoje=hoje, agora_lim_48h=agora_lim)
         if item and item["relevante_bruto"] and item["status_ciclo"] != "EXPIRADO_ANTIGO":
+            if item.get("dias_restantes") is not None and item["dias_restantes"] > 730:
+                descartados_prefiltro.append({
+                    "origem": "PRE-FILTRO (PRAZO)",
+                    "id": item["id"],
+                    "orgao": item["orgao_informado"],
+                    "titulo": item["titulo"],
+                    "motivo": f"Prazo interminável ({item['dias_restantes']} dias restantes; página permanente sem janela ativa) — decisão de 23/11/2026",
+                    "url": item["url"],
+                })
+                continue
+            bloco_exc = f"{item['titulo']} | {item['subtitulo']} | {item['orgao_informado']} | {item['descricao_texto'][:600]}"
+            motivo_exc = verificar_exclusao_participativo(bloco_exc, exclusoes)
+            if motivo_exc:
+                descartados_prefiltro.append({
+                    "origem": "PRE-FILTRO",
+                    "id": item["id"],
+                    "orgao": item["orgao_informado"],
+                    "titulo": item["titulo"],
+                    "motivo": motivo_exc,
+                    "url": item["url"],
+                })
+                continue
             candidatos.append(item)
 
     # 2. Processa os rascunhos/pré-publicação criados ou atualizados nos últimos 10 dias
@@ -308,7 +383,23 @@ def coletar_processos_brasil_participativo(dias_historico_encerrados: int = 20):
             continue
         item = normalizar_processo(proc, nome_tipo, publicado=False, hoje=hoje, agora_lim_48h=agora_lim)
         if item and item["relevante_bruto"]:
+            bloco_exc = f"{item['titulo']} | {item['subtitulo']} | {item['orgao_informado']} | {item['descricao_texto'][:600]}"
+            motivo_exc = verificar_exclusao_participativo(bloco_exc, exclusoes)
+            if motivo_exc:
+                descartados_prefiltro.append({
+                    "origem": "PRE-FILTRO (RASCUNHO)",
+                    "id": item["id"],
+                    "orgao": item["orgao_informado"],
+                    "titulo": item["titulo"],
+                    "motivo": motivo_exc,
+                    "url": item["url"],
+                })
+                continue
             candidatos.append(item)
+
+    registrar_descartados_participativo(descartados_prefiltro, modo="w")
+    if descartados_prefiltro:
+        print(f"   -> {len(descartados_prefiltro)} processo(s) retido(s) no pré-filtro determinístico (log_descartados_participativo.txt).")
 
     # 3. Complementa com portais próprios de Agências Reguladoras (ANTT ParticipANTT e ANTAQ Gov.br), deduplicando
     try:

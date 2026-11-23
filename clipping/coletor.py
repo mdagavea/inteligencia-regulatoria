@@ -19,7 +19,7 @@ load_dotenv()
 VIP_SITES_QUERY = (
     "(site:valor.globo.com OR site:oglobo.globo.com OR site:folha.uol.com.br "
     "OR site:estadao.com.br OR site:broadcast.com.br OR site:agenciainfra.com "
-    "OR site:jota.info OR site:cnseg.org.br OR site:reuters.com)"
+    "OR site:portalbenews.com.br OR site:jota.info OR site:cnseg.org.br OR site:reuters.com)"
 )
 
 GMAIL_ALLOWED_SENDERS = [
@@ -27,6 +27,8 @@ GMAIL_ALLOWED_SENDERS = [
     "jota.info",
     "cnseg",
     "noticiasseguro",
+    "portalbenews",
+    "benews",
     "mckinsey.com",
     "a16z",
     "substack.com",
@@ -111,6 +113,13 @@ def fetch_direct_rss_feeds(max_per_feed=10):
             "vertical": "infra",
             "verify_ssl": False,
             "max": 15,
+        },
+        {
+            "source": "BE News",
+            "url": "https://portalbenews.com.br/feed/",
+            "vertical": "infra",
+            "verify_ssl": True,
+            "max": 12,
         },
         {
             "source": "Capital Reset",
