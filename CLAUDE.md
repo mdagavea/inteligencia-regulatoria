@@ -3,7 +3,7 @@
 
 > **Repositório GitHub (Nuvem Oficial):** `https://github.com/mdagavea/inteligencia-regulatoria`  
 > **GitHub Pages (Painéis Públicos):** `https://mdagavea.github.io/inteligencia-regulatoria/`  
-> **Última Atualização Arquitetural:** 05/11/2026 (GEMINI_API_KEY reativada para o clipping na nuvem e local; Radar operando em modo factual sem IA localmente agendado às 08:00; trava de segurança editorial e sanidade automática; isolamento do radar no clipping; anonimização total via secret EMAIL_TESTE e modo_teste booleano; regra "nenhum dado digitado à mão").
+> **Última Atualização Arquitetural:** 23/11/2026 (curadoria IA v3 ativa no Brasil Participativo do Radar com `GEMINI_API_KEY` em `radar_participativo/.env`, decisão 27 sobre pertinência climática e imparcialidade por órgão, chave de cache estável para publicados, `temperature=0.0` e reaproveitamento de avaliação anterior em falha da IA; mantidas trava de segurança editorial, isolamento do radar no clipping e regra "nenhum dado digitado à mão").
 
 ---
 
@@ -23,7 +23,7 @@ Este repositório unifica dois sistemas autônomos de inteligência executiva da
 
 2. **`radar_participativo/` — Radar DECON/MPOR (Participação Social, Estruturação/EVTEAs & Leilões):**
    - Monitora processos no Brasil Participativo, contratações de estudos/EVTEAs (Infra S.A., BNDES, DNIT, PNCP) e carteira de leilões (ANTAQ, ANAC, ANTT, B3).
-   - **Status da chave Gemini no Radar:** Em `radar_participativo/.env`, a `GEMINI_API_KEY` permanece **não configurada** (o log exibe `"GEMINI_API_KEY ausente"`). O radar opera intencionalmente em **modo factual sem IA**, extraindo dados diretamente das fontes oficiais sem consumo de tokens.
+   - **Status da chave Gemini no Radar:** desde 23/11/2026, `GEMINI_API_KEY` configurada em `radar_participativo/.env`; a curadoria por IA do Brasil Participativo (`curador_participativo.py`, critério v3, decisão 27) está ativa. Se a IA falhar, reaproveita a última avaliação do processo; sem avaliação anterior, exibe o processo com aviso.
    - **Execução e Agendamento:** O Radar é gerado e publicado pelo pipeline local completo (`radar_participativo/gerar_radar.py --no-browser`), configurado no Agendador de Tarefas do Windows (`RadarInteligenciaRegulatoria`) de **segunda a sexta-feira às 08:00 BRT** (com `StartWhenAvailable` para recuperar caso a máquina esteja desligada).
    - O workflow diário de clipping da nuvem **não toca nem publica `radar.html`**, evitando esvaziamento acidental das abas.
    - **Documentação detalhada e backlog de evolução:** leia [`radar_participativo/MEMORIA_PROJETO.md`](radar_participativo/MEMORIA_PROJETO.md), [`radar_participativo/2026-10-28_Ajustes_Aba_Estruturacao_para_Gemini.md`](radar_participativo/2026-10-28_Ajustes_Aba_Estruturacao_para_Gemini.md) e [`radar_participativo/2026-10-29_Passagem_Aba_SFN_e_Agencias_para_Gemini.md`](radar_participativo/2026-10-29_Passagem_Aba_SFN_e_Agencias_para_Gemini.md).

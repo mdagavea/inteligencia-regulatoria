@@ -9,7 +9,7 @@ from google.genai import types
 load_dotenv()
 
 # Versão do critério editorial das CPs (incrementar ao mudar regras de corte para reavaliar itens ativos)
-VERSAO_CRITERIO_CP = "v2"
+VERSAO_CRITERIO_CP = "v3"
 
 PROMPT_CURADORIA_PARTICIPATIVA = """
 Você é um Especialista Sênior em Regulação Econômica, Infraestrutura, Concessões/PPPs, Seguros de Grandes Riscos, Financiamento, Energia/Petróleo, Comércio Exterior e Transição Climática no Governo Federal.
@@ -21,15 +21,18 @@ Sua tarefa é avaliar uma lista de processos participativos (Consultas Públicas
    - Concessões e PPPs: APROVAR APENAS quando tiverem relação com Infraestrutura (transportes, logística, energia, saneamento, telecomunicações).
 2. "seguros" — Seguros, Garantias & Gestão de Riscos:
    - Políticas e diretrizes de seguros em infraestrutura/portos/aeroportos/transportes, seguro-garantia (performance bond), SUSEP, resseguro, sinistros, riscos de engenharia e matriz de seguros.
-3. "carbono" — Transição Climática, Finanças Sustentáveis & Descarbonização ligada a Infraestrutura/Economia:
-   - Mercado de carbono (SBCE), Taxonomia Sustentável Brasileira (TSB), finanças sustentáveis, Fundo Clima, descarbonização de transportes/energia/indústria, transição energética e licenciamento ambiental ligado a infraestrutura.
+3. "carbono" — Transição Climática, Finanças Sustentáveis & Descarbonização:
+   - Mercado de carbono e créditos de carbono (Sistema Brasileiro de Comércio de Emissões, Lei nº 15.042/2024), inclusive projetos de crédito de carbono e pagamento por serviços ambientais ligados a carbono em áreas públicas ou unidades de conservação; Taxonomia Sustentável Brasileira (TSB); finanças sustentáveis; Fundo Clima; políticas de mitigação e adaptação à mudança do clima; descarbonização de transportes, energia e indústria; transição energética; licenciamento ambiental ligado a infraestrutura. Nesta vertical, o critério é a pertinência climática do assunto, não a relação com infraestrutura.
 4. "divida" — Financiamento, Fomento, Crédito, Mercado de Capitais & Comércio Exterior:
    - Debêntures incentivadas/infraestrutura, CVM, BNDES, fundos públicos/garantidores, mercado de capitais, apoio oficial ao crédito, garantias financeiras e comércio exterior (SECEX/MDIC/CAMEX, tarifas, defesa comercial, acordos comerciais).
 
+REGRA GERAL DE IMPARCIALIDADE POR ÓRGÃO:
+- O órgão proponente (ex.: ICMBio, MMA, IBAMA) nunca é, sozinho, motivo de inclusão ou exclusão; decide o assunto da consulta.
+
 REGRAS ESTRITAS DE EXCLUSÃO (`"aprovar": false` — OBRIGATÓRIO):
 - EXCLUA normas **técnico-operacionais** de engenharia, manutenção, pavimentação/drenagem rodoviária (ex.: normas DNIT EM/ES de tubo dreno, reciclagem de pavimento), aeronavegabilidade/operação técnica de aviação (ex.: Instruções Suplementares IS e emendas técnicas de RBAC da ANAC sem caráter de regulação econômica/acesso/outorga), metrologia/pesagem (INMETRO), homologação veicular/trânsito operacional (SENATRAN). MANTENHA apenas a parte de **regulação** (regulação econômica, tarifas, acesso à infraestrutura, contratos, outorgas, planos setoriais, governança regulatória).
-- EXCLUA concessões e PPPs **sem relação com Infraestrutura** (ex.: apoio à visitação em parques/unidades de conservação do ICMBio, concessão florestal, concessão de imóveis/patrimônio como Complexo do Itamaraty, PPPs de hospitais/saúde como INCA e CIBS).
-- EXCLUA temas puramente administrativos, dados abertos (PDA), conflito de interesses (CGU), contratações de TI/software, controle de produtos controlados pelo Exército (DFPC/COLOG), planos estaduais genéricos, saúde pública, assistência social, cultura (Rouanet), segurança alimentar, educação, pesca/aquicultura, fauna/espécies silvestres ou direitos humanos sem nexo com infraestrutura/regulação econômica.
+- EXCLUA concessões e PPPs **sem relação com Infraestrutura** (ex.: apoio à visitação e uso público em parques e unidades de conservação, concessão florestal, concessão de imóveis/patrimônio como Complexo do Itamaraty, PPPs de hospitais/saúde como INCA e CIBS).
+- EXCLUA temas puramente administrativos, dados abertos (PDA), conflito de interesses (CGU), contratações de TI/software, controle de produtos controlados pelo Exército (DFPC/COLOG), planos estaduais genéricos, saúde pública, assistência social, cultura (Rouanet), segurança alimentar, educação, pesca/aquicultura, fauna/espécies silvestres ou direitos humanos sem nexo com infraestrutura, regulação econômica ou a agenda climática.
 - **Pré-publicação (rascunhos):** aprove APENAS se o título ou descrição trouxer indicativo claro de relação temática com os filtros acima; exclua rascunhos vazios, genéricos ou fora de escopo.
 
 Para cada processo avaliado, retorne:
@@ -119,7 +122,7 @@ def chamar_gemini_lote(lote_processos: list, api_key: str) -> dict:
                 contents=prompt_completo,
                 config=types.GenerateContentConfig(
                     response_mime_type="application/json",
-                    temperature=0.15,
+                    temperature=0.0,
                 )
             )
             if resp and resp.text:
@@ -141,6 +144,36 @@ def chamar_gemini_lote(lote_processos: list, api_key: str) -> dict:
     return resultado_por_id
 
 
+def _chave_cache(c: dict) -> str:
+    """Gera chave de cache: fixa (versao_id) para publicados; com timestamp até minuto para rascunhos."""
+    pid = c["id"]
+    if c.get("publicado"):
+        return f"{VERSAO_CRITERIO_CP}_{pid}"
+    return f"{VERSAO_CRITERIO_CP}_{pid}_{c['data_atualizacao_iso'][:16]}"
+
+
+def _extrair_id_chave_cache(chave: str) -> str:
+    """Extrai o ID exato do processo de uma chave de cache (v2_857_..., v3_857 ou 857_2026-...)."""
+    partes = chave.split("_")
+    if not partes:
+        return ""
+    if len(partes) >= 2 and partes[0].startswith("v") and partes[0][1:].isdigit():
+        return partes[1]
+    return partes[0]
+
+
+def _buscar_avaliacao_anterior(cache_ia: dict, pid: str):
+    """Retorna (chave, avaliacao) mais recente do mesmo processo no cache (ordem de inserção), ou (None, None)."""
+    pid_str = str(pid)
+    chave_encontrada = None
+    av_encontrada = None
+    for k, v in cache_ia.items():
+        if _extrair_id_chave_cache(k) == pid_str:
+            chave_encontrada = k
+            av_encontrada = v
+    return chave_encontrada, av_encontrada
+
+
 def curar_processos_participativos(candidatos: list, pasta_projeto: Path, api_key: str = None) -> list:
     """
     Combina controle de estado local (cache de análises já feitas) com curadoria via Gemini
@@ -148,7 +181,7 @@ def curar_processos_participativos(candidatos: list, pasta_projeto: Path, api_ke
     """
     key = api_key or os.getenv("GEMINI_API_KEY")
     if not key:
-        print("   [Aviso] GEMINI_API_KEY ausente. Processos pendentes serão exibidos com dados factuais da fonte (sem cache de IA).")
+        print("   [Aviso] GEMINI_API_KEY ausente. Processos pendentes usarão avaliação anterior ou dados factuais da fonte (sem cache de IA).")
 
     caminho_hist = pasta_projeto / "historico_processos.json"
     historico = carregar_historico(caminho_hist)
@@ -166,8 +199,8 @@ def curar_processos_participativos(candidatos: list, pasta_projeto: Path, api_ke
     pendentes_ia = []
     for c in candidatos_ativos:
         pid = c["id"]
-        # Usa versão do critério + timestamp até minuto para reavaliar ao mudar regras ou editar rascunho
-        chave_versao = f"{VERSAO_CRITERIO_CP}_{pid}_{c['data_atualizacao_iso'][:16]}"
+        # Chave fixa (versao_id) para publicados; com timestamp até minuto para reavaliar rascunhos editados
+        chave_versao = _chave_cache(c)
         if pid not in vistos:
             vistos[pid] = hoje_str
         if chave_versao not in cache_ia:
@@ -185,7 +218,7 @@ def curar_processos_participativos(candidatos: list, pasta_projeto: Path, api_ke
                 continue
             for c in lote:
                 pid = c["id"]
-                chave_versao = f"{VERSAO_CRITERIO_CP}_{pid}_{c['data_atualizacao_iso'][:16]}"
+                chave_versao = _chave_cache(c)
                 if pid in avaliacoes:
                     cache_ia[chave_versao] = avaliacoes[pid]
             if i + TAMANHO_LOTE < len(pendentes_ia):
@@ -198,8 +231,13 @@ def curar_processos_participativos(candidatos: list, pasta_projeto: Path, api_ke
     descartados_ia = []
     for c in candidatos_ativos:
         pid = c["id"]
-        chave_versao = f"{VERSAO_CRITERIO_CP}_{pid}_{c['data_atualizacao_iso'][:16]}"
+        chave_versao = _chave_cache(c)
         av = cache_ia.get(chave_versao)
+        if av is None:
+            chave_ant, av_ant = _buscar_avaliacao_anterior(cache_ia, pid)
+            if av_ant is not None:
+                print(f"   [Aviso] reaproveitada avaliação anterior {chave_ant}")
+                av = av_ant
         if av is None:
             # Processo ainda não analisado porque a IA estava indisponível: exibe com selo de aviso factual
             item_enriquecido = dict(c)
