@@ -2347,6 +2347,36 @@
       "relevancia": "N/A",
       "objeto_normativo": "Construção do Plano de Dados Abertos (PDA) 2026-2028 da ANPD.",
       "pontos_atencao": "Trata-se de governança de dados públicos e transparência administrativa, sem impacto direto nas verticais de infraestrutura, regulação econômica setorial ou financiamento de grandes projetos."
+    },
+    "842_2026-11-19T18:57": {
+      "id": "842",
+      "aprovar": true,
+      "vertical": "divida",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MDIC / SECEX",
+      "relevancia": "MEDIA",
+      "objeto_normativo": "Minuta de Portaria que regulamenta procedimentos administrativos para investigações de salvaguardas bilaterais no Brasil. O ato detalha o rito processual de defesa comercial conforme o Decreto nº 12.866/2026.",
+      "pontos_atencao": "Impacta diretamente o custo de importação de insumos e bens de capital essenciais para projetos de infraestrutura, podendo alterar a viabilidade econômica de contratos e o fluxo de caixa de grandes obras."
+    },
+    "673_2026-11-17T14:57": {
+      "id": "673",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "ANA",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Elaboração do Planejamento Estratégico Institucional (PEI) da Agência Nacional de Águas e Saneamento Básico para o ciclo 2027–2031.",
+      "pontos_atencao": "A ANA regula o uso de recursos hídricos e o saneamento, setores fundamentais para a estruturação de concessões de infraestrutura e projetos de transição energética (hidrelétricas e hidrovias)."
+    },
+    "849_2026-11-19T09:50": {
+      "id": "849",
+      "aprovar": true,
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "DNIT",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Revisão da Norma DNIT 166/2014-ES, que estabelece especificações técnicas para serviços de reciclagem de pavimento asfáltico in situ a frio com adição de espuma de asfalto.",
+      "pontos_atencao": "Normas técnicas do DNIT definem os padrões de qualidade e custos de referência para obras rodoviárias, impactando diretamente o CAPEX de concessões e contratos de manutenção de rodovias."
     }
   },
   "analises_estruturacao_v2": {
