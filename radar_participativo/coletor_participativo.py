@@ -60,6 +60,42 @@ def _normalizar_titulo_dedup(titulo: str) -> str:
     t = re.sub(r"[^a-z0-9à-ÿ]+", " ", t).strip()
     return t
 
+
+STOPWORDS_TITULO_DEDUP = {
+    "consulta", "pública", "publica", "sobre", "de", "da", "do", "das", "dos",
+    "e", "a", "o", "que", "em", "no", "na", "para", "relativos", "relativo",
+}
+# Limiar ajustado de 0.6 para 0.5 no teste da A-046: o #856 x #857 (mesmo órgão ICMBio) tem semelhança 0.52 após edição do título do #857, com zero falsos positivos acima de 0.4
+LIMIAR_SEMELHANCA_RASCUNHO = 0.5
+
+
+def _extrair_orgao_bruto(p: dict) -> str:
+    """Extrai o órgão informado pelo mesmo critério de normalizar_processo (target > developerGroup > localArea)."""
+    orgao_target = ((p.get("target") or {}).get("translation") or "").strip()
+    orgao_dev = ((p.get("developerGroup") or {}).get("translation") or "").strip()
+    area_local = ((p.get("localArea") or {}).get("translation") or "").strip()
+    return orgao_target or orgao_dev or area_local or ""
+
+
+def _normalizar_orgao_dedup(orgao: str) -> str:
+    return re.sub(r"\s+", " ", (orgao or "").strip().lower())
+
+
+def _palavras_significativas_titulo(titulo: str) -> set:
+    return {
+        w for w in _normalizar_titulo_dedup(titulo).split()
+        if w and w not in STOPWORDS_TITULO_DEDUP
+    }
+
+
+def _calcular_semelhanca_titulos(titulo_a: str, titulo_b: str) -> float:
+    pa = _palavras_significativas_titulo(titulo_a)
+    pb = _palavras_significativas_titulo(titulo_b)
+    uniao = pa | pb
+    if not uniao:
+        return 0.0
+    return len(pa & pb) / len(uniao)
+
 # Expressão regular ampla para pré-selecionar candidatos ligados às nossas verticais e setores correlatos
 REGEX_TEMAS_INTERESSE = re.compile(
     r"(antt|antaq|anac|dnit|infra\s*s\.?a|transport|rodovi|ferrovi|portu|porto|aeroport|hidrovi|"
@@ -319,11 +355,22 @@ def coletar_processos_brasil_participativo(dias_historico_encerrados: int = 20):
     # Mapeia id -> nome do tipo (ex: "Consultas Públicas", "Audiência Pública")
     mapa_tipo_por_id = {}
     rascunhos_por_id = {}
+    descartados_prefiltro = []
+    rascunhos_duplicados_registrados = set()
     ids_publicados = {str(p["id"]) for p in processos_publicados if p}
     titulos_publicados = {
         _normalizar_titulo_dedup((p.get("title") or {}).get("translation") or "")
         for p in processos_publicados if p
     }
+    publicados_para_dedup = [
+        {
+            "id": str(p["id"]),
+            "titulo_raw": ((p.get("title") or {}).get("translation") or "").strip(),
+            "orgao_norm": _normalizar_orgao_dedup(_extrair_orgao_bruto(p)),
+            "palavras": _palavras_significativas_titulo((p.get("title") or {}).get("translation") or ""),
+        }
+        for p in processos_publicados if p
+    ]
 
     for pt in tipos_processos:
         if not pt:
@@ -333,10 +380,41 @@ def coletar_processos_brasil_participativo(dias_historico_encerrados: int = 20):
             if not proc:
                 continue
             pid = str(proc["id"])
-            t_proc = _normalizar_titulo_dedup((proc.get("title") or {}).get("translation") or "")
+            titulo_raw = ((proc.get("title") or {}).get("translation") or "").strip()
+            t_proc = _normalizar_titulo_dedup(titulo_raw)
             mapa_tipo_por_id[pid] = nome_tipo
-            if pid not in ids_publicados and t_proc not in titulos_publicados:
-                rascunhos_por_id[pid] = (proc, nome_tipo)
+            if pid in ids_publicados or t_proc in titulos_publicados:
+                continue
+
+            orgao_rasc = _extrair_orgao_bruto(proc)
+            orgao_rasc_norm = _normalizar_orgao_dedup(orgao_rasc)
+            melhor_pub_id = None
+            melhor_sim = 0.0
+            if orgao_rasc_norm:
+                palavras_rasc = _palavras_significativas_titulo(titulo_raw)
+                for pub in publicados_para_dedup:
+                    if pub["orgao_norm"] != orgao_rasc_norm:
+                        continue
+                    uniao = palavras_rasc | pub["palavras"]
+                    sim = (len(palavras_rasc & pub["palavras"]) / len(uniao)) if uniao else 0.0
+                    if sim >= LIMIAR_SEMELHANCA_RASCUNHO and sim > melhor_sim:
+                        melhor_sim = sim
+                        melhor_pub_id = pub["id"]
+
+            if melhor_pub_id is not None:
+                if pid not in rascunhos_duplicados_registrados:
+                    rascunhos_duplicados_registrados.add(pid)
+                    descartados_prefiltro.append({
+                        "origem": "PRE-FILTRO (RASCUNHO)",
+                        "id": pid,
+                        "orgao": orgao_rasc,
+                        "titulo": higienizar_titulo_portal(titulo_raw),
+                        "motivo": f"rascunho duplicado do publicado #{melhor_pub_id} (semelhança {melhor_sim:.2f})",
+                        "url": f"{BASE_URL}/processes/{proc.get('slug', '')}",
+                    })
+                continue
+
+            rascunhos_por_id[pid] = (proc, nome_tipo)
 
     hoje = date.today()
     agora_lim = datetime.now().astimezone() - timedelta(hours=48)  # Janela estrita de 48h a partir da data de publicação
@@ -344,7 +422,6 @@ def coletar_processos_brasil_participativo(dias_historico_encerrados: int = 20):
     exclusoes = carregar_exclusoes_participativo()
 
     candidatos = []
-    descartados_prefiltro = []
 
     # 1. Processa todos os publicados oficialmente
     for p in processos_publicados:
