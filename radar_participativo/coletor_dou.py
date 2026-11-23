@@ -970,17 +970,17 @@ def extrair_frase_literal_prazo_sombra(texto: str) -> str:
             if m:
                 return m.group(0).strip()
 
-    # 2. Padrão B: 'prazo de N dias...' sem data calculada (apenas o texto literal)
+    # 2. Padrão B: 'prazo de N dias...', 'prazo máximo de N dias...', 'no prazo de até N dias...' ou 'período de N dias...' sem data calculada (apenas o texto literal)
     for f in frases:
         if re.search(r'(?:contribui[çc]|manifesta[çc]|consulta|recep[çc][aã]o)', f, re.I):
-            m_dias = re.search(r'prazo\s+de\s+\d+(?:\s*\([^\)]+\))?\s+dias[^\.\n;]*', f, re.I)
+            m_dias = re.search(r'(?:(?:no\s+)?prazo\s+de\s+at[eé]|prazo\s+(?:m[aá]ximo\s+)?de|per[ií]odo\s+de)\s+\d+(?:\s*\([^\)]+\))?\s+dias[^\.\n;]*', f, re.I)
             if m_dias:
                 return m_dias.group(0).strip()
 
     return "Ver ato"
 
 
-def executar_varredura_consultas_modo_sombra(datas: List[str] = None, gravar_acumulado: bool = True) -> List[Dict[str, Any]]:
+def executar_varredura_consultas_modo_sombra(datas: List[str] = None, gravar_acumulado: bool = True, reconstruir: bool = False) -> List[Dict[str, Any]]:
     """
     Varredura diária em Modo Sombra (3 a 5 dias úteis) de novas consultas e prorrogações
     publicadas por Ministérios e Secretarias no DOU (DO1).
@@ -991,7 +991,7 @@ def executar_varredura_consultas_modo_sombra(datas: List[str] = None, gravar_acu
 
     arq_json = PASTA_CACHE_DOU / "candidatos_consultas_sombra_acumulado.json"
     acumulados: List[Dict[str, Any]] = []
-    if arq_json.exists():
+    if not reconstruir and arq_json.exists():
         try:
             dados_antigos = json.loads(arq_json.read_text(encoding="utf-8"))
             if isinstance(dados_antigos, list):
