@@ -462,6 +462,7 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
     .status-LANCADO_48H {{ background: var(--new-bg); color: var(--new-color); border: 1px solid #93c5fd; }}
     .status-PRAZO_URGENTE {{ background: var(--urgent-bg); color: var(--urgent-color); border: 1px solid #fca5a5; }}
     .status-ABERTO {{ background: var(--open-bg); color: var(--open-color); border: 1px solid #6ee7b7; }}
+    .status-PRAZO_NO_ATO {{ background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }}
     .status-PRE_PUBLICACAO {{ background: var(--pre-bg); color: var(--pre-color); border: 1px solid #fcd34d; }}
     .status-ENCERRADO_RECENTE {{ background: #e2e8f0; color: #334155; border: 1px solid #94a3b8; font-weight: 700; }}
 
@@ -1118,7 +1119,7 @@ TEMPLATE_RADAR_HTML = """<!DOCTYPE html>
 
       cards.forEach(card => {{
         const st = card.getAttribute('data-status');
-        if (st === 'PRE_PUBLICACAO') return;
+        if (st === 'PRE_PUBLICACAO' || st === 'PRAZO_NO_ATO') return;
 
         const isoDate = card.getAttribute('data-deadline-iso');
         const fimBr = card.getAttribute('data-fim-br') || '';
@@ -1248,6 +1249,8 @@ def formatar_badge_prazo(item: dict) -> str:
 
     if st == "VIGENTE":
         return f"📜 Publicação Oficial • {fim_br}"
+    if st == "PRAZO_NO_ATO":
+        return "📄 Prazo no ato"
     if st == "PRE_PUBLICACAO":
         return "📡 Pré-Publicação (Rascunho na API)"
     if st == "LANCADO_48H":

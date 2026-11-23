@@ -157,10 +157,10 @@ def curar_processos_participativos(candidatos: list, pasta_projeto: Path, api_ke
 
     hoje_str = datetime.now().strftime("%Y-%m-%d")
 
-    # Filtra processos abertos, em pré-publicação ou encerrados nas últimas 72h (ENCERRADO_RECENTE)
+    # Filtra processos abertos, com prazo no ato, em pré-publicação ou encerrados nas últimas 72h (ENCERRADO_RECENTE)
     candidatos_ativos = [
         c for c in candidatos
-        if c["status_ciclo"] in ("LANCADO_48H", "PRAZO_URGENTE", "ABERTO", "PRE_PUBLICACAO", "ENCERRADO_RECENTE")
+        if c["status_ciclo"] in ("LANCADO_48H", "PRAZO_URGENTE", "ABERTO", "PRAZO_NO_ATO", "PRE_PUBLICACAO", "ENCERRADO_RECENTE")
     ]
 
     pendentes_ia = []
@@ -242,13 +242,14 @@ def curar_processos_participativos(candidatos: list, pasta_projeto: Path, api_ke
         except Exception:
             pass
 
-    # Ordena: 1) Lançados 48h, 2) Prazo Urgente, 3) Abertos (por menor dias_restantes), 4) Pré-Publicação, 5) Encerrados Recentes
+    # Ordena: 1) Lançados 48h, 2) Prazo Urgente, 3) Abertos (por menor dias_restantes), 4) Prazo no Ato, 5) Pré-Publicação, 6) Encerrados Recentes
     ordem_status = {
         "LANCADO_48H": 1,
         "PRAZO_URGENTE": 2,
         "ABERTO": 3,
-        "PRE_PUBLICACAO": 4,
-        "ENCERRADO_RECENTE": 5
+        "PRAZO_NO_ATO": 4,
+        "PRE_PUBLICACAO": 5,
+        "ENCERRADO_RECENTE": 6
     }
     ordem_rel = {"ALTA": 1, "MEDIA": 2}
 

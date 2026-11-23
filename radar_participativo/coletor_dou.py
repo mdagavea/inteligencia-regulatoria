@@ -27,7 +27,7 @@ import urllib.request
 import urllib.error
 from pathlib import Path
 from collections import Counter, defaultdict
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Tuple
 
 PASTA_ATUAL = Path(__file__).parent.resolve()
 PASTA_RAIZ = PASTA_ATUAL.parent.resolve()
@@ -870,86 +870,200 @@ def obter_cards_dou_por_aba(usar_cache_se_disponivel: bool = True) -> Dict[str, 
             })
 
     # 4. Consultas Públicas e Prorrogações de Ministérios na Aba Participativo (#participativo)
+    # Gerados automaticamente a partir da lista conferida em cache_dou/candidatos_consultas_sombra_acumulado.json
     hoje = datetime.date.today()
-    prazo_mt = datetime.date(2026, 11, 15)
-    dias_mt = (prazo_mt - hoje).days
-    st_ciclo_mt = "PRAZO_URGENTE" if (0 <= dias_mt <= 7) else ("ABERTO" if dias_mt > 7 else "ENCERRADO_RECENTE")
+    arq_sombra = PASTA_CACHE_DOU / "candidatos_consultas_sombra_acumulado.json"
+    if arq_sombra.exists():
+        try:
+            candidatos_min = json.loads(arq_sombra.read_text(encoding="utf-8"))
+        except Exception:
+            candidatos_min = []
 
-    if dias_mt >= -3:
-        cards_distribuidos["participativo"].extend([
-            {
-                "id": "DOU_MT_PORT_940",
-                "vertical": "infra",
-                "status_ciclo": st_ciclo_mt,
-                "orgao_sigla": "MT / SNTF",
-                "entidade": "Ministério dos Transportes",
-                "entidade_nome": "Secretaria Nacional de Transporte Ferroviário",
-                "modalidade_numero": "Portaria SNTF nº 940/2026",
-                "modalidade_exibicao": "Consulta Pública • DOU DO1",
-                "titulo": "Prorrogação de consulta (Portaria nº 940/2026)",
-                "data_inicio_br": "",
-                "texto_janela": "Prorrogada até 15/11/2026",
-                "data_publicacao_br": "03/11/2026",
-                "data_publicacao_iso": "2026-11-03",
-                "data_fim_br": "15/11/2026",
-                "data_fim_iso": "2026-11-15",
-                "dias_restantes": dias_mt,
-                "objeto_normativo": (
-                    "Art. 1º Fica prorrogado até o dia 15 de novembro de 2026 o prazo para recebimento de contribuições "
-                    "referentes à minuta do Plano Setorial de Transporte Ferroviário (PSTF), objeto da consulta pública "
-                    "instituída pela Portaria nº 940, de 28 de outubro de 2026. "
-                    "Art. 2º Permanecem inalteradas as demais disposições da Portaria nº 893, de 16 de outubro de 2026."
-                ),
-                "pontos_atencao": "",
-                "resumo_ia": "",
-                "url": "https://www.in.gov.br/web/dou/-/portaria-n-940-de-28-de-outubro-de-2026-741225950",
-                "url_principal": "https://www.in.gov.br/web/dou/-/portaria-n-940-de-28-de-outubro-de-2026-741225950",
-                "documentos": [
-                    {
-                        "rotulo": "📜 Publicação Oficial no DOU (Edição 03/11/2026)",
-                        "url": "https://www.in.gov.br/web/dou/-/portaria-n-940-de-28-de-outubro-de-2026-741225950",
-                        "categoria": "DOU"
-                    }
-                ],
-            },
-            {
-                "id": "DOU_MT_PORT_950",
-                "vertical": "infra",
-                "status_ciclo": st_ciclo_mt,
-                "orgao_sigla": "MT / SNTR",
-                "entidade": "Ministério dos Transportes",
-                "entidade_nome": "Secretaria Nacional de Transporte Rodoviário",
-                "modalidade_numero": "Portaria SNTR nº 950/2026",
-                "modalidade_exibicao": "Consulta Pública • DOU DO1",
-                "titulo": "Prorrogação de consulta (Portaria nº 950/2026)",
-                "data_inicio_br": "",
-                "texto_janela": "Prorrogada até 15/11/2026",
-                "data_publicacao_br": "03/11/2026",
-                "data_publicacao_iso": "2026-11-03",
-                "data_fim_br": "15/11/2026",
-                "data_fim_iso": "2026-11-15",
-                "dias_restantes": dias_mt,
-                "objeto_normativo": (
-                    "Art. 1º Fica prorrogado até 15 de novembro de 2026 o prazo para recebimento de contribuições "
-                    "à consulta pública do Plano Setorial de Transporte Rodoviário - PSTR, instituída pela Portaria SNTR nº 895, "
-                    "de 19 de outubro de 2026. "
-                    "Art. 2º Permanecem inalteradas as demais disposições da Portaria SNTR nº 895, de 19 de outubro de 2026."
-                ),
-                "pontos_atencao": "",
-                "resumo_ia": "",
-                "url": "https://www.in.gov.br/web/dou/-/portaria-n-950-de-29-de-outubro-de-2026-741227805",
-                "url_principal": "https://www.in.gov.br/web/dou/-/portaria-n-950-de-29-de-outubro-de-2026-741227805",
-                "documentos": [
-                    {
-                        "rotulo": "📜 Publicação Oficial no DOU (Edição 03/11/2026)",
-                        "url": "https://www.in.gov.br/web/dou/-/portaria-n-950-de-29-de-outubro-de-2026-741227805",
-                        "categoria": "DOU"
-                    }
-                ],
-            }
-        ])
+        if isinstance(candidatos_min, list):
+            for c in candidatos_min:
+                data_ed = (c.get("data_edicao") or "").strip()
+                data_pub = _parse_data_dou(data_ed)
+                data_pub_br = data_pub.strftime("%d/%m/%Y") if data_pub else data_ed.replace("-", "/")
+                data_pub_iso = data_pub.strftime("%Y-%m-%d") if data_pub else ""
+
+                titulo_cand = (c.get("titulo") or "").strip()
+                orgao_cand = (c.get("orgao") or "").strip()
+                tipo_cand = (c.get("tipo") or "Consulta Pública").strip()
+                num_cand = (c.get("numero_ato") or "").strip()
+                obj_cand = (c.get("objeto_literal") or "").strip()
+                frase_prazo = (c.get("frase_literal_prazo") or "Ver ato").strip()
+                url_cand = (c.get("url") or "").strip()
+
+                data_ato = _extrair_data_ato_do_titulo(titulo_cand)
+                data_ato_br = data_ato.strftime("%d/%m/%Y") if data_ato else ""
+                if data_ato_br and data_pub_br and data_ato_br != data_pub_br:
+                    texto_pub_br = f"Ato de {data_ato_br}, publicado no DOU em {data_pub_br}"
+                else:
+                    texto_pub_br = data_pub_br
+
+                data_fim, tipo_prazo = calcular_data_final_prazo_sombra(frase_prazo, data_ed)
+                if tipo_prazo in ("escrita", "calculada") and data_fim is not None:
+                    dias_rest = (data_fim - hoje).days
+                    if dias_rest < -3:
+                        continue
+                    data_fim_br = data_fim.strftime("%d/%m/%Y")
+                    data_fim_iso = data_fim.strftime("%Y-%m-%d")
+                    dias_desde_pub = (hoje - data_pub).days if data_pub else 999
+                    if dias_rest < 0:
+                        st_ciclo = "ENCERRADO_RECENTE"
+                    elif dias_desde_pub <= 2 and dias_rest > 7:
+                        st_ciclo = "LANCADO_48H"
+                    elif dias_rest <= 7:
+                        st_ciclo = "PRAZO_URGENTE"
+                    else:
+                        st_ciclo = "ABERTO"
+                    if tipo_prazo == "calculada":
+                        texto_janela = f"{frase_prazo} (até {data_fim_br} — data calculada a partir do ato)"
+                    else:
+                        texto_janela = frase_prazo
+                else:
+                    if data_pub and (hoje - data_pub).days > 45:
+                        continue
+                    data_fim_br = ""
+                    data_fim_iso = ""
+                    dias_rest = None
+                    st_ciclo = "PRAZO_NO_ATO"
+                    texto_janela = frase_prazo
+
+                partes_orgao = [p.strip() for p in orgao_cand.split("/") if p.strip()]
+                entidade_principal = partes_orgao[0] if partes_orgao else orgao_cand
+                entidade_sub = " / ".join(partes_orgao[1:]) if len(partes_orgao) > 1 else entidade_principal
+                id_card = (
+                    f"DOU_MIN_{re.sub(r'[^0-9A-Za-z]', '', num_cand)}_{data_ed.replace('-', '')}"
+                    if num_cand else f"DOU_MIN_{abs(hash(url_cand)) % 100000}"
+                )
+
+                cards_distribuidos["participativo"].append({
+                    "id": id_card,
+                    "vertical": "infra",
+                    "status_ciclo": st_ciclo,
+                    "orgao_sigla": orgao_cand,
+                    "entidade": entidade_principal,
+                    "entidade_nome": entidade_sub,
+                    "modalidade_numero": f"{tipo_cand} nº {num_cand}" if num_cand else titulo_cand,
+                    "modalidade_exibicao": f"{tipo_cand} • DOU DO1",
+                    "titulo": titulo_cand,
+                    "data_inicio_br": "",
+                    "texto_janela": texto_janela,
+                    "data_publicacao_br": texto_pub_br,
+                    "data_publicacao_iso": data_pub_iso,
+                    "data_fim_br": data_fim_br,
+                    "data_fim_iso": data_fim_iso,
+                    "dias_restantes": dias_rest,
+                    "objeto_normativo": obj_cand,
+                    "pontos_atencao": "",
+                    "resumo_ia": "",
+                    "url": url_cand,
+                    "url_principal": url_cand,
+                    "documentos": [
+                        {
+                            "rotulo": f"📜 Publicação Oficial no DOU (Edição {data_pub_br})",
+                            "url": url_cand,
+                            "categoria": "DOU"
+                        }
+                    ],
+                })
 
     return cards_distribuidos
+
+
+_MESES_PT_NUM = {
+    "janeiro": 1, "fevereiro": 2, "março": 3, "marco": 3,
+    "abril": 4, "maio": 5, "junho": 6, "julho": 7,
+    "agosto": 8, "setembro": 9, "outubro": 10,
+    "novembro": 11, "dezembro": 12,
+}
+
+
+def _parse_data_dou(data_str: str) -> Optional[datetime.date]:
+    """Converte data em DD-MM-YYYY, DD/MM/YYYY ou YYYY-MM-DD para datetime.date."""
+    if not data_str:
+        return None
+    s = data_str.strip()
+    for fmt in ("%d-%m-%Y", "%d/%m/%Y", "%Y-%m-%d"):
+        try:
+            return datetime.datetime.strptime(s, fmt).date()
+        except ValueError:
+            continue
+    return None
+
+
+def _extrair_data_ato_do_titulo(titulo: str) -> Optional[datetime.date]:
+    """Extrai a data do ato a partir do título (ex.: 'PORTARIA Nº 456, DE 29 DE SETEMBRO DE 2026')."""
+    if not titulo:
+        return None
+    m = re.search(r"\bde\s+(\d{1,2})\s+de\s+([a-zçA-ZÇ]+)\s+de\s+(\d{4})\b", titulo, re.I)
+    if not m:
+        return None
+    mes = _MESES_PT_NUM.get(m.group(2).lower())
+    if not mes:
+        return None
+    try:
+        return datetime.date(int(m.group(3)), mes, int(m.group(1)))
+    except ValueError:
+        return None
+
+
+def calcular_data_final_prazo_sombra(frase_prazo: str, data_publicacao_dou: str) -> Tuple[Optional[datetime.date], str]:
+    """
+    Calcula a data final e o tipo ('escrita', 'calculada', 'sem_data') a partir
+    da frase literal do prazo e da data de publicação no DOU (Decisão 25).
+    """
+    if not frase_prazo or frase_prazo.strip().lower() == "ver ato":
+        return None, "sem_data"
+
+    # 1. Data escrita explícita (DD/MM/AAAA ou DD de <mês> de AAAA)
+    m_barra = re.search(r"\b(\d{1,2})/(\d{1,2})/(\d{4})\b", frase_prazo)
+    if m_barra:
+        try:
+            dt = datetime.date(int(m_barra.group(3)), int(m_barra.group(2)), int(m_barra.group(1)))
+            return dt, "escrita"
+        except ValueError:
+            pass
+
+    m_ext = re.search(r"\b(\d{1,2})\s+de\s+([a-zçA-ZÇ]+)\s+de\s+(\d{4})\b", frase_prazo, re.I)
+    if m_ext:
+        mes = _MESES_PT_NUM.get(m_ext.group(2).lower())
+        if mes:
+            try:
+                dt = datetime.date(int(m_ext.group(3)), mes, int(m_ext.group(1)))
+                return dt, "escrita"
+            except ValueError:
+                pass
+
+    # 2. Exclusões que exigem 'sem_data' (dias úteis ou outro marco inicial)
+    if re.search(r"dias?\s+[uú]te(?:is|l)|dia\s+[uú]til|subsequente", frase_prazo, re.I):
+        return None, "sem_data"
+    if re.search(r"a\s+partir\s+do\s+(?:primeiro|segundo|terceiro|quarto|quinto|sexto|s[eé]timo|oitavo|nono|d[eé]cimo|\d+[ºo°])", frase_prazo, re.I):
+        return None, "sem_data"
+
+    # 3. 'N dias' corridos contados da data de publicação no DOU
+    m_dias = re.search(
+        r"(?:prazo\s+(?:m[aá]ximo\s+)?de\s+(?:at[eé]\s+)?|per[ií]odo\s+de\s+(?:at[eé]\s+)?)(\d+)(?:\s*\([^\)]+\))?\s+dias\b",
+        frase_prazo,
+        re.I,
+    )
+    marco_pub = re.search(
+        r"(?:a\s+contar\s+da\s+(?:data\s+de\s+)?publica[çc][aã]o|contados?\s+(?:da|a\s+partir\s+da)\s+(?:data\s+de\s+)?publica[çc][aã]o|ap[oó]s\s+a\s+(?:data\s+de\s+)?publica[çc][aã]o)",
+        frase_prazo,
+        re.I,
+    )
+    data_pub = _parse_data_dou(data_publicacao_dou)
+    if m_dias and marco_pub and data_pub:
+        n_dias = int(m_dias.group(1))
+        dt_fim = data_pub + datetime.timedelta(days=n_dias)
+        if dt_fim.weekday() == 5:  # Sábado -> segunda-feira seguinte
+            dt_fim += datetime.timedelta(days=2)
+        elif dt_fim.weekday() == 6:  # Domingo -> segunda-feira seguinte
+            dt_fim += datetime.timedelta(days=1)
+        return dt_fim, "calculada"
+
+    return None, "sem_data"
 
 
 def extrair_frase_literal_prazo_sombra(texto: str) -> str:
@@ -975,9 +1089,51 @@ def extrair_frase_literal_prazo_sombra(texto: str) -> str:
         if re.search(r'(?:contribui[çc]|manifesta[çc]|consulta|recep[çc][aã]o)', f, re.I):
             m_dias = re.search(r'(?:(?:no\s+)?prazo\s+de\s+at[eé]|prazo\s+(?:m[aá]ximo\s+)?de|per[ií]odo\s+de)\s+\d+(?:\s*\([^\)]+\))?\s+dias[^\.\n;]*', f, re.I)
             if m_dias:
-                return m_dias.group(0).strip()
+                trecho = m_dias.group(0).strip()
+                trecho = re.sub(r',\s*a\s+todos\s+os\s+seguintes\s+e-?mails?.*$', '', trecho, flags=re.I).strip()
+                trecho = re.sub(r',\s*(?:para|pelo|pelos|por|atrav[eé]s\s+d[eo]s?)\s+[^,\n;]*e-?mails?.*$', '', trecho, flags=re.I).strip()
+                return trecho
 
     return "Ver ato"
+
+
+def _retificacao_referencia_ppb_em_cache(orgao_lower: str, texto_ret: str) -> bool:
+    """
+    Verifica se uma retificação cita uma data de publicação do DOU presente no cache local
+    cujo ato referenciado (mesmo órgão e mesmo número) trata de Processo Produtivo Básico / PPB.
+    """
+    if not texto_ret:
+        return False
+    datas_citadas = []
+    for m in re.finditer(r"(\d{1,2})\s+de\s+([a-zçA-ZÇ]+)\s+de\s+(\d{4})", texto_ret, re.I):
+        mes = _MESES_PT_NUM.get(m.group(2).lower())
+        if mes:
+            datas_citadas.append(f"{int(m.group(1)):02d}-{mes:02d}-{m.group(3)}")
+    for m in re.finditer(r"\b(\d{1,2})/(\d{1,2})/(\d{4})\b", texto_ret):
+        datas_citadas.append(f"{int(m.group(1)):02d}-{int(m.group(2)):02d}-{m.group(3)}")
+
+    nums_citados = set(re.findall(r"\bn[ºo°]?\s*(\d+[\.\d]*)\b", texto_ret, re.I))
+    if not datas_citadas or not nums_citados:
+        return False
+
+    for d_str in dict.fromkeys(datas_citadas):
+        arq_cache = PASTA_CACHE_DOU / f"dou_{d_str}_do1.json"
+        if not arq_cache.exists():
+            continue
+        try:
+            dados = json.loads(arq_cache.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        for it in dados.get("itens", []):
+            if (it.get("hierarchyStr") or "").strip().lower() != orgao_lower:
+                continue
+            tit_it = (it.get("title") or "").strip()
+            cont_it = (it.get("content") or "").strip()
+            m_num = re.search(r"n[ºo°]?\s*(\d+[\.\d]*)", tit_it, re.I)
+            if m_num and m_num.group(1) in nums_citados:
+                if re.search(r"processo\s+produtivo\s+b[aá]sico|\bppb\b", f"{tit_it} {cont_it}", re.I):
+                    return True
+    return False
 
 
 def executar_varredura_consultas_modo_sombra(datas: List[str] = None, gravar_acumulado: bool = True, reconstruir: bool = False) -> List[Dict[str, Any]]:
@@ -1009,6 +1165,8 @@ def executar_varredura_consultas_modo_sombra(datas: List[str] = None, gravar_acu
 
     candidatos = []
     retificacoes_existentes = []
+    retificacoes_sem_candidato = []
+    descartados_ppb = []
 
     for d in datas:
         res = baixar_ou_carregar_indice_dou(d, "do1")
@@ -1050,6 +1208,14 @@ def executar_varredura_consultas_modo_sombra(datas: List[str] = None, gravar_acu
             ):
                 continue
 
+            # Descarta sem registro (nem no JSON, nem no log) atos de Processo Produtivo Básico / PPB
+            num_match_pre = re.search(r"n[ºo°]?\s*(\d+[\.\d]*)", titulo, re.I)
+            num_pre = num_match_pre.group(1) if num_match_pre else ""
+            if re.search(r"processo\s+produtivo\s+b[aá]sico|\bppb\b", texto_busca, re.I):
+                if num_pre:
+                    descartados_ppb.append((h.strip().lower(), num_pre))
+                continue
+
             url_completa = f"https://www.in.gov.br/web/dou/-/{url_title}" if url_title else ""
             status_http = testar_url_http_200(url_completa) if url_completa else 0
 
@@ -1061,12 +1227,24 @@ def executar_varredura_consultas_modo_sombra(datas: List[str] = None, gravar_acu
             num_str = num_match.group(1) if num_match else ""
             contem_num = bool(num_str and (num_str in txt_completo))
 
+            # Confirma também no texto completo se trata de Processo Produtivo Básico / PPB (descarta sem registro)
+            if re.search(r"processo\s+produtivo\s+b[aá]sico|\bppb\b", txt_completo, re.I):
+                if num_str:
+                    descartados_ppb.append((h.strip().lower(), num_str))
+                continue
+
             # Retificação de ato já listado não entra como candidato novo
             eh_retificacao = bool(
                 re.search(r"\bretifica[çc][aã]o\b", f"{titulo} {url_title}", re.I)
                 or re.match(r"^\s*retifica[çc][aã]o\b", txt_completo, re.I)
             )
             if eh_retificacao:
+                # Se retifica ato descartado como PPB (no mesmo lote ou em cache de dia anterior), descarta silenciosamente (sem registro)
+                if any(
+                    org_ppb == h.strip().lower() and re.search(rf"\bn[ºo°]?\s*{re.escape(num_ppb)}\b", f"{titulo} {txt_completo}", re.I)
+                    for org_ppb, num_ppb in descartados_ppb
+                ) or _retificacao_referencia_ppb_em_cache(h.strip().lower(), f"{titulo} {txt_completo}"):
+                    continue
                 ato_referenciado = None
                 for ex in (acumulados + candidatos):
                     ex_num = (ex.get("numero_ato") or "").strip()
@@ -1081,6 +1259,10 @@ def executar_varredura_consultas_modo_sombra(datas: List[str] = None, gravar_acu
                     print(f"   [Modo Sombra] retificação de candidato existente: {msg_ret}")
                     retificacoes_existentes.append(msg_ret)
                     continue
+                msg_ret_sem = f"retificação sem candidato na lista: {titulo} | {url_completa}"
+                print(f"   [Modo Sombra] {msg_ret_sem}")
+                retificacoes_sem_candidato.append(msg_ret_sem)
+                continue
 
             # Objeto literal e frase de prazo
             objeto_lit = extrair_objeto_ementa_literal(txt_completo)
@@ -1125,6 +1307,11 @@ def executar_varredura_consultas_modo_sombra(datas: List[str] = None, gravar_acu
             f.write("--- Retificações de candidatos existentes (não incluídas como novas) ---\n")
             for r in retificacoes_existentes:
                 f.write(f"  * retificação de candidato existente: {r}\n")
+            f.write("\n")
+        if retificacoes_sem_candidato:
+            f.write("--- Retificações sem candidato na lista (descartadas) ---\n")
+            for r in retificacoes_sem_candidato:
+                f.write(f"  * {r}\n")
             f.write("\n")
         for idx, c in enumerate(acumulados, 1):
             f.write(f"[{idx}] ({c.get('data_edicao', '')}) {c.get('titulo', '')}\n")

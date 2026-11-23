@@ -17,6 +17,12 @@ import publicador_web
 import validador_publicacao
 
 
+def _normalizar_url_dedup(url: str) -> str:
+    if not url:
+        return ""
+    return url.strip().split("?", 1)[0].split("#", 1)[0].rstrip("/").lower()
+
+
 def executar_radar(abrir_navegador=True, publicar=True):
     sys.stdout.reconfigure(encoding="utf-8")
     print("=" * 72)
@@ -49,9 +55,37 @@ def executar_radar(abrir_navegador=True, publicar=True):
 
     print("\n[4.5/6] Integrando Atos Oficiais do DOU (PPI, CMN, Debêntures, FMM & Deliberações ANTAQ)...")
     try:
+        cands_sombra = coletor_dou.executar_varredura_consultas_modo_sombra()
+        print(f"   -> Varredura de consultas de ministérios no DOU: {len(cands_sombra)} novo(s) candidato(s) hoje.")
+    except Exception as e:
+        print(f"   [Aviso Consultas DOU] Falha na varredura diária (seguindo com lista acumulada existente): {e}")
+
+    try:
         cards_dou = coletor_dou.obter_cards_dou_por_aba(usar_cache_se_disponivel=True)
         if cards_dou.get("participativo"):
-            dossies.extend(cards_dou["participativo"])
+            urls_bp = {}
+            for d_bp in dossies:
+                pid_bp = str(d_bp.get("id", ""))
+                for u_cand in [d_bp.get("url", ""), d_bp.get("url_principal", "")] + [
+                    doc.get("url", "") for doc in (d_bp.get("documentos") or [])
+                ]:
+                    u_norm = _normalizar_url_dedup(u_cand)
+                    if u_norm and u_norm not in urls_bp:
+                        urls_bp[u_norm] = pid_bp
+
+            for card_dou in cards_dou["participativo"]:
+                if str(card_dou.get("id", "")).startswith("DOU_MIN_"):
+                    urls_dou = [
+                        _normalizar_url_dedup(u)
+                        for u in ([card_dou.get("url", ""), card_dou.get("url_principal", "")] + [
+                            doc.get("url", "") for doc in (card_dou.get("documentos") or [])
+                        ])
+                    ]
+                    pid_dup = next((urls_bp[u] for u in urls_dou if u and u in urls_bp), None)
+                    if pid_dup is not None:
+                        print(f"   -> cartão DOU omitido: já no Brasil Participativo #{pid_dup}")
+                        continue
+                dossies.append(card_dou)
         if cards_dou.get("estruturacao"):
             itens_estruturacao = cards_dou["estruturacao"] + itens_estruturacao
         if cards_dou.get("leiloes"):
@@ -89,13 +123,6 @@ def executar_radar(abrir_navegador=True, publicar=True):
             print("   [BLOQUEIO] Validação reprovada pela trava de segurança editorial (--no-publish).")
         else:
             print("   [--no-publish] Validação aprovada; publicação web desativada nesta execução.")
-
-    print("\n[Modo Sombra] Executando varredura diária de consultas no DOU (somente local, não publicado)...")
-    try:
-        cands_sombra = coletor_dou.executar_varredura_consultas_modo_sombra()
-        print(f"   -> {len(cands_sombra)} candidato(s) identificado(s) hoje no modo sombra.")
-    except Exception as e:
-        print(f"   [Aviso Modo Sombra] Falha na varredura diária (radar não interrompido): {e}")
 
     if abrir_navegador:
         print("\n[+] Abrindo painel no navegador padrão...")

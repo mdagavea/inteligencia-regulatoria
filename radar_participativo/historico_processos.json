@@ -2789,6 +2789,17 @@
       "relevancia": null,
       "objeto_normativo": null,
       "pontos_atencao": null
+    },
+    "v2_857_2026-11-23T11:48": {
+      "id": "857",
+      "aprovar": false,
+      "motivo_rejeicao": "Trata de gestão ambiental em unidades de conservação, fora do escopo infraestrutural.",
+      "vertical": null,
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "ICMBio",
+      "relevancia": null,
+      "objeto_normativo": null,
+      "pontos_atencao": null
     }
   },
   "analises_estruturacao_v2": {
