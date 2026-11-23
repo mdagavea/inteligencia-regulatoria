@@ -684,13 +684,16 @@ def fetch_all_raw_news(when="24h"):
     queries = {
         "infra": {
             "nome": "Infraestrutura & Outorgas",
-            "query": "(concessão OR leilão OR outorga OR PPI OR reequilíbrio) (ANTT OR ANAC OR ANTAQ OR rodovia OR ferrovia OR porto OR aeroporto)",
-            "vip_query": f"{VIP_SITES_QUERY} (concessão OR leilão OR outorga OR PPI OR ANTT OR ANAC OR ANTAQ OR ferrovia OR rodovia OR porto OR aeroporto)",
+            "query": '(concessão OR leilão OR outorga OR PPI OR reequilíbrio OR arrendamento OR "free flow" OR "contas vinculadas" OR "reforma tributária" OR TCU) (ANTT OR ANAC OR ANTAQ OR rodovia OR ferrovia OR porto OR aeroporto OR hidrovia OR dragagem)',
+            "vip_query": f'{VIP_SITES_QUERY} (concessão OR leilão OR outorga OR PPI OR arrendamento OR "free flow" OR "contas vinculadas" OR TCU OR ANTT OR ANAC OR ANTAQ OR ferrovia OR rodovia OR porto OR aeroporto OR hidrovia OR dragagem)',
+            "extra_vip_queries": [
+                f'{VIP_SITES_QUERY} ("agência reguladora" OR ANTT OR ANTAQ OR ANAC OR ANP OR ANEEL) (diretoria OR sabatina OR vacância)',
+            ],
         },
         "seguros": {
             "nome": "Seguros de Grandes Riscos",
-            "query": '("seguro garantia" OR "performance bond" OR SUSEP OR CNseg OR "grandes riscos" OR "resseguro") (seguros OR regulação OR obras OR sinistro)',
-            "vip_query": f'{VIP_SITES_QUERY} ("seguro garantia" OR SUSEP OR CNseg OR resseguro OR "grandes riscos" OR apólice OR seguradora)',
+            "query": '("seguro garantia" OR "performance bond" OR SUSEP OR CNseg OR "grandes riscos" OR "resseguro" OR "seguro climático" OR "seguro paramétrico" OR "Lei 15.040") (seguros OR regulação OR obras OR sinistro OR infraestrutura OR clima)',
+            "vip_query": f'{VIP_SITES_QUERY} ("seguro garantia" OR SUSEP OR CNseg OR resseguro OR "grandes riscos" OR "seguro climático" OR "seguro paramétrico" OR "Lei 15.040" OR apólice)',
         },
         "carbono": {
             "nome": "Mercado de Carbono & Transição Climática",
@@ -699,8 +702,8 @@ def fetch_all_raw_news(when="24h"):
         },
         "divida": {
             "nome": "Instrumentos de Dívida & Mercado de Capitais",
-            "query": '("debêntures de infraestrutura" OR "debêntures incentivadas" OR "Lei 14.801" OR "Lei 12.431" OR CVM OR ANBIMA OR FIDC) (emissão OR mercado OR crédito OR infraestrutura)',
-            "vip_query": f'{VIP_SITES_QUERY} (debêntures OR "Lei 14.801" OR "Lei 12.431" OR CVM OR ANBIMA OR FIDC OR "crédito privado" OR BNDES)',
+            "query": '("debêntures de infraestrutura" OR "debêntures incentivadas" OR "Lei 14.801" OR "Lei 12.431" OR REIDI OR FMM OR FNAC OR "fundo garantidor" OR CVM OR ANBIMA) (emissão OR infraestrutura OR tributação OR IOF OR crédito OR regulação)',
+            "vip_query": f'{VIP_SITES_QUERY} (debêntures OR "Lei 14.801" OR "Lei 12.431" OR REIDI OR FMM OR FNAC OR "fundo garantidor" OR CVM OR ANBIMA OR BNDES) (infraestrutura OR emissão OR IOF OR tributação OR "crédito privado" OR FIDC)',
         },
         "tech": {
             "nome": "Tecnologia, IA & Gestão Aplicada",
@@ -729,6 +732,11 @@ def fetch_all_raw_news(when="24h"):
         if len(itens_vip) < 4:
             itens_vip = fetch_google_news(info["vip_query"], when="72h", max_results=9)
         adicionar_itens(itens_vip, key)
+
+        # 1a-extra. Buscas VIP complementares (ex.: governança de agências reguladoras)
+        for q_extra in info.get("extra_vip_queries", []):
+            itens_extra = fetch_google_news(q_extra, when=when, max_results=5)
+            adicionar_itens(itens_extra, key)
 
         # 1b. Faixa Aberta (Descoberta geral)
         itens_abertos = fetch_google_news(info["query"], when=when, max_results=8)
