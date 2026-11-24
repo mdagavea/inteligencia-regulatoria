@@ -17,6 +17,15 @@ PASTA_CLIPPING = Path(__file__).parent.resolve()
 ARQUIVO_TERMOS_CLIPPING = PASTA_CLIPPING / "termos_filtro.json"
 ARQUIVO_LOG_DESCARTADOS_CLIPPING = PASTA_CLIPPING / "log_descartados_filtro.txt"
 ARQUIVO_CACHE_NOTICIAS = PASTA_CLIPPING / "historico_noticias_cache.json"
+PASTA_DIAGNOSTICO = PASTA_CLIPPING / "diagnostico"
+
+MOTIVOS_DESCARTE_IA = {
+    "eco_dias_anteriores",
+    "duplicada_mesmo_dia",
+    "fora_do_escopo",
+    "corte_da_vertical",
+    "baixa_relevancia",
+}
 
 ALLOWED_FEED_HOSTS = {
     "news.google.com",
@@ -31,6 +40,27 @@ ALLOWED_FEED_HOSTS = {
     "www.a16z.news",
     "mail.google.com",
 }
+
+
+def _sanitizar_texto_diagnostico(texto: str) -> str:
+    """Remove qualquer e-mail ou caractere '@' de campos gravados no diagnóstico."""
+    if not texto or not isinstance(texto, str):
+        return ""
+    limpo = re.sub(r"[\w.+-]+@[\w.-]+", "[redigido]", texto)
+    limpo = limpo.replace("@", "(arroba)")
+    return limpo.strip()
+
+
+def _sanitizar_link_diagnostico(url: str) -> str:
+    """Remove account_id e qualquer e-mail/'@' da URL antes de gravar no diagnóstico."""
+    if not url or not isinstance(url, str):
+        return ""
+    limpo = re.sub(r"([?&])account_id=[^&]*&?", r"\1", url.strip())
+    limpo = re.sub(r"[?&]+$", "", limpo)
+    limpo = re.sub(r"account_id=[^&]*", "", limpo)
+    limpo = re.sub(r"[\w.+-]+@[\w.-]+", "[redigido]", limpo)
+    limpo = limpo.replace("@", "(arroba)")
+    return limpo.strip()
 
 
 def _url_segura_permitida(url: str) -> bool:
@@ -113,8 +143,15 @@ Retorne ESTRITAMENTE um objeto JSON no seguinte formato:
   "seguros": [...],
   "carbono": [...],
   "divida": [...],
-  "tech": [...]
+  "tech": [...],
+  "descartados": [
+    {
+      "id": 2,
+      "motivo": "eco_dias_anteriores"
+    }
+  ]
 }
+Na chave "descartados", informe {"id": N, "motivo": "<categoria>"} para cada matéria do lote não selecionada, usando apenas uma destas categorias: "eco_dias_anteriores", "duplicada_mesmo_dia", "fora_do_escopo", "corte_da_vertical", "baixa_relevancia".
 """
 
 
@@ -177,7 +214,7 @@ def _resolver_noticia_original(item_ia, noticias_brutas):
     return None
 
 
-def _vincular_links_originais(dados_curados, noticias_brutas):
+def _vincular_links_originais(dados_curados, noticias_brutas, mapa_selecao=None):
     """Injeta diretamente os links originais coletados pelo coletor.py, eliminando URLs inventadas ou truncadas."""
     links_usados = set()
     resultado_limpo = {}
@@ -199,9 +236,71 @@ def _vincular_links_originais(dados_curados, noticias_brutas):
             if not item.get("fonte"):
                 item["fonte"] = orig.get("source", "Fonte Web")
             novos_itens.append(item)
+            if mapa_selecao is not None:
+                mapa_selecao[id(orig)] = {
+                    "vertical": vertical,
+                    "camada": item.get("camada", ""),
+                }
         resultado_limpo[vertical] = novos_itens
 
     return resultado_limpo
+
+
+def _criar_item_base_diagnostico(id_lote: int, noticia: dict) -> dict:
+    return {
+        "id": id_lote,
+        "fonte": _sanitizar_texto_diagnostico(noticia.get("source") or "Fonte Web"),
+        "titulo": _sanitizar_texto_diagnostico((noticia.get("title") or "").replace("\n", " ")),
+        "link": _sanitizar_link_diagnostico(noticia.get("link") or ""),
+        "vertical_sugerida": _sanitizar_texto_diagnostico(noticia.get("vertical_original") or ""),
+    }
+
+
+def _salvar_diagnostico_curadoria(itens_diagnostico: list, modelo_ia, contingencia: bool):
+    """Grava o arquivo clipping/diagnostico/diagnostico_AAAA-MM-DD.json sem dados pessoais ou caminhos locais."""
+    try:
+        hoje_iso = date.today().isoformat()
+        contagens_destino = {
+            "trava_url": 0,
+            "trava_titulo": 0,
+            "termo_ruido": 0,
+            "descartada_ia": 0,
+            "selecionada": 0,
+        }
+        contagens_vertical = {
+            "infra": 0,
+            "seguros": 0,
+            "carbono": 0,
+            "divida": 0,
+            "tech": 0,
+        }
+
+        for reg in itens_diagnostico:
+            dest = reg.get("destino", "")
+            if dest in contagens_destino:
+                contagens_destino[dest] += 1
+            if dest == "selecionada":
+                vert = reg.get("vertical", "")
+                if vert in contagens_vertical:
+                    contagens_vertical[vert] += 1
+
+        payload = {
+            "data": hoje_iso,
+            "modelo_ia": _sanitizar_texto_diagnostico(modelo_ia) if modelo_ia else None,
+            "contingencia": bool(contingencia),
+            "total_coletadas": len(itens_diagnostico),
+            "contagens_por_destino": contagens_destino,
+            "contagens_por_vertical": contagens_vertical,
+            "itens": itens_diagnostico,
+        }
+
+        PASTA_DIAGNOSTICO.mkdir(parents=True, exist_ok=True)
+        destino_arq = PASTA_DIAGNOSTICO / f"diagnostico_{hoje_iso}.json"
+        destino_arq.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        return destino_arq
+    except Exception as e:
+        print(f"   [Aviso] Falha ao gravar diagnóstico da curadoria: {type(e).__name__}")
+        return None
 
 
 CRITERIOS_TEMATICOS_CONTINGENCIA = {
@@ -289,8 +388,9 @@ def _validar_e_ajustar_vertical_contingencia(item):
 
 def _obter_historico_recente_estruturado(dias_retroativos=5):
     """
-    Recupera fatos, URLs e títulos já publicados nos últimos dias úteis a partir do cache JSON
-    e dos arquivos HTML do histórico (raiz/historico e clipping/historico).
+    Recupera fatos, URLs e títulos efetivamente publicados nos últimos dias úteis
+    exclusivamente a partir dos arquivos HTML do histórico (raiz/historico e clipping/historico).
+    O cache local não entra na trava nem na memória, evitando bloqueio por testes locais não publicados.
     """
     hoje_iso = date.today().isoformat()
     limite_iso = (date.today() - timedelta(days=dias_retroativos)).isoformat()
@@ -299,28 +399,6 @@ def _obter_historico_recente_estruturado(dias_retroativos=5):
     urls_recentes = set()
     titulos_recentes = []
 
-    # 1. Carrega do cache de notícias
-    if ARQUIVO_CACHE_NOTICIAS.exists():
-        try:
-            cache = json.loads(ARQUIVO_CACHE_NOTICIAS.read_text(encoding="utf-8"))
-            for k, v in cache.get("itens", {}).items():
-                dt = v.get("data", "")
-                if dt and dt != hoje_iso and dt >= limite_iso:
-                    it = v.get("item", {})
-                    tit = (it.get("titulo") or it.get("title") or "").strip()
-                    lnk = (it.get("link") or "").strip()
-                    src = (it.get("fonte") or it.get("source") or "Fonte").strip()
-                    vert = v.get("vertical", "geral")
-                    if lnk:
-                        urls_recentes.add(lnk)
-                    if tit and tit.lower() not in vistos_tit:
-                        vistos_tit.add(tit.lower())
-                        titulos_recentes.append(tit.lower())
-                        fatos.append({"data": dt, "vertical": vert, "fonte": src, "titulo": tit})
-        except Exception:
-            pass
-
-    # 2. Complementa com os arquivos HTML do histórico (raiz do repositório e pasta clipping)
     for pasta_hist in [PASTA_CLIPPING.parent / "historico", PASTA_CLIPPING / "historico"]:
         if not pasta_hist.exists():
             continue
@@ -343,7 +421,7 @@ def _obter_historico_recente_estruturado(dias_retroativos=5):
                     urls_recentes.add(href)
                     if tit.lower() not in vistos_tit:
                         vistos_tit.add(tit.lower())
-                        titulos_recentes.append(tit.lower())
+                        titulos_recentes.append(tit)
                         fatos.append({"data": dt, "vertical": "historico", "fonte": "Histórico", "titulo": tit})
             except Exception:
                 pass
@@ -358,7 +436,7 @@ def _obter_memoria_recente_fatos(dias_retroativos=5):
     return linhas_memoria
 
 
-def curar_noticias_contingencia_sem_ia(noticias_brutas):
+def curar_noticias_contingencia_sem_ia(noticias_brutas, _contexto_diagnostico=None):
     """
     Modo de contingência determinístico (sem IA): acionado automaticamente caso a API Gemini
     esteja indisponível ou sem créditos/cota, garantindo que o Clipping e o e-mail nunca falhem,
@@ -373,6 +451,7 @@ def curar_noticias_contingencia_sem_ia(noticias_brutas):
     }
     agrupado = {v: [] for v in subsecoes_padrao}
     titulos_vistos = []
+    motivos_contingencia = {}
 
     fatos_recentes = _obter_memoria_recente_fatos(dias_retroativos=4)
     titulos_recentes = [
@@ -383,17 +462,21 @@ def curar_noticias_contingencia_sem_ia(noticias_brutas):
     for idx, n in enumerate(noticias_brutas, 1):
         titulo = (n.get("title") or "").strip()
         if not titulo:
+            motivos_contingencia[id(n)] = "baixa_relevancia"
             continue
         # Deduplicação simples por similaridade de título no mesmo dia
         if any(SequenceMatcher(None, titulo.lower(), tv).ratio() > 0.78 for tv in titulos_vistos):
+            motivos_contingencia[id(n)] = "duplicada_mesmo_dia"
             continue
 
         # Blindagem temática: valida e classifica com base nas regras do pilar temático
         vert = _validar_e_ajustar_vertical_contingencia(n)
         if not vert or vert not in agrupado:
+            motivos_contingencia[id(n)] = "fora_do_escopo"
             continue
 
         if len(agrupado[vert]) >= 8:
+            motivos_contingencia[id(n)] = "baixa_relevancia"
             continue
 
         # Identifica se é repetição com atraso de notícia já publicada nos últimos dias
@@ -418,6 +501,7 @@ def curar_noticias_contingencia_sem_ia(noticias_brutas):
         if eh_eco_recente:
             if len(agrupado[vert]) < 4:
                 # Não queima vaga de destaque com eco recente; reserva para a gaveta se houver vaga
+                motivos_contingencia[id(n)] = "eco_dias_anteriores"
                 continue
             camada = "complementar"
         else:
@@ -439,10 +523,38 @@ def curar_noticias_contingencia_sem_ia(noticias_brutas):
             "resumo": resumo,
         })
 
-    return _vincular_links_originais(agrupado, noticias_brutas)
+    mapa_selecao = {}
+    resultado = _vincular_links_originais(agrupado, noticias_brutas, mapa_selecao=mapa_selecao)
+
+    if _contexto_diagnostico is not None:
+        itens_diag = _contexto_diagnostico["itens_diag"]
+        mapa_obj_reg = _contexto_diagnostico["mapa_obj_reg"]
+    else:
+        itens_diag = []
+        mapa_obj_reg = {}
+        for idx_lote, n in enumerate(noticias_brutas, 1):
+            reg = _criar_item_base_diagnostico(idx_lote, n)
+            itens_diag.append(reg)
+            mapa_obj_reg[id(n)] = reg
+
+    for n in noticias_brutas:
+        reg = mapa_obj_reg.get(id(n))
+        if reg is None:
+            continue
+        sel = mapa_selecao.get(id(n))
+        if sel:
+            reg["destino"] = "selecionada"
+            reg["vertical"] = sel["vertical"]
+            reg["camada"] = sel["camada"]
+        else:
+            reg["destino"] = "descartada_ia"
+            reg["motivo"] = motivos_contingencia.get(id(n), "baixa_relevancia")
+
+    _salvar_diagnostico_curadoria(itens_diag, modelo_ia=None, contingencia=True)
+    return resultado
 
 
-def _filtrar_ruido_pre_ia(noticias_brutas):
+def _filtrar_ruido_pre_ia(noticias_brutas, retornar_registros=False):
     """
     Aplica o filtro de termos_filtro.json e o bloqueio determinístico anti-repetição
     (URL exata ou título muito similar publicado nos últimos 5 dias) ANTES da chamada à IA.
@@ -459,24 +571,45 @@ def _filtrar_ruido_pre_ia(noticias_brutas):
 
     aprovadas = []
     descartadas = []
-    for n in noticias_brutas:
+    itens_diag = []
+    mapa_obj_reg = {}
+
+    for id_lote, n in enumerate(noticias_brutas, 1):
         link_n = (n.get("link") or "").strip()
         tit_n = (n.get("title") or "").strip()
         texto = f"{tit_n} {n.get('summary', '')}".lower()
+        reg = _criar_item_base_diagnostico(id_lote, n)
+        itens_diag.append(reg)
 
         if link_n and link_n in urls_recentes:
             descartadas.append((n, "Repetição (URL já publicada nos últimos 5 dias)"))
+            reg["destino"] = "trava_url"
             continue
 
-        if tit_n and any(SequenceMatcher(None, tit_n.lower(), tr).ratio() >= 0.80 for tr in titulos_recentes):
+        melhor_tit = None
+        melhor_sim = 0.0
+        if tit_n:
+            tit_low = tit_n.lower()
+            for tr in titulos_recentes:
+                sim = SequenceMatcher(None, tit_low, tr.lower()).ratio()
+                if sim > melhor_sim:
+                    melhor_sim = sim
+                    melhor_tit = tr
+        if tit_n and melhor_sim >= 0.80:
             descartadas.append((n, "Repetição (título já publicado nos últimos 5 dias)"))
+            reg["destino"] = "trava_titulo"
+            reg["titulo_casado"] = _sanitizar_texto_diagnostico(melhor_tit or "")
+            reg["semelhanca"] = round(melhor_sim, 4)
             continue
 
         termo_achado = next((t for t in termos_excluir if t in texto), None)
         if termo_achado:
             descartadas.append((n, f"Termo de ruído: {termo_achado}"))
+            reg["destino"] = "termo_ruido"
+            reg["termo"] = _sanitizar_texto_diagnostico(termo_achado)
         else:
             aprovadas.append(n)
+            mapa_obj_reg[id(n)] = reg
 
     if descartadas:
         hoje_iso = date.today().isoformat()
@@ -486,6 +619,8 @@ def _filtrar_ruido_pre_ia(noticias_brutas):
                 src = (n.get("source") or "Fonte").strip()
                 f.write(f"{hoje_iso} | {src} | {tit} | {motivo}\n")
 
+    if retornar_registros:
+        return aprovadas, {"itens_diag": itens_diag, "mapa_obj_reg": mapa_obj_reg}
     return aprovadas
 
 
@@ -523,11 +658,11 @@ def curar_noticias_com_gemini(noticias_brutas, api_key=None):
     3. Uma única chamada em lote para os itens do dia;
     4. Envia apenas título e resumo curto (até 280 caracteres), nunca a página inteira.
     """
-    noticias_filtradas = _filtrar_ruido_pre_ia(noticias_brutas)
+    noticias_filtradas, ctx_diag = _filtrar_ruido_pre_ia(noticias_brutas, retornar_registros=True)
     key = api_key or os.getenv("GEMINI_API_KEY")
     if not key:
         print("   [Aviso] GEMINI_API_KEY ausente. Usando modo de contingência determinístico (sem IA).")
-        return curar_noticias_contingencia_sem_ia(noticias_filtradas)
+        return curar_noticias_contingencia_sem_ia(noticias_filtradas, _contexto_diagnostico=ctx_diag)
 
     cache = _carregar_cache_noticias()
     itens_cache = cache.setdefault("itens", {})
@@ -562,6 +697,7 @@ def curar_noticias_com_gemini(noticias_brutas, api_key=None):
     ]
 
     response = None
+    modelo_usado = None
     ultimo_erro = None
 
     for m in modelos_candidatos:
@@ -575,6 +711,7 @@ def curar_noticias_com_gemini(noticias_brutas, api_key=None):
                 ),
             )
             if response and response.text:
+                modelo_usado = m
                 break
         except Exception as e:
             ultimo_erro = e
@@ -582,11 +719,41 @@ def curar_noticias_com_gemini(noticias_brutas, api_key=None):
 
     if not response or not response.text:
         print(f"   [Aviso] Modelos Gemini indisponíveis ({ultimo_erro}). Acionando modo de contingência sem IA.")
-        return curar_noticias_contingencia_sem_ia(noticias_filtradas)
+        return curar_noticias_contingencia_sem_ia(noticias_filtradas, _contexto_diagnostico=ctx_diag)
 
     try:
         dados_brutos_ia = json.loads(response.text)
-        vinculados = _vincular_links_originais(dados_brutos_ia, noticias_filtradas)
+        mapa_selecao = {}
+        vinculados = _vincular_links_originais(dados_brutos_ia, noticias_filtradas, mapa_selecao=mapa_selecao)
+
+        descartados_ia_por_idx = {}
+        lista_desc = dados_brutos_ia.get("descartados", [])
+        if isinstance(lista_desc, list):
+            for entry in lista_desc:
+                if not isinstance(entry, dict):
+                    continue
+                idx_desc = _extrair_id_inteiro(entry.get("id"))
+                motivo_raw = (entry.get("motivo") or "").strip().lower()
+                if idx_desc is not None and 1 <= idx_desc <= len(noticias_filtradas):
+                    motivo_limpo = motivo_raw if motivo_raw in MOTIVOS_DESCARTE_IA else (_sanitizar_texto_diagnostico(motivo_raw) or "sem_resposta_da_ia")
+                    descartados_ia_por_idx[idx_desc] = motivo_limpo
+
+        mapa_obj_reg = ctx_diag["mapa_obj_reg"]
+        for idx_ia, n in enumerate(noticias_filtradas, 1):
+            reg = mapa_obj_reg.get(id(n))
+            if reg is None:
+                continue
+            sel = mapa_selecao.get(id(n))
+            if sel:
+                reg["destino"] = "selecionada"
+                reg["vertical"] = sel["vertical"]
+                reg["camada"] = sel["camada"]
+            else:
+                reg["destino"] = "descartada_ia"
+                reg["motivo"] = descartados_ia_por_idx.get(idx_ia, "sem_resposta_da_ia")
+
+        _salvar_diagnostico_curadoria(ctx_diag["itens_diag"], modelo_ia=modelo_usado, contingencia=False)
+
         hoje_iso = date.today().isoformat()
         for vert, lista in vinculados.items():
             for it in lista:
@@ -596,5 +763,4 @@ def curar_noticias_com_gemini(noticias_brutas, api_key=None):
         return vinculados
     except Exception as e:
         print(f"   [Aviso] Falha ao decodificar JSON da IA ({e}). Acionando modo de contingência sem IA.")
-        return curar_noticias_contingencia_sem_ia(noticias_filtradas)
-
+        return curar_noticias_contingencia_sem_ia(noticias_filtradas, _contexto_diagnostico=ctx_diag)

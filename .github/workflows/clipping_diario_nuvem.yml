@@ -43,6 +43,7 @@ jobs:
         id: check_hoje
         run: |
           HOJE=$(date +%Y-%m-%d)
+          echo "hoje=${HOJE}" >> $GITHUB_OUTPUT
           FORCAR="${{ github.event.inputs.forcar_reexecucao }}"
           if [ -f "historico/.email_enviado_${HOJE}" ] && [ "$FORCAR" != "true" ]; then
             echo "ja_existe=true" >> $GITHUB_OUTPUT
@@ -71,6 +72,15 @@ jobs:
           EMAIL_DESTINATARIOS: ${{ (github.event.inputs.modo_teste == 'true' || github.event.inputs.modo_teste == true) && secrets.EMAIL_TESTE || secrets.EMAIL_DESTINATARIOS }}
         run: |
           python clipping/gerar_clipping.py --headless --force
+
+      - name: Guardar diagnostico da curadoria como anexo
+        if: always() && steps.check_hoje.outputs.ja_existe != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: diagnostico-clipping-${{ steps.check_hoje.outputs.hoje }}
+          path: clipping/diagnostico/
+          retention-days: 30
+          if-no-files-found: ignore
 
       - name: Trava de Seguranca Editorial (Varredura de Termos Proibidos no HTML)
         if: steps.check_hoje.outputs.ja_existe != 'true'
