@@ -280,16 +280,25 @@ def parse_iso_datetime(val: str):
 
 def corrigir_data_fim_se_erro_digitacao(start_d: date, end_d: date, pub_dt: datetime) -> date:
     """
-    Alguns operadores cadastram processos em outubro/2026 mas digitam '2025-11-05' por engano no endDate.
-    Se o processo foi publicado em 2026 e o endDate está com ano 2025 (mês >= mês de publicação), corrige para 2026.
+    Corrige o ano de end_d apenas quando há evidência objetiva de erro de digitação,
+    evitando reabrir consultas encerradas recadastradas em massa no portal em 29/10/2026
+    (decisão de Marcos em 24/11/2026).
+
+    Troca o ano de end_d para pub_dt.year somente quando as três condições valem juntas:
+    a) start_d existe e é do mesmo ano da publicação (start_d.year == pub_dt.year);
+    b) end_d é anterior a start_d (fim antes do início: sinal de digitação);
+    c) com o ano trocado, o fim fica igual ou depois do início.
+    Em qualquer outro caso, devolve end_d sem mudança.
     """
-    if not end_d or not pub_dt:
+    if not start_d or not end_d or not pub_dt:
         return end_d
-    if pub_dt.year == 2026 and end_d.year == 2025 and end_d.month >= pub_dt.month:
+    if start_d.year == pub_dt.year and end_d < start_d:
         try:
-            return end_d.replace(year=2026)
+            end_corrigido = end_d.replace(year=pub_dt.year)
         except ValueError:
             return end_d
+        if end_corrigido >= start_d:
+            return end_corrigido
     return end_d
 
 
