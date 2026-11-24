@@ -102,6 +102,7 @@ CRITÉRIOS DE CURADORIA E PRIORIDADE DE FONTES:
   * Em "seguros": DESCARTE eventos cerimoniais/homenagens institucionais (ex.: sessões solenes, prêmios, debates genéricos de "perspectivas"), seguro de varejo/auto/vida/residencial/rural e releases comerciais de lançamento de produtos/vertical. MANTENHA grandes riscos, seguro-garantia (performance bond), resseguro, sinistros climáticos em infraestrutura e regulação concreta da SUSEP/CNSP/CNseg.
   * Em "divida": DESCARTE FIDCs ou operações de crédito de varejo/PME (ex.: cartões, plataformas PME, crédito vencido), Fiagros e fatos corporativos isolados sem relação com infraestrutura ou regulação do mercado. MANTENHA debêntures incentivadas/de infraestrutura (Leis 12.431/14.801), REIDI, BNDES, fundos públicos/garantidores, títulos verdes e regulação da CVM/ANBIMA/CMN.
   * Em "tech": DESCARTE releases corporativos (certificações, prêmios, treinamentos comerciais para corretoras), gadgets de consumo e artigos genéricos fora de nosso escopo. MANTENHA apenas pautas que cruzem tecnologia/IA/gestão com infraestrutura digital (data centers, demanda energética da IA), aplicação de IA no setor público/financeiro/regulatório ou estratégia executiva de alta densidade.
+- RELEVÂNCIA PRÓPRIA DOS SETORES DE TRANSPORTE (decisão 29, 24/11/2026): na vertical "infra", fato CONCRETO sobre portos, aeroportos, hidrovias, ferrovias ou rodovias NÃO é "baixa relevância", ainda que venha de veículo setorial ou regional. São fatos concretos: contrato, edital, leilão, concessão, arrendamento ou renovação; obra, dragagem ou investimento com valor; decisão ou manifestação do TCU, do Ministério Público junto ao TCU, das agências (ANTAQ, ANAC, ANTT) ou de autoridade portuária; ZPE ligada a porto; dado operacional relevante de concessão (ex.: volume do free flow). Continue descartando eco de fato já publicado, eventos, premiações e releases sem fato concreto, e notícia operacional trivial (ex.: trem natalino, vagas de emprego, ampliação sazonal de voos).
 - Descarte blogs regionais desconhecidos, fofocas políticas genéricas e acidentes de trânsito. Se um artigo estiver em inglês (ex.: a16z ou McKinsey), traduza o título e faça o resumo executivo em português.
 - Quando uma newsletter do Gmail (ex.: Reset News, JOTA, McKinsey) abordar um tema de carbono, dívida, seguros, infra ou tech, aloque-a na vertical correspondente mantendo a indicação da fonte.
 - Para cada notícia selecionada:
@@ -110,15 +111,15 @@ CRITÉRIOS DE CURADORIA E PRIORIDADE DE FONTES:
   * Título objetivo em português.
   * Resumo executivo de 1 a 2 frases claras, explicando o fato e sua relevância técnica, regulatória ou financeira.
   * Classifique no campo "camada":
-    - "destaque": para as 2 a 4 notícias de MAIOR impacto daquela vertical, visíveis de imediato na vitrine principal.
-    - "complementar": para eventuais notícias adicionais realmente relevantes (0 a 4), na gaveta expansível "Radar Complementar".
+    - "destaque": para as notícias de MAIOR impacto daquela vertical (até 4), visíveis de imediato na vitrine principal.
+    - "complementar": para as demais notícias novas e relevantes daquela vertical, na gaveta expansível "Radar Complementar".
 - DIRETRIZES DE MEMÓRIA EDITORIAL E COMBATE A DUPLICIDADES COM ATRASO (DELAY DIÁRIO):
   Junto com as notícias de hoje, você receberá a "MEMÓRIA DE FATOS JÁ PUBLICADOS NOS ÚLTIMOS DIAS". Aplique com rigor:
   1. REPERCUSSÃO COM ATRASO (ECO DE NOTÍCIA ANTERIOR): Se uma matéria de hoje apenas requenta ou repercute o mesmo fato já abordado na MEMÓRIA DOS ÚLTIMOS DIAS, DESCARTE-A. Nunca repita o mesmo fato em dias seguidos.
   2. DESDOBRAMENTO REAL (FATO NOVO NO PROCESSO) vs. REPETIÇÃO: Só inclua assunto de dias anteriores se houver avanço concreto novo (ex.: "TCU suspende edital", "Empresas entregam propostas"), deixando explícito o novo passo no resumo.
   3. DEDUPLICAÇÃO NO MESMO DIA: Se vários veículos cobrirem o mesmo fato no mesmo dia, selecione APENAS A MELHOR cobertura.
   4. PRESERVAÇÃO DE PAUTAS HOMÔNIMAS: Não descarte matérias apenas por semelhança nominal se os objetos forem distintos (ex.: Lote 1 vs Lote 2; Acórdão 640 vs Acórdão 645).
-- REGRA DE QUALIDADE SOBRE VOLUME (SEM COTA MÍNIMA — decisão de 23/11/2026): NÃO existe meta mínima de notícias por vertical. Se em um dia houver apenas 1, 2 ou 3 fatos realmente novos e relevantes em uma vertical, retorne apenas esses (e até 0 na gaveta "complementar"). Jamais preencha espaço com notícias repetidas, releases comerciais ou temas fora do escopo. Máximo de 7 notícias por vertical.
+- REGRA DE VOLUME (decisões 28 e 29, de 23 e 24/11/2026): NÃO existe meta mínima nem número-alvo. Selecione TODOS os fatos novos e relevantes do lote, até o máximo da vertical; não descarte fato concreto e relevante só para manter a lista curta. Vertical sem fato novo pode ficar com 1, 2 ou nenhuma notícia; nunca preencha com notícia repetida, release comercial ou tema fora do escopo. Máximo: 12 em "infra" (setor central do leitor; recebe o espaço não usado pelas demais) e 7 em cada uma das outras verticais.
 
 Retorne ESTRITAMENTE um objeto JSON no seguinte formato:
 {
