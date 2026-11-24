@@ -9,3 +9,4 @@ Antes de sugerir ou aplicar alterações neste repositório, leia obrigatoriamen
 - **Execução 100% em Nuvem:** O agendamento diário roda via `.github/workflows/clipping_diario_nuvem.yml` (Segunda a Sexta às 07:30 BRT). Qualquer modificação em `clipping/*.py` ou `radar_participativo/*.py` deve ser comitada na branch `main`.
 - **Resiliência sem IA:** Caso a API Gemini falhe ou fique sem créditos, `curador.py` e `curador_participativo.py` possuem modo de contingência determinístico sem IA que nunca deve ser removido.
 - **Segurança de Links e Tom Factual:** Nunca gere links pela IA (use sempre `_vincular_links_originais` por ID numérico) e mantenha tom 100% factual nas fichas documentais do Radar.
+- **Registro de mudanças (desde 24/11/2026):** antes de mudar algo, leia `_relatos_controle/DIARIO_DE_MUDANCAS.md` (local); depois, acrescente uma entrada no fim (o que, por quê, quem decidiu, cópia de antes, teste, commit). Ver `CLAUDE.md`, seção 0.
