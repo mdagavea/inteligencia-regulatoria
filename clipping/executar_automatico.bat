@@ -2,7 +2,7 @@
 chcp 65001 >nul
 set PYTHONIOENCODING=utf-8
 set "PATH=%LOCALAPPDATA%\Microsoft\WindowsApps;%LOCALAPPDATA%\Microsoft\WinGet\Links;%PATH%"
-cd /d "C:\Users\marcos.castilho\testes-gemini\clipping"
+cd /d "%~dp0"
 echo ============================================================ > ultimo_log_agendador.txt
 echo Execucao automatica (Despertador Nuvem) iniciada em: %DATE% %TIME% >> ultimo_log_agendador.txt
 echo ============================================================ >> ultimo_log_agendador.txt
