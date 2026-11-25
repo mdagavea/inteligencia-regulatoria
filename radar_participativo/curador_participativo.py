@@ -388,7 +388,7 @@ def curar_estruturacao_e_licitacoes(itens_brutos: list, pasta_projeto: Path, api
                     contents=prompt_full,
                     config=types.GenerateContentConfig(
                         response_mime_type="application/json",
-                        temperature=0.05,
+                        temperature=0.0,
                     )
                 )
                 if resp and resp.text:
@@ -466,7 +466,7 @@ def enriquecer_sfn_com_ia_lote(dados_sfn: dict, pasta_projeto: Path, api_key: st
                         contents=prompt,
                         config=types.GenerateContentConfig(
                             response_mime_type="application/json",
-                            temperature=0.05,
+                            temperature=0.0,
                         ),
                     )
                     if resp and resp.text:
