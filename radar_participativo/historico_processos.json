@@ -142,7 +142,8 @@
     "849": "2026-11-20",
     "856": "2026-11-23",
     "857": "2026-11-23",
-    "858": "2026-11-24"
+    "858": "2026-11-24",
+    "900699": "2026-11-25"
   },
   "analises_ia": {
     "782_2026-10-21": {
@@ -3177,6 +3178,28 @@
       "relevancia": null,
       "objeto_normativo": null,
       "pontos_atencao": null
+    },
+    "v3_825": {
+      "id": "825",
+      "aprovar": false,
+      "motivo_rejeicao": "Norma de segurança operacional técnica sem caráter de regulação econômica.",
+      "vertical": null,
+      "modalidade_exibicao": "Tomada de Subsídios",
+      "orgao_sigla": "ANAC / ASSOP",
+      "relevancia": null,
+      "objeto_normativo": "Instituição do Programa de Ação em Segurança Operacional (PROAS) para aviação civil. O programa visa incentivar o relato voluntário de eventos e condições de segurança operacional.",
+      "pontos_atencao": "O foco é estritamente operacional e de segurança de voo, sem impacto direto em outorgas ou tarifas."
+    },
+    "v3_900699": {
+      "id": "900699",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "infra",
+      "modalidade_exibicao": "Audiência Pública",
+      "orgao_sigla": "ANTT",
+      "relevancia": "ALTA",
+      "objeto_normativo": "Minuta de Termo Aditivo ao Contrato de Concessão da Ferrovia Transnordestina Logística S.A. (FTL). O processo avalia os documentos que subsidiam a proposta de prorrogação contratual da concessão ferroviária.",
+      "pontos_atencao": "Trata-se de reequilíbrio e extensão de prazo de concessão de infraestrutura ferroviária de relevância logística."
     }
   },
   "analises_estruturacao_v2": {
