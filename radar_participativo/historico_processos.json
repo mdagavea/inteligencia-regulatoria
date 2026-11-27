@@ -143,7 +143,9 @@
     "856": "2026-11-23",
     "857": "2026-11-23",
     "858": "2026-11-24",
-    "900699": "2026-11-25"
+    "900699": "2026-11-25",
+    "864": "2026-11-27",
+    "867": "2026-11-27"
   },
   "analises_ia": {
     "782_2026-10-21": {
@@ -3200,6 +3202,39 @@
       "relevancia": "ALTA",
       "objeto_normativo": "Minuta de Termo Aditivo ao Contrato de Concessão da Ferrovia Transnordestina Logística S.A. (FTL). O processo avalia os documentos que subsidiam a proposta de prorrogação contratual da concessão ferroviária.",
       "pontos_atencao": "Trata-se de reequilíbrio e extensão de prazo de concessão de infraestrutura ferroviária de relevância logística."
+    },
+    "v3_864": {
+      "id": "864",
+      "aprovar": true,
+      "motivo_rejeicao": "",
+      "vertical": "infra",
+      "modalidade_exibicao": "Consulta Pública",
+      "orgao_sigla": "MPOR / SAC",
+      "relevancia": "ALTA",
+      "objeto_normativo": "O Plano Aeroviário Nacional (PAN) 2026 estabelece o planejamento estratégico e a governança para o desenvolvimento da infraestrutura aeroportuária brasileira. O documento define projeções de demanda e o portfólio de aeroportos prioritários para o setor de aviação civil.",
+      "pontos_atencao": "O plano impacta diretamente o planejamento de investimentos, outorgas e a expansão da infraestrutura aeroportuária nacional."
+    },
+    "v3_847_2026-11-26T10:32": {
+      "id": "847",
+      "aprovar": false,
+      "motivo_rejeicao": "Tema social sem relação com infraestrutura, regulação econômica ou agenda climática.",
+      "vertical": null,
+      "modalidade_exibicao": null,
+      "orgao_sigla": null,
+      "relevancia": null,
+      "objeto_normativo": null,
+      "pontos_atencao": null
+    },
+    "v3_867_2026-11-26T20:38": {
+      "id": "867",
+      "aprovar": false,
+      "motivo_rejeicao": "Norma técnico-operacional de inspeção veicular sem caráter de regulação econômica.",
+      "vertical": null,
+      "modalidade_exibicao": null,
+      "orgao_sigla": null,
+      "relevancia": null,
+      "objeto_normativo": null,
+      "pontos_atencao": null
     }
   },
   "analises_estruturacao_v2": {
