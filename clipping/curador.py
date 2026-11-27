@@ -247,14 +247,48 @@ def _vincular_links_originais(dados_curados, noticias_brutas, mapa_selecao=None)
     return resultado_limpo
 
 
+def _parsear_data_noticia_curador(published_str):
+    try:
+        import coletor
+        return coletor.parsear_data_publicacao(published_str)
+    except Exception:
+        return None
+
+
+def _calcular_margem_horas_curador():
+    try:
+        import coletor
+        return coletor.calcular_margem_horas()
+    except Exception:
+        from datetime import datetime, timezone
+        fuso_brt = timezone(timedelta(hours=-3))
+        return 96 if datetime.now(timezone.utc).astimezone(fuso_brt).weekday() == 0 else 48
+
+
+def _formatar_data_curta_curador(published_str):
+    try:
+        import coletor
+        return coletor.formatar_data_curta_ia(published_str)
+    except Exception:
+        return "sem data"
+
+
 def _criar_item_base_diagnostico(id_lote: int, noticia: dict) -> dict:
-    return {
+    from datetime import timezone
+    fuso_brt = timezone(timedelta(hours=-3))
+    dt_pub = _parsear_data_noticia_curador(noticia.get("published", ""))
+    data_pub_iso = noticia.get("data_publicacao") or (dt_pub.astimezone(fuso_brt).strftime("%Y-%m-%d") if dt_pub else None)
+    reg = {
         "id": id_lote,
         "fonte": _sanitizar_texto_diagnostico(noticia.get("source") or "Fonte Web"),
         "titulo": _sanitizar_texto_diagnostico((noticia.get("title") or "").replace("\n", " ")),
         "link": _sanitizar_link_diagnostico(noticia.get("link") or ""),
         "vertical_sugerida": _sanitizar_texto_diagnostico(noticia.get("vertical_original") or ""),
+        "data_publicacao": data_pub_iso,
     }
+    if data_pub_iso is None:
+        reg["data_ilegivel"] = True
+    return reg
 
 
 def _salvar_diagnostico_curadoria(itens_diagnostico: list, modelo_ia, contingencia: bool):
@@ -262,6 +296,7 @@ def _salvar_diagnostico_curadoria(itens_diagnostico: list, modelo_ia, contingenc
     try:
         hoje_iso = date.today().isoformat()
         contagens_destino = {
+            "materia_antiga": 0,
             "trava_url": 0,
             "trava_titulo": 0,
             "termo_ruido": 0,
@@ -276,10 +311,13 @@ def _salvar_diagnostico_curadoria(itens_diagnostico: list, modelo_ia, contingenc
             "tech": 0,
         }
 
+        sem_data_legivel = 0
         for reg in itens_diagnostico:
             dest = reg.get("destino", "")
             if dest in contagens_destino:
                 contagens_destino[dest] += 1
+            if reg.get("data_ilegivel"):
+                sem_data_legivel += 1
             if dest == "selecionada":
                 vert = reg.get("vertical", "")
                 if vert in contagens_vertical:
@@ -290,6 +328,7 @@ def _salvar_diagnostico_curadoria(itens_diagnostico: list, modelo_ia, contingenc
             "modelo_ia": _sanitizar_texto_diagnostico(modelo_ia) if modelo_ia else None,
             "contingencia": bool(contingencia),
             "total_coletadas": len(itens_diagnostico),
+            "sem_data_legivel": sem_data_legivel,
             "contagens_por_destino": contagens_destino,
             "contagens_por_vertical": contagens_vertical,
             "itens": itens_diagnostico,
@@ -555,11 +594,13 @@ def curar_noticias_contingencia_sem_ia(noticias_brutas, _contexto_diagnostico=No
     return resultado
 
 
-def _filtrar_ruido_pre_ia(noticias_brutas, retornar_registros=False):
+def _filtrar_ruido_pre_ia(noticias_brutas, retornar_registros=False, margem_horas=None, incluir_descartados_coletor=True):
     """
-    Aplica o filtro de termos_filtro.json e o bloqueio determinístico anti-repetição
-    (URL exata ou título muito similar publicado nos últimos 5 dias) ANTES da chamada à IA.
+    Aplica o filtro de data (Decisão nº 32: 48h dia comum, 96h segunda), o filtro de termos_filtro.json
+    e o bloqueio determinístico anti-repetição (URL exata ou título muito similar nos últimos 5 dias)
+    ANTES da chamada à IA. Matéria sem data legível segue no lote, com registro no diagnóstico.
     """
+    from datetime import datetime, timezone
     termos_excluir = []
     if ARQUIVO_TERMOS_CLIPPING.exists():
         try:
@@ -569,18 +610,49 @@ def _filtrar_ruido_pre_ia(noticias_brutas, retornar_registros=False):
             pass
 
     _, urls_recentes, titulos_recentes = _obter_historico_recente_estruturado(dias_retroativos=5)
+    agora_utc = datetime.now(timezone.utc)
+    margem = margem_horas if margem_horas is not None else _calcular_margem_horas_curador()
+    limite_dt = agora_utc - timedelta(hours=margem)
 
     aprovadas = []
     descartadas = []
     itens_diag = []
     mapa_obj_reg = {}
+    links_ja_em_diag = set()
 
-    for id_lote, n in enumerate(noticias_brutas, 1):
+    # Incorpora matérias antigas já barradas na origem (fetch_google_news) ao diagnóstico
+    if incluir_descartados_coletor:
+        try:
+            import coletor
+            for ant in coletor.obter_descartados_antigos():
+                lk_a = (ant.get("link") or "").strip()
+                if lk_a and lk_a in links_ja_em_diag:
+                    continue
+                if lk_a:
+                    links_ja_em_diag.add(lk_a)
+                reg_a = _criar_item_base_diagnostico(len(itens_diag) + 1, ant)
+                reg_a["destino"] = "materia_antiga"
+                reg_a["motivo"] = "materia_antiga"
+                itens_diag.append(reg_a)
+                descartadas.append((ant, f"Matéria antiga ({reg_a.get('data_publicacao') or 'data anterior à janela'})"))
+        except Exception:
+            pass
+
+    for n in noticias_brutas:
         link_n = (n.get("link") or "").strip()
         tit_n = (n.get("title") or "").strip()
         texto = f"{tit_n} {n.get('summary', '')}".lower()
-        reg = _criar_item_base_diagnostico(id_lote, n)
+        reg = _criar_item_base_diagnostico(len(itens_diag) + 1, n)
         itens_diag.append(reg)
+        if link_n:
+            links_ja_em_diag.add(link_n)
+
+        dt_pub = _parsear_data_noticia_curador(n.get("published", ""))
+        if dt_pub is not None and dt_pub < limite_dt:
+            descartadas.append((n, f"Matéria antiga ({reg.get('data_publicacao') or 'anterior à janela'})"))
+            reg["destino"] = "materia_antiga"
+            reg["motivo"] = "materia_antiga"
+            continue
 
         if link_n and link_n in urls_recentes:
             descartadas.append((n, "Repetição (URL já publicada nos últimos 5 dias)"))
@@ -670,12 +742,13 @@ def curar_noticias_com_gemini(noticias_brutas, api_key=None):
 
     client = genai.Client(api_key=key)
 
-    # Prepara o payload enviando apenas título e resumo curto (nunca URLs nem páginas inteiras)
+    # Prepara o payload enviando título, data curta e resumo curto (nunca URLs nem páginas inteiras)
     payload_linhas = []
     for i, n in enumerate(noticias_filtradas, 1):
         resumo_curto = (n.get("summary") or "")[:280]
+        data_curta = _formatar_data_curta_curador(n.get("published", ""))
         payload_linhas.append(
-            f"[ID: {i}] Fonte: {n['source']} | Vertical sugerida: {n.get('vertical_original', '')} | "
+            f"[ID: {i}] Fonte: {n['source']} | Data: {data_curta} | Vertical sugerida: {n.get('vertical_original', '')} | "
             f"Título: {n['title']} | Resumo bruto: {resumo_curto}"
         )
 

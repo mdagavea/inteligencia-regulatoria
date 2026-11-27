@@ -65,12 +65,79 @@ SOCIAL_MEDIA_BLOCKLIST = (
     "pinterest.com",
 )
 
+FUSO_BRT = timezone(timedelta(hours=-3))
+ULTIMOS_DESCARTADOS_ANTIGOS = []
 
-def fetch_google_news(query, when="24h", max_results=6):
-    """Coleta notícias no Google News RSS com filtros de tempo e bloqueio de redes sociais."""
+
+def obter_descartados_antigos():
+    """Retorna cópia das matérias descartadas por data antiga na última coleta."""
+    return [dict(it) for it in ULTIMOS_DESCARTADOS_ANTIGOS]
+
+
+def parsear_data_publicacao(published_str):
+    """
+    Converte a string 'published' de feeds RSS/Atom para datetime UTC timezone-aware.
+    Retorna None se a data estiver ausente ou ilegível.
+    """
+    if not published_str or not isinstance(published_str, str):
+        return None
+    s = published_str.strip()
+    if not s:
+        return None
+    try:
+        dt = parsedate_to_datetime(s)
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt.astimezone(timezone.utc)
+    except Exception:
+        pass
+    try:
+        dt = datetime.fromisoformat(s.replace("Z", "+00:00"))
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt.astimezone(timezone.utc)
+    except Exception:
+        pass
+    m_br = re.search(r"\b(\d{2})/(\d{2})/(\d{4})\b", s)
+    if m_br:
+        try:
+            dt = datetime(int(m_br.group(3)), int(m_br.group(2)), int(m_br.group(1)), tzinfo=FUSO_BRT)
+            return dt.astimezone(timezone.utc)
+        except Exception:
+            pass
+    return None
+
+
+def calcular_margem_horas(when="24h", agora_utc=None):
+    """
+    Decisão nº 32: margem de corte de matérias antigas.
+    96h na segunda-feira (ou janela 72h); 48h nos demais dias.
+    """
+    ref_utc = agora_utc or datetime.now(timezone.utc)
+    ref_brt = ref_utc.astimezone(FUSO_BRT)
+    if str(when or "").strip().lower() == "72h" or ref_brt.weekday() == 0:
+        return 96
+    return 48
+
+
+def formatar_data_curta_ia(published_str):
+    """Formata a data de publicação em formato curto (DD/MM) em BRT, ou 'sem data' se ilegível."""
+    dt_utc = parsear_data_publicacao(published_str)
+    if dt_utc is None:
+        return "sem data"
+    return dt_utc.astimezone(FUSO_BRT).strftime("%d/%m")
+
+
+def fetch_google_news(query, when="24h", max_results=6, margem_horas=None, vertical_tag=""):
+    """Coleta notícias no Google News RSS com filtros de tempo, descarte de matérias antigas e bloqueio de redes sociais."""
     encoded = urllib.parse.quote(f"{query} when:{when}")
     url = f"https://news.google.com/rss/search?q={encoded}&hl=pt-BR&gl=BR&ceid=BR:pt-419"
     feed = feedparser.parse(url)
+    agora_utc = datetime.now(timezone.utc)
+    margem = margem_horas if margem_horas is not None else calcular_margem_horas(when=when, agora_utc=agora_utc)
+    limite_dt = agora_utc - timedelta(hours=margem)
+    links_antigos_vistos = {it.get("link", "") for it in ULTIMOS_DESCARTADOS_ANTIGOS}
+
     items = []
     for entry in feed.entries:
         source_obj = entry.get("source", {})
@@ -92,10 +159,28 @@ def fetch_google_news(query, when="24h", max_results=6):
         if not link.startswith("https://news.google.com/"):
             continue
 
+        published_raw = entry.get("published", "")
+        dt_pub = parsear_data_publicacao(published_raw)
+        if dt_pub is not None and dt_pub < limite_dt:
+            if link not in links_antigos_vistos:
+                links_antigos_vistos.add(link)
+                ULTIMOS_DESCARTADOS_ANTIGOS.append({
+                    "title": title,
+                    "link": link,
+                    "published": published_raw,
+                    "data_publicacao": dt_pub.astimezone(FUSO_BRT).strftime("%Y-%m-%d"),
+                    "source": source or "Fonte Web",
+                    "vertical_original": vertical_tag,
+                    "motivo": "materia_antiga",
+                })
+            continue
+
         items.append({
             "title": title,
             "link": link,
-            "published": entry.get("published", ""),
+            "published": published_raw,
+            "data_publicacao": dt_pub.astimezone(FUSO_BRT).strftime("%Y-%m-%d") if dt_pub else None,
+            "data_ilegivel": dt_pub is None,
             "source": source or "Fonte Web",
             "summary": clean_html(entry.get("summary", "")),
         })
@@ -712,6 +797,8 @@ def fetch_all_raw_news(when="24h"):
         },
     }
 
+    ULTIMOS_DESCARTADOS_ANTIGOS.clear()
+    margem_dia = calcular_margem_horas(when=when)
     coleta = []
     seen_links = set()
 
@@ -728,20 +815,20 @@ def fetch_all_raw_news(when="24h"):
     # 1. Via Expressa VIP + Varredura Aberta por vertical (Degrau 1: 9 VIP + 8 Abertas)
     for key, info in queries.items():
         # 1a. Faixa VIP (Assinaturas & Veículos Prioritários)
-        itens_vip = fetch_google_news(info["vip_query"], when=when, max_results=9)
+        itens_vip = fetch_google_news(info["vip_query"], when=when, max_results=9, margem_horas=margem_dia, vertical_tag=key)
         if len(itens_vip) < 4:
-            itens_vip = fetch_google_news(info["vip_query"], when="72h", max_results=9)
+            itens_vip = fetch_google_news(info["vip_query"], when="72h", max_results=9, margem_horas=margem_dia, vertical_tag=key)
         adicionar_itens(itens_vip, key)
 
         # 1a-extra. Buscas VIP complementares (ex.: governança de agências reguladoras)
         for q_extra in info.get("extra_vip_queries", []):
-            itens_extra = fetch_google_news(q_extra, when=when, max_results=5)
+            itens_extra = fetch_google_news(q_extra, when=when, max_results=5, margem_horas=margem_dia, vertical_tag=key)
             adicionar_itens(itens_extra, key)
 
         # 1b. Faixa Aberta (Descoberta geral)
-        itens_abertos = fetch_google_news(info["query"], when=when, max_results=8)
+        itens_abertos = fetch_google_news(info["query"], when=when, max_results=8, margem_horas=margem_dia, vertical_tag=key)
         if len(itens_abertos) < 4 and when == "24h":
-            itens_abertos = fetch_google_news(info["query"], when="48h", max_results=8)
+            itens_abertos = fetch_google_news(info["query"], when="48h", max_results=8, margem_horas=margem_dia, vertical_tag=key)
         adicionar_itens(itens_abertos, key)
 
     # 2. Feeds Diretos Especializados (Agência iNFRA=15, Capital Reset=10, JOTA=10, a16z=6)
