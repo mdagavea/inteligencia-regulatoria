@@ -323,12 +323,26 @@ def _salvar_diagnostico_curadoria(itens_diagnostico: list, modelo_ia, contingenc
                 if vert in contagens_vertical:
                     contagens_vertical[vert] += 1
 
+        feeds_diretos = []
+        try:
+            import coletor
+            for st_f in coletor.obter_status_feeds_diretos():
+                feeds_diretos.append({
+                    "fonte": _sanitizar_texto_diagnostico(st_f.get("fonte") or ""),
+                    "status_http": st_f.get("status_http"),
+                    "erro": _sanitizar_texto_diagnostico(st_f.get("erro") or "") or None,
+                    "itens_lidos": int(st_f.get("itens_lidos") or 0),
+                })
+        except Exception:
+            pass
+
         payload = {
             "data": hoje_iso,
             "modelo_ia": _sanitizar_texto_diagnostico(modelo_ia) if modelo_ia else None,
             "contingencia": bool(contingencia),
             "total_coletadas": len(itens_diagnostico),
             "sem_data_legivel": sem_data_legivel,
+            "feeds_diretos": feeds_diretos,
             "contagens_por_destino": contagens_destino,
             "contagens_por_vertical": contagens_vertical,
             "itens": itens_diagnostico,

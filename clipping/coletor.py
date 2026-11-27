@@ -67,11 +67,17 @@ SOCIAL_MEDIA_BLOCKLIST = (
 
 FUSO_BRT = timezone(timedelta(hours=-3))
 ULTIMOS_DESCARTADOS_ANTIGOS = []
+ULTIMO_STATUS_FEEDS_DIRETOS = []
 
 
 def obter_descartados_antigos():
     """Retorna cópia das matérias descartadas por data antiga na última coleta."""
     return [dict(it) for it in ULTIMOS_DESCARTADOS_ANTIGOS]
+
+
+def obter_status_feeds_diretos():
+    """Retorna cópia do status de leitura de cada feed RSS direto na última coleta."""
+    return [dict(it) for it in ULTIMO_STATUS_FEEDS_DIRETOS]
 
 
 def parsear_data_publicacao(published_str):
@@ -229,6 +235,7 @@ def fetch_direct_rss_feeds(max_per_feed=10):
         },
     ]
 
+    ULTIMO_STATUS_FEEDS_DIRETOS.clear()
     results = []
     for cfg in direct_feeds:
         try:
@@ -239,8 +246,16 @@ def fetch_direct_rss_feeds(max_per_feed=10):
                 timeout=10,
             )
             if r.status_code != 200:
+                print(f"   [Aviso] Feed direto {cfg['source']}: HTTP {r.status_code}")
+                ULTIMO_STATUS_FEEDS_DIRETOS.append({
+                    "fonte": cfg["source"],
+                    "status_http": r.status_code,
+                    "erro": None,
+                    "itens_lidos": 0,
+                })
                 continue
             feed = feedparser.parse(r.content)
+            lidos = 0
             for entry in feed.entries[: cfg["max"]]:
                 results.append({
                     "title": entry.get("title", ""),
@@ -250,8 +265,23 @@ def fetch_direct_rss_feeds(max_per_feed=10):
                     "summary": clean_html(entry.get("summary", entry.get("description", "")))[:450],
                     "vertical_original": cfg["vertical"],
                 })
+                lidos += 1
+            if lidos == 0:
+                print(f"   [Aviso] Feed direto {cfg['source']}: HTTP 200 com 0 itens")
+            ULTIMO_STATUS_FEEDS_DIRETOS.append({
+                "fonte": cfg["source"],
+                "status_http": 200,
+                "erro": None,
+                "itens_lidos": lidos,
+            })
         except Exception as e:
             print(f"   [Aviso] Falha ao ler feed direto {cfg['source']}: {e}")
+            ULTIMO_STATUS_FEEDS_DIRETOS.append({
+                "fonte": cfg["source"],
+                "status_http": None,
+                "erro": f"{type(e).__name__}: {str(e)[:140]}",
+                "itens_lidos": 0,
+            })
     return results
 
 
@@ -830,6 +860,23 @@ def fetch_all_raw_news(when="24h"):
         if len(itens_abertos) < 4 and when == "24h":
             itens_abertos = fetch_google_news(info["query"], when="48h", max_results=8, margem_horas=margem_dia, vertical_tag=key)
         adicionar_itens(itens_abertos, key)
+
+    # 1c. Buscas próprias no Google Notícias para Poder360 e Portal BE News (A-054)
+    buscas_dedicadas = [
+        (
+            'site:poder360.com.br (infraestrutura OR concessão OR leilão OR porto OR aeroporto OR ferrovia OR rodovia OR hidrovia OR aviação OR ANTT OR ANTAQ OR ANAC OR debêntures OR REIDI OR seguro OR SUSEP OR carbono OR SBCE OR "mercado de capitais")',
+            8,
+            "infra",
+        ),
+        (
+            'site:portalbenews.com.br (infraestrutura OR porto OR aeroporto OR hidrovia OR ferrovia OR rodovia OR transporte OR aviação OR concessão OR leilão OR arrendamento OR dragagem OR ANTAQ OR ANTT OR ANAC OR debêntures OR seguro OR carbono OR logística)',
+            8,
+            "infra",
+        ),
+    ]
+    for q_ded, max_ded, vert_ded in buscas_dedicadas:
+        itens_ded = fetch_google_news(q_ded, when=when, max_results=max_ded, margem_horas=margem_dia, vertical_tag=vert_ded)
+        adicionar_itens(itens_ded, vert_ded)
 
     # 2. Feeds Diretos Especializados (Agência iNFRA=15, Capital Reset=10, JOTA=10, a16z=6)
     itens_diretos = fetch_direct_rss_feeds(max_per_feed=10)
