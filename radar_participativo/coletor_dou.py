@@ -161,6 +161,60 @@ def testar_url_http_200(url: str, timeout: int = 15) -> int:
     return -1
 
 
+ULTIMAS_FALHAS_LEITURA_DOU: List[Dict[str, str]] = []
+
+
+def obter_falhas_leitura_dou() -> List[Dict[str, str]]:
+    """Retorna cópia das falhas de leitura do DOU registradas na última varredura."""
+    return [dict(f) for f in ULTIMAS_FALHAS_LEITURA_DOU]
+
+
+def _cache_dou_valido(data_str: str, secao: str = "do1") -> bool:
+    """Retorna True se o cache do dia/seção existe e tem sucesso=True (inclui dia sem edição ordinária com typeNormDay)."""
+    arq_cache = PASTA_CACHE_DOU / f"dou_{data_str}_{secao.lower()}.json"
+    if not arq_cache.exists():
+        return False
+    try:
+        dados = json.loads(arq_cache.read_text(encoding="utf-8"))
+        if isinstance(dados, dict):
+            return dados.get("sucesso") is True and "itens" in dados
+        if isinstance(dados, list):
+            return True
+    except Exception:
+        return False
+    return False
+
+
+def listar_datas_pendentes_dou(
+    data_ref: Optional[datetime.date] = None,
+    max_dias_uteis_anteriores: int = 3,
+    secao: str = "do1",
+) -> List[str]:
+    """
+    Lista, em ordem cronológica, os dias úteis anteriores (até max_dias_uteis_anteriores)
+    cujo cache não existe ou falhou, mais a data de referência (hoje).
+    Dias anteriores já lidos com sucesso não são incluídos.
+    """
+    if data_ref is None:
+        data_ref = datetime.date.today()
+
+    anteriores_pendentes: List[str] = []
+    dia_cursor = data_ref - datetime.timedelta(days=1)
+    dias_uteis_verificados = 0
+    while dias_uteis_verificados < max_dias_uteis_anteriores:
+        if dia_cursor.weekday() < 5:  # segunda a sexta
+            dias_uteis_verificados += 1
+            d_str = dia_cursor.strftime("%d-%m-%Y")
+            if not _cache_dou_valido(d_str, secao=secao):
+                anteriores_pendentes.append(d_str)
+        dia_cursor -= datetime.timedelta(days=1)
+
+    anteriores_pendentes.reverse()
+    hoje_str = data_ref.strftime("%d-%m-%Y")
+    anteriores_pendentes.append(hoje_str)
+    return list(dict.fromkeys(anteriores_pendentes))
+
+
 def baixar_ou_carregar_indice_dou(data_str: str, secao: str, max_tentativas: int = 4, timeout: int = 35) -> Dict[str, Any]:
     secao_lower = secao.lower()
     arq_cache = PASTA_CACHE_DOU / f"dou_{data_str}_{secao_lower}.json"
@@ -169,7 +223,9 @@ def baixar_ou_carregar_indice_dou(data_str: str, secao: str, max_tentativas: int
         try:
             dados = json.loads(arq_cache.read_text(encoding="utf-8"))
             if isinstance(dados, dict) and "itens" in dados:
-                return dados
+                if dados.get("sucesso") is True:
+                    dados["de_cache"] = True
+                    return dados
             elif isinstance(dados, list):
                 return {
                     "sucesso": True,
@@ -1138,12 +1194,16 @@ def _retificacao_referencia_ppb_em_cache(orgao_lower: str, texto_ret: str) -> bo
 
 def executar_varredura_consultas_modo_sombra(datas: List[str] = None, gravar_acumulado: bool = True, reconstruir: bool = False) -> List[Dict[str, Any]]:
     """
-    Varredura diária em Modo Sombra (3 a 5 dias úteis) de novas consultas e prorrogações
-    publicadas por Ministérios e Secretarias no DOU (DO1).
+    Varredura diária em Modo Sombra (hoje + até 3 dias úteis anteriores sem cache válido)
+    de novas consultas e prorrogações publicadas por Ministérios e Secretarias no DOU (DO1).
     Gera apenas lista de candidatos para validação humana prévia. Não publica nada no painel.
     """
+    ULTIMAS_FALHAS_LEITURA_DOU.clear()
+
     if datas is None:
-        datas = [datetime.date.today().strftime("%d-%m-%Y")]
+        datas = listar_datas_pendentes_dou(secao="do1")
+    else:
+        datas = list(dict.fromkeys(datas))
 
     arq_json = PASTA_CACHE_DOU / "candidatos_consultas_sombra_acumulado.json"
     acumulados: List[Dict[str, Any]] = []
@@ -1170,6 +1230,15 @@ def executar_varredura_consultas_modo_sombra(datas: List[str] = None, gravar_acu
 
     for d in datas:
         res = baixar_ou_carregar_indice_dou(d, "do1")
+        if not res.get("sucesso"):
+            erro_msg = res.get("erro") or "Falha desconhecida ao ler o DOU"
+            ULTIMAS_FALHAS_LEITURA_DOU.append({
+                "data": d,
+                "secao": "DO1",
+                "erro": erro_msg,
+            })
+            print(f"   [Aviso DOU] Falha na leitura do DOU ({d}, DO1): {erro_msg}")
+            continue
         itens = res.get("itens", [])
 
         for it in itens:
@@ -1303,6 +1372,11 @@ def executar_varredura_consultas_modo_sombra(datas: List[str] = None, gravar_acu
         f.write(f"Última atualização: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
         f.write(f"Datas varridas nesta execução: {', '.join(datas)} | Novos/atualizados: {len(candidatos)}\n")
         f.write(f"Total de candidatos acumulados: {len(acumulados)}\n\n")
+        if ULTIMAS_FALHAS_LEITURA_DOU:
+            f.write("--- Falhas de leitura do DOU nesta execução ---\n")
+            for falha in ULTIMAS_FALHAS_LEITURA_DOU:
+                f.write(f"  * ({falha.get('data', '')} {falha.get('secao', 'DO1')}) {falha.get('erro', '')}\n")
+            f.write("\n")
         if retificacoes_existentes:
             f.write("--- Retificações de candidatos existentes (não incluídas como novas) ---\n")
             for r in retificacoes_existentes:

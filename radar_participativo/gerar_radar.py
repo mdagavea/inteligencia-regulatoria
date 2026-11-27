@@ -1,3 +1,5 @@
+import datetime
+import html
 import os
 import sys
 import webbrowser
@@ -21,6 +23,45 @@ def _normalizar_url_dedup(url: str) -> str:
     if not url:
         return ""
     return url.strip().split("?", 1)[0].split("#", 1)[0].rstrip("/").lower()
+
+
+def _inserir_aviso_falha_dou_html(caminho_html, falhas_dou: list) -> bool:
+    """Insere banner visível de aviso de falha na leitura do DOU logo após o cabeçalho do Radar."""
+    if not falhas_dou:
+        return False
+    arq = Path(caminho_html)
+    if not arq.exists():
+        return False
+    conteudo = arq.read_text(encoding="utf-8")
+    if "</header>" not in conteudo:
+        return False
+
+    itens_li = []
+    for f_dou in falhas_dou:
+        data_br = str(f_dou.get("data", "")).replace("-", "/")
+        secao = html.escape(str(f_dou.get("secao", "DO1")))
+        erro = html.escape(str(f_dou.get("erro", "Falha desconhecida")))
+        itens_li.append(f"<li><strong>{html.escape(data_br)} ({secao}):</strong> {erro}</li>")
+
+    bloco_aviso = (
+        '\n    <div class="context-banner" id="aviso-falha-dou" role="alert" '
+        'style="background:#fef2f2;border:1px solid #fecaca;border-left:5px solid #dc2626;margin-bottom:14px;">\n'
+        '      <div class="context-banner-text" style="color:#7f1d1d;">\n'
+        '        <strong>⚠️ Aviso de Leitura do Diário Oficial (DOU):</strong> '
+        'Não foi possível ler a edição oficial do DOU na última tentativa:\n'
+        '        <ul style="margin:6px 0 0 18px;padding:0;">\n'
+        + "\n".join(f"          {li}" for li in itens_li)
+        + '\n        </ul>\n'
+        '        <div style="margin-top:4px;font-size:0.8rem;">'
+        'O radar voltará a tentar ler automaticamente esses dias nas próximas execuções. '
+        'Os demais painéis e atos já coletados seguem exibidos normalmente.</div>\n'
+        '      </div>\n'
+        '    </div>'
+    )
+
+    novo_conteudo = conteudo.replace("</header>", "</header>" + bloco_aviso, 1)
+    arq.write_text(novo_conteudo, encoding="utf-8")
+    return True
 
 
 def executar_radar(abrir_navegador=True, publicar=True):
@@ -54,10 +95,21 @@ def executar_radar(abrir_navegador=True, publicar=True):
     print(f"   -> {len(dados_sfn['aprovados'])} processos no filtro temático (+ {len(dados_sfn['fora_do_filtro'])} retidos fora do filtro e gravados em log).")
 
     print("\n[4.5/6] Integrando Atos Oficiais do DOU (PPI, CMN, Debêntures, FMM & Deliberações ANTAQ)...")
+    falhas_dou = []
     try:
         cands_sombra = coletor_dou.executar_varredura_consultas_modo_sombra()
+        falhas_dou = coletor_dou.obter_falhas_leitura_dou()
         print(f"   -> Varredura de consultas de ministérios no DOU: {len(cands_sombra)} novo(s) candidato(s) hoje.")
+        if falhas_dou:
+            print(f"   [Aviso DOU] {len(falhas_dou)} dia(s) com falha na leitura do DOU nesta execução:")
+            for f_dou in falhas_dou:
+                print(f"      - {f_dou.get('data', '')} ({f_dou.get('secao', 'DO1')}): {f_dou.get('erro', '')}")
     except Exception as e:
+        falhas_dou.append({
+            "data": datetime.date.today().strftime("%d-%m-%Y"),
+            "secao": "DO1",
+            "erro": str(e),
+        })
         print(f"   [Aviso Consultas DOU] Falha na varredura diária (seguindo com lista acumulada existente): {e}")
 
     try:
@@ -104,6 +156,8 @@ def executar_radar(abrir_navegador=True, publicar=True):
         itens_leiloes=itens_leiloes,
         dados_sfn=dados_sfn,
     )
+    if falhas_dou and _inserir_aviso_falha_dou_html(caminho_atual, falhas_dou):
+        print(f"   -> Aviso de falha do DOU inserido no topo do painel ({len(falhas_dou)} dia(s)).")
     print(f"   -> Painel contínuo atualizado: {caminho_atual}")
 
     print("\n[6/6] Publicando versão Web no GitHub Pages (Link Contínuo)...")
