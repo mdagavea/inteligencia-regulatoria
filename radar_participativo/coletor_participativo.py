@@ -492,13 +492,24 @@ def coletar_processos_brasil_participativo(dias_historico_encerrados: int = 20):
         extras_agencias = coletar_complemento_agencias(hoje=hoje, agora_lim_48h=agora_lim)
         for ext in extras_agencias:
             duplicado = False
-            num_ext = ext.get("_num_norma", "")
+            num_ext = (ext.get("_num_norma") or "").strip().lower()
             org_ext = (ext.get("orgao_informado") or "").split()[0].lower()
+            url_ext = (ext.get("url") or "").strip().rstrip("/").lower()
+            tipo_ext = (ext.get("tipo_catalogo") or "").strip().lower()
+            eh_tomada_ext = "tomada" in tipo_ext
             for cand in candidatos:
                 tit_c = (cand.get("titulo") or "").lower()
                 org_c = (cand.get("orgao_informado") or "").lower()
-                if num_ext and num_ext in tit_c and org_ext in (tit_c + " " + org_c):
-                    # Mescla documentos caso já exista no Brasil Participativo
+                url_c = (cand.get("url") or "").strip().rstrip("/").lower()
+                tipo_c = (cand.get("tipo_catalogo") or "").strip().lower()
+                eh_tomada_c = ("tomada" in tipo_c) or ("tomada de subs" in tit_c)
+                mesmo_url = bool(url_ext and url_c and url_ext == url_c)
+                mesmo_num_orgao = bool(
+                    num_ext and num_ext in tit_c and org_ext in (tit_c + " " + org_c)
+                    and (eh_tomada_ext == eh_tomada_c)
+                )
+                if mesmo_url or mesmo_num_orgao:
+                    # Mescla documentos caso já exista no Brasil Participativo ou em outro bloco
                     urls_existentes = {d["url"] for d in cand.get("documentos", [])}
                     for d_ext in ext.get("documentos", []):
                         if d_ext["url"] not in urls_existentes:
@@ -525,6 +536,148 @@ def coletar_processos_brasil_participativo(dias_historico_encerrados: int = 20):
     ))
 
     return candidatos
+
+
+def _url_para_api_govbr_antaq(url: str) -> str:
+    """Converte URL pública do portal gov.br/antaq para o endpoint JSON ++api++ do Plone/Volto."""
+    if "/++api++/" in url:
+        return url
+    return url.replace("https://www.gov.br/antaq/", "https://www.gov.br/antaq/++api++/", 1)
+
+
+def _extrair_links_slate_volto(node, saida: list):
+    """Percorre recursivamente nós Slate do Volto e coleta tuplas (texto, url)."""
+    if isinstance(node, dict):
+        if node.get("type") == "link" and isinstance(node.get("data"), dict):
+            u = (node["data"].get("url") or "").strip()
+            if u:
+                txt = "".join(
+                    c.get("text", "") for c in (node.get("children") or []) if isinstance(c, dict)
+                ).strip()
+                saida.append((txt, u))
+        for v in node.values():
+            _extrair_links_slate_volto(v, saida)
+    elif isinstance(node, list):
+        for item in node:
+            _extrair_links_slate_volto(item, saida)
+
+
+def _buscar_json_govbr_antaq(url_publica: str, headers: dict, ctx, timeout: int = 20):
+    """
+    Consulta a interface JSON ++api++ de uma página do gov.br/antaq.
+    Se o endpoint redirecionar para HTML (ex.: página movida para subpasta),
+    resolve a URL final e consulta ++api++ no endereço definitivo.
+    Retorna (dict_json_ou_None, url_final_publica, html_fallback_ou_None).
+    """
+    hdr_json = dict(headers)
+    hdr_json["Accept"] = "application/json"
+    url_api = _url_para_api_govbr_antaq(url_publica)
+    req = urllib.request.Request(url_api, headers=hdr_json)
+    with urllib.request.urlopen(req, context=ctx, timeout=timeout) as r:
+        final_u = r.geturl()
+        raw = r.read().decode("utf-8", errors="replace")
+        ct = (r.headers.get("Content-Type") or "").lower()
+
+    if "json" in ct or raw.lstrip().startswith("{"):
+        try:
+            return json.loads(raw), url_publica, None
+        except Exception:
+            pass
+
+    # Se redirecionou para URL pública diferente sem ++api++, tenta ++api++ na URL final
+    if "gov.br/antaq/" in final_u and "/++api++/" not in final_u and final_u != url_publica:
+        req2 = urllib.request.Request(_url_para_api_govbr_antaq(final_u), headers=hdr_json)
+        with urllib.request.urlopen(req2, context=ctx, timeout=timeout) as r2:
+            raw2 = r2.read().decode("utf-8", errors="replace")
+            ct2 = (r2.headers.get("Content-Type") or "").lower()
+        if "json" in ct2 or raw2.lstrip().startswith("{"):
+            try:
+                return json.loads(raw2), final_u, None
+            except Exception:
+                pass
+        return None, final_u, raw2
+
+    return None, final_u, raw
+
+
+def _extrair_texto_e_links_volto(dados_json: dict):
+    """Extrai texto ordenado e links de blocos Slate e HTML de uma página Volto/Plone."""
+    partes = []
+    links = []
+    blocks = dados_json.get("blocks") or {}
+    ordem = (dados_json.get("blocks_layout") or {}).get("items") or list(blocks.keys())
+    for bid in ordem:
+        b = blocks.get(bid)
+        if not isinstance(b, dict):
+            continue
+        tipo = b.get("@type")
+        if tipo == "slate":
+            pt = (b.get("plaintext") or "").strip()
+            if pt:
+                partes.append(pt)
+            _extrair_links_slate_volto(b.get("value", []), links)
+        elif tipo == "html" and b.get("html"):
+            s = BeautifulSoup(b["html"], "html.parser")
+            txt_h = re.sub(r"\s+", " ", s.get_text(" ", strip=True))
+            if txt_h:
+                partes.append(txt_h)
+            for a in s.find_all("a", href=True):
+                links.append((a.get_text(" ", strip=True), a["href"].strip()))
+    return "\n".join(partes), links
+
+
+def _parse_data_br(d_str: str):
+    try:
+        dd, mm, yyyy = map(int, d_str.split("/"))
+        return date(yyyy, mm, dd)
+    except Exception:
+        return None
+
+
+def _extrair_prazos_tomada_antaq(texto_subpagina: str):
+    """
+    Extrai datas oficiais de início e fim (inclusive prorrogação) exclusivamente
+    de frases de período/prazo do aviso oficial da tomada de subsídios.
+    Nunca estima ou inventa data. Retorna (d_ini, d_fim, trecho_origem).
+    """
+    if not texto_subpagina:
+        return None, None, ""
+    d_ini = None
+    d_fim = None
+    trechos = []
+
+    m_per = re.search(
+        r"per[ií]odo\s+de\s+(\d{2}/\d{2}/\d{4})\s+a\s+(\d{2}/\d{2}/\d{4})",
+        texto_subpagina,
+        re.I,
+    )
+    if m_per:
+        d_ini = _parse_data_br(m_per.group(1))
+        d_fim = _parse_data_br(m_per.group(2))
+        trechos.append(m_per.group(0).strip())
+
+    for m_prorr in re.finditer(
+        r"prorroga\w*[^\.\n]{0,140}?(\d{2}/\d{2}/\d{4})",
+        texto_subpagina,
+        re.I,
+    ):
+        d_cand = _parse_data_br(m_prorr.group(1))
+        if d_cand and (d_fim is None or d_cand > d_fim):
+            d_fim = d_cand
+            trechos.append(m_prorr.group(0).strip())
+
+    if d_fim is None:
+        for m_ate in re.finditer(
+            r"at[eé]\s+(?:[àa]s\s+\d{1,2}h\d{2}\s+do\s+dia\s+|o\s+dia\s+)?(\d{2}/\d{2}/\d{4})",
+            texto_subpagina,
+            re.I,
+        ):
+            d_cand = _parse_data_br(m_ate.group(1))
+            if d_cand and (d_fim is None or d_cand > d_fim):
+                d_fim = d_cand
+                trechos.append(m_ate.group(0).strip())
+
+    return d_ini, d_fim, " | ".join(trechos)
 
 
 def coletar_complemento_agencias(hoje: date, agora_lim_48h: datetime) -> list:
@@ -709,6 +862,186 @@ def coletar_complemento_agencias(hoje: date, agora_lim_48h: datetime) -> list:
             })
     except Exception as e:
         print(f"   [Aviso] Coleta ANTAQ Portal Próprio: {e}")
+
+    # C) ANTAQ — Tomadas de Subsídios em Andamento (API JSON ++api++ do Gov.br, com fallback HTML)
+    url_lista_ts = (
+        "https://www.gov.br/antaq/pt-br/acesso-a-informacao/participacao-social/"
+        "tomada-de-subsidio-1/tomada-de-subsidios-em-andamento"
+    )
+    try:
+        dados_lista, _, html_lista_fb = _buscar_json_govbr_antaq(url_lista_ts, headers, ctx, timeout=20)
+        entradas_ts = []
+
+        if isinstance(dados_lista, dict) and dados_lista.get("blocks"):
+            blocks = dados_lista.get("blocks") or {}
+            ordem = (dados_lista.get("blocks_layout") or {}).get("items") or list(blocks.keys())
+            for bid in ordem:
+                b = blocks.get(bid)
+                if not isinstance(b, dict) or b.get("@type") != "slate":
+                    continue
+                pt = re.sub(r"\s+", " ", (b.get("plaintext") or "").replace("\xa0", " ")).strip()
+                if not pt or "tomada de subsídios" not in pt.lower():
+                    continue
+                links_bloco = []
+                _extrair_links_slate_volto(b.get("value", []), links_bloco)
+                href = next((u for _, u in links_bloco if u.startswith("http")), "")
+                if href:
+                    entradas_ts.append((pt, href))
+        elif html_lista_fb:
+            soup_ts = BeautifulSoup(html_lista_fb, "html.parser")
+            core_ts = soup_ts.select_one("#content-core") or soup_ts
+            for tag in core_ts.find_all(["p", "div", "li"]):
+                pt = re.sub(r"\s+", " ", tag.get_text(" ", strip=True).replace("\xa0", " ")).strip()
+                if "tomada de subsídios" not in pt.lower():
+                    continue
+                a_t = tag.find("a", href=True)
+                href = a_t["href"].strip() if a_t else ""
+                if href.startswith("http") and "tomada-de-subsidio" in href.lower():
+                    entradas_ts.append((pt, href))
+
+        if not entradas_ts:
+            print("   [Aviso] Coleta ANTAQ Tomadas de Subsídios: nenhuma tomada encontrada na página oficial.")
+
+        vistas_ts = set()
+        for idx_ts, (texto_item, href_item) in enumerate(entradas_ts, 1):
+            m_num = re.search(r"n[ºo°]?\s*(\d{1,3}/\d{4})(?:\s*[-–]\s*([A-Z]{2,10}))?", texto_item, re.I)
+            num_ts = m_num.group(1) if m_num else f"{idx_ts}/{hoje.year}"
+            unidade_ts = (m_num.group(2) or "SRG").upper() if m_num else "SRG"
+            chave_ts = (num_ts.lower(), href_item.rstrip("/").lower())
+            if chave_ts in vistas_ts:
+                continue
+            vistas_ts.add(chave_ts)
+
+            # Objeto literal da página oficial (sem alterar o texto da ANTAQ)
+            objeto_lit = re.sub(
+                r"^Tomada\s+de\s+Subs[íi]dios\s+n[ºo°]?\s*\d{1,3}/\d{4}(?:\s*[-–]\s*[A-Z]{2,10})?\s*[-–:]\s*",
+                "",
+                texto_item,
+                flags=re.I,
+            ).strip() or texto_item
+            # Remove eventual endereço de e-mail por regra de privacidade
+            objeto_lit = re.sub(r"[\w\.-]+@[\w\.-]+\.\w+", "[contato no portal]", objeto_lit)
+
+            # Inspeciona a subpágina oficial da tomada para obter prazo oficial e links de documentos
+            url_oficial_final = href_item
+            d_ini = None
+            d_fim = None
+            docs_ts = []
+            try:
+                sub_json, url_oficial_final, sub_html_fb = _buscar_json_govbr_antaq(href_item, headers, ctx, timeout=20)
+                sub_txt = ""
+                sub_links = []
+                if isinstance(sub_json, dict) and sub_json.get("blocks"):
+                    sub_txt, sub_links = _extrair_texto_e_links_volto(sub_json)
+                elif sub_html_fb:
+                    s_fb = BeautifulSoup(sub_html_fb, "html.parser")
+                    sub_txt = re.sub(r"\s+", " ", s_fb.get_text(" ", strip=True))
+                    for a_d in s_fb.find_all("a", href=True):
+                        sub_links.append((a_d.get_text(" ", strip=True), a_d["href"].strip()))
+                d_ini, d_fim, _ = _extrair_prazos_tomada_antaq(sub_txt)
+
+                urls_docs_vistas = {url_oficial_final.rstrip("/").lower()}
+                for rot_d, u_d in sub_links:
+                    if not u_d or not u_d.startswith("http") or u_d.startswith("mailto:"):
+                        continue
+                    u_norm = u_d.rstrip("/").lower()
+                    if u_norm in urls_docs_vistas:
+                        continue
+                    if u_norm.endswith("gov.br/antaq/pt-br") or u_norm.endswith("participacao-social"):
+                        continue
+                    urls_docs_vistas.add(u_norm)
+                    if "forms.cloud.microsoft" in u_norm or "forms.office.com" in u_norm:
+                        docs_ts.append({
+                            "rotulo": "📝 Enviar Contribuição (Formulário ANTAQ)",
+                            "url": u_d,
+                            "categoria": "CONTRIBUIR",
+                        })
+                    elif "sei.antaq.gov.br" in u_norm:
+                        if not any(d["categoria"] == "SEI" for d in docs_ts):
+                            rot_sei = f"🗂️ Processo SEI {rot_d}" if rot_d and "." in rot_d else "🗂️ Processo SEI ANTAQ"
+                            docs_ts.append({
+                                "rotulo": rot_sei[:80],
+                                "url": u_d,
+                                "categoria": "SEI",
+                            })
+                    elif ".pdf" in u_norm or "@@display-file" in u_norm or "youtu" in u_norm:
+                        cat_d = classificar_link(u_d, rot_d or "Documento ANTAQ")
+                        if cat_d == "DOCUMENTO" and (".pdf" in u_norm or "@@display-file" in u_norm):
+                            cat_d = "ANEXO_PDF"
+                        docs_ts.append({
+                            "rotulo": _formatar_rotulo_link(rot_d or "Documento ANTAQ", u_d, cat_d),
+                            "url": u_d,
+                            "categoria": cat_d,
+                        })
+            except Exception as e_sub:
+                print(f"   [Aviso] Coleta ANTAQ Tomada {num_ts} ({href_item}): falha ao ler subpágina ({e_sub}); seguindo com prazo a conferir.")
+
+            if d_fim is not None:
+                dias_rest = (d_fim - hoje).days
+                if dias_rest < -3:
+                    continue
+                lanc_48h = bool(d_ini and 0 <= (hoje - d_ini).days <= 2)
+                if dias_rest < 0:
+                    st_ciclo = "ENCERRADO_RECENTE"
+                elif lanc_48h:
+                    st_ciclo = "LANCADO_48H"
+                elif dias_rest <= 7:
+                    st_ciclo = "PRAZO_URGENTE"
+                else:
+                    st_ciclo = "ABERTO"
+                data_ini_br = d_ini.strftime("%d/%m/%Y") if d_ini else "—"
+                data_fim_br = d_fim.strftime("%d/%m/%Y")
+                data_fim_iso = d_fim.isoformat()
+                data_pub_ref = d_ini or hoje
+                subtitulo_ts = (
+                    f"Portal ANTAQ ({unidade_ts}) • Contribuições: {data_ini_br} a {data_fim_br}"
+                    if d_ini else f"Portal ANTAQ ({unidade_ts}) • Contribuições até {data_fim_br}"
+                )
+                texto_janela_ts = ""
+            else:
+                dias_rest = None
+                lanc_48h = False
+                st_ciclo = "PRAZO_NO_ATO"
+                data_ini_br = "—"
+                data_fim_br = "Prazo a conferir"
+                data_fim_iso = ""
+                data_pub_ref = hoje
+                subtitulo_ts = f"Portal ANTAQ ({unidade_ts}) • Prazo a conferir na página oficial"
+                texto_janela_ts = "Prazo a conferir na página oficial"
+
+            partes_num = num_ts.split("/")
+            num_int = int(re.sub(r"\D", "", partes_num[0]) or idx_ts)
+            ano_2d = re.sub(r"\D", "", partes_num[1])[-2:] if len(partes_num) > 1 else str(hoje.year)[-2:]
+            item_ts = {
+                "id": f"92{ano_2d}{num_int:03d}",
+                "_num_norma": num_ts,
+                "slug": f"antaq-ts-{num_ts.replace('/', '-')}",
+                "url": url_oficial_final,
+                "publicado": True,
+                "tipo_catalogo": "Tomada de Subsídios",
+                "titulo": f"ANTAQ — Tomada de Subsídios nº {num_ts}-{unidade_ts}: {objeto_lit[:180]}",
+                "subtitulo": subtitulo_ts,
+                "descricao_texto": objeto_lit,
+                "orgao_informado": f"ANTAQ / {unidade_ts}",
+                "contato": "antaq.gov.br",
+                "data_publicacao": f"{data_pub_ref.isoformat()} 09:00",
+                "data_publicacao_br": data_pub_ref.strftime("%d/%m/%Y") if d_ini else "—",
+                "data_publicacao_iso": f"{data_pub_ref.isoformat()}T09:00:00-03:00" if d_ini else "",
+                "data_atualizacao_iso": f"{data_pub_ref.isoformat()}T09:00:00",
+                "data_inicio_br": data_ini_br,
+                "data_fim_br": data_fim_br,
+                "data_fim_iso": data_fim_iso,
+                "dias_restantes": dias_rest,
+                "lancado_48h": lanc_48h,
+                "status_ciclo": st_ciclo,
+                "documentos": docs_ts,
+                "relevante_bruto": True,
+            }
+            if texto_janela_ts:
+                item_ts["texto_janela"] = texto_janela_ts
+            resultados.append(item_ts)
+    except Exception as e:
+        print(f"   [Aviso] Coleta ANTAQ Tomadas de Subsídios: {e}")
 
     return resultados
 
