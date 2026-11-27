@@ -10,6 +10,31 @@ load_dotenv()
 
 # Versão do critério editorial das CPs (incrementar ao mudar regras de corte para reavaliar itens ativos)
 VERSAO_CRITERIO_CP = "v3"
+ARQUIVO_PARAMETROS_IA = Path(__file__).resolve().parent.parent / "parametros_ia.json"
+
+
+def _carregar_parametros_ia():
+    """
+    Carrega modelos_candidatos e temperatura do arquivo único codigo/parametros_ia.json.
+    Sem valor padrão oculto: se o arquivo faltar ou estiver inválido, registra erro visível e falha.
+    """
+    try:
+        if not ARQUIVO_PARAMETROS_IA.exists():
+            raise FileNotFoundError(f"Arquivo não encontrado: {ARQUIVO_PARAMETROS_IA}")
+        dados = json.loads(ARQUIVO_PARAMETROS_IA.read_text(encoding="utf-8"))
+        if not isinstance(dados, dict):
+            raise ValueError("Conteúdo JSON não é um objeto")
+        modelos = dados.get("modelos_candidatos")
+        temperatura = dados.get("temperatura")
+        if not isinstance(modelos, list) or not modelos or not all(isinstance(m, str) and m.strip() for m in modelos):
+            raise ValueError("Campo 'modelos_candidatos' ausente ou inválido")
+        if isinstance(temperatura, bool) or not isinstance(temperatura, (int, float)):
+            raise ValueError("Campo 'temperatura' ausente ou inválido")
+        return [m.strip() for m in modelos], float(temperatura)
+    except Exception as e:
+        msg = f"[ERRO] Falha ao carregar parâmetros da IA em {ARQUIVO_PARAMETROS_IA}: {e}"
+        print(f"   {msg}")
+        raise RuntimeError(msg) from e
 
 PROMPT_CURADORIA_PARTICIPATIVA = """
 Você é um Especialista Sênior em Regulação Econômica, Infraestrutura, Concessões/PPPs, Seguros de Grandes Riscos, Financiamento, Energia/Petróleo, Comércio Exterior e Transição Climática no Governo Federal.
@@ -106,11 +131,7 @@ def chamar_gemini_lote(lote_processos: list, api_key: str) -> dict:
 
     prompt_completo = f"{PROMPT_CURADORIA_PARTICIPATIVA}\n\nPROCESSOS PARA AVALIAÇÃO:\n\n" + "\n".join(blocos_texto)
 
-    modelos_candidatos = [
-        "gemini-3.1-flash-lite",
-        "gemini-3.5-flash-lite",
-        "gemini-3.8-flash",
-    ]
+    modelos_candidatos, temperatura_ia = _carregar_parametros_ia()
 
     resposta_json = None
     ultimo_erro = None
@@ -122,7 +143,7 @@ def chamar_gemini_lote(lote_processos: list, api_key: str) -> dict:
                 contents=prompt_completo,
                 config=types.GenerateContentConfig(
                     response_mime_type="application/json",
-                    temperature=0.0,
+                    temperature=temperatura_ia,
                 )
             )
             if resp and resp.text:
@@ -381,14 +402,15 @@ def curar_estruturacao_e_licitacoes(itens_brutos: list, pasta_projeto: Path, api
             )
         prompt_full = f"{PROMPT_CURADORIA_ESTRUTURACAO}\n\nITENS PARA REGISTRO FACTUAL:\n\n" + "\n".join(blocos)
 
-        for modelo in ["gemini-3.1-flash-lite", "gemini-3.5-flash-lite", "gemini-3.8-flash"]:
+        modelos_candidatos, temperatura_ia = _carregar_parametros_ia()
+        for modelo in modelos_candidatos:
             try:
                 resp = client.models.generate_content(
                     model=modelo,
                     contents=prompt_full,
                     config=types.GenerateContentConfig(
                         response_mime_type="application/json",
-                        temperature=0.0,
+                        temperature=temperatura_ia,
                     )
                 )
                 if resp and resp.text:
@@ -452,6 +474,7 @@ def enriquecer_sfn_com_ia_lote(dados_sfn: dict, pasta_projeto: Path, api_key: st
             novos_para_ia.append(it)
 
     if novos_para_ia and key:
+        modelos_candidatos, temperatura_ia = _carregar_parametros_ia()
         try:
             client = genai.Client(api_key=key)
             linhas = [
@@ -459,14 +482,14 @@ def enriquecer_sfn_com_ia_lote(dados_sfn: dict, pasta_projeto: Path, api_key: st
                 for it in novos_para_ia
             ]
             prompt = f"{PROMPT_RESUMO_FACTUAL_SFN}\n\nITENS:\n" + "\n".join(linhas)
-            for modelo in ["gemini-3.1-flash-lite", "gemini-3.5-flash-lite", "gemini-3.8-flash"]:
+            for modelo in modelos_candidatos:
                 try:
                     resp = client.models.generate_content(
                         model=modelo,
                         contents=prompt,
                         config=types.GenerateContentConfig(
                             response_mime_type="application/json",
-                            temperature=0.0,
+                            temperature=temperatura_ia,
                         ),
                     )
                     if resp and resp.text:

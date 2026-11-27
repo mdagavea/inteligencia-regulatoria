@@ -25,6 +25,7 @@ ARQUIVOS_SINCRONIZADOS = [
     "CLAUDE.md",
     "GEMINI.md",
     "requirements.txt",
+    "parametros_ia.json",
     "sincronizar_nuvem.py",
     ".github/copilot-instructions.md",
     ".github/workflows/disparo_email.yml",

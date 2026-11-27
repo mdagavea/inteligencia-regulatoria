@@ -723,6 +723,33 @@ def _salvar_cache_noticias(cache: dict):
         pass
 
 
+ARQUIVO_PARAMETROS_IA = PASTA_CLIPPING.parent / "parametros_ia.json"
+
+
+def _carregar_parametros_ia():
+    """
+    Carrega modelos_candidatos e temperatura do arquivo único codigo/parametros_ia.json.
+    Sem valor padrão oculto: se o arquivo faltar ou estiver inválido, registra erro visível e falha.
+    """
+    try:
+        if not ARQUIVO_PARAMETROS_IA.exists():
+            raise FileNotFoundError(f"Arquivo não encontrado: {ARQUIVO_PARAMETROS_IA}")
+        dados = json.loads(ARQUIVO_PARAMETROS_IA.read_text(encoding="utf-8"))
+        if not isinstance(dados, dict):
+            raise ValueError("Conteúdo JSON não é um objeto")
+        modelos = dados.get("modelos_candidatos")
+        temperatura = dados.get("temperatura")
+        if not isinstance(modelos, list) or not modelos or not all(isinstance(m, str) and m.strip() for m in modelos):
+            raise ValueError("Campo 'modelos_candidatos' ausente ou inválido")
+        if isinstance(temperatura, bool) or not isinstance(temperatura, (int, float)):
+            raise ValueError("Campo 'temperatura' ausente ou inválido")
+        return [m.strip() for m in modelos], float(temperatura)
+    except Exception as e:
+        msg = f"[ERRO] Falha ao carregar parâmetros da IA em {ARQUIVO_PARAMETROS_IA}: {e}"
+        print(f"   {msg}")
+        raise RuntimeError(msg) from e
+
+
 def curar_noticias_com_gemini(noticias_brutas, api_key=None):
     """
     Aplica as 4 regras de economia de chamadas à API Gemini:
@@ -763,12 +790,8 @@ def curar_noticias_com_gemini(noticias_brutas, api_key=None):
 
     prompt_final = f"{PROMPT_CURADORIA}{bloco_memoria}\n\nNOTÍCIAS E NEWSLETTERS BRUTAS DO DIA:\n" + "\n".join(payload_linhas)
 
-    # Lista de modelos por prioridade para garantir resiliência caso algum esteja sob alta demanda (503)
-    modelos_candidatos = [
-        "gemini-3.1-flash-lite",
-        "gemini-3.5-flash-lite",
-        "gemini-3.8-flash",
-    ]
+    # Lista de modelos e temperatura lidos do arquivo único codigo/parametros_ia.json
+    modelos_candidatos, temperatura_ia = _carregar_parametros_ia()
 
     response = None
     modelo_usado = None
@@ -781,7 +804,7 @@ def curar_noticias_com_gemini(noticias_brutas, api_key=None):
                 contents=prompt_final,
                 config=types.GenerateContentConfig(
                     response_mime_type="application/json",
-                    temperature=0.0,
+                    temperature=temperatura_ia,
                 ),
             )
             if response and response.text:

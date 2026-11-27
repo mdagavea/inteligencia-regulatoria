@@ -1,0 +1,9 @@
+{
+  "origem": "Decisões nº 30 (25/11/2026, clipping) e nº 31 (25/11/2026, radar) — Registro de Decisões; arquivo único criado pela ação A-052 em 27/11/2026.",
+  "modelos_candidatos": [
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite",
+    "gemini-3.8-flash"
+  ],
+  "temperatura": 0.0
+}
