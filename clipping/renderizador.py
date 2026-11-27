@@ -825,6 +825,8 @@ TEMPLATE_HTML = """<!DOCTYPE html>
       {blocos_html}
     </div>
 
+    {secao_atos_dia_html}
+
     {faixa_participativo_html}
 
     <!-- Panorama Setorial DECON/MPOR: Terminal Portuário, Navio Porta-Contêineres, Hidrovia, Avião e Torre -->
@@ -1240,7 +1242,122 @@ def gerar_resumo_whatsapp(dados_curados, data_formatada, processos_recentes=None
     return "\n".join(linhas)
 
 
-def gerar_html_email_resumo(dados_curados, data_formatada, processos_recentes=None):
+ORDEM_ORGAOS_ATOS_DIA = [
+    "ANTT",
+    "ANTAQ",
+    "Ministério de Portos e Aeroportos",
+    "Ministério dos Transportes",
+    "Programa de Parcerias de Investimentos (PPI)",
+]
+
+
+def _esc_html_ato(texto: str) -> str:
+    return (texto or "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
+
+
+def render_secao_atos_do_dia(atos_do_dia):
+    """Renderiza a seção 'Atos do dia' (DOU Seção 1, lista fechada) no painel web, agrupada por órgão."""
+    if atos_do_dia is None:
+        return ""
+    disponivel = bool(atos_do_dia.get("disponivel", False))
+    atos = atos_do_dia.get("atos") or []
+    data_br = _esc_html_ato(atos_do_dia.get("data_br") or "")
+
+    if not disponivel:
+        corpo = '<div class="empty-note" style="padding:12px 16px;color:#8A5A12;background:#FFF4D6;border-radius:8px;border:1px solid #E6D3A0;">⚠️ Diário Oficial indisponível hoje.</div>'
+        badge = "DOU indisponível"
+    elif not atos:
+        corpo = '<div class="empty-note" style="padding:12px 16px;">Nenhum ato da lista no Diário Oficial de hoje.</div>'
+        badge = "0 atos"
+    else:
+        grupos = {}
+        for a in atos:
+            org = a.get("orgao") or "Outros"
+            grupos.setdefault(org, []).append(a)
+        orgaos_ordenados = [o for o in ORDEM_ORGAOS_ATOS_DIA if o in grupos] + [
+            o for o in grupos if o not in ORDEM_ORGAOS_ATOS_DIA
+        ]
+        blocos_org = []
+        for org in orgaos_ordenados:
+            itens_org = []
+            for a in grupos[org]:
+                tit = _esc_html_ato(a.get("titulo", ""))
+                em = _esc_html_ato(a.get("ementa", ""))
+                lk = _esc_html_ato(a.get("link", "#"))
+                tp = _esc_html_ato(a.get("tipo", ""))
+                em_html = f'<p class="news-desc" style="margin-top:3px;">{em}</p>' if em else ""
+                itens_org.append(f"""
+              <div class="news-item" style="margin-bottom:8px;">
+                <div class="news-meta">
+                  <span class="source-tag">{tp or 'Ato DOU'}</span>
+                </div>
+                <a class="news-link" href="{lk}" target="_blank" rel="noopener noreferrer">{tit}</a>
+                {em_html}
+              </div>""")
+            blocos_org.append(f"""
+            <div class="subsection" style="margin-bottom:12px;">
+              <div class="subsection-title">{_esc_html_ato(org)} ({len(grupos[org])})</div>
+              {''.join(itens_org)}
+            </div>""")
+        corpo = "".join(blocos_org)
+        badge = f"{len(atos)} ato{'s' if len(atos) != 1 else ''}"
+
+    titulo_data = f" ({data_br})" if data_br else ""
+    return f"""
+    <section id="atos-do-dia" class="theme-card" style="margin:0 0 18px 0;border-top:4px solid #1F3A5F;">
+      <div class="card-header">
+        <div class="card-header-left">
+          <h2 class="card-title">📜 Atos do dia — Diário Oficial da União{titulo_data}</h2>
+        </div>
+        <span class="item-count-badge">{badge}</span>
+      </div>
+      <div class="card-body">
+        {corpo}
+      </div>
+    </section>"""
+
+
+def render_secao_atos_do_dia_email(atos_do_dia):
+    """Renderiza a seção 'Atos do dia' no corpo do e-mail corporativo."""
+    if atos_do_dia is None:
+        return ""
+    disponivel = bool(atos_do_dia.get("disponivel", False))
+    atos = atos_do_dia.get("atos") or []
+    if not disponivel:
+        conteudo = '<div style="font-size:13px;color:#8A5A12;">⚠️ Diário Oficial indisponível hoje.</div>'
+    elif not atos:
+        conteudo = '<div style="font-size:13px;color:#6B6457;">Nenhum ato da lista no Diário Oficial de hoje.</div>'
+    else:
+        grupos = {}
+        for a in atos:
+            grupos.setdefault(a.get("orgao") or "Outros", []).append(a)
+        orgaos_ordenados = [o for o in ORDEM_ORGAOS_ATOS_DIA if o in grupos] + [
+            o for o in grupos if o not in ORDEM_ORGAOS_ATOS_DIA
+        ]
+        partes = []
+        for org in orgaos_ordenados:
+            linhas_a = []
+            for a in grupos[org]:
+                tit = _esc_html_ato(a.get("titulo", ""))
+                em = _esc_html_ato(a.get("ementa", ""))
+                lk = _esc_html_ato(a.get("link", "#"))
+                em_div = f'<div style="font-size:12.5px;color:#3B3A36;margin-top:2px;line-height:1.4;">{em}</div>' if em else ""
+                linhas_a.append(f"""
+                <div style="margin-bottom:8px;padding-left:10px;border-left:3px solid #1F3A5F;">
+                  <a href="{lk}" style="font-size:13.5px;font-weight:bold;color:#1F3A5F;text-decoration:none;">{tit}</a>
+                  {em_div}
+                </div>""")
+            partes.append(f'<div style="font-size:12px;font-weight:bold;color:#8A7350;text-transform:uppercase;margin:10px 0 6px 0;">{_esc_html_ato(org)}</div>' + "".join(linhas_a))
+        conteudo = "".join(partes)
+
+    return f"""
+        <div style="background:#FFFCF6;border:1px solid #E2D5BE;border-top:4px solid #1F3A5F;border-radius:8px;padding:14px 18px;margin-bottom:14px;">
+          <h3 style="margin:0 0 10px 0;font-size:15px;color:#1F3A5F;">📜 Atos do dia — Diário Oficial da União</h3>
+          {conteudo}
+        </div>"""
+
+
+def gerar_html_email_resumo(dados_curados, data_formatada, processos_recentes=None, atos_do_dia=None):
     """Gera o corpo HTML executivo compatível com clientes de e-mail corporativos (Outlook / M365)."""
     configs = [
         ("infra", "⚓ Infraestrutura & Outorgas", "#1F3A5F"),
@@ -1281,6 +1398,8 @@ def gerar_html_email_resumo(dados_curados, data_formatada, processos_recentes=No
           <a href="https://mdagavea.github.io/inteligencia-regulatoria/radar.html" style="color:#D2694A;font-weight:bold;margin-left:8px;">Abrir Painel do Radar ↗</a>
         </div>"""
 
+    bloco_atos_email = render_secao_atos_do_dia_email(atos_do_dia)
+
     return f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <body style="margin:0;padding:20px;background-color:#F4EFE6;font-family:'Segoe UI',Arial,sans-serif;color:#2C2B28;">
@@ -1295,6 +1414,7 @@ def gerar_html_email_resumo(dados_curados, data_formatada, processos_recentes=No
       </div>
     </div>
     {''.join(blocos_email)}
+    {bloco_atos_email}
     {bloco_part}
     <div style="text-align:center;font-size:11px;color:#6B6457;margin-top:18px;padding-top:10px;border-top:1px dotted #CDB892;">
       DECON / MPOR • Curadoria Autônoma de Inteligência Regulatória, Financeira e Tecnológica
@@ -1305,7 +1425,7 @@ def gerar_html_email_resumo(dados_curados, data_formatada, processos_recentes=No
 </html>"""
 
 
-def gerar_html_dashboard(dados_curados, pasta_saida, processos_recentes=None, caminho_radar_html=None):
+def gerar_html_dashboard(dados_curados, pasta_saida, processos_recentes=None, caminho_radar_html=None, atos_do_dia=None):
     """Gera o arquivo HTML com data de hoje, salva no repositório histórico e atualiza clipping_atual.html."""
     hoje = datetime.now()
     hoje_iso = hoje.strftime("%Y-%m-%d")
@@ -1363,6 +1483,7 @@ def gerar_html_dashboard(dados_curados, pasta_saida, processos_recentes=None, ca
         blocos.append(render_bloco(chave, titulo, itens))
 
     header_pill, faixa_html = render_faixa_participativo(processos_recentes or [], caminho_radar_html=caminho_radar_html)
+    secao_atos_html = render_secao_atos_do_dia(atos_do_dia)
     resumo_wpp = gerar_resumo_whatsapp(dados_curados, data_formatada, processos_recentes=processos_recentes)
 
     html_final = TEMPLATE_HTML.format(
@@ -1372,6 +1493,7 @@ def gerar_html_dashboard(dados_curados, pasta_saida, processos_recentes=None, ca
         resumo_whatsapp_texto=resumo_wpp.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"),
         badge_participativo_header=header_pill,
         seletor_historico_html=seletor_historico_html,
+        secao_atos_dia_html=secao_atos_html,
         faixa_participativo_html=faixa_html,
         blocos_html="\n".join(blocos),
     )

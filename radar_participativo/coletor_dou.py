@@ -1400,6 +1400,266 @@ def executar_varredura_consultas_modo_sombra(datas: List[str] = None, gravar_acu
     return candidatos
 
 
+# ==============================================================================
+# A-055 (FASE 1): LISTA FECHADA DE ATOS DO DIA NO DOU (SEÇÃO 1) PARA O CLIPPING
+# Aprovada por Marcos em 27/11/2026 (Registro de Decisões nº 35).
+# Editar somente aqui ao ajustar órgãos ou tipos de ato.
+# ==============================================================================
+LISTA_FECHADA_ATOS_DO_DIA = {
+    "ANTT": {
+        "orgao_exibicao": "ANTT",
+        "hierarquia_contem": ["agência nacional de transportes terrestres"],
+        "titulo_prefixos": ["deliberação antt nº", "deliberacao antt nº", "deliberação antt n°"],
+        "tipos_permitidos": ["deliberação"],
+        "exige_diretoria_colegiada": True,
+        "excluir_hierarquia": ["surod", "supas", "suroc", "superintendência"],
+    },
+    "ANTAQ": {
+        "orgao_exibicao": "ANTAQ",
+        "hierarquia_contem": ["agência nacional de transportes aquaviários"],
+        "excluir_hierarquia": [
+            "fiscalização",
+            "gerência regional",
+            "unidade regional",
+            "administração e finanças",
+        ],
+        "excluir_tipos": ["acórdão", "acordao"],
+        "regras_subunidade": [
+            {
+                "subunidade": "superintendência de outorgas",
+                "tipos": ["deliberação", "termo de liberação de operação", "despacho"],
+                "titulo_contem": ["deliberação-sog", "termo de liberação de operação", "despacho"],
+            },
+            {
+                "subunidade": "diretoria colegiada",
+                "tipos": ["deliberação"],
+                "titulo_contem": ["deliberação"],
+            },
+        ],
+    },
+    "MPOR_MT": {
+        "orgaos_mapa": [
+            ("ministério de portos e aeroportos", "Ministério de Portos e Aeroportos"),
+            ("ministério dos transportes", "Ministério dos Transportes"),
+        ],
+        "excluir_hierarquia": [
+            "agência nacional",
+            "senatran",
+            "secretaria nacional de trânsito",
+            "dnit",
+            "departamento nacional de infraestrutura de transportes",
+        ],
+        "tipos_permitidos": ["portaria", "extrato", "termo"],
+        "termos_obrigatorios_regex": (
+            r"\bfundo\s+garantidor\b|\bfdirs\b|\bconcess[aã]o\b|\bconcess[oõ]es\b|"
+            r"\barrendamento\b|\barrendamentos\b|\boutorga\b|\boutorgas\b|"
+            r"\bppi\b|parcerias\s+de\s+investimentos|\bdeb[eê]ntures?\b|\breidi\b"
+        ),
+    },
+    "PPI": {
+        "orgao_exibicao": "Programa de Parcerias de Investimentos (PPI)",
+        "hierarquia_conselho": ["programa de parcerias de investimentos", "cppi"],
+        "hierarquia_decreto": ["atos do poder executivo", "presidência da república"],
+        "regex_qualificacao_ppi": r"qualific\w*.*(?:ppi|parcerias\s+de\s+investimentos)|(?:ppi|parcerias\s+de\s+investimentos).*qualific\w*",
+    },
+}
+
+_REGEX_CNPJ_ATO = re.compile(r"\b\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}\b|\b\d{14}\b|\bCNPJ\b", re.I)
+_REGEX_CPF_ATO = re.compile(r"\b\d{3}\.\d{3}\.\d{3}-\d{2}\b|\bCPF\b", re.I)
+_REGEX_SEI_ATO = re.compile(r"\b\d{5}\.\d{6}/\d{4}-\d{2}\b|\bSEI\b", re.I)
+
+
+def _sanitizar_ementa_ato_dia(titulo: str, content: str) -> Tuple[str, bool]:
+    """
+    Extrai ementa/primeira linha literal removendo ou omitindo trechos com CNPJ, CPF ou número/menção SEI.
+    Retorna (ementa_limpa, teve_dado_sensivel_removido).
+    """
+    txt = re.sub(r"\s+", " ", (content or "").strip())
+    if titulo and txt.lower().startswith(titulo.lower()):
+        txt = txt[len(titulo):].strip(" -–:.")
+
+    ementa = extrair_objeto_ementa_literal(txt) if txt else ""
+    if not ementa or len(ementa.strip(" .")) < 12:
+        ementa = extrair_primeira_linha(txt) if txt else ""
+
+    # Se a extração trouxe o preâmbulo inteiro com número de processo/CNPJ, tenta pegar após 'resolve:' / 'delibera:'
+    if _REGEX_CNPJ_ATO.search(ementa) or _REGEX_CPF_ATO.search(ementa) or _REGEX_SEI_ATO.search(ementa):
+        m_art = re.search(r"(?:resolve|delibera|autoriza|aprova|torna\s+p[uú]blic\w+|concede)\s*:?\s*(.+)", txt, re.I)
+        if m_art:
+            cand = m_art.group(1).strip()
+            if len(cand) >= 12 and not (_REGEX_CNPJ_ATO.search(cand) or _REGEX_CPF_ATO.search(cand) or _REGEX_SEI_ATO.search(cand)):
+                ementa = cand[:280].strip()
+
+    teve_sensivel = bool(
+        _REGEX_CNPJ_ATO.search(ementa) or _REGEX_CPF_ATO.search(ementa) or _REGEX_SEI_ATO.search(ementa)
+    )
+    if teve_sensivel:
+        # Remove trechos sensíveis mantendo apenas texto literal seguro; se restar vazio, devolve ""
+        limpo = re.sub(r",?\s*(?:inscrit[ao]\s+no\s+)?CNPJ(?:/MF)?\s*(?:sob\s+o\s+)?(?:n[ºo°]?)?\s*[0-9\./-]*", "", ementa, flags=re.I)
+        limpo = re.sub(r",?\s*(?:inscrit[ao]\s+no\s+)?CPF(?:/MF)?\s*(?:sob\s+o\s+)?(?:n[ºo°]?)?\s*[0-9\.-]*", "", limpo, flags=re.I)
+        limpo = _REGEX_CNPJ_ATO.sub("", limpo)
+        limpo = _REGEX_CPF_ATO.sub("", limpo)
+        limpo = re.sub(r",?\s*(?:Processo\s*(?:n[ºo°]?)?\s*)?\d{5}\.\d{6}/\d{4}-\d{2}\s*[,;.]?", " ", limpo, flags=re.I)
+        limpo = re.sub(r"\bSEI\b[^,.;]*", "", limpo, flags=re.I)
+        limpo = re.sub(r"\s{2,}", " ", limpo).strip(" ,;:-")
+        # Verificação final estrita: nunca vaza CNPJ, CPF ou SEI
+        if _REGEX_CNPJ_ATO.search(limpo) or _REGEX_CPF_ATO.search(limpo) or _REGEX_SEI_ATO.search(limpo):
+            return "", True
+        ementa = limpo
+
+    if len(ementa.strip(" .")) < 12:
+        return "", teve_sensivel
+    if len(ementa) > 280:
+        ementa = ementa[:277].rstrip() + "..."
+    return ementa, teve_sensivel
+
+
+def coletar_atos_do_dia(data_str: Optional[str] = None, secao: str = "do1") -> Dict[str, Any]:
+    """
+    Coleta os atos da seção 1 do DOU para a data informada (padrão: hoje) seguindo
+    estritamente LISTA_FECHADA_ATOS_DO_DIA (A-055, Fase 1, Decisão nº 35).
+    Não passa pela IA e não expõe CNPJ, CPF ou número/menção SEI.
+    """
+    if not data_str:
+        data_str = datetime.date.today().strftime("%d-%m-%Y")
+
+    res = baixar_ou_carregar_indice_dou(data_str, secao)
+    if not res.get("sucesso"):
+        return {
+            "disponivel": False,
+            "data": data_str,
+            "data_br": data_str.replace("-", "/"),
+            "erro": res.get("erro") or "Diário Oficial indisponível hoje",
+            "atos": [],
+            "descartados_por_orgao_motivo": {},
+            "total_varridos": 0,
+        }
+
+    itens = res.get("itens") or []
+    cfg_antt = LISTA_FECHADA_ATOS_DO_DIA["ANTT"]
+    cfg_antaq = LISTA_FECHADA_ATOS_DO_DIA["ANTAQ"]
+    cfg_min = LISTA_FECHADA_ATOS_DO_DIA["MPOR_MT"]
+    cfg_ppi = LISTA_FECHADA_ATOS_DO_DIA["PPI"]
+    rgx_min_termos = re.compile(cfg_min["termos_obrigatorios_regex"], re.I)
+    rgx_ppi_qual = re.compile(cfg_ppi["regex_qualificacao_ppi"], re.I)
+
+    atos: List[Dict[str, Any]] = []
+    descartados = Counter()
+    urls_vistas = set()
+
+    for it in itens:
+        h = (it.get("hierarchyStr") or "").strip()
+        hl = h.lower()
+        tipo = (it.get("artType") or "").strip()
+        tl = tipo.lower()
+        titulo = (it.get("title") or "").strip()
+        tit_l = titulo.lower()
+        content = (it.get("content") or "").strip()
+        url_title = (it.get("urlTitle") or "").strip()
+
+        orgao_escolhido = None
+        motivo_fora = None
+        orgao_rastreio = None
+
+        # 1. ANTT
+        if any(k in hl for k in cfg_antt["hierarquia_contem"]):
+            orgao_rastreio = "ANTT"
+            eh_delib_antt = any(tit_l.startswith(pref) for pref in cfg_antt["titulo_prefixos"])
+            eh_sub = any(ex in hl for ex in cfg_antt["excluir_hierarquia"])
+            if eh_delib_antt and not eh_sub and any(tp in tl for tp in cfg_antt["tipos_permitidos"]):
+                orgao_escolhido = cfg_antt["orgao_exibicao"]
+            else:
+                motivo_fora = "superintendencia_ou_outro_tipo"
+
+        # 2. ANTAQ
+        elif any(k in hl for k in cfg_antaq["hierarquia_contem"]):
+            orgao_rastreio = "ANTAQ"
+            if any(ex in hl for ex in cfg_antaq["excluir_hierarquia"]):
+                motivo_fora = "unidade_regional_ou_fiscalizacao"
+            elif any(ex in tl or ex in tit_l for ex in cfg_antaq["excluir_tipos"]):
+                motivo_fora = "acordao_tratado_no_radar"
+            else:
+                casou_antaq = False
+                for regra in cfg_antaq["regras_subunidade"]:
+                    sub_alvo = regra["subunidade"]
+                    if sub_alvo in hl or (sub_alvo == "diretoria colegiada" and hl.endswith("transportes aquaviários")):
+                        if any(tp in tl for tp in regra["tipos"]) or any(tc in tit_l for tc in regra["titulo_contem"]):
+                            casou_antaq = True
+                            break
+                if casou_antaq:
+                    orgao_escolhido = cfg_antaq["orgao_exibicao"]
+                else:
+                    motivo_fora = "outro_tipo_ou_subunidade"
+
+        # 3. Ministério de Portos e Aeroportos e Ministério dos Transportes
+        elif any(k in hl for k, _ in cfg_min["orgaos_mapa"]):
+            nome_min = next(nome for k, nome in cfg_min["orgaos_mapa"] if k in hl)
+            orgao_rastreio = nome_min
+            if any(ex in hl for ex in cfg_min["excluir_hierarquia"]):
+                motivo_fora = "orgao_vinculado_ou_senatran"
+            elif not any(tp in tl for tp in cfg_min["tipos_permitidos"]):
+                motivo_fora = "tipo_fora_da_lista"
+            elif not rgx_min_termos.search(f"{titulo} {content}"):
+                motivo_fora = "sem_termo_da_lista"
+            else:
+                orgao_escolhido = nome_min
+
+        # 4. Programa de Parcerias de Investimentos (CPPI e Decreto de qualificação no PPI)
+        elif any(k in hl for k in cfg_ppi["hierarquia_conselho"]):
+            orgao_rastreio = cfg_ppi["orgao_exibicao"]
+            if "resolução" in tl or "resolucao" in tl or "resolução" in tit_l:
+                orgao_escolhido = cfg_ppi["orgao_exibicao"]
+            else:
+                motivo_fora = "ato_ppi_nao_resolucao"
+        elif any(k in hl for k in cfg_ppi["hierarquia_decreto"]):
+            if ("decreto" in tl or "decreto" in tit_l) and rgx_ppi_qual.search(f"{titulo} {content}"):
+                orgao_rastreio = cfg_ppi["orgao_exibicao"]
+                orgao_escolhido = cfg_ppi["orgao_exibicao"]
+
+        if not orgao_escolhido:
+            if orgao_rastreio and motivo_fora:
+                descartados[(orgao_rastreio, motivo_fora)] += 1
+            continue
+
+        if not url_title:
+            descartados[(orgao_escolhido, "sem_urlTitle")] += 1
+            continue
+
+        url_oficial = f"https://www.in.gov.br/web/dou/-/{url_title}"
+        if url_oficial in urls_vistas:
+            continue
+        urls_vistas.add(url_oficial)
+
+        # Garante que título também não exponha CNPJ/CPF/SEI
+        titulo_limpo = _REGEX_CNPJ_ATO.sub("", titulo)
+        titulo_limpo = _REGEX_CPF_ATO.sub("", titulo_limpo)
+        titulo_limpo = _REGEX_SEI_ATO.sub("", titulo_limpo)
+        titulo_limpo = re.sub(r"\s{2,}", " ", titulo_limpo).strip()
+
+        ementa_limpa, teve_sensivel = _sanitizar_ementa_ato_dia(titulo_limpo, content)
+        atos.append({
+            "orgao": orgao_escolhido,
+            "orgao_detalhe": h,
+            "tipo": tipo,
+            "titulo": titulo_limpo,
+            "ementa": ementa_limpa,
+            "link": url_oficial,
+            "data_publicacao": data_str.replace("-", "/"),
+            "dado_sensivel_ocultado": teve_sensivel,
+        })
+
+    descartados_fmt = {f"{org} | {mot}": qtd for (org, mot), qtd in sorted(descartados.items())}
+    return {
+        "disponivel": True,
+        "data": data_str,
+        "data_br": data_str.replace("-", "/"),
+        "erro": None,
+        "atos": atos,
+        "descartados_por_orgao_motivo": descartados_fmt,
+        "total_varridos": len(itens),
+    }
+
+
 if __name__ == "__main__":
     res = executar_coleta_e_filtragem()
     cands_sombra = executar_varredura_consultas_modo_sombra()

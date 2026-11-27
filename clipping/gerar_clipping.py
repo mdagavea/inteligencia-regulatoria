@@ -40,6 +40,21 @@ def obter_novos_processos_participativos_48h(api_key, em_github_actions=False):
         return [], "https://mdagavea.github.io/inteligencia-regulatoria/radar.html"
 
 
+def coletar_atos_dou_do_dia():
+    """Coleta os atos da seção 1 do DOU conforme lista fechada (A-055, Fase 1), sem IA."""
+    hoje_dou = coletor.datetime.now().strftime("%d-%m-%Y")
+    try:
+        if not PASTA_RADAR.exists():
+            return {"disponivel": False, "data": hoje_dou, "data_br": hoje_dou.replace("-", "/"), "erro": "Pasta do coletor DOU não encontrada", "atos": []}
+        if str(PASTA_RADAR) not in sys.path:
+            sys.path.insert(0, str(PASTA_RADAR))
+        import coletor_dou
+        return coletor_dou.coletar_atos_do_dia(data_str=hoje_dou, secao="do1")
+    except Exception as e:
+        print(f"   [Aviso] Falha ao coletar Atos do dia no DOU: {e}")
+        return {"disponivel": False, "data": hoje_dou, "data_br": hoje_dou.replace("-", "/"), "erro": str(e), "atos": []}
+
+
 def edicao_de_hoje_ja_existe(hoje_iso: str) -> bool:
     """Verifica se a edição de hoje já foi gerada (localmente, na raiz do repositório ou no GitHub Pages)."""
     nome_arq = f"clipping_{hoje_iso}.html"
@@ -95,12 +110,20 @@ def executar_fluxo(abrir_navegador=True, destinatarios_override=None, skip_if_ex
     processos_48h, caminho_radar_uri = obter_novos_processos_participativos_48h(api_key, em_github_actions=em_github_actions)
     print(f"   -> {len(processos_48h)} processo(s) participativo(s) relevante(s) nas últimas 48h.")
 
+    print("\n[3.5/5] Coletando Atos do dia no Diário Oficial da União (Seção 1, lista fechada)...")
+    atos_do_dia = coletar_atos_dou_do_dia()
+    if atos_do_dia.get("disponivel"):
+        print(f"   -> {len(atos_do_dia.get('atos', []))} ato(s) da lista fechada encontrados no DOU.")
+    else:
+        print(f"   [Aviso DOU] Diário Oficial indisponível hoje: {atos_do_dia.get('erro', '')}")
+
     print("\n[4/5] Gerando Dashboard HTML 2x2...")
     caminho_data, caminho_atual = renderizador.gerar_html_dashboard(
         dados_curados,
         PASTA_PROJETO,
         processos_recentes=processos_48h,
-        caminho_radar_html=caminho_radar_uri
+        caminho_radar_html=caminho_radar_uri,
+        atos_do_dia=atos_do_dia,
     )
     print(f"   -> Arquivo salvo: {caminho_data}")
     print(f"   -> Versão atualizada: {caminho_atual}")
@@ -117,7 +140,7 @@ def executar_fluxo(abrir_navegador=True, destinatarios_override=None, skip_if_ex
         ]
         payload_email = None
         if lista_dest:
-            corpo_email = renderizador.gerar_html_email_resumo(dados_curados, data_fmt, processos_recentes=processos_48h)
+            corpo_email = renderizador.gerar_html_email_resumo(dados_curados, data_fmt, processos_recentes=processos_48h, atos_do_dia=atos_do_dia)
             payload_email = {
                 "assunto": f"🧭 Clipping Diário Executivo DECON/MPOR — {data_fmt}",
                 "destinatarios": lista_dest,
