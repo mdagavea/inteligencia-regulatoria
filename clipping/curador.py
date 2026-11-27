@@ -336,6 +336,17 @@ def _salvar_diagnostico_curadoria(itens_diagnostico: list, modelo_ia, contingenc
         except Exception:
             pass
 
+        busca_vip_por_vertical = {}
+        try:
+            import coletor
+            for vert_k, m_vip in coletor.obter_diagnostico_vip().items():
+                busca_vip_por_vertical[_sanitizar_texto_diagnostico(vert_k)] = {
+                    "vip_vagas_com_tema": int(m_vip.get("vip_vagas_com_tema") or 0),
+                    "vip_vagas_total": int(m_vip.get("vip_vagas_total") or 0),
+                }
+        except Exception:
+            pass
+
         payload = {
             "data": hoje_iso,
             "modelo_ia": _sanitizar_texto_diagnostico(modelo_ia) if modelo_ia else None,
@@ -343,6 +354,7 @@ def _salvar_diagnostico_curadoria(itens_diagnostico: list, modelo_ia, contingenc
             "total_coletadas": len(itens_diagnostico),
             "sem_data_legivel": sem_data_legivel,
             "feeds_diretos": feeds_diretos,
+            "busca_vip_por_vertical": busca_vip_por_vertical,
             "contagens_por_destino": contagens_destino,
             "contagens_por_vertical": contagens_vertical,
             "itens": itens_diagnostico,

@@ -3,6 +3,7 @@ import re
 import socket
 import imaplib
 import email
+import unicodedata
 from email.header import decode_header
 from email.utils import parsedate_to_datetime
 import urllib.parse
@@ -16,11 +17,25 @@ from dotenv import load_dotenv
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 load_dotenv()
 
-VIP_SITES_QUERY = (
-    "(site:valor.globo.com OR site:oglobo.globo.com OR site:folha.uol.com.br "
-    "OR site:estadao.com.br OR site:broadcast.com.br OR site:agenciainfra.com "
-    "OR site:portalbenews.com.br OR site:jota.info OR site:cnseg.org.br OR site:reuters.com)"
-)
+VIP_SITES_LIST = [
+    "valor.globo.com",
+    "oglobo.globo.com",
+    "folha.uol.com.br",
+    "estadao.com.br",
+    "broadcast.com.br",
+    "agenciainfra.com",
+    "portalbenews.com.br",
+    "jota.info",
+    "cnseg.org.br",
+    "reuters.com",
+]
+
+VIP_SITE_GROUPS = [
+    " OR ".join(f"site:{s}" for s in VIP_SITES_LIST[i:i + 3])
+    for i in range(0, len(VIP_SITES_LIST), 3)
+]
+
+VIP_SITES_QUERY = "(" + " OR ".join(f"site:{s}" for s in VIP_SITES_LIST) + ")"
 
 GMAIL_ALLOWED_SENDERS = [
     "capitalreset",
@@ -68,6 +83,7 @@ SOCIAL_MEDIA_BLOCKLIST = (
 FUSO_BRT = timezone(timedelta(hours=-3))
 ULTIMOS_DESCARTADOS_ANTIGOS = []
 ULTIMO_STATUS_FEEDS_DIRETOS = []
+ULTIMO_DIAGNOSTICO_VIP = {}
 
 
 def obter_descartados_antigos():
@@ -78,6 +94,90 @@ def obter_descartados_antigos():
 def obter_status_feeds_diretos():
     """Retorna cópia do status de leitura de cada feed RSS direto na última coleta."""
     return [dict(it) for it in ULTIMO_STATUS_FEEDS_DIRETOS]
+
+
+def obter_diagnostico_vip():
+    """Retorna cópia da métrica de vagas com tema da busca VIP por vertical (A-062)."""
+    return {k: dict(v) for k, v in ULTIMO_DIAGNOSTICO_VIP.items()}
+
+
+def _normalizar_texto_vip(s):
+    return "".join(
+        c for c in unicodedata.normalize("NFD", (s or "").lower())
+        if unicodedata.category(c) != "Mn"
+    )
+
+
+def _extrair_termos_tema_query(tema_q):
+    """Extrai os termos de tema diretamente da query VIP (sem lista escrita à mão)."""
+    q = re.sub(r"\bsite:\S+", " ", tema_q or "", flags=re.I)
+    termos = []
+    for m in re.finditer(r'"([^"]+)"', q):
+        t = _normalizar_texto_vip(m.group(1)).strip()
+        if t:
+            termos.append(t)
+    q_sem_aspas = re.sub(r'"[^"]+"', " ", q)
+    for tok in re.findall(r"[A-Za-zÀ-ÿ0-9\.]+", q_sem_aspas):
+        if tok in ("OR", "AND"):
+            continue
+        t = _normalizar_texto_vip(tok).strip(".")
+        if len(t) >= 3:
+            termos.append(t)
+    return list(dict.fromkeys(termos))
+
+
+def _titulo_contem_termo_tema(titulo, termos):
+    t_norm = " " + re.sub(r"[^a-z0-9\.]+", " ", _normalizar_texto_vip(titulo)) + " "
+    for termo in termos:
+        if " " in termo:
+            if termo in t_norm:
+                return True
+        else:
+            if f" {termo}" in t_norm:
+                return True
+    return False
+
+
+def _buscar_vip_em_grupos(tema_q, when, max_results, margem_horas, vertical_tag, chave_metrica=None):
+    """
+    Executa a busca VIP em grupos de até 3 sites sem parênteses + tema (Desenho B, A-062),
+    mantendo os 10 veículos prioritários, as mesmas palavras de tema e o mesmo teto de vagas.
+    """
+    termos = _extrair_termos_tema_query(tema_q)
+    por_grupo = []
+    for g_str in VIP_SITE_GROUPS:
+        q_grupo = f"{g_str} {tema_q}"
+        r = fetch_google_news(q_grupo, when=when, max_results=max_results, margem_horas=margem_horas, vertical_tag=vertical_tag)
+        por_grupo.append(r)
+
+    # Intercala resultados dos grupos priorizando matérias com termo do tema no título
+    com_tema = []
+    sem_tema = []
+    vistos = set()
+    for idx in range(max_results):
+        for lista_g in por_grupo:
+            if idx < len(lista_g):
+                it = lista_g[idx]
+                lk = it.get("link", "")
+                if not lk or lk in vistos:
+                    continue
+                vistos.add(lk)
+                if _titulo_contem_termo_tema(it.get("title", ""), termos):
+                    com_tema.append(it)
+                else:
+                    sem_tema.append(it)
+
+    selecionados = (com_tema + sem_tema)[:max_results]
+    n_com_tema = sum(1 for it in selecionados if _titulo_contem_termo_tema(it.get("title", ""), termos))
+    n_total = len(selecionados)
+    chave_reg = chave_metrica or vertical_tag
+    ULTIMO_DIAGNOSTICO_VIP[chave_reg] = {
+        "vip_vagas_com_tema": n_com_tema,
+        "vip_vagas_total": n_total,
+    }
+    if n_com_tema == 0:
+        print(f"   [Aviso] Busca VIP {chave_reg}: 0 de {n_total} vagas com tema")
+    return selecionados
 
 
 def parsear_data_publicacao(published_str):
@@ -800,34 +900,35 @@ def fetch_all_raw_news(when="24h"):
         "infra": {
             "nome": "Infraestrutura & Outorgas",
             "query": '(concessão OR leilão OR outorga OR PPI OR reequilíbrio OR arrendamento OR "free flow" OR "contas vinculadas" OR "reforma tributária" OR TCU) (ANTT OR ANAC OR ANTAQ OR rodovia OR ferrovia OR porto OR aeroporto OR hidrovia OR dragagem)',
-            "vip_query": f'{VIP_SITES_QUERY} (concessão OR leilão OR outorga OR PPI OR arrendamento OR "free flow" OR "contas vinculadas" OR TCU OR ANTT OR ANAC OR ANTAQ OR ferrovia OR rodovia OR porto OR aeroporto OR hidrovia OR dragagem)',
+            "vip_query": '(concessão OR leilão OR outorga OR PPI OR arrendamento OR "free flow" OR "contas vinculadas" OR TCU OR ANTT OR ANAC OR ANTAQ OR ferrovia OR rodovia OR porto OR aeroporto OR hidrovia OR dragagem)',
             "extra_vip_queries": [
-                f'{VIP_SITES_QUERY} ("agência reguladora" OR ANTT OR ANTAQ OR ANAC OR ANP OR ANEEL) (diretoria OR sabatina OR vacância)',
+                '("agência reguladora" OR ANTT OR ANTAQ OR ANAC OR ANP OR ANEEL) (diretoria OR sabatina OR vacância)',
             ],
         },
         "seguros": {
             "nome": "Seguros de Grandes Riscos",
             "query": '("seguro garantia" OR "performance bond" OR SUSEP OR CNseg OR "grandes riscos" OR "resseguro" OR "seguro climático" OR "seguro paramétrico" OR "Lei 15.040") (seguros OR regulação OR obras OR sinistro OR infraestrutura OR clima)',
-            "vip_query": f'{VIP_SITES_QUERY} ("seguro garantia" OR SUSEP OR CNseg OR resseguro OR "grandes riscos" OR "seguro climático" OR "seguro paramétrico" OR "Lei 15.040" OR apólice)',
+            "vip_query": '("seguro garantia" OR SUSEP OR CNseg OR resseguro OR "grandes riscos" OR "seguro climático" OR "seguro paramétrico" OR "Lei 15.040" OR apólice)',
         },
         "carbono": {
             "nome": "Mercado de Carbono & Transição Climática",
             "query": '("crédito de carbono" OR "mercado de carbono" OR SBCE OR "Fundo Clima" OR "transição ecológica" OR "finanças verdes" OR "Eco Invest")',
-            "vip_query": f'{VIP_SITES_QUERY} ("mercado de carbono" OR "crédito de carbono" OR SBCE OR "Fundo Clima" OR "transição energética" OR descarbonização)',
+            "vip_query": '("mercado de carbono" OR "crédito de carbono" OR SBCE OR "Fundo Clima" OR "transição energética" OR descarbonização)',
         },
         "divida": {
             "nome": "Instrumentos de Dívida & Mercado de Capitais",
             "query": '("debêntures de infraestrutura" OR "debêntures incentivadas" OR "Lei 14.801" OR "Lei 12.431" OR REIDI OR FMM OR FNAC OR "fundo garantidor" OR CVM OR ANBIMA) (emissão OR infraestrutura OR tributação OR IOF OR crédito OR regulação)',
-            "vip_query": f'{VIP_SITES_QUERY} (debêntures OR "Lei 14.801" OR "Lei 12.431" OR REIDI OR FMM OR FNAC OR "fundo garantidor" OR CVM OR ANBIMA OR BNDES) (infraestrutura OR emissão OR IOF OR tributação OR "crédito privado" OR FIDC)',
+            "vip_query": '(debêntures OR "Lei 14.801" OR "Lei 12.431" OR REIDI OR FMM OR FNAC OR "fundo garantidor" OR CVM OR ANBIMA OR BNDES) (infraestrutura OR emissão OR IOF OR tributação OR "crédito privado" OR FIDC)',
         },
         "tech": {
             "nome": "Tecnologia, IA & Gestão Aplicada",
             "query": '("inteligência artificial" OR "data center" OR McKinsey OR GovTech OR automação) (infraestrutura OR energia OR regulação OR governo OR financeiro OR produtividade)',
-            "vip_query": f'{VIP_SITES_QUERY} ("inteligência artificial" OR "data center" OR McKinsey OR automação) (infraestrutura OR energia OR regulação OR bancos OR seguros OR gestão)',
+            "vip_query": '("inteligência artificial" OR "data center" OR McKinsey OR automação) (infraestrutura OR energia OR regulação OR bancos OR seguros OR gestão)',
         },
     }
 
     ULTIMOS_DESCARTADOS_ANTIGOS.clear()
+    ULTIMO_DIAGNOSTICO_VIP.clear()
     margem_dia = calcular_margem_horas(when=when)
     coleta = []
     seen_links = set()
@@ -844,15 +945,16 @@ def fetch_all_raw_news(when="24h"):
 
     # 1. Via Expressa VIP + Varredura Aberta por vertical (Degrau 1: 9 VIP + 8 Abertas)
     for key, info in queries.items():
-        # 1a. Faixa VIP (Assinaturas & Veículos Prioritários)
-        itens_vip = fetch_google_news(info["vip_query"], when=when, max_results=9, margem_horas=margem_dia, vertical_tag=key)
+        # 1a. Faixa VIP (Assinaturas & Veículos Prioritários — grupos de até 3 sites sem parênteses + tema, A-062)
+        itens_vip = _buscar_vip_em_grupos(info["vip_query"], when=when, max_results=9, margem_horas=margem_dia, vertical_tag=key)
         if len(itens_vip) < 4:
-            itens_vip = fetch_google_news(info["vip_query"], when="72h", max_results=9, margem_horas=margem_dia, vertical_tag=key)
+            itens_vip = _buscar_vip_em_grupos(info["vip_query"], when="72h", max_results=9, margem_horas=margem_dia, vertical_tag=key)
         adicionar_itens(itens_vip, key)
 
         # 1a-extra. Buscas VIP complementares (ex.: governança de agências reguladoras)
-        for q_extra in info.get("extra_vip_queries", []):
-            itens_extra = fetch_google_news(q_extra, when=when, max_results=5, margem_horas=margem_dia, vertical_tag=key)
+        for idx_ex, q_extra in enumerate(info.get("extra_vip_queries", []), 1):
+            chave_ex = f"{key}_extra" if idx_ex == 1 else f"{key}_extra_{idx_ex}"
+            itens_extra = _buscar_vip_em_grupos(q_extra, when=when, max_results=5, margem_horas=margem_dia, vertical_tag=key, chave_metrica=chave_ex)
             adicionar_itens(itens_extra, key)
 
         # 1b. Faixa Aberta (Descoberta geral)
